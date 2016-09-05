@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 61f8f6573c85a224ea2d073185adf2dc
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - position: {instanceID: 0}
+  - greyscale: {fileID: 2100000, guid: 277e7fad7d24c504b94f0497e596764e, type: 2}
+  - normalMaterial: {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - AttackInfo: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

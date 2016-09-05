@@ -1,0 +1,287 @@
+
+§intro01
+@/Dawn
+#/DawnHappy
+Oh wow, I cannot belive I'm about to see Princess Booksmart.
+@TinkerSpark
+#TinkerSparkHappy
+#/DawnSmile
+I thought you were a part of the Canterlot uppercrust AND used to be in the royal guard, have you not seen plenty of royalty?
+@/Dawn
+#TinkerSparkSmile
+#/DawnHappy
+Yes, yes, but..  Did you know that Twilight used to go to the same school as I, she was a few years above me, so we never really seen eachother. She had the best grades on everything, and she is an alicorn I bet she knows soo much about magic and...
+@Rusty
+#RustyHappy
+#/DawnSmile
+Well, we are not there to bother her, just taking care of a task she does not have the time for herself.
+@/Dawn
+#RustySmile
+#/DawnHappy
+Aw, yes, but..  Still, I get to talk to her, a princess!
+@Rusty
+#RustyHappy
+#/DawnSmile
+And be super professional about it, ask her what we can help her with, appear dependable and then be out of her mane.
+@/Dawn
+#RustySmile
+#/DawnHappy
+Yes mom..   I used to be a Canterlot Guard you know, I can handle myself around Royalty.
+
+§intro02
+@Rusty
+#RustyHappy
+Okay, here we are. Dawn and Ma Cherie, you follow me inside to talk to with the princess.
+@Rusty
+#/TinkerSparkSmile
+Tinker Spark, Moonlight and Syrah, you go explore Ponyville and secure provisions and boarding for the night.
+@/Tinker Spark
+#/TinkerSparkHappy
+Sure mom, easy!
+
+
+§intro03
+@Dawn
+#DawnHappy
+#/BooksmartSmile
+Wow, Princess Booksmart, its an honour, I mean, truly an honour to be here.
+@/Princess Booksmart
+#DawnSmile
+#/BooksmartHappy
+Oh, hehe, it'suhm nice to see you too...
+@Dawn
+#DawnHappy
+#/BooksmartSmile
+Dawn, my name is Dawn, I from Canterlots School for Gifted Unicorns too, I used to look up to you so much, I mean, I still do of course he- he-..
+@/Rusty
+#DawnSmile
+#/RustyMad
+<b>*cough*  *cough*</b>
+@Dawn
+#DawnHappy
+#/BooksmartSmile
+I mean, uhm.. I'm  with a mercenary company, princess Luna sent us your way. She said you could use a helping hoof, At your service milady.
+@/Princess Booksmart
+#DawnSmile
+#/BooksmartHappy
+Oooh, yes! I see, You were the group Luna talked about. I didn't expect you to show up at such a short notice!
+@Dawn
+#DawnHappy
+#/BooksmartSmile
+When Luna spoke to us, it sounded very urgent, so we came as fast as we could.
+@/Princess Booksmart
+#DawnSmile
+#/BooksmartHappy
+Fantastic! I <b>am</b> in a bit of a hurry, that means I can get going much sooner.
+@Dawn
+#DawnHappy
+#/BooksmartSmile
+Glad to hear it! Now how can we be of help?
+@/Princess Booksmart
+#DawnSmile
+#/BooksmartHappy
+Well, there is something going in the everfree forest. I dont know exactly, I have been putting some time into reseach this morning but I have not been able to figure anything out.
+My friend Fluttershy lives in a cottage at the edge of the woods, she was the one who told me something was going on, Im sure she will be of more help to you.
+@Dawn
+#DawnHappy
+#/BooksmartSmile
+Anything else?
+@/Princess Booksmart
+#DawnSmile
+#/BooksmartHappy
+No..  thats all I know just..
+be gentle with Fluttershy okay, she is a bit tense around strangers.
+@Dawn
+#DawnHappy
+#/BooksmartSmile
+Will do Princess.
+Do not worry, We will handle everything and get to the bottom of this.
+
+§intro04
+@none
+#FluttershySmile
+   
+@/Dawn
+#FluttershySmile
+#/DawnHappy
+Hello, uhm..  youre Fluttershy?
+@Fluttershy
+#FluttershyTalk
+#/DawnSmile
+<size=4>yes...</size>
+@/Dawn
+#FluttershySmile
+#/DawnHappy
+Exuce me?
+@Fluttershy
+#FluttershyTalk
+#/DawnSmile
+<size=10>yes..</size>
+@/Dawn
+#FluttershySmile
+#/DawnHappy
+Uhm, we heard there was something going on in the forest behind your house?
+@Fluttershy
+#FluttershyTalk
+#/DawnSmile
+<size=11>yes..</size>
+@/Dawn
+#FluttershySmile
+#/DawnSmile
+...
+@Fluttershy
+...
+@/Dawn
+#FluttershySmile
+#/DawnHappy
+...mind sharing whats going on with me?
+@Fluttershy
+#/DawnSmile
+...
+@Fluttershy
+#FluttershyTalk
+<size=12>well...  all the cute fussy animals came running to my house this night, running away from monsters I think.</size>
+@/Dawn
+#FluttershySmile
+#/DawnHappy
+Uhm..  pardon me but, isn't the everfree forest usually like that?
+@Fluttershy
+#FluttershyTalk
+#/DawnSmile
+<size=14>No..  uh..  I mean yes, maybe?
+I think its extra scary monsters..</size>
+@Rusty
+#RustyScold
+Or maybe its ghost ponies, and lots of them
+@/Dawn
+#/DawnWat
+What?
+@/Fluttershy
+#/FluttershyTalk
+<size=25>Gh-ghost ponies?</size>
+@Rusty
+#RustyScold
+Yes, At arms.
+
+§cottage01
+@/Rusty
+#/RustyHelmet
+Here they come, protect Fluttershy!
+
+§cottage02
+@Rusty
+#RustyHelmet
+Good job!
+@Rusty
+Good job!
+You two stay here to protect Fluttershy and her animals. I will go back into ponyville and get the others, then we will move into the forest and find the source of this.
+
+§cottage03
+@Dawn
+#DawnWat
+<size=25>*gasp*</size>
+
+§before2_01
+@Tinker Spark
+#TinkerSparkHappy
+#/BonbonMad
+What do you mean you dont have rocket-fuel! What kind of general store does not stock rocket-fuel!
+@/Shopkeeper
+#TinkerSparkSmile
+#/BonbonScold
+What are you even going to use it for?
+@Tinker Spark
+#TinkerSparkHappy
+#/BonbonMad
+<b>For rockets!</b>
+
+§before2_02
+@Rusty
+#RustyMad
+...
+@Rusty
+#RustyScold
+...
+Whats going on?
+@/TinkerSpark
+#RustyMad
+#/TinkerSparkHappy
+Can you belive that they do not sell rocket-fuel here?
+@Rusty
+#RustyScold
+#/TinkerSparkSmile
+Yes...
+@Rusty
+#RustyHappy
+Yes...
+How did it go?
+@/TinkerSpark
+#Rustysmile
+#/TinkerSparkHappy
+All done. A place to sleep and lots of apples for eating, struck a good deal.
+@Rusty
+#RustyHappy
+#/TinkerSparkSmile
+Great, now listen up everypony.
+@Rusty
+#/none
+Great, now listen up everypony.
+There are faceless ghostly ponies emerging from the Everfree Forest. I want each and everyone of you at the edge of town, ready for an exurcion, in 30 minutes.
+@/Everypony
+#RustySmile
+Yes mom!
+
+§Before2_03
+@none
+Welcome to the Intermission Menu.
+@none
+Here you can review your troops stats and train new skills.
+@none
+When you are ready, you can continue to the next fight.
+@none
+The game automatically save at the end of every mission. That is, before the dialogues that was just played.
+
+§everfreeforest01
+@Rusty
+#RustyHelmet
+Cocatrice!
+@Rusty
+Cocatrice!
+Protect Dawn, she can cure the curse!
+
+§everfreeforest02
+@Rusty
+#RustyHelmet
+That was the last of them, good job team.
+@Rusty
+That was the last of them, good job team.
+We take a short break before we continue.
+
+§tobecontinued
+@none
+To be continued?
+
+§EverfreeCastle_01
+@Luna
+#LunaScold
+Well done...
+@Luna
+Well done...
+My little ponies...
+@/Rusty
+#/RustyHelmet
+PRINCESS!!!
+
+§EverfreeCastle_02
+@Rusty
+#RustyHelmet
+So this is the old Castle.
+@Dawn
+#DawnHappy
+Over a thousand years ago, this used to be the royal castle, before nightmare moon.
+@Rusty
+#RustyHelmet
+..Right..
+@Rusty
+..Right..
+Be carefull everypony, we don't know what may lurk in the shadows.
