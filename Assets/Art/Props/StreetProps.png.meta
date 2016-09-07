@@ -1,0 +1,123 @@
+fileFormatVersion: 2
+guid: bdc4edf752b69ee4a9fe29c7e42f55f5
+timeCreated: 1473250509
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: CafeWindow
+    21300002: CafeDoor
+    21300004: StreetCorner
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 150
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: CafeWindow
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 814
+        width: 248
+        height: 210
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 124, y: 164}
+        - {x: 111, y: 180}
+        - {x: 78, y: 202}
+        - {x: 61, y: 206}
+        - {x: 36, y: 210}
+        - {x: -47, y: 210}
+        - {x: -70, y: 209}
+        - {x: -106, y: 189}
+        - {x: -122, y: 170}
+        - {x: -124, y: 168}
+        - {x: -124, y: 119}
+        - {x: -99, y: 1}
+        - {x: -94, y: 0}
+        - {x: 90, y: 0}
+        - {x: 102, y: 34}
+        - {x: 124, y: 137}
+    - name: CafeDoor
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 772
+        width: 126
+        height: 251
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 47, y: 251}
+        - {x: -28, y: 251}
+        - {x: -35, y: 247}
+        - {x: -63, y: 228}
+        - {x: -63, y: 108}
+        - {x: -54, y: 0}
+        - {x: 56, y: 0}
+        - {x: 58, y: 6}
+        - {x: 63, y: 120}
+        - {x: 63, y: 223}
+    - name: StreetCorner
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 787
+        width: 72
+        height: 234
+      alignment: 9
+      pivot: {x: 0.5, y: 0.11763614}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -36, y: 206.47314}
+        - {x: -36, y: -27.526855}
+        - {x: 36, y: -27.526855}
+        - {x: 36, y: 206.47314}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
