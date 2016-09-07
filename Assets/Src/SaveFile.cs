@@ -236,7 +236,8 @@ public class SaveFile{
 	public void BestowAbilitites(Unit u){
 		foreach(string s in GetAbilities(u.name)){
 			if(s.Length > 0){
-				UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(u.gameObject, "Assets/Src/SaveFile.cs (239,5)", s);
+                u.gameObject.AddComponent(AbilityLibrary.Instance.getTypeFromAbility(s));
+				//UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(u.gameObject, "Assets/Src/SaveFile.cs (239,5)", s);
 			}
 		}
 	}

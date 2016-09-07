@@ -11,7 +11,7 @@ public class GroupDiesEvent : MonoBehaviour, Observer {
 	public void Notify()
 	{
 		HashSet<Unit> checkGroup=UnitManager.Instance.GetUnitsByTeam(team);
-		if(!Application.isLoadingLevel){
+		if(!LevelManager.Instance.isLoaded){
 			if(hasSpawned)
 			{
 				bool noLeft=true;

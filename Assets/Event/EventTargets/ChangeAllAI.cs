@@ -12,8 +12,7 @@ public class ChangeAllAI : EventTarget {
 		// find all enemy units on field.
 		foreach(Unit u in UnitManager.Instance.GetUnitsByTeam(team)){
 			if(u.isBoss &! includingBosses) continue;
-			u.ChangeAI((IAIBehaviour)UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(u.gameObject, "Assets/Event/EventTargets/ChangeAllAI.cs (15,29)", changeTo.ToString()));
-			
+            AIUtility.AITypeChanger(u, changeTo);
 		}
 
 

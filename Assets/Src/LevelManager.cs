@@ -4,8 +4,8 @@ using System.Collections;
 public class LevelManager : MonoBehaviour {
 
 	private bool _inevitable = false;
-
-	static private LevelManager instance;
+    
+    static private LevelManager instance;
 
 	static public LevelManager Instance{
 		get{
@@ -16,8 +16,10 @@ public class LevelManager : MonoBehaviour {
 		}
 	}
 
-	// fields
-	private int nextLevel;
+    public bool isLoaded = false;
+
+    // fields
+    private int nextLevel;
 	private float aniDuration;
 	private string msg;
 	private bool fadeToBlack = false;
@@ -31,7 +33,12 @@ public class LevelManager : MonoBehaviour {
 		}
 	}
 
-	void Update(){
+    void OnLevelWasLoaded()
+    {
+        isLoaded = true;
+    }
+
+    void Update(){
 		if(StateManager.Instance.State == GameState.LevelManagerAnimation){
 			aniDuration-= Time.deltaTime;
 		}else if(_inevitable)
@@ -115,7 +122,7 @@ public class LevelManager : MonoBehaviour {
 		_inevitable = false;
 		StateManager.Instance.Clean();
 		BuffManager.Instance.Clear();
-
+        isLoaded = false;
 		Application.LoadLevel(nextLevel);
 	}
 }
