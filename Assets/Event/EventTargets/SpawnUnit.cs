@@ -29,7 +29,8 @@ public class SpawnUnit : EventTarget {
 		iSpawned.team = team;
 		if(changeAI){
 			try{
-				UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(iSpawned.gameObject, "Assets/Event/EventTargets/SpawnUnit.cs (32,5)", ai.ToString());
+                AIUtility.AITypeChanger(iSpawned, ai);
+                    //UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(iSpawned.gameObject, "Assets/Event/EventTargets/SpawnUnit.cs (32,5)", ai.ToString());
 			}catch(UnityException e){
 				Debug.LogException(e);
 			}
