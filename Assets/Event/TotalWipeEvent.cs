@@ -9,8 +9,10 @@ public class TotalWipeEvent : MonoBehaviour, Observer {
 
 	public void Notify()
 	{
-		if(!LevelManager.Instance.isLoaded){
-			if(UnitManager.Instance.GetUnitsByTeam(team).Count==0)
+		print(LevelManager.Instance.isLoaded);
+
+		if(LevelManager.Instance.isLoaded){
+			if (UnitManager.Instance.GetUnitsByTeam(team).Count==0)
 			{
 				triggerEvents();
 			}
