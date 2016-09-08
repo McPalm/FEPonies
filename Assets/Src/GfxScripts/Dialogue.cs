@@ -82,8 +82,9 @@ public class Dialogue : MonoBehaviour {
 			if(ta.text[i] == '§'){
 				title = getWord(ta.text, i+1);
 			}
-			if(title.Length != 0){
-				if(title.ToUpper().Equals(dialogue.ToUpper())){
+			if(title.Length != 0)
+            {
+                if (title.ToUpper().Equals(dialogue.ToUpper())){
 					ParseParagraph(ta.text, i);
 				}
 			}
@@ -99,7 +100,8 @@ public class Dialogue : MonoBehaviour {
 
 	private string getWord(string s, int start){
 		for(int i = start; i < s.Length; i++){
-			if(s[i] == '\n'){
+			if(s[i] == '\n'|| s[i] == '\r')
+            {
 				return s.Substring(start, i-start);
 			}
 		}
