@@ -21,18 +21,26 @@ public class Bastion : AbilityWithManacost, TurnObserver {
 
 	public override void Use ()
 	{
-		_buffAura.Active = true;
-		recaculateBuff();
-		_duration = 2;
-		// get units within 2 and particle them up
-		Unit u = GetComponent<Unit>();
-		foreach(Tile t in TileGrid.Instance.GetTilesAt(transform.position, 2)){
-			if(t.isOccuppied &&  !t.Unit.isHostile(u)) Particle.BastionShield(t.transform.position);
+		if (GetComponent<Mana>().CanCast(ManaCost))
+		{
+			_buffAura.Active = true;
+			recaculateBuff();
+			_duration = 2;
+			// get units within 2 and particle them up
+			Unit u = GetComponent<Unit>();
+			foreach (Tile t in TileGrid.Instance.GetTilesAt(transform.position, 2))
+			{
+				if (t.isOccuppied && !t.Unit.isHostile(u)) Particle.BastionShield(t.transform.position);
+			}
+
+
+
+			FinishUse();
 		}
-
-
-
-		FinishUse();
+		else
+		{
+			OOM();
+		}
 	}
 
 	public override int ManaCost {
