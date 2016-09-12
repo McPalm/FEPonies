@@ -43,7 +43,11 @@ public class Damage : MonoBehaviour, IEffect {
 	public int judgeAttack(Unit user, Unit target)
 	{
 		int damageDealt=Apply(target.Tile, user, true);
-		if((user.AttackInfo.reach) is Melee)
+		if(target.retaliationsLeft == 0)
+		{
+			damageDealt += 20;
+		}
+		else if((user.AttackInfo.reach) is Melee)
 		{
 			if(target.AttackInfo.reach is Ranged||target.AttackInfo.reach is IncreasedRange)
 			{

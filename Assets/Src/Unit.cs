@@ -128,6 +128,11 @@ public class Unit : MonoBehaviour {
 		get{return ModifiedStats.maxHP - damageTaken;} 
 	}
 
+	public int retaliationsLeft
+	{
+		get { return retaliations - retaliationsMade;}
+	}
+
 	// Methods
 
 	void performAction(Action act)
