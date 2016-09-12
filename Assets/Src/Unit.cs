@@ -33,8 +33,9 @@ public class Unit : MonoBehaviour {
 	public int speed = 5;
 	public bool flight = false;
 	public int group; // move to other behaviour!
-	// public Ability ability;
-	public Material greyscale;
+    public int retaliations = 1;
+    // public Ability ability;
+    public Material greyscale;
 	public Material normalMaterial;
 	public AttackInfo AttackInfo;
 	public IAIBehaviour unitAI;
@@ -42,7 +43,8 @@ public class Unit : MonoBehaviour {
 	// fields
 	private Tile tile;
 	public HashSet<Tile> reachableTiles;
-	public static HashSet<Unit> selectedEnemies=new HashSet<Unit>();
+    public int retaliationsMade = 0;
+    public static HashSet<Unit> selectedEnemies=new HashSet<Unit>();
 	internal Action currAction;
 	private static Unit selectedUnit;
 	private bool isFirstUpdate = true;
@@ -170,7 +172,7 @@ public class Unit : MonoBehaviour {
 		while(StateManager.Instance.State != GameState.runningAttackSequence) yield return null;
 
 		// counter
-		if(retaliatingUnit && retaliatingUnit.IsAlive){
+		if(retaliatingUnit && retaliatingUnit.IsAlive && retaliatingUnit.retaliationsMade<retaliatingUnit.retaliations){
 			retaliatingUnit.Attack(this);
 			while(StateManager.Instance.State != GameState.runningAttackSequence) yield return null;
 
@@ -184,7 +186,8 @@ public class Unit : MonoBehaviour {
 					if(retaliatingUnit.doubleAttack) retaliatingUnit.Attack(this);
 					while(StateManager.Instance.State != GameState.runningAttackSequence) yield return null;
 				}   
-			}   
+			}
+            retaliatingUnit.retaliationsMade++;
 		}
 
 		// end

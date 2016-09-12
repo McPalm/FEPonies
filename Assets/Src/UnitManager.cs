@@ -55,6 +55,7 @@ public class UnitManager : MonoBehaviour, Observable {
 			if(o.team==team)
 			{
 				o.HasActed=false;
+                o.retaliationsMade = 0;
 			}
 		}
 
