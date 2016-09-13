@@ -25,6 +25,7 @@ public struct Stats
 	public float hitBonus;
 	public float baseAttackMod;
 	public float crit;
+    public float critDodge;
 
 	public float Dodge
 	{
@@ -55,10 +56,11 @@ public struct Stats
 		hitBonus = 0;
 		baseAttackMod = 0f;
 		crit = 0f;
+        critDodge = 0f;
 	}
 
 	public Stats (UnitMove movement, int maxHP, int strength, int agility, int intelligence,
-	              int defense, int resistance, float dodgeBonus, float hitBonus, float baseAttackMod, float crit)
+	              int defense, int resistance, float dodgeBonus, float hitBonus, float baseAttackMod, float crit, float critDodge)
 	{
 		this.movement = movement;
 		this.maxHP = maxHP;
@@ -71,6 +73,7 @@ public struct Stats
 		this.hitBonus = hitBonus;
 		this.baseAttackMod = baseAttackMod;
 		this.crit = crit;
+        this.critDodge = critDodge;
 	}
 
 	// overload operator +
@@ -78,7 +81,7 @@ public struct Stats
 		return new Stats(a.movement+b.movement, a.maxHP+b.maxHP,
 		                 a.strength+b.strength, a.agility+b.agility, a.intelligence+b.intelligence,
 		                 a.defense+b.defense, a.resistance+b.resistance, a.dodgeBonus + b.dodgeBonus, a.hitBonus+b.hitBonus,
-		                 a.baseAttackMod+b.baseAttackMod, a.crit+b.crit);
+		                 a.baseAttackMod+b.baseAttackMod, a.crit+b.crit, a.critDodge+b.critDodge);
 	}
 
 	/// <summary>

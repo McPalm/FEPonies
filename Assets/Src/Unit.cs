@@ -30,7 +30,9 @@ public class Unit : MonoBehaviour {
 	public StatLevels intelligence;
 	public StatLevels Defence;
 	public StatLevels Resistance;
-	public int speed = 5;
+    public int baseCrit;
+    public int baseCritDodge;
+    public int speed = 5;
 	public bool flight = false;
 	public int group; // move to other behaviour!
     public int retaliations = 1;
@@ -216,7 +218,7 @@ public class Unit : MonoBehaviour {
 
 			float roll = UnityEngine.Random.Range(0f,1f);
 			bool hit= roll <=ModifiedStats.Hit-target.ModifiedStats.Dodge;
-			bool crit = roll < ModifiedStats.crit;
+			bool crit = roll < (ModifiedStats.crit - target.ModifiedStats.critDodge);
 
 			DamageType d = AttackInfo.effect.damageType;
 			d.Critical = crit;
@@ -636,6 +638,8 @@ public class Unit : MonoBehaviour {
 		_baseStats = Stats.BaseStats(HP, strength, agility, intelligence, Defence, Resistance, speed, flight);
 		_growth = Stats.StatsGrowth(HP, strength, agility, intelligence, Defence, Resistance);
 		stats = _baseStats + _growth.Multiply( ((float)level)*0.01f);
+        stats.crit = baseCrit;
+        stats.critDodge = baseCritDodge;
 	}
 
 	// HACK
