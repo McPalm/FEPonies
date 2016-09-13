@@ -136,17 +136,16 @@ public class GUInterface : MonoBehaviour {
 
 		int MARGAIN = 23;
 		if(y == -111){
-			y = Screen.height - MARGAIN*10 -20;
+			y = Screen.height - MARGAIN*12 -20;
 		}else if (y == -222) {
 			y = Screen.height - MARGAIN*20 - 30;
 		}else if(y < 0){
 			y = 0;
 		}else if(y > Screen.height-MARGAIN*9-10){
-			y = Screen.height-MARGAIN*10-10;
+			y = Screen.height-MARGAIN*12-10;
 		}
 
-
-		GUI.Box(new Rect(x,y,100,MARGAIN*10+10), client.name);
+		GUI.Box(new Rect(x,y,100,MARGAIN*12+10), client.name);
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*1, 90, 23), ("Level: " + client.level));
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*2, 90, 23), ("HP: " + client.CurrentHP + "/" + client.ModifiedStats.maxHP));
 		if(client.doubleAttack) GUI.Label(new Rect(x+5, y+5+MARGAIN*3, 90, 23), ("Attack: " + client.AttackStat)  + " x2");
@@ -156,7 +155,9 @@ public class GUInterface : MonoBehaviour {
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*6, 90, 23), ("Defence: " + client.ModifiedStats.defense));
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*7, 90, 23), ("Resitance: " + client.ModifiedStats.resistance));
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*8, 90, 23), ("Move: " + client.ModifiedStats.movement.moveSpeed));
-		GUI.Label(new Rect(x+5, y+5+MARGAIN*9, 90, 23), (client.toolTip));
+        GUI.Label(new Rect(x + 5, y + 5 + MARGAIN * 9, 90, 23), ("Crit: " + client.ModifiedStats.crit * 100+"%"));
+        GUI.Label(new Rect(x + 5, y + 5 + MARGAIN * 10, 90, 23), ("Crit Ddg: " + client.ModifiedStats.critDodge * 100 + "%"));
+        GUI.Label(new Rect(x+5, y+5+MARGAIN*11, 90, 23), (client.toolTip));
 	}
 
 	/// <summary>
