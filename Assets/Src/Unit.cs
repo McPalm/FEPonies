@@ -30,8 +30,8 @@ public class Unit : MonoBehaviour {
 	public StatLevels intelligence;
 	public StatLevels Defence;
 	public StatLevels Resistance;
-    public int baseCrit;
-    public int baseCritDodge;
+    public float baseCrit;
+    public float baseCritDodge;
     public int speed = 5;
 	public bool flight = false;
 	public int group; // move to other behaviour!
