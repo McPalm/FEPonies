@@ -50,7 +50,8 @@ public class AbilityLibrary
         abilityLibrary.Add("Wingslayer", typeof(Wingslayer));
         abilityLibrary.Add("Wormhole", typeof(Wormhole));
         abilityLibrary.Add("Wubs", typeof(Wubs));
-    }
+		abilityLibrary.Add("Backstab", typeof(Backstab));
+	}
 
     public System.Type getTypeFromAbility(string s)
     {
