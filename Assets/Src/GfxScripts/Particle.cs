@@ -66,6 +66,9 @@ public class Particle : MonoBehaviour {
 	static public void Star(Vector3 spawnPosition){
 		Instantiate(Resources.Load<GameObject>("Star"), spawnPosition, Quaternion.identity);
 	}
+	static public void Backstab(Vector3 spawnPosition){
+		Instantiate(Resources.Load<GameObject>("Backstab"), spawnPosition, Quaternion.identity);
+	}
 
 	// Use this for initialization
 	void Start () {

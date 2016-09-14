@@ -43,6 +43,7 @@ public class Backstab : Skill, Buff
 	public void StartingAttackSequence(Unit u)
 	{
 		validTarget = u.retaliationsLeft == 0;
+		if (validTarget) Particle.Backstab(u.transform.position);
 	}
 
 	public void FinishedAttackSequence(Unit u)
