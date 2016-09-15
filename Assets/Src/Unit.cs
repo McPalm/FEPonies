@@ -706,8 +706,23 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Get information on a units stats in certain area during a certain interaction.
+	/// </summary>
+	/// <param name="location"></param>
+	/// <param name="enemy"></param>
+	/// <param name="enemyTile"></param>
+	/// <returns></returns>
 	public Stats GetStatsAt(Tile location, Unit enemy, Tile enemyTile = null)
 	{
-		throw new NotImplementedException();
+		if (enemyTile == null) enemyTile = enemy.Tile;
+		Stats s = stats + BuffManager.Instance.GetBuffs(this, location);
+
+		foreach (AttackBuff ab in attackBuffs)
+		{
+			if (ab.Applies(enemy, location)) s += ab.Stats;
+		}
+
+		return s;
 	}
 }
