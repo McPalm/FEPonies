@@ -70,4 +70,9 @@ public class AttackInfo : MonoBehaviour {
 		if(target) return GetAttackTiles(user).Contains(target.Tile);
 		return false;
 	}
+
+	public bool CanAttack(Unit user, Tile position, Tile targetPosition)
+	{
+		return GetAttackTiles(user, position).Contains(targetPosition);
+	}
 }
