@@ -45,7 +45,7 @@ public class Unit : MonoBehaviour {
 	// fields
 	private Tile tile;
 	public HashSet<Tile> reachableTiles;
-    public int retaliationsMade = 0;
+	internal int retaliationsMade = 0; // TODO, encapsulate
     public static HashSet<Unit> selectedEnemies=new HashSet<Unit>();
 	internal Action currAction;
 	private static Unit selectedUnit;
@@ -56,13 +56,14 @@ public class Unit : MonoBehaviour {
 	private Stats _growth;
 	private HashSet<HealthObserver> _healthObservers = new HashSet<HealthObserver>();
 	private Stats stats;
+	private Stats attackStats;
 	internal bool doubleAttack = false;
 	private HashSet<object> _inhibs = new HashSet<object>();
 
 	// Properties
 	public Stats ModifiedStats{
 		get{
-			return stats + BuffManager.Instance.GetBuffs(this);
+			return stats + BuffManager.Instance.GetBuffs(this) + attackStats;
 		}
 	}
 
@@ -201,12 +202,21 @@ public class Unit : MonoBehaviour {
 		StateManager.Instance.DebugPop();
 		if(this)SendMessage("FinishedAttackSequence", retaliatingUnit,SendMessageOptions.DontRequireReceiver);
 		if(retaliatingUnit) retaliatingUnit.SendMessage("FinishedAttackSequence", this,SendMessageOptions.DontRequireReceiver);
+		attackStats = new Stats();
+		retaliatingUnit.attackStats = new Stats();
 		retaliatingUnit = null;
 		FinnishMovement();
 	}
 
-	// attack a target and do everything needed
+	/// <summary>
+	/// attack a target and do everything needed
+	/// </summary>
+	/// <param name="target"></param>
 	void Attack(Unit target){
+
+		ApplyAttackBuffs(target);
+		target.ApplyAttackBuffs(this);
+
 		if(AttackInfo.CanAttack(this, target))
 		{
 			float dx = transform.position.x - target.transform.position.x;
@@ -673,6 +683,26 @@ public class Unit : MonoBehaviour {
 				Debug.Log("Removed Last one!");
 			}
 			HasActed = HasActed;
+		}
+	}
+
+	private List<AttackBuff> attackBuffs = new List<AttackBuff>();
+	
+	public void RegisterAttackBuff(AttackBuff a)
+	{
+		attackBuffs.Add(a);
+	}
+
+	/// <summary>
+	/// Applies attack buffs before an attack is being made.
+	/// </summary>
+	/// <param name="target"></param>
+	public void ApplyAttackBuffs(Unit target)
+	{
+		attackStats = new Stats();
+		foreach(AttackBuff ab in attackBuffs)
+		{
+			if (ab.Applies(target, Tile)) attackStats += ab.Stats;
 		}
 	}
 }
