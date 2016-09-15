@@ -697,12 +697,17 @@ public class Unit : MonoBehaviour {
 	/// Applies attack buffs before an attack is being made.
 	/// </summary>
 	/// <param name="target"></param>
-	public void ApplyAttackBuffs(Unit target)
+	private void ApplyAttackBuffs(Unit target)
 	{
 		attackStats = new Stats();
 		foreach(AttackBuff ab in attackBuffs)
 		{
 			if (ab.Applies(target, Tile)) attackStats += ab.Stats;
 		}
+	}
+
+	public Stats GetStatsAt(Tile location, Unit enemy, Tile enemyTile = null)
+	{
+		throw new NotImplementedException();
 	}
 }
