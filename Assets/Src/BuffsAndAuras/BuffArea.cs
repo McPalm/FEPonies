@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuffArea : MonoBehaviour, Buff {
+public class BuffArea : MonoBehaviour {
 
 	[Range(0, 10)]
 	public int radius;
@@ -27,8 +27,16 @@ public class BuffArea : MonoBehaviour, Buff {
 		BuffManager.Instance.Add(this);
 	}
 	
+	public bool Includes(Unit u, Tile t)
+	{
+		if (!Active) return false;
+		if (_user != null && !_affectsEnemies && _user.isHostile(u)) return false;
 
-	public bool Affects (Unit u)
+		return TileGrid.GetDelta(t, this) <= radius;
+	}
+
+	/*
+	public bool Affects (Tile t)
 	{
 		if(!Active) return false;
 		if(_user != null && !_affectsEnemies && _user.isHostile(u)) return false;
@@ -36,6 +44,7 @@ public class BuffArea : MonoBehaviour, Buff {
 		// see if under radius
 		return TileGrid.GetDelta(u, this) <= radius;
 	}
+	*/
 
 	public Stats Stats {
 		get {
@@ -44,7 +53,7 @@ public class BuffArea : MonoBehaviour, Buff {
 	}
 
 	public void Stop(){
-		BuffManager.Instance.RemoveBuff(this);
+		BuffManager.Instance.RemoveArea(this);
 	}
 
 	public void Start(){
@@ -52,6 +61,6 @@ public class BuffArea : MonoBehaviour, Buff {
 	}
 
 	void OnDestroy(){
-		BuffManager.Instance.RemoveBuff(this);
+		BuffManager.Instance.RemoveArea(this);
 	}
 }
