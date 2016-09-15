@@ -651,6 +651,7 @@ public class Unit : MonoBehaviour {
 		stats = _baseStats + _growth.Multiply( ((float)level)*0.01f);
         stats.crit = baseCrit;
         stats.critDodge = baseCritDodge;
+		stats.might = 4 + (level * 3) / 4;
 	}
 
 	// HACK

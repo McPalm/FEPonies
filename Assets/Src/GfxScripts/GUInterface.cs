@@ -150,8 +150,8 @@ public class GUInterface : MonoBehaviour {
 		GUI.Box(new Rect(x,y,100,MARGAIN*12+10), client.name);
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*1, 90, 23), ("Level: " + client.level));
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*2, 90, 23), ("HP: " + client.CurrentHP + "/" + client.ModifiedStats.maxHP));
-		if(client.doubleAttack) GUI.Label(new Rect(x+5, y+5+MARGAIN*3, 90, 23), ("Attack: " + (s.strength + 5))  + " x2");
-		else GUI.Label(new Rect(x+5, y+5+MARGAIN*3, 90, 23), ("Attack: " + (s.strength + 5)));
+		if(client.doubleAttack) GUI.Label(new Rect(x+5, y+5+MARGAIN*3, 90, 23), ("Attack: " + (s.strength + s.might))  + " x2");
+		else GUI.Label(new Rect(x+5, y+5+MARGAIN*3, 90, 23), ("Attack: " + (s.strength + s.might)));
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*4, 90, 23), ("Hit: " + Mathf.RoundToInt(s.Hit*100f) + "%"));
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*5, 90, 23), ("Dodge: " + Mathf.RoundToInt(s.Dodge*100f) + "%"));
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*6, 90, 23), ("Defence: " + s.defense));
@@ -210,10 +210,8 @@ public class GUInterface : MonoBehaviour {
 		GUI.Label(new Rect(x+3, y+3, 32, 32), (other.AttackInfo.effect.damageType.Magic)? _resistance : _shield);
 		GUI.Label(new Rect(x+3+32, y+9, 32, 32), (other.AttackInfo.effect.damageType.Magic)? unit.ModifiedStats.resistance.ToString() : unit.ModifiedStats.defense.ToString());
 		GUI.Label(new Rect(x+3+64, y+3, 32, 32), _swords);
-		/*
-		 * TODO: use battle oracle!!!!!
-		GUI.Label(new Rect(x+3+96, y+9, 32, 32), (unit.doubleAttack) ? unit.AttackStat.ToString() + " x2" : unit.AttackStat.ToString());
-		*/
+		Stats s = unit.GetStatsAt(unit.Tile);
+		GUI.Label(new Rect(x+3+96, y+9, 32, 32), (unit.doubleAttack) ? (s.might + s.strength) + " x2" : (s.might + s.strength).ToString());
 	}
 
 	private void BuildHealthBar(int x, int y, int maxHealth, int currentHealth, int projectedHealth, bool mirror = false){
