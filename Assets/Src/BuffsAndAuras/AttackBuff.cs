@@ -14,7 +14,7 @@ public interface AttackBuff{
 	/// <param name="target"></param>
 	/// <param name="where the unit stands when making the attack."></param>
 	/// <returns></returns>
-	bool Applies(Unit target, Tile source);
+	bool Applies(Unit target, Tile source, Tile targetLocation);
 
 	/// <summary>
 	/// The stat buff if it applies.

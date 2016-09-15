@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Damage : MonoBehaviour, IEffect {
 
+	public int baseDamage = 5;
+
 	private DamageType _damageType;
 	public DamageType damageType {
 		get {
@@ -25,11 +27,13 @@ public class Damage : MonoBehaviour, IEffect {
 		return StaticApply(target, user, _damageType, testAttack);
 	}
 
-	static public int StaticApply(Tile target, Unit user, DamageType typeOfAttack, bool testAttack = false){
+	static public int StaticApply(Tile target, Unit user, DamageType typeOfAttack, bool testAttack = false, Tile testPosition = null){
 		Unit targetUnit = target.Unit;
+		if (testPosition == null) testPosition = user.Tile;
 		if(targetUnit != null){
 			// deliver damage to target.
-			return targetUnit.Damage(user.AttackStat, typeOfAttack, testAttack);
+			int strenght = user.GetStatsAt(testPosition, targetUnit).strength;
+			return targetUnit.Damage(strenght, typeOfAttack, testAttack);
 			
 		}else{
 			Debug.LogError("Damage IEffect may target an empty tile!\n" +

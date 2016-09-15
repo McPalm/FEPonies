@@ -5,7 +5,6 @@ public class Backstab : Skill, AttackBuff
 {
 
 	private Unit u;
-	private bool validTarget = false;
 	private Stats damageBonus;
 
 	public override string Name
@@ -22,7 +21,7 @@ public class Backstab : Skill, AttackBuff
 		get{return damageBonus; }
 	}
 
-	public bool Applies(Unit target, Tile source)
+	public bool Applies(Unit target, Tile source, Tile targetLocation)
 	{
 		return target.retaliationsLeft == 0; // Might wanna make it work with mutual attack ranges.
 	}

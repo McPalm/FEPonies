@@ -145,18 +145,20 @@ public class GUInterface : MonoBehaviour {
 			y = Screen.height-MARGAIN*12-10;
 		}
 
+		Stats s = client.GetStatsAt(client.Tile);
+
 		GUI.Box(new Rect(x,y,100,MARGAIN*12+10), client.name);
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*1, 90, 23), ("Level: " + client.level));
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*2, 90, 23), ("HP: " + client.CurrentHP + "/" + client.ModifiedStats.maxHP));
-		if(client.doubleAttack) GUI.Label(new Rect(x+5, y+5+MARGAIN*3, 90, 23), ("Attack: " + client.AttackStat)  + " x2");
-		else GUI.Label(new Rect(x+5, y+5+MARGAIN*3, 90, 23), ("Attack: " + client.AttackStat));
-		GUI.Label(new Rect(x+5, y+5+MARGAIN*4, 90, 23), ("Hit: " + Mathf.RoundToInt(client.ModifiedStats.Hit*100f) + "%"));
-		GUI.Label(new Rect(x+5, y+5+MARGAIN*5, 90, 23), ("Dodge: " + Mathf.RoundToInt(client.ModifiedStats.Dodge*100f) + "%"));
-		GUI.Label(new Rect(x+5, y+5+MARGAIN*6, 90, 23), ("Defence: " + client.ModifiedStats.defense));
-		GUI.Label(new Rect(x+5, y+5+MARGAIN*7, 90, 23), ("Resitance: " + client.ModifiedStats.resistance));
-		GUI.Label(new Rect(x+5, y+5+MARGAIN*8, 90, 23), ("Move: " + client.ModifiedStats.movement.moveSpeed));
-        GUI.Label(new Rect(x + 5, y + 5 + MARGAIN * 9, 90, 23), ("Crit: " + client.ModifiedStats.crit * 100+"%"));
-        GUI.Label(new Rect(x + 5, y + 5 + MARGAIN * 10, 90, 23), ("Crit Ddg: " + client.ModifiedStats.critDodge * 100 + "%"));
+		if(client.doubleAttack) GUI.Label(new Rect(x+5, y+5+MARGAIN*3, 90, 23), ("Attack: " + (s.strength + 5))  + " x2");
+		else GUI.Label(new Rect(x+5, y+5+MARGAIN*3, 90, 23), ("Attack: " + (s.strength + 5)));
+		GUI.Label(new Rect(x+5, y+5+MARGAIN*4, 90, 23), ("Hit: " + Mathf.RoundToInt(s.Hit*100f) + "%"));
+		GUI.Label(new Rect(x+5, y+5+MARGAIN*5, 90, 23), ("Dodge: " + Mathf.RoundToInt(s.Dodge*100f) + "%"));
+		GUI.Label(new Rect(x+5, y+5+MARGAIN*6, 90, 23), ("Defence: " + s.defense));
+		GUI.Label(new Rect(x+5, y+5+MARGAIN*7, 90, 23), ("Resitance: " + s.resistance));
+		GUI.Label(new Rect(x+5, y+5+MARGAIN*8, 90, 23), ("Move: " + s.movement.moveSpeed));
+        GUI.Label(new Rect(x + 5, y + 5 + MARGAIN * 9, 90, 23), ("Crit: " + s.crit * 100+"%"));
+        GUI.Label(new Rect(x + 5, y + 5 + MARGAIN * 10, 90, 23), ("Crit Ddg: " + s.critDodge * 100 + "%"));
         GUI.Label(new Rect(x+5, y+5+MARGAIN*11, 90, 23), (client.toolTip));
 	}
 
@@ -208,7 +210,10 @@ public class GUInterface : MonoBehaviour {
 		GUI.Label(new Rect(x+3, y+3, 32, 32), (other.AttackInfo.effect.damageType.Magic)? _resistance : _shield);
 		GUI.Label(new Rect(x+3+32, y+9, 32, 32), (other.AttackInfo.effect.damageType.Magic)? unit.ModifiedStats.resistance.ToString() : unit.ModifiedStats.defense.ToString());
 		GUI.Label(new Rect(x+3+64, y+3, 32, 32), _swords);
+		/*
+		 * TODO: use battle oracle!!!!!
 		GUI.Label(new Rect(x+3+96, y+9, 32, 32), (unit.doubleAttack) ? unit.AttackStat.ToString() + " x2" : unit.AttackStat.ToString());
+		*/
 	}
 
 	private void BuildHealthBar(int x, int y, int maxHealth, int currentHealth, int projectedHealth, bool mirror = false){

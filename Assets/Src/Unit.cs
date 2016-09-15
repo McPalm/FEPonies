@@ -84,12 +84,14 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
+	/*
 	public int AttackStat{
 		get{
 			Stats  s = ModifiedStats;
 			return s.strength + Mathf.RoundToInt((level * 2 / 3 + 5)*(1+s.baseAttackMod));
 		}
 	}
+	*/
 
 	public bool HasActed {
 		get {
@@ -214,9 +216,6 @@ public class Unit : MonoBehaviour {
 	/// <param name="target"></param>
 	void Attack(Unit target){
 
-		ApplyAttackBuffs(target);
-		target.ApplyAttackBuffs(this);
-
 		if(AttackInfo.CanAttack(this, target))
 		{
 			float dx = transform.position.x - target.transform.position.x;
@@ -226,9 +225,11 @@ public class Unit : MonoBehaviour {
 				FaceRight = true;
 			}
 
+			Stats s = GetStatsAt(Tile, target);
+			Stats es = target.GetStatsAt(target.Tile, this);
 			float roll = UnityEngine.Random.Range(0f,1f);
-			bool hit= roll <=ModifiedStats.Hit-target.ModifiedStats.Dodge;
-			bool crit = roll < (ModifiedStats.crit - target.ModifiedStats.critDodge);
+			bool hit = roll < s.Hit - es.Dodge; //ModifiedStats.Hit-target.ModifiedStats.Dodge;
+			bool crit = roll < s.crit - es.critDodge; //(ModifiedStats.crit - target.ModifiedStats.critDodge);
 
 			DamageType d = AttackInfo.effect.damageType;
 			d.Critical = crit;
@@ -693,6 +694,7 @@ public class Unit : MonoBehaviour {
 		attackBuffs.Add(a);
 	}
 
+	/*
 	/// <summary>
 	/// Applies attack buffs before an attack is being made.
 	/// </summary>
@@ -705,6 +707,7 @@ public class Unit : MonoBehaviour {
 			if (ab.Applies(target, Tile)) attackStats += ab.Stats;
 		}
 	}
+	*/
 
 	/// <summary>
 	/// Get information on a units stats in certain area during a certain interaction.
@@ -713,14 +716,19 @@ public class Unit : MonoBehaviour {
 	/// <param name="enemy"></param>
 	/// <param name="enemyTile"></param>
 	/// <returns></returns>
-	public Stats GetStatsAt(Tile location, Unit enemy, Tile enemyTile = null)
+	public Stats GetStatsAt(Tile location, Unit enemy = null, Tile enemyTile = null)
 	{
-		if (enemyTile == null) enemyTile = enemy.Tile;
+		if(enemy != null)
+			if (enemyTile == null)
+				enemyTile = enemy.Tile;
 		Stats s = stats + BuffManager.Instance.GetBuffs(this, location);
 
-		foreach (AttackBuff ab in attackBuffs)
+		if (enemy != null)
 		{
-			if (ab.Applies(enemy, location)) s += ab.Stats;
+			foreach (AttackBuff ab in attackBuffs)
+			{
+				if (ab.Applies(enemy, location, enemyTile)) s += ab.Stats;
+			}
 		}
 
 		return s;
