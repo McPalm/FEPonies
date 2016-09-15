@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Backstab : Skill, Buff
+public class Backstab : Skill, AttackBuff
 {
 
 	private Unit u;
 	private bool validTarget = false;
-	private Stats inactive;
-	private Stats active;
+	private Stats damageBonus;
 
 	public override string Name
 	{
@@ -19,35 +18,21 @@ public class Backstab : Skill, Buff
 
 	public Stats Stats
 	{
-		get{return (validTarget) ? active : inactive;}
+		
+		get{return damageBonus; }
 	}
 
-	public bool Affects(Unit u)
+	public bool Applies(Unit target, Tile source)
 	{
-		if (u != this.u) return false;
-		return true;
+		return target.retaliationsLeft == 0; // Might wanna make it work with mutual attack ranges.
 	}
 
 	// Use this for initialization
 	public void Start()
 	{
 		u = GetComponent<Unit>();
-
-		inactive = new Stats();
-		active = new Stats();
-		active.strength = 4 + u.level / 2;
-
-		BuffManager.Instance.Add(this);
-	}
-
-	public void StartingAttackSequence(Unit u)
-	{
-		validTarget = u.retaliationsLeft == 0;
-		if (validTarget) Particle.Backstab(u.transform.position);
-	}
-
-	public void FinishedAttackSequence(Unit u)
-	{
-		validTarget = false;
+		damageBonus = new Stats();
+		damageBonus.strength = 4 + u.level / 2;
+		u.RegisterAttackBuff(this);
 	}
 }
