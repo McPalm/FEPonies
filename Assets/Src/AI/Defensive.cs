@@ -15,31 +15,32 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 		possibleMoves.Add (unit.Tile);
         ///Judge Attacks and moves
         int maxJudge = 0;        
-        foreach (Tile o in possibleMoves) //Searches all moves
+        foreach (Tile tile in possibleMoves) //Searches all moves
         {
-			possibleAttacks= new HashSet<Tile>(unit.AttackInfo.GetAttackTiles (unit, o)); //Gets all possible attacks from that position
+			possibleAttacks= new HashSet<Tile>(unit.AttackInfo.GetAttackTiles (unit, tile)); //Gets all possible attacks from that position
 
             if (possibleAttacks.Count > 0)
             {
-			    maxJudge = 0;
 			    foreach (Tile pa in possibleAttacks)
                 {
                     if (pa.Unit.invisible)
                     {
                         continue;
                     }
-                    else if (canMurder(unit, pa.Unit, o))
+                    else if (canMurder(unit, pa.Unit, tile))
                     {
                         target = pa.Unit;
+						targetMove = tile;
+						maxJudge = 1000;
                         break;
                     }
                     else
                     {
-                        int temp = judgeAttackMove(unit, pa.Unit, o);
+                        int temp = judgeAttackMove(unit, pa.Unit, tile);
                         if (temp > maxJudge)
                         {
                             target = pa.Unit;
-                            targetMove = o;
+                            targetMove = tile;
                             maxJudge = temp;
                         }
                     }
@@ -123,6 +124,8 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
         {
             actionValue += 20;
         }
+
+		/*
         else if ((user.AttackInfo.reach) is Melee)
         {
             if (target.AttackInfo.reach is Ranged || target.AttackInfo.reach is IncreasedRange)
@@ -150,9 +153,9 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
             {
                 actionValue += 20;
             }
-        }
-        actionValue += judgeMove(user, moveTo, target);
-        return actionValue;
+        }*/
+		actionValue += judgeMove(user, moveTo, target);
+		return actionValue;
     }
 
     protected int judgeMove(Unit user, Tile moveTo, Unit target = null)
@@ -163,7 +166,7 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
             moveValue += 100;
         }
         Stats temp = user.GetStatsAt(moveTo);
-        moveValue += (int)temp.critDodge + temp.defense + (int)temp.Dodge + (int)temp.Hit + temp.resistance;
+        moveValue += (int)(temp.critDodge*20) + temp.defense + (int)(temp.Dodge*20) + (int)(temp.Hit*20) + temp.resistance;
         return moveValue;
     }
 

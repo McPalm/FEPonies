@@ -26,37 +26,13 @@ public class GrassTile : Tile {
 
 	void Start()
 	{
-		if(isFirst)
-		{
-			BuffManager.Instance.Add(new GrassBuff());
-		}
-		isFirst=false;
 
+		BuffArea mybuff = gameObject.AddComponent<BuffArea>();
+		Stats stats = new Stats();
+		stats.dodgeBonus = 0.2f;
+		mybuff.Initialize(0, stats, true);
 
-	}
+		// retValue.dodgeBonus=0.2f;
 
-	private class GrassBuff : Buff
-	{
-		public bool Affects(Unit u)
-		{
-			if(u.Tile is GrassTile)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-
-		public Stats Stats
-		{
-			get
-			{
-				Stats retValue=new Stats();
-				retValue.dodgeBonus=0.2f;
-				return retValue;
-			}
-		}
 	}
 }

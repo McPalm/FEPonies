@@ -5,7 +5,6 @@ using System;
 public class Wingslayer : Passive, AttackBuff {
 
 	private Stats buff;
-	private bool _active = false;
 	private Unit host;
 
 	// Use this for initialization
