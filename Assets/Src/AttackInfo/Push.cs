@@ -2,6 +2,9 @@
 using System.Collections;
 using System;
 
+/// <summary>
+/// An effect that pushes a unit one square in a given direction.
+/// </summary>
 public class Push : MonoBehaviour, IEffect {
 
 	public const int NORTH = 1;
@@ -32,12 +35,26 @@ public class Push : MonoBehaviour, IEffect {
 	{
 		if (testAttack) return 0;
 		// TODO, calculate direction using user.
-		Vector2 relative = user.transform.position - target.transform.position;
-		if (relative.y > 0.5f) StaticApply(target, SOUTH);
-		else if (relative.y < -0.5f) StaticApply(target, NORTH);
-		else if (relative.x > 0.5f) StaticApply(target, WEST);
-		else StaticApply(target, EAST);
+		SmartStaticApply(target, user);
 		return 0;
+	}
+
+	/// <summary>
+	/// Push an enemy 1 tile away from the source of the attack.
+	/// Does not properly support diagonals
+	/// (But you can implement thatit if you want to)
+	/// </summary>
+	/// <param name="target"></param>
+	/// <param name="source"></param>
+	/// <returns>true if the push happened.</returns>
+	static public bool SmartStaticApply(Tile target, Component source)
+	{
+		Vector2 relative = source.transform.position - target.transform.position;
+		if (relative.y > 0.5f) return StaticApply(target, SOUTH);
+		else if (relative.y < -0.5f) return StaticApply(target, NORTH);
+		else if (relative.x > 0.5f) return StaticApply(target, WEST);
+		else return StaticApply(target, EAST);
+		
 	}
 
 	/// <summary>
@@ -47,7 +64,6 @@ public class Push : MonoBehaviour, IEffect {
 	/// <param name="direction, use the constants in this class to pick a direction"></param>
 	static public bool StaticApply(Tile target, int direction)
 	{
-		print(target.isOccuppied);
 		if (!target.isOccuppied) return false;
 		Tile pushTo;
 		switch (direction)
