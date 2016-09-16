@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
-public class Feint : Passive, Buff {
+public class Feint : Passive, AttackBuff {
 
 	Unit c;
-	Stats s;
+	Stats _stats;
+	bool firstupdate = true;
+	int intelligence;
 
 	public override string Name {
 		get {
@@ -16,28 +19,36 @@ public class Feint : Passive, Buff {
 	void Start () {
 		c = GetComponent<Unit>();
 		RefreshBonus();
-		BuffManager.Instance.Add(this);
+		c.RegisterAttackBuff(this);
+	}
+
+	private void RefreshBonus()
+	{
+		intelligence = c.ModifiedStats.intelligence;
 	}
 
 	void LevelUp(){
 		RefreshBonus();
 	}
-	
-	void RefreshBonus(){
-		int i = c.ModifiedStats.intelligence;
-		s = new Stats();
-		s.dodgeBonus = i * 0.01f;
-		s.hitBonus = i * 0.02f;
-	}
 
-	public bool Affects (Unit u)
+	public bool Applies(Unit target, Tile source, Tile targetLocation)
 	{
-		return c == u;
+		int targetInt = target.ModifiedStats.intelligence;
+		if(intelligence > targetInt)
+		{
+			float bonus = (float)(intelligence - targetInt)/20;
+			_stats.dodgeBonus = bonus;
+			_stats.crit = bonus;
+			_stats.hitBonus = bonus;
+			_stats.critDodge = bonus;
+			return true;
+		}
+		return false;
 	}
 
 	public Stats Stats {
 		get{
-			return s;
+			return _stats;
 		}
 	}
 }
