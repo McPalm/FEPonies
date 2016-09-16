@@ -66,11 +66,11 @@ public class AggroRadiusAI : Aggressive
 					{
 						continue;
 					}
-					else if (unit.CanMurder (o.Unit)) {
+					else if (canMurder(unit, o.Unit, unit.Tile)) {
 						target = o.Unit;
 						break;
 					} else {
-						int temp = unit.AttackInfo.effect.judgeAttack (unit, o.Unit);
+						int temp = judgeAttackMove (unit, o.Unit, unit.Tile);///TODO check if the tile is correct
 						if (temp > max) {
 							target = o.Unit;
 							max = temp;

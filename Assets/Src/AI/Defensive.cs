@@ -8,51 +8,51 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 	public virtual Action GetAction(Unit unit)
 	{
 		Unit target=null;
+        Tile targetMove = null;
 		Action retValue=new Action(unit.Tile);
-		HashSet<Tile> possibleAttacks = new HashSet<Tile> ();
+		HashSet<Tile> possibleAttacks;
 		HashSet<Tile> possibleMoves = unit.GetReachableTiles ();//Gets all possible moves
 		possibleMoves.Add (unit.Tile);
-		///Judge Attacks
-		foreach (Tile o in possibleMoves) {//Gets all possible attacks
-			possibleAttacks.UnionWith (unit.AttackInfo.GetAttackTiles (unit, o));
+        ///Judge Attacks and moves
+        int maxJudge = 0;        
+        foreach (Tile o in possibleMoves) //Searches all moves
+        {
+			possibleAttacks= new HashSet<Tile>(unit.AttackInfo.GetAttackTiles (unit, o)); //Gets all possible attacks from that position
+
+            if (possibleAttacks.Count > 0)
+            {
+			    maxJudge = 0;
+			    foreach (Tile pa in possibleAttacks)
+                {
+                    if (pa.Unit.invisible)
+                    {
+                        continue;
+                    }
+                    else if (canMurder(unit, pa.Unit, o))
+                    {
+                        target = pa.Unit;
+                        break;
+                    }
+                    else
+                    {
+                        int temp = judgeAttackMove(unit, pa.Unit, o);
+                        if (temp > maxJudge)
+                        {
+                            target = pa.Unit;
+                            targetMove = o;
+                            maxJudge = temp;
+                        }
+                    }
+				}
+                
+			}
 		}
-		int maxJudge = 0;
-		possibleAttacks.Remove (unit.Tile);
-		if (possibleAttacks.Count > 0) {
-			maxJudge = 0;
-			foreach (Tile o in possibleAttacks) {
-				if (o.Unit.invisible)
-				{
-					continue;
-				}
-				else if (unit.CanMurder (o.Unit)) {
-					target = o.Unit;
-					break;
-				} else {
-					int temp = unit.AttackInfo.effect.judgeAttack (unit, o.Unit); // TODO got a null reffence here during AI turn. I think it was after a united died from retaliation.
-					if (temp > maxJudge) {
-						target = o.Unit;
-						maxJudge = temp;
-					}
-				}
-			}
-			if (target != null) {
-				retValue.attack=target.Tile;
-				possibleMoves.IntersectWith (unit.AttackInfo.reach.GetTiles (target.Tile));
-				HashSet<Tile> safeMoves=new HashSet<Tile>(target.AttackInfo.reach.GetTiles(target.Tile));
-				safeMoves.IntersectWith(possibleMoves);
-				Tile moveTo = null;
-				foreach (Tile o in possibleMoves) {
-					moveTo = o;
-					if(safeMoves.Count==0||!safeMoves.Contains(o))
-					{
-						break;
-					}
-				}
-				retValue.movement=moveTo;
-			}
-		} 
-		List<Ability> tempAbilities = new List<Ability>(GetComponents<Ability>());
+        if (target != null)
+        {
+            retValue.attack = target.Tile;
+            retValue.movement = targetMove;
+        }
+        List<Ability> tempAbilities = new List<Ability>(GetComponents<Ability>());
 		List<AIAbility> possibleAbilities = new List<AIAbility>();
 		foreach(Ability q in tempAbilities)
 		{
@@ -103,8 +103,72 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 		return retValue;
 	}
 
-	// Use this for initialization
-	void Start () {
+    protected bool canMurder(Unit user, Unit target, Tile userPos)
+    {
+        if (user.AttackInfo.effect.Apply(target.Tile, user, true, userPos)>=target.CurrentHP)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    protected int judgeAttackMove(Unit user, Unit target, Tile moveTo)
+    {
+        int actionValue = user.AttackInfo.effect.Apply(target.Tile, user, true, moveTo);
+
+        if (target.retaliationsLeft == 0)
+        {
+            actionValue += 20;
+        }
+        else if ((user.AttackInfo.reach) is Melee)
+        {
+            if (target.AttackInfo.reach is Ranged || target.AttackInfo.reach is IncreasedRange)
+            {
+                actionValue += 20;
+            }
+        }
+        else if (user.AttackInfo.reach is Ranged)
+        {
+            if (target.AttackInfo.reach is Melee)
+            {
+                actionValue += 20;
+            }
+        }
+        else if (user.AttackInfo.reach is RangeAndMelee)
+        {
+            if (target.AttackInfo.reach is Melee || target.AttackInfo.reach is Ranged || target.AttackInfo.reach is IncreasedRange)
+            {
+                actionValue += 20;
+            }
+        }
+        else if (user.AttackInfo.reach is IncreasedRange)
+        {
+            if (target.AttackInfo.reach is Melee || target.AttackInfo.reach is Ranged || target.AttackInfo.reach is RangeAndMelee)
+            {
+                actionValue += 20;
+            }
+        }
+        actionValue += judgeMove(user, moveTo, target);
+        return actionValue;
+    }
+
+    protected int judgeMove(Unit user, Tile moveTo, Unit target = null)
+    {
+        int moveValue = 0;
+        if (target!=null&&!target.AttackInfo.GetAttackTiles(target).Contains(moveTo))
+        {
+            moveValue += 100;
+        }
+        Stats temp = user.GetStatsAt(moveTo);
+        moveValue += (int)temp.critDodge + temp.defense + (int)temp.Dodge + (int)temp.Hit + temp.resistance;
+        return moveValue;
+    }
+
+    // Use this for initialization
+    void Start () {
 	
 	}
 	

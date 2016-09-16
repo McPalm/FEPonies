@@ -567,21 +567,6 @@ public class Unit : MonoBehaviour {
 		History.Instance.Add(currAction);
 	}
 
-	#pragma warning disable 0168
-	public bool CanMurder(Unit target) // TODO: decouple this from Unit, its an AI function.
-	{
-		try{
-			if( ((Damage)this.AttackInfo.effect).Apply(target.Tile, this, true)+target.damageTaken >= target.ModifiedStats.maxHP )
-			{
-				return true;
-			}
-		}
-		catch{
-
-		}
-		return false;
-	}
-
 	private void MakeGrey(bool grey){
 		try{
 			if(grey){

@@ -17,11 +17,11 @@ public class Stationary : MonoBehaviour, IAIBehaviour {
 				{
 					continue;
 				}
-				else if (unit.CanMurder (o.Unit)) {
+				else if (canMurder (unit, o.Unit, unit.Tile)) {
 					target = o.Unit;
 					break;
 				} else {
-					int temp = unit.AttackInfo.effect.judgeAttack (unit, o.Unit);
+					int temp = judgeAttackMove (unit, o.Unit, unit.Tile);///TODO check so the tile is correct
 					if (temp > max) {
 						target = o.Unit;
 						max = temp;
@@ -35,8 +35,59 @@ public class Stationary : MonoBehaviour, IAIBehaviour {
 		return retValue;
 	}
 
-	// Use this for initialization
-	void Start () {
+    protected bool canMurder(Unit user, Unit target, Tile userPos)
+    {
+        if (user.AttackInfo.effect.Apply(target.Tile, user, true, userPos) >= target.CurrentHP)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    protected int judgeAttackMove(Unit user, Unit target, Tile moveTo)///TODO Make sure this is correct
+    {
+        int actionValue = user.AttackInfo.effect.Apply(target.Tile, user, true);
+
+        if (target.retaliationsLeft == 0)
+        {
+            actionValue += 20;
+        }
+        else if ((user.AttackInfo.reach) is Melee)
+        {
+            if (target.AttackInfo.reach is Ranged || target.AttackInfo.reach is IncreasedRange)
+            {
+                actionValue += 20;
+            }
+        }
+        else if (user.AttackInfo.reach is Ranged)
+        {
+            if (target.AttackInfo.reach is Melee)
+            {
+                actionValue += 20;
+            }
+        }
+        else if (user.AttackInfo.reach is RangeAndMelee)
+        {
+            if (target.AttackInfo.reach is Melee || target.AttackInfo.reach is Ranged || target.AttackInfo.reach is IncreasedRange)
+            {
+                actionValue += 20;
+            }
+        }
+        else if (user.AttackInfo.reach is IncreasedRange)
+        {
+            if (target.AttackInfo.reach is Melee || target.AttackInfo.reach is Ranged || target.AttackInfo.reach is RangeAndMelee)
+            {
+                actionValue += 20;
+            }
+        }
+        return actionValue;
+    }
+
+    // Use this for initialization
+    void Start () {
 	
 	}
 	

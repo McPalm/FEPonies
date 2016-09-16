@@ -39,15 +39,20 @@ public class Push : MonoBehaviour, IEffect {
 		return 0;
 	}
 
-	/// <summary>
-	/// Push an enemy 1 tile away from the source of the attack.
-	/// Does not properly support diagonals
-	/// (But you can implement thatit if you want to)
-	/// </summary>
-	/// <param name="target"></param>
-	/// <param name="source"></param>
-	/// <returns>true if the push happened.</returns>
-	static public bool SmartStaticApply(Tile target, Component source)
+    public int Apply(Tile target, Unit user, bool testAttack, Tile testTile)
+    {
+        return Apply(target, user, testAttack);
+    }
+
+    /// <summary>
+    /// Push an enemy 1 tile away from the source of the attack.
+    /// Does not properly support diagonals
+    /// (But you can implement thatit if you want to)
+    /// </summary>
+    /// <param name="target"></param>
+    /// <param name="source"></param>
+    /// <returns>true if the push happened.</returns>
+    static public bool SmartStaticApply(Tile target, Component source)
 	{
 		Vector2 relative = source.transform.position - target.transform.position;
 		if (relative.y > 0.5f) return StaticApply(target, SOUTH);
