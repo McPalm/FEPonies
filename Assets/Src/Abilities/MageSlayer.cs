@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
-public class MageSlayer : Skill {
+public class MageSlayer : Skill, AttackBuff {
 
+	Stats _stats;
 
 	public override string Name {
 		get {
@@ -10,19 +12,29 @@ public class MageSlayer : Skill {
 		}
 	}
 
+	public Stats Stats
+	{
+		get
+		{
+			return _stats;
+		}
+	}
+
+	public bool Applies(Unit target, Tile source, Tile targetLocation)
+	{
+		int targetMana = target.GetComponent<Mana>().MaxMana;
+		if(targetMana > 0)
+		{
+			_stats.might = targetMana * 2;
+			return true;
+		}
+		return false;
+	}
+
 	// Use this for initialization
 	void Start () {
 		Unit u = GetComponent<Unit>();
-
-		Stats s = new Stats();
-		s.resistance = 3;
-		new DurationBuff(-1, s, u);
-
-		IEffect e = u.AttackInfo.effect;
-		DamageType t = e.damageType;
-		t.MageSlayer = true;
-		e.damageType = t;
-
-
+		u.RegisterAttackBuff(this);
+		_stats.hitBonus = 0.1f;
 	}
 }
