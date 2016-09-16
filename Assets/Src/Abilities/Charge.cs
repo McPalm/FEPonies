@@ -10,12 +10,12 @@
 using System;
 using UnityEngine;
 
-public class Charge : Passive
+public class Charge : Passive, AttackBuff, TurnObserver
 {
-	theBuff _buff;
-	int moves=0;
-	Vector3 startPosition;
-	
+	int distance = 0;
+	Tile startPosition;
+	Stats _stats;
+
 	public override string Name
 	{
 		get
@@ -24,54 +24,33 @@ public class Charge : Passive
 		}
 	}
 
-	void Start () {
-		_buff = new theBuff(this, GetComponent<Unit>());
-		BuffManager.Instance.Add(_buff);
-		startPosition = transform.position;
-	}
-
-	void Update()
+	public Stats Stats
 	{
-		//Unit u=GetComponent<Unit>();
-		//moves=(int)(Math.Abs(startTile.transform.position.x-u.transform.position.x)+Math.Abs(startTile.transform.position.y-u.transform.position.y));
+		get
+		{
+			return _stats;
+		}
 	}
 
-	void UnitSelected(){
-		//Unit u=GetComponent<Unit>();
-		//Debug.Log(u + " was selected!");
-		startPosition = transform.position; 
-	}
-
-	void UnitMoved(){
-		//Unit u=GetComponent<Unit>();
-		//Debug.Log(u + " moved!");
-		moves=(int)(Math.Abs(startPosition.x-transform.position.x)+Math.Abs(startPosition.y-transform.position.y));
-
-	}
-
-	private class theBuff : Buff
+	void Start()
 	{
-		Charge _host;
-		Unit _hostUnit;
+		startPosition = TileGrid.Instance.GetTileAt(transform.position);
+		UnitManager.Instance.RegisterTurnObserver(this);
+		GetComponent<Unit>().RegisterAttackBuff(this);
+	}
 
-		public theBuff (Charge _host, Unit _hostUnit)
-		{
-			this._host = _host;
-			this._hostUnit = _hostUnit;
-		}
-		
+	public bool Applies(Unit target, Tile source, Tile targetLocation)
+	{
+		distance = TileGrid.GetDelta(startPosition, target);
+		_stats.crit = (float)distance / 20f;
+		if (distance > 3) _stats.might = 2;
+		else _stats.might = 0;
 
-		public Stats Stats
-		{
-			get
-			{
-				return new Stats(new UnitMove(), 0, _host.moves, 0, 0, 0, 0);
-			}
-		}
+		return true;
+	}
 
-		public bool Affects(Unit u)
-		{
-			return _hostUnit==u && UnitManager.Instance.IsItMyTurn(u);
-		}
+	public void Notify(int turn)
+	{
+		startPosition = TileGrid.Instance.GetTileAt(transform.position);
 	}
 }
