@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
-public class Wingslayer : Passive, Buff {
+public class Wingslayer : Passive, AttackBuff {
 
 	private Stats buff;
 	private bool _active = false;
@@ -9,21 +10,16 @@ public class Wingslayer : Passive, Buff {
 
 	// Use this for initialization
 	void Start () {
-		IEffect e = GetComponent<Unit>().AttackInfo.effect;
-		DamageType t = e.damageType;
-		t.AntiAir = true;
-		e.damageType = t;
 
-		buff = new Stats();
 		buff.hitBonus = 0.3f;
 		host = GetComponent<Unit>();
-
-		BuffManager.Instance.Add(this);
+		buff.might = host.level / 2 + 3;
+		host.RegisterAttackBuff(this);
 	}
 
-	public bool Affects (Unit u)
+	public bool Applies(Unit target, Tile source, Tile targetLocation)
 	{
-		return _active && u == host;
+		return target.flight;
 	}
 
 	public Stats Stats {
@@ -37,13 +33,4 @@ public class Wingslayer : Passive, Buff {
 			return "Wingslayer";
 		}
 	}
-
-	void StartingAttackSequence(Unit target){
-		_active = target.flight;
-	}
-
-	void FinishedAttackSequence(Unit u){
-		_active = false;
-	}
-
 }
