@@ -14,7 +14,6 @@ public interface IEffect{
 		get;
 	}
 
-	int judgeAttack(Unit user, Unit target);
-
 	int Apply(Tile target, Unit user, bool testAttack);
+    int Apply(Tile target, Unit user, bool testAttack, Tile testTile);
 }

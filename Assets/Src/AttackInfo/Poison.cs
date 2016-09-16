@@ -22,7 +22,14 @@ public class Poison : MonoBehaviour, IEffect {
 		return 0;
 	}
 
-	static public void StaticApply(Tile target){
+    public int Apply(Tile target, Unit user, bool testAttack, Tile testTile)
+    {
+        if (testAttack) return 5;
+        else StaticApply(target);
+        return 0;
+    }
+
+    static public void StaticApply(Tile target){
 		if(target.Unit){
 			PoisonDebuff pd = target.Unit.GetComponent<PoisonDebuff>();
 			if(pd == null){
@@ -31,12 +38,5 @@ public class Poison : MonoBehaviour, IEffect {
 				pd.Stack(1, 5);
 			}
 		}
-	}
-
-	public int judgeAttack(Unit user, Unit target)
-	{
-		if(target.GetComponent<Poison>() == null)
-			return 5;
-		return 0;
 	}
 }

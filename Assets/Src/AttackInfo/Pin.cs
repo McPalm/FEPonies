@@ -27,8 +27,8 @@ public class Pin : IEffect {
 			Debug.LogWarning("Tried to root an empty square!");
 	}
 
-	public int judgeAttack(Unit user, Unit target)
-	{
-		throw new System.NotImplementedException();
-	}
+    public int Apply(Tile target, Unit user, bool testAttack, Tile testTile)
+    {
+        throw new System.NotImplementedException();
+    }
 }

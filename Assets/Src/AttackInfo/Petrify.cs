@@ -41,11 +41,11 @@ public class Petrify : IEffect {
 		else
 			Debug.LogWarning("Tried to petrify an empty square!");
 	}
-	
-	public int judgeAttack(Unit user, Unit target)
-	{
-		throw new System.NotImplementedException();
-	}
+
+    public int Apply(Tile target, Unit user, bool testAttack, Tile testTile)
+    {
+        throw new System.NotImplementedException();
+    }
 }
 
 

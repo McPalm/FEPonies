@@ -38,10 +38,9 @@ public class PetrifyAndDamage : MonoBehaviour, IEffect {
 		Petrify.StaticApply(target, user);
 		return Damage.StaticApply(target, user, dtyp); // may kill target, do last. Just to keep the sequence more safe.
 	}
-	
-	public int judgeAttack(Unit user, Unit target)
-	{
-		int damageDealt=Damage.StaticApply(target.Tile, user, _damageType, true);
-		return damageDealt;
-	}
+
+    public int Apply(Tile target, Unit user, bool testAttack, Tile testTile)
+    {
+        return Damage.StaticApply(target, user, _damageType, testAttack, testTile);
+    }
 }

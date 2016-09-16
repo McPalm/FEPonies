@@ -22,14 +22,15 @@ public class Heal : MonoBehaviour, IEffect {
 		throw new System.NotImplementedException ();
 	}
 
-	public int judgeAttack(Unit user, Unit target)
-	{
-		return target.damageTaken;
-	}
-
 	public bool Defence {
 		get {
 			return true;
 		}
 	}
+
+    public int Apply(Tile target, Unit user, bool testAttack, Tile testTile)
+    {
+        throw new System.NotImplementedException();
+    }
+
 }
