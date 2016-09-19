@@ -370,12 +370,17 @@ public class Unit : MonoBehaviour {
 	public void SendOnMiss(Tile t){
 		if(t.isOccuppied){
 			t.Unit.SendMessage("OnDodgeAttack", this, SendMessageOptions.DontRequireReceiver);
+			SendMessage("OnMissAttack", t.Unit, SendMessageOptions.DontRequireReceiver);
 			Particle.Dodge(t.transform.position);
 		}
 	}
 
-	public bool MoveToAndAnimate(Tile tile)
+	public bool MoveToAndAnimate(Tile tile, bool noncombat = false)
 	{
+		if (noncombat)
+		{
+			reachableTiles = TileGrid.Instance.GetFreeTiles();
+		}
 		invisible = false;
 		reachableTiles.UnionWith( TileGrid.Instance.GetOccuppiedTiles(this));
 		Pathfinder temp=new Pathfinder(Tile, tile, reachableTiles);
@@ -636,7 +641,7 @@ public class Unit : MonoBehaviour {
 		stats = _baseStats + _growth.Multiply( ((float)level)*0.01f);
         stats.crit = baseCrit;
         stats.critDodge = baseCritDodge;
-		stats.might = 4 + (level * 3) / 4;
+		stats.might = 5 + level;
 	}
 
 	// HACK
