@@ -60,7 +60,7 @@ public class AggroRadiusAI : Aggressive
 			HashSet<Tile> possibleAttacks = new HashSet<Tile>(unit.AttackInfo.GetAttackTiles(unit));
 			possibleAttacks.Remove (unit.Tile);
 			if (possibleAttacks.Count > 0) {
-				int max = 0;
+				float max = 0;
 				foreach (Tile o in possibleAttacks) {
 					if(o.Unit.invisible)
 					{
@@ -70,7 +70,7 @@ public class AggroRadiusAI : Aggressive
 						target = o.Unit;
 						break;
 					} else {
-						int temp = judgeAttackMove (unit, o.Unit, unit.Tile);///TODO check if the tile is correct
+						float temp = judgeAttackMove (unit, o.Unit, unit.Tile);///TODO check if the tile is correct
 						if (temp > max) {
 							target = o.Unit;
 							max = temp;
