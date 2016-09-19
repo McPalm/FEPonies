@@ -20,10 +20,6 @@ public class BuffArea : MonoBehaviour {
 		this.buff = _buff;
 		this._affectsEnemies = affectsEnemies;
 		this._user = GetComponent<Unit>(); // pretty hack, might come back and chew me un the bum.
-		if(_user == null){
-			Debug.LogWarning("AreaBuff found no user!");
-
-		}
 		BuffManager.Instance.Add(this);
 	}
 	

@@ -51,6 +51,7 @@ public class AbilityLibrary
         abilityLibrary.Add("Wormhole", typeof(Wormhole));
         abilityLibrary.Add("Wubs", typeof(Wubs));
 		abilityLibrary.Add("Backstab", typeof(Backstab));
+		abilityLibrary.Add("Follow Through", typeof(FollowThrough));
 	}
 
     public System.Type getTypeFromAbility(string s)
