@@ -14,7 +14,7 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 		HashSet<Tile> possibleMoves = unit.GetReachableTiles ();//Gets all possible moves
 		possibleMoves.Add (unit.Tile);
         ///Judge Attacks and moves
-        int maxJudge = 0;        
+        float maxJudge = 0;        
         foreach (Tile tile in possibleMoves) //Searches all moves
         {
 			possibleAttacks= new HashSet<Tile>(unit.AttackInfo.GetAttackTiles (unit, tile)); //Gets all possible attacks from that position
@@ -36,7 +36,7 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
                     }
                     else
                     {
-                        int temp = judgeAttackMove(unit, pa.Unit, tile);
+                        float temp = judgeAttackMove(unit, pa.Unit, tile);
                         if (temp > maxJudge)
                         {
                             target = pa.Unit;
@@ -106,7 +106,8 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 
     protected bool canMurder(Unit user, Unit target, Tile userPos)
     {
-        if (user.AttackInfo.effect.Apply(target.Tile, user, true, userPos)>=target.CurrentHP)
+        float hitChance = user.GetStatsAt(userPos, target).Hit - target.GetStatsAt(target.Tile, user, userPos).Dodge;
+        if (user.AttackInfo.effect.Apply(target.Tile, user, true, userPos)>=target.CurrentHP||hitChance>0.5f)
         {
             return true;
         }
@@ -116,16 +117,30 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
         }
     }
 
-    protected int judgeAttackMove(Unit user, Unit target, Tile moveTo)
+    protected float judgeAttackMove(Unit user, Unit target, Tile moveTo)
     {
-        int actionValue = user.AttackInfo.effect.Apply(target.Tile, user, true, moveTo);
+        float actionValue;
+        int damage = user.AttackInfo.effect.Apply(target.Tile, user, true, moveTo) * 2;
+        float hitChance = user.GetStatsAt(moveTo, target).Hit - target.GetStatsAt(target.Tile, user, moveTo).Dodge;
+        float critChance = user.GetStatsAt(moveTo, target).crit - target.GetStatsAt(target.Tile, user, moveTo).critDodge;
+        if (hitChance > 1f) hitChance = 1f;
+        else if (hitChance < 0f) hitChance = 0f;
+        if (critChance > 1f) critChance = 1f;
+        else if (critChance < 0f) critChance = 0f;
+        actionValue = damage * (hitChance+critChance);
 
-        if (target.retaliationsLeft == 0)
+        if (target.retaliationsLeft > 0&&target.AttackInfo.reach.GetTiles(target.Tile).Contains(moveTo))//If it will retaliate
         {
-            actionValue += 20;
+            damage = target.AttackInfo.effect.Apply(user.Tile, target, true);
+            hitChance = target.GetStatsAt(moveTo, target).Hit - user.GetStatsAt(target.Tile, user, moveTo).Dodge;
+            critChance = target.GetStatsAt(moveTo, target).crit - user.GetStatsAt(target.Tile, user, moveTo).critDodge;
+            if (hitChance > 1f) hitChance = 1f;
+            else if (hitChance < 0f) hitChance = 0f;
+            if (critChance > 1f) critChance = 1f;
+            else if (critChance < 0f) critChance = 0f;
+            actionValue -= damage * (hitChance + critChance);
         }
-
-		/*
+        /*
         else if ((user.AttackInfo.reach) is Melee)
         {
             if (target.AttackInfo.reach is Ranged || target.AttackInfo.reach is IncreasedRange)
@@ -154,19 +169,23 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
                 actionValue += 20;
             }
         }*/
-		actionValue += judgeMove(user, moveTo, target);
+        actionValue += judgeMove(user, moveTo, target);
 		return actionValue;
     }
 
-    protected int judgeMove(Unit user, Tile moveTo, Unit target = null)
+    protected float judgeMove(Unit user, Tile moveTo, Unit target = null)
     {
-        int moveValue = 0;
-        if (target!=null&&!target.AttackInfo.GetAttackTiles(target).Contains(moveTo))
+        float moveValue = 0;
+        if (target!=null&&target.AttackInfo.reach.GetTiles(target.Tile).Contains(moveTo))
         {
-            moveValue += 100;
+            moveValue -= 10;
         }
         Stats temp = user.GetStatsAt(moveTo);
-        moveValue += (int)(temp.critDodge*20) + temp.defense + (int)(temp.Dodge*20) + (int)(temp.Hit*20) + temp.resistance;
+        moveValue += (temp.critDodge*20) + temp.defense + (temp.Dodge*20) + (temp.Hit*20) + temp.resistance;
+        if (user.Tile == moveTo)
+        {
+            moveValue += 1;
+        }
         return moveValue;
     }
 
