@@ -197,7 +197,10 @@ public class Unit : MonoBehaviour {
 					while(StateManager.Instance.State != GameState.runningAttackSequence) yield return null;
 				}   
 			}
-            retaliatingUnit.retaliationsMade++;
+            if (AttackInfo.CanAttack(retaliatingUnit, this))
+            {
+                retaliatingUnit.retaliationsMade++;
+            }
 		}
 
 		// end
