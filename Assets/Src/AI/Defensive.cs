@@ -120,13 +120,16 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
     protected float judgeAttackMove(Unit user, Unit target, Tile moveTo)
     {
         float actionValue;
-        int damage = user.AttackInfo.effect.Apply(target.Tile, user, true, moveTo) * 2;
+        int damage = user.AttackInfo.effect.Apply(target.Tile, user, true, moveTo);
         float hitChance = user.GetStatsAt(moveTo, target).Hit - target.GetStatsAt(target.Tile, user, moveTo).Dodge;
         float critChance = user.GetStatsAt(moveTo, target).crit - target.GetStatsAt(target.Tile, user, moveTo).critDodge;
+
         if (hitChance > 1f) hitChance = 1f;
         else if (hitChance < 0f) hitChance = 0f;
         if (critChance > 1f) critChance = 1f;
         else if (critChance < 0f) critChance = 0f;
+        if (damage > target.GetStatsAt(target.Tile).maxHP) damage = 20;
+        damage = (damage / target.GetStatsAt(target.Tile).maxHP)*20;
         actionValue = damage * (hitChance+critChance);
 
         if (target.retaliationsLeft > 0&&target.AttackInfo.reach.GetTiles(target.Tile).Contains(moveTo))//If it will retaliate
@@ -138,7 +141,9 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
             else if (hitChance < 0f) hitChance = 0f;
             if (critChance > 1f) critChance = 1f;
             else if (critChance < 0f) critChance = 0f;
-            actionValue -= damage * (hitChance + critChance);
+            if (damage > target.GetStatsAt(target.Tile).maxHP) damage = 20;
+            damage = (damage / user.GetStatsAt(moveTo).maxHP)*20;
+            actionValue -= (damage * (hitChance + critChance))/2;
         }
         /*
         else if ((user.AttackInfo.reach) is Melee)
