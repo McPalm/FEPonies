@@ -8,8 +8,7 @@ public class GUInterface : MonoBehaviour {
 	static public GUInterface Instance{
 		get{
 			if(instance == null){
-				GameObject tempObj = new GameObject("Announcer");
-				tempObj.AddComponent<GUInterface>();
+				new GameObject("Announcer", typeof(GUInterface));
 			}
 			return instance;
 		}
@@ -22,17 +21,24 @@ public class GUInterface : MonoBehaviour {
 	private Vector2 buttonAnchor;
 	private int _buttonMenuButtonSize = 32;
 	private Unit attackTarget;
-	private Texture _shield = Resources.Load<Texture>("Shield");
-	private Texture _swords  = Resources.Load<Texture>("Swords");
-	private Texture _resistance = Resources.Load<Texture>("Resistance");
-	private Texture _healthBar = Resources.Load<Texture>("HealthBar");
-	private Texture _healthBarRed = Resources.Load<Texture>("HealthBarRed");
-	private Texture _healthFrame = Resources.Load<Texture>("HealthFrame");
+	private Texture _shield;
+	private Texture _swords;
+	private Texture _resistance;
+	private Texture _healthBar;
+	private Texture _healthBarRed;
+	private Texture _healthFrame;
 
 	void Awake(){
 		instance = this;
 		Pauser.Instance.UnPause();
-	}
+
+		_shield = Resources.Load<Texture>("Shield");
+		_swords = Resources.Load<Texture>("Swords");
+		_resistance = Resources.Load<Texture>("Resistance");
+		_healthBar = Resources.Load<Texture>("HealthBar");
+		_healthBarRed = Resources.Load<Texture>("HealthBarRed");
+		_healthFrame = Resources.Load<Texture>("HealthFrame");
+}
 	/// <summary>
 	/// Prints a message in the center of the screen for 1 + 0.1 seconds for every letter in the text.
 	/// </summary>

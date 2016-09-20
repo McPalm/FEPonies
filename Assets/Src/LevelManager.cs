@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class LevelManager : MonoBehaviour {
@@ -27,15 +28,16 @@ public class LevelManager : MonoBehaviour {
 	void Awake(){
 		if(instance == null){
 			instance = this;
+			SceneManager.sceneLoaded += SceneLoaded;
 			DontDestroyOnLoad(gameObject);
 		}else{
 			Destroy(gameObject);
 		}
 	}
 
-    void OnLevelWasLoaded()
-    {
-        isLoaded = true;
+	void SceneLoaded(Scene scene, LoadSceneMode m)
+	{
+		isLoaded = true;
     }
 
     void Update(){

@@ -579,7 +579,7 @@ public class Unit : MonoBehaviour {
 			}else{
 				GetComponent<Renderer>().material = normalMaterial;
 			}
-		}catch(System.NullReferenceException e){
+		}catch(System.NullReferenceException){
 			Debug.LogError(this + " is missing a greyscale/normal shader");
 		}
 	}

@@ -1,0 +1,197 @@
+fileFormatVersion: 2
+guid: f0cef5fe3ae20534591b420f8f66dfd8
+timeCreated: 1474291823
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: RoadRock2
+    21300002: RoadRock4
+    21300004: RoadGrass1
+    21300006: RoadGrass2
+    21300008: RoadGrass3
+    21300010: RoadRock3
+    21300012: RoadShade2
+    21300014: RoadRock1
+    21300016: RoadShade1
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: RoadRock2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 208
+        width: 49
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 19.5, y: 16}
+        - {x: -16.5, y: 16}
+        - {x: -24.5, y: 12}
+        - {x: -24.5, y: -16}
+        - {x: 22.5, y: -16}
+        - {x: 24.5, y: -14}
+        - {x: 24.5, y: 11}
+    - name: RoadRock4
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 220
+        width: 56
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -28, y: -3}
+        - {x: -16, y: -18}
+        - {x: 18, y: -18}
+        - {x: 28, y: -15}
+        - {x: 28, y: 18}
+        - {x: -20, y: 18}
+        - {x: -28, y: 12}
+    - name: RoadGrass1
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 204
+        width: 30
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: RoadGrass2
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 210
+        width: 35
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: RoadGrass3
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 212
+        width: 18
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: RoadRock3
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 191
+        width: 48
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: RoadShade2
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 100
+        width: 102
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -7, y: 44}
+        - {x: -45, y: 34}
+        - {x: -51, y: 12}
+        - {x: -51, y: -26}
+        - {x: -35, y: -44}
+        - {x: 19, y: -44}
+        - {x: 39, y: -36}
+        - {x: 51, y: -12}
+        - {x: 51, y: 44}
+    - name: RoadRock1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 172
+        width: 40
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: RoadShade1
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 95
+        width: 86
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 21, y: 37}
+        - {x: -28, y: 37}
+        - {x: -43, y: 22}
+        - {x: -43, y: -28}
+        - {x: -23, y: -37}
+        - {x: 39, y: -37}
+        - {x: 43, y: -28}
+        - {x: 43, y: 26}
+        - {x: 38, y: 33}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

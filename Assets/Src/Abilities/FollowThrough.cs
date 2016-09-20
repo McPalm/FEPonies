@@ -45,7 +45,6 @@ public class FollowThrough: Passive, AttackBuff {
 	
 	public void OnMissAttack(Unit target)
 	{
-		print("Miss!");
 		active = true;
 		_unit.doubleAttack = true;
 	}

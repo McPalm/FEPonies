@@ -6,7 +6,6 @@ public class Feint : Passive, AttackBuff {
 
 	Unit c;
 	Stats _stats;
-	bool firstupdate = true;
 	int intelligence;
 
 	public override string Name {
