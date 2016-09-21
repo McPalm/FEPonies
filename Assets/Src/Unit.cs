@@ -47,6 +47,7 @@ public class Unit : MonoBehaviour {
 	internal int retaliationsMade = 0; // TODO, encapsulate
     public static HashSet<Unit> selectedEnemies=new HashSet<Unit>();
 	internal Action currAction;
+	private Action issuedAction;
 	private static Unit selectedUnit;
 	private bool isFirstUpdate = true;
 	internal int damageTaken = 0;
@@ -139,9 +140,35 @@ public class Unit : MonoBehaviour {
 
 	// Methods
 
-	void performAction(Action act)
-	{
 
+	private bool givenCommand = false;
+	private Action command;
+	public void PerformAction(Action act = null)
+	{
+		// Debug.Log(act.ToString());
+		if (act != null)
+		{
+			command = act;
+			currAction = act.Duplicate();
+			givenCommand = true;
+		}
+		if(command != null && StateManager.Instance.State == GameState.unitSelected)
+		{
+			if (command.movement != null && tile != command.movement)
+			{
+				MoveToAndAnimate(currAction.movement);
+			}
+			else if(command.attack != null)
+			{
+				StartAttackSequence(command.attack.Unit);
+				command.attack = null;
+				givenCommand = false;
+			}
+			else
+			{
+				FinnishMovement();
+			}
+		}
 	}
 
 	void Awake()
@@ -327,7 +354,10 @@ public class Unit : MonoBehaviour {
 				break;
 			}
 		}
-
+		else if(givenCommand)
+		{
+			PerformAction();
+		}
 	}
 
 	public bool MoveTo(Tile tile)
@@ -572,6 +602,7 @@ public class Unit : MonoBehaviour {
 			StateManager.Instance.DebugPop();
 		}
 		History.Instance.Add(currAction);
+		currAction = null;
 	}
 
 	private void MakeGrey(bool grey){

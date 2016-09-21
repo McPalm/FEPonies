@@ -18,6 +18,10 @@ public class TileGrid : MonoBehaviour, IEnumerable{
 	private Tile[,] tiles;
 	private HashSet<Tile> tilesSet;
 
+	private HashSet<Tile> moveTiles;
+	private HashSet<Tile> attackTiles;
+	private Tile selectedTile;
+
 	/// <summary>
 	/// Singleton implementation
 	/// </summary>
@@ -32,6 +36,71 @@ public class TileGrid : MonoBehaviour, IEnumerable{
 		}
 	}
 
+	public HashSet<Tile> MoveTiles
+	{
+		set
+		{
+			if(moveTiles != null)
+			{
+				foreach(Tile t in moveTiles)
+				{
+					t.UnColourMe();
+				}
+			}
+			moveTiles = value;
+			if (moveTiles != null)
+			{
+				foreach (Tile y in moveTiles)
+				{
+					y.ColourMe(Color.blue);
+				}
+			}
+		}
+		get
+		{
+			return moveTiles;
+		}
+	}
+	public HashSet<Tile> AttackTiles
+	{
+		set
+		{
+			if (attackTiles != null)
+			{
+				foreach (Tile t in attackTiles)
+				{
+					t.UnColourMe();
+				}
+			}
+			attackTiles = value;
+			if (attackTiles != null)
+			{
+				foreach (Tile y in attackTiles)
+				{
+					y.ColourMe(Color.red);
+				}
+			}
+		}
+		get
+		{
+			return attackTiles;
+		}
+	}
+	public Tile SelectedTile
+	{
+		set
+		{
+			if(selectedTile != null) selectedTile.UnColourMe();
+			selectedTile = value;
+			if (selectedTile != null) selectedTile.ColourMe(new Color(1f, 0.5f, 0f));
+		}
+		get
+		{
+			return selectedTile;
+		}
+	}
+
+
 	void Awake(){
 		maxSize = MaxGridSize;
 
@@ -40,7 +109,6 @@ public class TileGrid : MonoBehaviour, IEnumerable{
 			// put initiation code here!
 			tiles = new Tile[maxSize, maxSize];
 			tilesSet=new HashSet<Tile>();
-
 		}else{
 			Destroy(gameObject);
 		}
