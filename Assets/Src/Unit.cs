@@ -27,11 +27,10 @@ public class Unit : MonoBehaviour {
 	public StatLevels HP;
 	public StatLevels strength;
 	public StatLevels agility;
+	public StatLevels dexterity;
 	public StatLevels intelligence;
 	public StatLevels Defence;
 	public StatLevels Resistance;
-    public float baseCrit;
-    public float baseCritDodge;
     public int speed = 5;
 	public bool flight = false;
 	public int group; // move to other behaviour!
@@ -231,8 +230,8 @@ public class Unit : MonoBehaviour {
 			Stats s = GetStatsAt(Tile, target);
 			Stats es = target.GetStatsAt(target.Tile, this);
 			float roll = UnityEngine.Random.Range(0f,1f);
-			bool hit = roll < s.Hit - es.Dodge; //ModifiedStats.Hit-target.ModifiedStats.Dodge;
-			bool crit = roll < s.crit - es.critDodge; //(ModifiedStats.crit - target.ModifiedStats.critDodge);
+			bool hit = roll < s.HitVersus(es); //ModifiedStats.Hit-target.ModifiedStats.Dodge;
+			bool crit = roll < s.CritVersus(es); //(ModifiedStats.crit - target.ModifiedStats.critDodge);
 
 			DamageType d = AttackInfo.effect.damageType;
 			d.Critical = crit;
@@ -639,11 +638,9 @@ public class Unit : MonoBehaviour {
 	/// Recalcs the base stats. In case of level being changed.
 	/// </summary>
 	public void RecalcBaseStats(){
-		_baseStats = Stats.BaseStats(HP, strength, agility, intelligence, Defence, Resistance, speed, flight);
-		_growth = Stats.StatsGrowth(HP, strength, agility, intelligence, Defence, Resistance);
+		_baseStats = Stats.BaseStats(HP, strength, agility, dexterity, intelligence, Defence, Resistance, speed, flight);
+		_growth = Stats.StatsGrowth(HP, strength, agility, dexterity, intelligence, Defence, Resistance);
 		stats = _baseStats + _growth.Multiply( ((float)level)*0.01f);
-        stats.crit = baseCrit;
-        stats.critDodge = baseCritDodge;
 		stats.might = 5 + level;
 	}
 

@@ -11,7 +11,9 @@ public class Wings : AbilityWithManacost, TargetedAbility {
 
 	public void Notify (Tile target)
 	{
-		new DurationBuff(999, new Stats(new UnitMove(1, MoveType.flying), 0, 0, 0, 0, 0, 0), target.Unit);
+		Stats stats = new Stats();
+		stats.movement = new UnitMove(1, MoveType.flying);
+		new DurationBuff(999, stats, target.Unit);
 		FinishUse();
 	}
 

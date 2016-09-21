@@ -163,8 +163,8 @@ public class GUInterface : MonoBehaviour {
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*6, 90, 23), ("Defence: " + s.defense));
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*7, 90, 23), ("Resitance: " + s.resistance));
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*8, 90, 23), ("Move: " + s.movement.moveSpeed));
-        GUI.Label(new Rect(x + 5, y + 5 + MARGAIN * 9, 90, 23), ("Crit: " + s.crit * 100+"%"));
-        GUI.Label(new Rect(x + 5, y + 5 + MARGAIN * 10, 90, 23), ("Crit Ddg: " + s.critDodge * 100 + "%"));
+        GUI.Label(new Rect(x + 5, y + 5 + MARGAIN * 9, 90, 23), ("Crit: " + s.Crit * 100+"%"));
+        GUI.Label(new Rect(x + 5, y + 5 + MARGAIN * 10, 90, 23), ("Crit Ddg: " + s.CritDodge * 100 + "%"));
         GUI.Label(new Rect(x+5, y+5+MARGAIN*11, 90, 23), (client.toolTip));
 	}
 

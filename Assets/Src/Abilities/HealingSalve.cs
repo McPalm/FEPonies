@@ -15,7 +15,7 @@ public class HealingSalve: Ability, TargetedAbility, AIAbility
 {
 	public int duration=2;
 	public int uses=2;
-	private Stats statBuff =new Stats(new UnitMove(0),0,2,2,2,2,2);
+	private Stats statBuff =new Stats(new UnitMove(0),0,2,2,2,2,2,2);
 	private Unit target;
 	private DurationBuff buff;
 

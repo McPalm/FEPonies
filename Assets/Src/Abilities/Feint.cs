@@ -37,9 +37,9 @@ public class Feint : Passive, AttackBuff {
 		{
 			float bonus = (float)(intelligence - targetInt)/20;
 			_stats.dodgeBonus = bonus;
-			_stats.crit = bonus;
+			_stats.critBonus = bonus;
 			_stats.hitBonus = bonus;
-			_stats.critDodge = bonus;
+			_stats.critDodgeBonus = bonus;
 			return true;
 		}
 		return false;

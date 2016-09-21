@@ -15,7 +15,8 @@ public class RootDebuff : Debuff, TurnObserver, Buff {
 
 	// Use this for initialization
 	void Start () {
-		mod = new Stats(new UnitMove(-99), 0, 0, 0, 0, 0, 0);
+		mod = new Stats();
+		mod.movement = new UnitMove(-99);
 		mod.dodgeBonus = -0.3f;
 		mod.hitBonus = -0.1f;
 		UnitManager.Instance.RegisterTurnObserver(this);

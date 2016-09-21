@@ -36,8 +36,8 @@ public static class BattleSeer
         }
         Stats sourceStats = source.GetStatsAt(sourcePos, target, targetPos);
         Stats targetStats = target.GetStatsAt(targetPos, target, targetPos);
-        rv.hitChance = sourceStats.Hit - targetStats.Dodge;
-        rv.critChance = sourceStats.crit - targetStats.critDodge;
+        rv.hitChance = sourceStats.HitVersus(targetStats);
+        rv.critChance = sourceStats.CritVersus(targetStats);
         rv.willRetaliate = canRetaliate(source, target, sourcePos, targetPos);
         if (source.AttackInfo.effect.damageType.Normal)
         {

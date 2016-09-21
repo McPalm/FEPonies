@@ -108,8 +108,8 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 
     protected bool canMurder(Unit user, Unit target, Tile userPos)
     {
-        float hitChance = user.GetStatsAt(userPos, target).Hit - target.GetStatsAt(target.Tile, user, userPos).Dodge;
-        if (user.AttackInfo.effect.Apply(target.Tile, user, true, userPos) >= target.CurrentHP && hitChance>0.5f)
+		float hitChance = user.GetStatsAt(userPos, target).HitVersus(target.GetStatsAt(target.Tile, user, userPos));
+		if (user.AttackInfo.effect.Apply(target.Tile, user, true, userPos) >= target.CurrentHP && hitChance>0.5f)
         {
             return true;
         }
@@ -121,65 +121,31 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 
     protected float judgeAttackMove(Unit user, Unit target, Tile moveTo)
     {
-        float actionValue;
+		float actionValue;
+
+		// gather data
+		Stats attackStats = user.GetStatsAt(moveTo, target);
+		Stats defenceStats = user.GetStatsAt(moveTo, target);
         float damage = user.AttackInfo.effect.Apply(target.Tile, user, true, moveTo);
-        float hitChance = user.GetStatsAt(moveTo, target).Hit - target.GetStatsAt(target.Tile, user, moveTo).Dodge;
-        float critChance = user.GetStatsAt(moveTo, target).crit - target.GetStatsAt(target.Tile, user, moveTo).critDodge;
+		float hitChance = attackStats.HitVersus(defenceStats);
+        float critChance = attackStats.CritVersus(defenceStats);
 
-        if (hitChance > 1f) hitChance = 1f;
-        else if (hitChance < 0f) hitChance = 0f;
-        if (critChance > 1f) critChance = 1f;
-        else if (critChance < 0f) critChance = 0f;
-        if (damage > target.GetStatsAt(target.Tile).maxHP) damage = 20;
-        damage = (damage / target.GetStatsAt(target.Tile).maxHP)*20;
-		Debug.Log("Damage: " + damage);
+		// calculate average damage as a function of targets max health
+        if (damage > defenceStats.maxHP) damage = 20;
+        damage = (damage / defenceStats.maxHP)*20;
         actionValue = damage * (hitChance+critChance);
-		Debug.Log("Average Damage: " + actionValue);
-
 
         if (target.retaliationsLeft > 0&&target.AttackInfo.reach.GetTiles(target.Tile).Contains(moveTo))//If it will retaliate
         {
+			// repeat pervious calculation, but on the retaliation.
             damage = target.AttackInfo.effect.Apply(user.Tile, target, true);
-            hitChance = target.GetStatsAt(moveTo, target).Hit - user.GetStatsAt(target.Tile, user, moveTo).Dodge;
-            critChance = target.GetStatsAt(moveTo, target).crit - user.GetStatsAt(target.Tile, user, moveTo).critDodge;
-            if (hitChance > 1f) hitChance = 1f;
-            else if (hitChance < 0f) hitChance = 0f;
-            if (critChance > 1f) critChance = 1f;
-            else if (critChance < 0f) critChance = 0f;
-            if (damage > target.GetStatsAt(target.Tile).maxHP) damage = 20;
-            damage = (damage / user.GetStatsAt(moveTo).maxHP)*20;
+            hitChance = defenceStats.HitVersus(attackStats);
+            critChance = defenceStats.CritVersus(attackStats);
+          
+            damage = (damage / attackStats.maxHP)*20;
             actionValue -= (damage * (hitChance + critChance))/2;
-			Debug.Log("Retaliation: " + (damage * (hitChance + critChance)));
         }
-        /*
-        else if ((user.AttackInfo.reach) is Melee)
-        {
-            if (target.AttackInfo.reach is Ranged || target.AttackInfo.reach is IncreasedRange)
-            {
-                actionValue += 20;
-            }
-        }
-        else if (user.AttackInfo.reach is Ranged)
-        {
-            if (target.AttackInfo.reach is Melee)
-            {
-                actionValue += 20;
-            }
-        }
-        else if (user.AttackInfo.reach is RangeAndMelee)
-        {
-            if (target.AttackInfo.reach is Melee || target.AttackInfo.reach is Ranged || target.AttackInfo.reach is IncreasedRange)
-            {
-                actionValue += 20;
-            }
-        }
-        else if (user.AttackInfo.reach is IncreasedRange)
-        {
-            if (target.AttackInfo.reach is Melee || target.AttackInfo.reach is Ranged || target.AttackInfo.reach is RangeAndMelee)
-            {
-                actionValue += 20;
-            }
-        }*/
+
         actionValue += judgeMove(user, moveTo, target);
 		return actionValue;
     }
@@ -192,7 +158,7 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
             moveValue -= 10;
         }
         Stats temp = user.GetStatsAt(moveTo);
-        moveValue += (temp.critDodge*20) + temp.defense + (temp.Dodge*20) + (temp.Hit*20) + temp.resistance;
+        moveValue += (temp.critDodgeBonus*20) + temp.defense + (temp.Dodge*20) + (temp.Hit*20) + temp.resistance;
         if (user.Tile == moveTo)
         {
             moveValue += 1;

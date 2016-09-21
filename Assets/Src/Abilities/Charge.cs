@@ -42,7 +42,7 @@ public class Charge : Passive, AttackBuff, TurnObserver
 	public bool Applies(Unit target, Tile source, Tile targetLocation)
 	{
 		distance = TileGrid.GetDelta(startPosition, target);
-		_stats.crit = (float)distance / 20f;
+		_stats.critBonus = (float)distance / 20f;
 		if (distance > 3) _stats.might = 2;
 		else _stats.might = 0;
 

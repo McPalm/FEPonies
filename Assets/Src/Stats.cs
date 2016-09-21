@@ -18,90 +18,107 @@ public struct Stats
 	public int maxHP;
 	public int strength;
 	public int agility;
+	public int dexterity;
 	public int intelligence;
 	public int defense;
 	public int resistance;
 	public float dodgeBonus;
 	public float hitBonus;
 	public float baseAttackMod;
-	public float crit;
-    public float critDodge;
+	public float critBonus;
+    public float critDodgeBonus;
 	public int might;
 
 	public float Dodge
 	{
 		get
 		{
-			return agility*0.02f + 0.015f*Mathf.Min(agility, 5) + 0.015f*Mathf.Min(agility, 10) + dodgeBonus;
+			return (agility*3 + dexterity)/100f + dodgeBonus;
 		}
 	}
 	public float Hit
 	{
 		get
 		{
-			return 0.8f+agility*0.02f + 0.015f*Mathf.Min(agility, 5) + 0.015f*Mathf.Min(agility, 10) + hitBonus;
+			return (90 + dexterity * 2 + intelligence * 2) / 100f + hitBonus;
+		}
+	}
+	public float Crit
+	{
+		get
+		{
+			return dexterity / 100f + critBonus;
+		}
+	}
+	public float CritDodge
+	{
+		get
+		{
+			return agility / 100f + critDodgeBonus;
 		}
 	}
 
-
-	public Stats (UnitMove movement, int maxHP, int strength, int agility, int intelligence, int defense, int resistance)
+	public Stats (UnitMove movement, int maxHP, int strength, int agility, int dexterity, int intelligence, int defense, int resistance)
 	{
 		this.movement = movement;
 		this.maxHP = maxHP;
 		this.strength = strength;
 		this.agility = agility;
+		this.dexterity = dexterity;
 		this.intelligence = intelligence;
 		this.defense = defense;
 		this.resistance = resistance;
 		dodgeBonus = 0;
 		hitBonus = 0;
 		baseAttackMod = 0f;
-		crit = 0f;
-        critDodge = 0f;
+		critBonus = 0f;
+        critDodgeBonus = 0f;
 		might = 0;
 	}
 
-	public Stats (UnitMove movement, int maxHP, int strength, int agility, int intelligence,
+	public Stats (UnitMove movement, int maxHP, int strength, int agility, int dexterity, int intelligence,
 	              int defense, int resistance, float dodgeBonus, float hitBonus, float baseAttackMod, float crit, float critDodge)
 	{
 		this.movement = movement;
 		this.maxHP = maxHP;
 		this.strength = strength;
 		this.agility = agility;
+		this.dexterity = dexterity;
 		this.intelligence = intelligence;
 		this.defense = defense;
 		this.resistance = resistance;
 		this.dodgeBonus = dodgeBonus;
 		this.hitBonus = hitBonus;
 		this.baseAttackMod = baseAttackMod;
-		this.crit = crit;
-        this.critDodge = critDodge;
+		this.critBonus = crit;
+        this.critDodgeBonus = critDodge;
 		might = 0;
 	}
-	public Stats(UnitMove movement, int maxHP, int strength, int agility, int intelligence,
+	public Stats(UnitMove movement, int maxHP, int strength, int agility, int dexterity, int intelligence,
 				  int defense, int resistance, float dodgeBonus, float hitBonus, float baseAttackMod, float crit, float critDodge, int might)
 	{
 		this.movement = movement;
 		this.maxHP = maxHP;
 		this.strength = strength;
 		this.agility = agility;
+		this.dexterity = dexterity;
 		this.intelligence = intelligence;
 		this.defense = defense;
 		this.resistance = resistance;
 		this.dodgeBonus = dodgeBonus;
 		this.hitBonus = hitBonus;
 		this.baseAttackMod = baseAttackMod;
-		this.crit = crit;
-		this.critDodge = critDodge;
+		this.critBonus = crit;
+		this.critDodgeBonus = critDodge;
 		this.might = might;
 	}
 
 	// overload operator +
 	public static Stats operator +(Stats a, Stats b){
 		return new Stats(a.movement+b.movement, a.maxHP+b.maxHP,
-		                 a.strength+b.strength, a.agility+b.agility, a.intelligence+b.intelligence,
+		                 a.strength+b.strength, a.agility+b.agility, a.dexterity+b.dexterity, a.intelligence+b.intelligence,
 		                 a.defense+b.defense, a.resistance+b.resistance, a.dodgeBonus + b.dodgeBonus, a.hitBonus+b.hitBonus,
-		                 a.baseAttackMod+b.baseAttackMod, a.crit+b.crit, a.critDodge+b.critDodge, a.might+b.might);
+		                 a.baseAttackMod+b.baseAttackMod, a.critBonus+b.critBonus, a.critDodgeBonus+b.critDodgeBonus, a.might+b.might);
 	}
 
 	/// <summary>
@@ -125,27 +142,45 @@ public struct Stats
 	}
 
 	public Stats Multiply(float x){
-		return new Stats(movement, Mathf.RoundToInt(maxHP*x), Mathf.RoundToInt(strength*x), Mathf.RoundToInt(agility*x), Mathf.RoundToInt(intelligence*x),  Mathf.RoundToInt(defense*x), Mathf.RoundToInt(resistance*x));
+		return new Stats(movement, Mathf.RoundToInt(maxHP*x), Mathf.RoundToInt(strength*x), Mathf.RoundToInt(agility*x), Mathf.RoundToInt(dexterity*x), Mathf.RoundToInt(intelligence*x),  Mathf.RoundToInt(defense*x), Mathf.RoundToInt(resistance*x));
 	}
 
-	static public Stats BaseStats(StatLevels hp, StatLevels str, StatLevels agi, StatLevels intel, StatLevels df, StatLevels rs, int sp, bool fl){
+	static public Stats BaseStats(StatLevels hp, StatLevels str, StatLevels agi, StatLevels dex, StatLevels intel, StatLevels df, StatLevels rs, int sp, bool fl){
 		int thp = (hp == StatLevels.Low) ? 14 : (hp == StatLevels.Medium) ? 17 : (hp == StatLevels.Jeigan) ? 25 : (hp == StatLevels.Est) ? 14 : (hp == StatLevels.MidLow) ? 16 : 22; // last stat is high
 		int tstr = (str == StatLevels.Low) ? 1 : (str == StatLevels.Medium) ? 3 : (str == StatLevels.Jeigan) ? 5 : (str == StatLevels.Est) ? 1 : (str == StatLevels.MidLow) ? 2 : 4;
 		int tagi = (agi == StatLevels.Low) ? 1 : (agi == StatLevels.Medium) ? 3 : (agi == StatLevels.Jeigan) ? 5 : (agi == StatLevels.Est) ? 1 : (agi == StatLevels.MidLow) ? 2 : 4;
+		int tdex = (dex == StatLevels.Low) ? 1 : (dex == StatLevels.Medium) ? 3 : (dex == StatLevels.Jeigan) ? 5 : (dex == StatLevels.Est) ? 1 : (dex == StatLevels.MidLow) ? 2 : 4;
 		int tint =(intel == StatLevels.Low) ? 1 : (intel == StatLevels.Medium) ? 3 : (intel == StatLevels.Jeigan) ? 5 : (intel == StatLevels.Est) ? 1 : (intel == StatLevels.MidLow) ? 2 : 4;
 		int tdf = (df == StatLevels.Low) ? 1 : (df == StatLevels.Medium) ? 3 : (df == StatLevels.Jeigan) ? 5 : (df == StatLevels.Est) ? 1 : (df == StatLevels.MidLow) ? 2 : 4;
 		int trs = (rs == StatLevels.Low) ? 1 : (rs == StatLevels.Medium) ? 3 : (rs == StatLevels.Jeigan) ? 5 : (rs == StatLevels.Est) ? 1 : (rs == StatLevels.MidLow) ? 2 : 4;
-		return new Stats(new UnitMove(sp, (fl)? MoveType.flying : MoveType.walking), thp, tstr, tagi, tint, tdf, trs);
+		return new Stats(new UnitMove(sp, (fl)? MoveType.flying : MoveType.walking), thp, tstr, tagi, tdex, tint, tdf, trs);
 	}
 
-	static public Stats StatsGrowth(StatLevels hp, StatLevels st, StatLevels agi, StatLevels intel, StatLevels df, StatLevels rs){
+	static public Stats StatsGrowth(StatLevels hp, StatLevels st, StatLevels agi, StatLevels dex, StatLevels intel, StatLevels df, StatLevels rs){
 		int thp = (hp == StatLevels.Low) ? 150 : (hp == StatLevels.Medium) ? 200 : (hp == StatLevels.Jeigan) ? 100 : (hp == StatLevels.Est) ? 300 : (hp == StatLevels.MidLow) ? 175 : 280;
 		int tstr = (st == StatLevels.Low) ? 25 : (st == StatLevels.Medium) ? 45 : (st == StatLevels.Jeigan) ? 10 : (st == StatLevels.Est) ? 100 : (st == StatLevels.MidLow) ? 35 : 80;
 		int tagi = (agi == StatLevels.Low) ? 25 : (agi == StatLevels.Medium) ? 45 : (agi == StatLevels.Jeigan) ? 10 : (agi == StatLevels.Est) ? 100 : (agi == StatLevels.MidLow) ? 35 : 80;
+		int tdex = (dex == StatLevels.Low) ? 25 : (dex == StatLevels.Medium) ? 45 : (dex == StatLevels.Jeigan) ? 10 : (dex == StatLevels.Est) ? 100 : (dex == StatLevels.MidLow) ? 35 : 80;
 		int tint =(intel == StatLevels.Low) ? 25 : (intel == StatLevels.Medium) ? 45 : (intel == StatLevels.Jeigan) ? 10 : (intel == StatLevels.Est) ? 100 : (intel == StatLevels.MidLow) ? 35 : 80;
 		int tdef = (df == StatLevels.Low) ? 25 : (df == StatLevels.Medium) ? 45 : (df == StatLevels.Jeigan) ? 10 : (df == StatLevels.Est) ? 100 : (df == StatLevels.MidLow) ? 35 : 80;
 		int tres = (rs == StatLevels.Low) ? 25 : (rs == StatLevels.Medium) ? 45 : (rs == StatLevels.Jeigan) ? 10 : (rs == StatLevels.Est) ? 100 : (rs == StatLevels.MidLow) ? 35 : 80;
-		return new Stats(new UnitMove(), thp, tstr, tagi, tint, tdef, tres);
+		return new Stats(new UnitMove(), thp, tstr, tagi, tdex, tint, tdef, tres);
+	}
+
+	public float HitVersus(Stats target)
+	{
+		float chance = Hit - target.Dodge;
+		if (chance > 1f) return 1f;
+		if (chance < 0.05f) return 0.05f;
+		return chance;
+	}
+
+	public float CritVersus(Stats target)
+	{
+		float chance = Crit - target.CritDodge;
+		if (chance > 0.99f) return 0.99f;
+		if (chance < 0f) return 0f;
+		return chance;
 	}
 }
 

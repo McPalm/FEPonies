@@ -20,7 +20,7 @@ public class Assassin : Skill {
 
 	void Recalc(){
 		Stats s = new Stats();
-		s.crit = GetComponent<Unit>().ModifiedStats.agility*0.02f + 0.2f;
+		s.critBonus = GetComponent<Unit>().ModifiedStats.agility*0.02f + 0.2f;
 		s.movement.moveSpeed = 1;
 		_buff.Buff = s;
 	}

@@ -33,7 +33,7 @@ public class Riposte : Passive, Buff{
 	void calcBuff(){
 		_buff = new Stats();
 		_buff.hitBonus = 1f;
-		_buff.crit = 1f;
+		_buff.critBonus = 1f;
 	}
 
 	// Use this for initialization
