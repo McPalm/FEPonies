@@ -316,6 +316,7 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 						possibleMoves.IntersectWith(TileGrid.Instance.MoveTiles);
 
 						//Find out laziest move
+						suggestedMove = LazyMove();
 						float distance = 999f;
 						
 						foreach (Tile t in possibleMoves)
@@ -546,5 +547,10 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 		TileGrid.Instance.AttackTiles = attackable;
 
 		StateManager.Instance.DebugPush(GameState.unitSelected);
+	}
+
+	public Tile LazyMove()
+	{
+		return null;
 	}
 }
