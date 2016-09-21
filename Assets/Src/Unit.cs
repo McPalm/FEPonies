@@ -34,7 +34,7 @@ public class Unit : MonoBehaviour {
     public int speed = 5;
 	public bool flight = false;
 	public int group; // move to other behaviour!
-    public int retaliations = 1;
+    private int retaliations = 1;
     // public Ability ability;
     public Material greyscale;
 	public Material normalMaterial;

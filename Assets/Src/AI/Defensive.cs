@@ -30,7 +30,6 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
                     }
                     else if (canMurder(unit, pa.Unit, tile))
                     {
-						Debug.Log("Murder?");
 						target = pa.Unit;
 						targetMove = tile;
 						maxJudge = 1000;
