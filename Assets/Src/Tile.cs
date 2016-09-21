@@ -259,20 +259,9 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 		{
 			case GameState.playerTurn:
 				if (isOccuppied && Unit.CanMove)
-				{ // Here we select a unit.
-					unit.Select();
-					unit.currAction = new Action(this);
-					TileGrid.Instance.SelectedTile = this;
-					HashSet<Tile> reachable = unit.reachableTiles;
-					HashSet<Tile> attackable = new HashSet<Tile>();
-					foreach (Tile o in reachable)
-					{
-						attackable.UnionWith(unit.AttackInfo.GetAttackTiles(unit, o));
-					}
-					TileGrid.Instance.MoveTiles = reachable;
-					TileGrid.Instance.AttackTiles = attackable;
-
-					StateManager.Instance.DebugPush(GameState.unitSelected);
+				{
+					// Here we select a unit.
+					SelectUnit(selectedUnit);
 				}
 				else if (isOccuppied && Unit.team != UnitManager.PLAYER_TEAM && !Unit.invisible)//If it is not the player team.
 				{
@@ -306,21 +295,14 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 					CancelSelection();
 				}
 				else if (Unit.SelectedUnit.reachableTiles.Contains(this))
-				{ // if we click a tile the unit can move to
-					foreach (Tile o in Unit.SelectedUnit.AttackInfo.GetAttackTiles(Unit.SelectedUnit))
-					{
-						o.UnColourMe();
-					}
+				{
+					// if we click a tile the unit can move to
 					Unit.SelectedUnit.MoveToAndAnimate(this);
-					foreach (Tile o in Unit.SelectedUnit.AttackInfo.GetAttackTiles(Unit.SelectedUnit))
-					{
-						o.ColourMe(Color.red);
-					}
 				}
 				else if (TileGrid.Instance.AttackTiles.Contains(this))
 				{
-					// if we click a tile the unit can attack.
-					//Get Tiles you can attack target from
+					// If we click a tile the unit can attack.
+					// Get Tiles you can attack target from
 					Tile suggestedMove = null;
 					HashSet <Tile> possibleMoves = new HashSet<Tile>();
 					possibleMoves.UnionWith(selectedUnit.AttackInfo.reach.GetTiles(this));
@@ -338,10 +320,7 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 						
 						foreach (Tile t in possibleMoves)
 						{
-							print(t);
-							print(this);
 							float cd = (selectedUnit.transform.position - t.transform.position).magnitude;
-							print(cd);
 							if (cd < distance)
 							{
 								suggestedMove = t;
@@ -360,18 +339,7 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 				else if (this.isOccuppied && Unit.CanMove)//If we click on another team unit.
 				{
 					CancelSelection();
-					this.Unit.Select();
-					Unit.SelectedUnit.currAction = new Action(this);
-					ColourMe(new Color(1f, 0.5f, 0f));
-					foreach (Tile o in Unit.SelectedUnit.reachableTiles)
-					{
-						o.ColourMe(Color.blue);
-					}
-					foreach (Tile o in Unit.SelectedUnit.AttackInfo.GetAttackTiles(Unit.SelectedUnit))
-					{
-						o.ColourMe(Color.red);
-					}
-					StateManager.Instance.DebugPush(GameState.unitSelected);
+					SelectUnit(this.unit);
 				}
 				else
 				{
@@ -379,8 +347,8 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 					CancelSelection();
 				}
 				break;
-			case GameState.evaluateAttack:
-				GUInterface.Instance.Clicked(this);
+				case GameState.evaluateAttack:
+					GUInterface.Instance.Clicked(this);
 				break;
 		}
 	}
@@ -561,5 +529,22 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 	public void RemoveSlow(UnityEngine.Object o)
 	{
 		_slows.Remove(o);
+	}
+
+	public void SelectUnit(Unit u)
+	{
+		unit.Select();
+		unit.currAction = new Action(this);
+		TileGrid.Instance.SelectedTile = this;
+		HashSet<Tile> reachable = unit.reachableTiles;
+		HashSet<Tile> attackable = new HashSet<Tile>();
+		foreach (Tile o in reachable)
+		{
+			attackable.UnionWith(unit.AttackInfo.GetAttackTiles(unit, o));
+		}
+		TileGrid.Instance.MoveTiles = reachable;
+		TileGrid.Instance.AttackTiles = attackable;
+
+		StateManager.Instance.DebugPush(GameState.unitSelected);
 	}
 }

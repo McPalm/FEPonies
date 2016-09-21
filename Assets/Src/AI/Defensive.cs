@@ -7,7 +7,6 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 
 	public virtual Action GetAction(Unit unit)
 	{
-		Debug.Log("Defensive!");
 		Unit target=null;
         Tile targetMove = null;
 		Action retValue=new Action(unit.Tile);
