@@ -347,8 +347,8 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 					CancelSelection();
 				}
 				break;
-				case GameState.evaluateAttack:
-					GUInterface.Instance.Clicked(this);
+			case GameState.evaluateAttack:
+				GUInterface.Instance.Clicked(this);
 				break;
 		}
 	}

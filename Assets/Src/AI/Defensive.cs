@@ -134,7 +134,7 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
         damage = (damage / defenceStats.maxHP)*20;
         actionValue = damage * (hitChance+critChance);
 
-        if (target.retaliationsLeft > 0&&target.AttackInfo.reach.GetTiles(target.Tile).Contains(moveTo))//If it will retaliate
+        if (target.RetaliationsLeft > 0&&target.AttackInfo.reach.GetTiles(target.Tile).Contains(moveTo))//If it will retaliate
         {
 			// repeat pervious calculation, but on the retaliation.
             damage = target.AttackInfo.effect.Apply(user.Tile, target, true);

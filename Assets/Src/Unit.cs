@@ -133,7 +133,7 @@ public class Unit : MonoBehaviour {
 		get{return ModifiedStats.maxHP - damageTaken;} 
 	}
 
-	public int retaliationsLeft
+	public int RetaliationsLeft
 	{
 		get { return retaliations - retaliationsMade;}
 	}
@@ -208,8 +208,11 @@ public class Unit : MonoBehaviour {
 		while(StateManager.Instance.State != GameState.runningAttackSequence) yield return null;
 
 		// counter
-		if(retaliatingUnit && retaliatingUnit.IsAlive && retaliatingUnit.retaliationsMade<retaliatingUnit.retaliations){
-			retaliatingUnit.Attack(this);
+		if(retaliatingUnit && retaliatingUnit.IsAlive && retaliatingUnit.RetaliationsLeft > 0){
+			if (retaliatingUnit.Attack(this) && retaliatingUnit.RetaliationsLeft > 0)
+			{
+				retaliatingUnit.retaliationsMade++;
+			}
 			while(StateManager.Instance.State != GameState.runningAttackSequence) yield return null;
 
 			// second attack
@@ -223,10 +226,6 @@ public class Unit : MonoBehaviour {
 					while(StateManager.Instance.State != GameState.runningAttackSequence) yield return null;
 				}   
 			}
-            if (AttackInfo.CanAttack(retaliatingUnit, this))
-            {
-                retaliatingUnit.retaliationsMade++;
-            }
 		}
 
 		// end
@@ -243,7 +242,7 @@ public class Unit : MonoBehaviour {
 	/// attack a target and do everything needed
 	/// </summary>
 	/// <param name="target"></param>
-	void Attack(Unit target){
+	bool Attack(Unit target){
 
 		if(AttackInfo.CanAttack(this, target))
 		{
@@ -265,7 +264,9 @@ public class Unit : MonoBehaviour {
 			AttackInfo.effect.damageType = d;
 
 			AnimateAttack(target.tile, hit);
+			return true;
 		}
+		return false;
 	}
 	// Use this for initialization
 	void Start () {
