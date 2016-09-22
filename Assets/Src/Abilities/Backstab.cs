@@ -23,7 +23,11 @@ public class Backstab : Skill, AttackBuff
 
 	public bool Applies(Unit target, Tile source, Tile targetLocation)
 	{
-		return target.RetaliationsLeft == 0; // Might wanna make it work with mutual attack ranges.
+		// sneak attack if out retaliations
+		if(target.RetaliationsLeft == 0) return true;
+		// sneak attack if they cannot attack the tile
+		if (target.AttackInfo.reach.GetTiles(targetLocation).Contains(source)) return false;
+		return true;
 	}
 
 	// Use this for initialization
