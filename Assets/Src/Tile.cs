@@ -515,6 +515,7 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 		{
 			attackable.UnionWith(unit.AttackInfo.GetAttackTiles(unit, o));
 		}
+		attackable.UnionWith(unit.AttackInfo.GetAttackTiles(unit));
 		TileGrid.Instance.MoveTiles = reachable;
 		TileGrid.Instance.AttackTiles = attackable;
 
