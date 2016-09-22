@@ -47,6 +47,7 @@ public class Unit : MonoBehaviour {
 	internal int retaliationsMade = 0; // TODO, encapsulate
     public static HashSet<Unit> selectedEnemies=new HashSet<Unit>();
 	internal Action currAction;
+	private Action issuedAction;
 	private static Unit selectedUnit;
 	private bool isFirstUpdate = true;
 	internal int damageTaken = 0;
@@ -132,16 +133,42 @@ public class Unit : MonoBehaviour {
 		get{return ModifiedStats.maxHP - damageTaken;} 
 	}
 
-	public int retaliationsLeft
+	public int RetaliationsLeft
 	{
 		get { return retaliations - retaliationsMade;}
 	}
 
 	// Methods
 
-	void performAction(Action act)
-	{
 
+	private bool givenCommand = false;
+	private Action command;
+	public void PerformAction(Action act = null)
+	{
+		// Debug.Log(act.ToString());
+		if (act != null)
+		{
+			command = act;
+			currAction = act.Duplicate();
+			givenCommand = true;
+		}
+		if(command != null && StateManager.Instance.State == GameState.unitSelected)
+		{
+			if (command.movement != null && tile != command.movement)
+			{
+				MoveToAndAnimate(currAction.movement);
+			}
+			else if(command.attack != null)
+			{
+				StartAttackSequence(command.attack.Unit);
+				command.attack = null;
+				givenCommand = false;
+			}
+			else
+			{
+				FinnishMovement();
+			}
+		}
 	}
 
 	void Awake()
@@ -181,8 +208,11 @@ public class Unit : MonoBehaviour {
 		while(StateManager.Instance.State != GameState.runningAttackSequence) yield return null;
 
 		// counter
-		if(retaliatingUnit && retaliatingUnit.IsAlive && retaliatingUnit.retaliationsMade<retaliatingUnit.retaliations){
-			retaliatingUnit.Attack(this);
+		if(retaliatingUnit && retaliatingUnit.IsAlive && retaliatingUnit.RetaliationsLeft > 0){
+			if (retaliatingUnit.Attack(this) && retaliatingUnit.RetaliationsLeft > 0)
+			{
+				retaliatingUnit.retaliationsMade++;
+			}
 			while(StateManager.Instance.State != GameState.runningAttackSequence) yield return null;
 
 			// second attack
@@ -196,10 +226,6 @@ public class Unit : MonoBehaviour {
 					while(StateManager.Instance.State != GameState.runningAttackSequence) yield return null;
 				}   
 			}
-            if (AttackInfo.CanAttack(retaliatingUnit, this))
-            {
-                retaliatingUnit.retaliationsMade++;
-            }
 		}
 
 		// end
@@ -216,7 +242,7 @@ public class Unit : MonoBehaviour {
 	/// attack a target and do everything needed
 	/// </summary>
 	/// <param name="target"></param>
-	void Attack(Unit target){
+	bool Attack(Unit target){
 
 		if(AttackInfo.CanAttack(this, target))
 		{
@@ -238,7 +264,9 @@ public class Unit : MonoBehaviour {
 			AttackInfo.effect.damageType = d;
 
 			AnimateAttack(target.tile, hit);
+			return true;
 		}
+		return false;
 	}
 	// Use this for initialization
 	void Start () {
@@ -327,7 +355,10 @@ public class Unit : MonoBehaviour {
 				break;
 			}
 		}
-
+		else if(givenCommand)
+		{
+			PerformAction();
+		}
 	}
 
 	public bool MoveTo(Tile tile)
@@ -572,6 +603,7 @@ public class Unit : MonoBehaviour {
 			StateManager.Instance.DebugPop();
 		}
 		History.Instance.Add(currAction);
+		currAction = null;
 	}
 
 	private void MakeGrey(bool grey){

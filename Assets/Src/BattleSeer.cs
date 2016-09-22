@@ -56,7 +56,7 @@ public static class BattleSeer
         {
             targetPos = target.Tile;
         }
-        if (target.retaliationsLeft <= 0)
+        if (target.RetaliationsLeft <= 0)
         {
             return false;
         }

@@ -23,7 +23,7 @@ public class Backstab : Skill, AttackBuff
 
 	public bool Applies(Unit target, Tile source, Tile targetLocation)
 	{
-		return target.retaliationsLeft == 0; // Might wanna make it work with mutual attack ranges.
+		return target.RetaliationsLeft == 0; // Might wanna make it work with mutual attack ranges.
 	}
 
 	// Use this for initialization

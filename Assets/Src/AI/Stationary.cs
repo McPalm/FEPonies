@@ -51,7 +51,7 @@ public class Stationary : MonoBehaviour, IAIBehaviour {
     {
         int actionValue = user.AttackInfo.effect.Apply(target.Tile, user, true);
 
-        if (target.retaliationsLeft == 0)
+        if (target.RetaliationsLeft == 0)
         {
             actionValue += 20;
         }

@@ -9,19 +9,23 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 
 	//Pathfinder Variables
 	public float G;
-	public float H{
-		get{
-			return((Mathf.Abs(transform.position.x-Pathfinder.endTile.transform.position.x)) + (Mathf.Abs(transform.position.y-Pathfinder.endTile.transform.position.y)));
+	public float H
+	{
+		get
+		{
+			return ((Mathf.Abs(transform.position.x - Pathfinder.endTile.transform.position.x)) + (Mathf.Abs(transform.position.y - Pathfinder.endTile.transform.position.y)));
 		}
 	}
-	public float F{
-		get{
-			return G+H;
+	public float F
+	{
+		get
+		{
+			return G + H;
 		}
 	}
 	public int CompareTo(Tile other)
 	{
-		return (int)(F-other.F);
+		return (int)(F - other.F);
 	}
 	public bool Visible = true;
 
@@ -34,108 +38,140 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 
 	private HashSet<UnityEngine.Object> _slows = new HashSet<UnityEngine.Object>();
 
-	public bool Slow{
-		get{return _slows.Count > 0;}
+	public bool Slow
+	{
+		get { return _slows.Count > 0; }
 	}
 
-	public virtual int Movecost {
-			get {
-				return 1;
+	public virtual int Movecost
+	{
+		get
+		{
+			return 1;
 		}
 	}
 
-	public virtual bool ShootThrough{
-		get{return true;}
+	public virtual bool ShootThrough
+	{
+		get { return true; }
 	}
-	public Unit Unit {
-		get {
+	public Unit Unit
+	{
+		get
+		{
 			return unit;
 		}
 	}
 
-	public bool isOccuppied {
-		get {
-			if (unit != null) {
+	public bool isOccuppied
+	{
+		get
+		{
+			if (unit != null)
+			{
 				return true;
-			} else {
+			}
+			else
+			{
 				return false;
 			}
 		}
 	}
 
-	public Tile East {
-		get {
+	public Tile East
+	{
+		get
+		{
 			return east;
 		}
 	}
 
-		public Tile South {
-		get {
+	public Tile South
+	{
+		get
+		{
 			return south;
 		}
 	}
 
-	public Tile North {
-		get {
+	public Tile North
+	{
+		get
+		{
 			return north;
 		}
 	}
 
-	public Tile West {
-		get {
+	public Tile West
+	{
+		get
+		{
 			return west;
 		}
 	}
 
-	public virtual TileType Type {
-		get {
+	public virtual TileType Type
+	{
+		get
+		{
 			return TileType.regular;
 		}
 	}
 
-	public virtual void GetReachableTiles (UnitMove move, HashSet<Tile> reachTiles, Unit team)
+	public virtual void GetReachableTiles(UnitMove move, HashSet<Tile> reachTiles, Unit team)
 	{
-		if(!isOccuppied){
-			this.moveLeft=move.moveSpeed;
-			reachTiles.Add (this);
-		}else if(this.Unit.isHostile(team)){
+		if (!isOccuppied)
+		{
+			this.moveLeft = move.moveSpeed;
+			reachTiles.Add(this);
+		}
+		else if (this.Unit.isHostile(team))
+		{
 			return;
 		}
 
-		if (move.moveType == MoveType.flying) 	{
+		if (move.moveType == MoveType.flying)
+		{
 			move.moveSpeed--;
-		}else{
+		}
+		else
+		{
 			move.moveSpeed -= Movecost;
 		}
 
-		if (move.moveSpeed >= 0) {
-			if(Slow) move.moveSpeed = 0;
-			if (north != null)	north.GetReachableTiles ((north.Slow) ? new UnitMove(0) : move, reachTiles, team);
-			if (south != null)	south.GetReachableTiles ((south.Slow) ? new UnitMove(0) : move, reachTiles, team);
-			if (west != null)	west.GetReachableTiles ((west.Slow) ? new UnitMove(0) : move, reachTiles, team);
-			if (east != null)	east.GetReachableTiles ((east.Slow) ? new UnitMove(0) : move, reachTiles, team);
-		} else {
+		if (move.moveSpeed >= 0)
+		{
+			if (Slow) move.moveSpeed = 0;
+			if (north != null) north.GetReachableTiles((north.Slow) ? new UnitMove(0) : move, reachTiles, team);
+			if (south != null) south.GetReachableTiles((south.Slow) ? new UnitMove(0) : move, reachTiles, team);
+			if (west != null) west.GetReachableTiles((west.Slow) ? new UnitMove(0) : move, reachTiles, team);
+			if (east != null) east.GetReachableTiles((east.Slow) ? new UnitMove(0) : move, reachTiles, team);
+		}
+		else
+		{
 			return;
 		}
 	}
 
-	public virtual HashSet<Tile> GetAttackableTiles (HashSet<Tile> attackTiles)
+	public virtual HashSet<Tile> GetAttackableTiles(HashSet<Tile> attackTiles)
 	{
 		throw new System.NotImplementedException();
 	}
 
-	public bool enterTile (Unit unit)
+	public bool enterTile(Unit unit)
 	{
-		if (this.unit != null) {
+		if (this.unit != null)
+		{
 			return false;
 		}
 		this.unit = unit;
 		return true;
 	}
 
-	public Unit leaveTile ()
+	public Unit leaveTile()
 	{
-		if (this.unit == null) {
+		if (this.unit == null)
+		{
 			return unit;
 		}
 		Unit temp = unit;
@@ -144,42 +180,51 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 	}
 
 	// Use this for initialization
-	protected void Awake ()
+	protected void Awake()
 	{
-		if(TileGrid.Instance.Add (this)){
+		if (TileGrid.Instance.Add(this))
+		{
 
-			east = TileGrid.Instance.GetTileAt ((Vector2)transform.position + new Vector2 (1, 0));
-			if (east != null) {
+			east = TileGrid.Instance.GetTileAt((Vector2)transform.position + new Vector2(1, 0));
+			if (east != null)
+			{
 				east.west = this;
 			}
-			west = TileGrid.Instance.GetTileAt ((Vector2)transform.position + new Vector2 (-1, 0));
-			if (west != null) {
+			west = TileGrid.Instance.GetTileAt((Vector2)transform.position + new Vector2(-1, 0));
+			if (west != null)
+			{
 				west.east = this;
 			}
-			north = TileGrid.Instance.GetTileAt ((Vector2)transform.position + new Vector2 (0, 1));
-			if (north != null) {
+			north = TileGrid.Instance.GetTileAt((Vector2)transform.position + new Vector2(0, 1));
+			if (north != null)
+			{
 				north.south = this;
 			}
-			south = TileGrid.Instance.GetTileAt ((Vector2)transform.position + new Vector2 (0, -1));
-			if (south != null) {
+			south = TileGrid.Instance.GetTileAt((Vector2)transform.position + new Vector2(0, -1));
+			if (south != null)
+			{
 				south.north = this;
 			}
 
 			overlay.enabled = false;
-		}else{
+		}
+		else
+		{
 			Destroy(gameObject);
 		}
 	}
-	
-	void Update ()
+
+	void Update()
 	{
-		if(StateManager.Instance.State==GameState.unitSelected)
+		if (StateManager.Instance.State == GameState.unitSelected)
 		{
-			if(Input.GetButtonDown("Cancel") && StateManager.Instance.Turn == GameState.playerTurn)
+			if (Input.GetButtonDown("Cancel") && StateManager.Instance.Turn == GameState.playerTurn)
 			{
 				Pauser.Instance.lockme = true;
 				CancelSelection();
-			}else if(Unit.SelectedUnit == null){
+			}
+			else if (Unit.SelectedUnit == null)
+			{
 				StateManager.Instance.DebugPop();
 				UnColourAll();
 			}
@@ -193,7 +238,8 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 	}
 
 #if UNITY_STANDALONE
-	void OnMouseDown(){
+	void OnMouseDown()
+	{
 		Clicked();
 	}
 #elif UNITY_EDITOR
@@ -205,92 +251,105 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 	// when this tile is clicked
 	void Clicked()
 	{
-		if(!Visible) return;
-		switch (StateManager.Instance.State) {
-		case GameState.playerTurn:
-			if (isOccuppied && Unit.CanMove) 
-			{ // Here we select a unit.
-				unit.Select();
-				Unit.SelectedUnit.currAction = new Action(this);
-				ColourMe(new Color(1f, 0.5f, 0f));
-				foreach (Tile o in Unit.SelectedUnit.reachableTiles) 
+		if (!Visible) return;
+		Unit selectedUnit = Unit.SelectedUnit;
+
+
+		switch (StateManager.Instance.State)
+		{
+			case GameState.playerTurn:
+				if (isOccuppied && Unit.CanMove)
 				{
-					o.ColourMe(Color.blue);
+					// Here we select a unit.
+					SelectUnit(selectedUnit);
 				}
-				foreach (Tile o in Unit.SelectedUnit.AttackInfo.GetAttackTiles(Unit.SelectedUnit))
+				else if (isOccuppied && Unit.team != UnitManager.PLAYER_TEAM && !Unit.invisible)//If it is not the player team.
 				{
-					o.ColourMe(Color.red);
+					if (Unit.selectedEnemies.Contains(Unit))
+					{
+						deSelectEnemy(Unit);
+					}
+					else
+					{
+						selectEnemy(Unit);
+					}
+
 				}
-				StateManager.Instance.DebugPush(GameState.unitSelected);
-			}
-			else if (isOccuppied && Unit.team!=UnitManager.PLAYER_TEAM && !Unit.invisible)//If it is not the player team.
-			{
-				if(Unit.selectedEnemies.Contains(Unit))
+				break;
+			case GameState.unitSelected:
+				if (this == Unit.SelectedUnit.Tile)
+				{ // if we click where the selected unit is standing
+					List<IGUIButtonListener> l = new List<IGUIButtonListener>(7);
+					l.Add(new ConfirmMove());
+					foreach (Ability a in Unit.GetComponents<Ability>())
+					{
+						l.Add(new AbilityUse(a));
+					}
+					l.Add(new CancelMove(this));
+
+					GUInterface.Instance.ShowButtonMenu(l.ToArray());
+
+				}
+				else if (this == Unit.SelectedUnit.currAction.startTile)
+				{ // if we click where the selected unit started its turn
+					CancelSelection();
+				}
+				else if (Unit.SelectedUnit.reachableTiles.Contains(this))
 				{
-					deSelectEnemy(Unit);
+					// if we click a tile the unit can move to
+					Unit.SelectedUnit.MoveToAndAnimate(this);
+				}
+				else if (TileGrid.Instance.AttackTiles.Contains(this))
+				{
+					// If we click a tile the unit can attack.
+					// Get Tiles you can attack target from
+					Tile suggestedMove = null;
+					HashSet <Tile> possibleMoves = new HashSet<Tile>();
+					possibleMoves.UnionWith(selectedUnit.AttackInfo.reach.GetTiles(this));
+					if (possibleMoves.Contains(selectedUnit.Tile))
+					{
+						suggestedMove = selectedUnit.Tile;
+					}
+					else
+					{
+						//Intersect with tiles this unit can move to
+						possibleMoves.IntersectWith(TileGrid.Instance.MoveTiles);
+
+						//Find out laziest move
+						float distance = 999f;
+						
+						foreach (Tile t in possibleMoves)
+						{
+							float cd = (selectedUnit.transform.position - t.transform.position).magnitude;
+							if (cd < distance)
+							{
+								suggestedMove = t;
+								distance = cd;
+							}
+						}
+					}
+					//construct a command to attack target and issue
+					Action a = new Action(
+						TileGrid.Instance.SelectedTile,
+						suggestedMove,
+						this
+						);
+					selectedUnit.PerformAction(a);
+				}
+				else if (this.isOccuppied && Unit.CanMove)//If we click on another team unit.
+				{
+					CancelSelection();
+					SelectUnit(this.unit);
 				}
 				else
 				{
-					selectEnemy(Unit);
+					// click elsewhere to deselect
+					CancelSelection();
 				}
-
-			}
-			break;
-		case GameState.unitSelected:
-			if (this==Unit.SelectedUnit.Tile)
-			{ // if we click where the selected unit is standing
-				List<IGUIButtonListener> l = new List<IGUIButtonListener>(7);
-				l.Add(new ConfirmMove());
-				foreach(Ability a in Unit.GetComponents<Ability>()){
-					l.Add(new AbilityUse(a));
-				}
-				l.Add(new CancelMove(this));
-
-				GUInterface.Instance.ShowButtonMenu(l.ToArray());
-
-			}
-			else if(this == Unit.SelectedUnit.currAction.startTile){ // if we click where the selected unit started its turn
-				CancelSelection();
-			}else if (Unit.SelectedUnit.reachableTiles.Contains (this)) { // if we click a tile the unit can move to
-				foreach (Tile o in Unit.SelectedUnit.AttackInfo.GetAttackTiles(Unit.SelectedUnit))
-				{
-					o.UnColourMe();
-				}
-				Unit.SelectedUnit.MoveToAndAnimate(this);
-				foreach (Tile o in Unit.SelectedUnit.AttackInfo.GetAttackTiles(Unit.SelectedUnit))
-				{
-					o.ColourMe(Color.red);
-				}
-			}else if(Unit.SelectedUnit.AttackInfo.GetAttackTiles(Unit.SelectedUnit).Contains(this)){ // if we click a tile the unit can attack.
-
-				//Unit.SelectedUnit.AttackUnit(this.Unit);
-				GUInterface.Instance.EvaluateAttack(this.Unit);
-			}
-			else if(this.isOccuppied&&Unit.CanMove)//If we click on another team unit.
-			{
-				CancelSelection();
-				this.Unit.Select();
-				Unit.SelectedUnit.currAction = new Action(this);
-				ColourMe(new Color(1f, 0.5f, 0f));
-				foreach (Tile o in Unit.SelectedUnit.reachableTiles) 
-				{
-					o.ColourMe(Color.blue);
-				}
-				foreach (Tile o in Unit.SelectedUnit.AttackInfo.GetAttackTiles(Unit.SelectedUnit))
-				{
-					o.ColourMe(Color.red);
-				}
-				StateManager.Instance.DebugPush(GameState.unitSelected);
-			}
-			else
-			{
-				// click elsewhere to deselect
-				CancelSelection();
-			}
-			break;
-		case GameState.evaluateAttack:
-			GUInterface.Instance.Clicked(this);
-			break;
+				break;
+			case GameState.evaluateAttack:
+				GUInterface.Instance.Clicked(this);
+				break;
 		}
 	}
 
@@ -310,24 +369,24 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 	private static void colorEnemiesSelected()
 	{
 		// Debug.Log("Going to color some enemies");
-		HashSet<Tile> reachAbleTiles=new HashSet<Tile>();
+		HashSet<Tile> reachAbleTiles = new HashSet<Tile>();
 
-		foreach(Unit o in Unit.selectedEnemies)
+		foreach (Unit o in Unit.selectedEnemies)
 		{
-			HashSet<Tile> temp=o.GetReachableTiles();
+			HashSet<Tile> temp = o.GetReachableTiles();
 			temp.Add(o.Tile);
-			foreach(Tile t in temp)
+			foreach (Tile t in temp)
 			{
 				reachAbleTiles.UnionWith(o.AttackInfo.reach.GetTiles(t));
 			}
 		}
 
-		foreach(Tile o in reachAbleTiles)
+		foreach (Tile o in reachAbleTiles)
 		{
 			o.ColourMe(Color.red);
 		}
 
-		foreach(Unit o in Unit.selectedEnemies)
+		foreach (Unit o in Unit.selectedEnemies)
 		{
 			o.Tile.ColourMe(new Color(1f, 0.5f, 0f));
 		}
@@ -335,34 +394,33 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 
 	internal void CancelSelection()
 	{
-		//foreach (RegularTile o in Unit.selectedUnit.reachableTiles) {
-		//	o.UnColourMe();
-		//}   Redudant
 		UnColourAll();
 		Unit.Deselect();
 		StateManager.Instance.DebugPop();
 	}
 
-	public override string ToString ()
+	public override string ToString()
 	{
-		return string.Format ("[RegularTile: name={0}, unit={1}, isOccuppied={2}, Type={3}]", name, unit, isOccuppied, Type);
+		return string.Format("[RegularTile: name={0}, unit={1}, isOccuppied={2}, Type={3}, X:{4}, Y:{5}]", name, unit, isOccuppied, Type, transform.position.x, transform.position.y);
 	}
 
-	public void ColourMe (Color colour)
+	public void ColourMe(Color colour)
 	{
 		overlay.color = colour;
 		overlay.enabled = true;
 		colouredTiles.Add(this);
 	}
 
-	public void UnColourMe ()
+	public void UnColourMe()
 	{
 		overlay.enabled = false;
 	}
 
 	static public HashSet<Tile> colouredTiles = new HashSet<Tile>();
-	static public void UnColourAll(){
-		foreach(Tile t in colouredTiles){
+	static public void UnColourAll()
+	{
+		foreach (Tile t in colouredTiles)
+		{
 			t.UnColourMe();
 		}
 
@@ -374,21 +432,24 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 	/*
 	 * inner class to handle cancel moev button press.
 	 */
-	private class CancelMove : IGUIButtonListener{
+	private class CancelMove : IGUIButtonListener
+	{
 		private Tile parent;
 
-		public CancelMove (global::Tile parent)
+		public CancelMove(global::Tile parent)
 		{
 			this.parent = parent;
 		}
 
-		public void ButtonPressed ()
+		public void ButtonPressed()
 		{
 			parent.CancelSelection();
 		}
 
-		public string ButtonLabel {
-			get {
+		public string ButtonLabel
+		{
+			get
+			{
 				return "Cancel";
 			}
 		}
@@ -396,28 +457,32 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 	/*
 	 * inner class to handle wait move.
 	 */
-	private class ConfirmMove : IGUIButtonListener{
-		public void ButtonPressed ()
+	private class ConfirmMove : IGUIButtonListener
+	{
+		public void ButtonPressed()
 		{
 			Unit.SelectedUnit.FinnishMovement();
 		}
-		
-		public string ButtonLabel {
-			get {
+
+		public string ButtonLabel
+		{
+			get
+			{
 				return "Wait";
 			}
 		}
 	}
 
-	private class AbilityUse : IGUIButtonListener{
+	private class AbilityUse : IGUIButtonListener
+	{
 
 		public Ability ability;
 
-		public AbilityUse (Ability ability)
+		public AbilityUse(Ability ability)
 		{
 			this.ability = ability;
 		}
-		
+
 
 		public void ButtonPressed()
 		{
@@ -433,12 +498,15 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 		}
 	}
 
-	private class MyLittleTurnObserver : TurnObserver{
+	private class MyLittleTurnObserver : TurnObserver
+	{
 
 		static private MyLittleTurnObserver instance;
 
-		public MyLittleTurnObserver(){
-			if(instance == null){
+		public MyLittleTurnObserver()
+		{
+			if (instance == null)
+			{
 				instance = this;
 
 				UnitManager.Instance.RegisterTurnObserver(this);
@@ -446,18 +514,37 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 
 		}
 
-		public void Notify (int turn)
+		public void Notify(int turn)
 		{
 			Unit.selectedEnemies = new HashSet<Unit>();
 			UnColourAll();
 		}
 	}
 
-	public void AddSlow(UnityEngine.Object o){
+	public void AddSlow(UnityEngine.Object o)
+	{
 		_slows.Add(o);
 	}
 
-	public void RemoveSlow(UnityEngine.Object o){
+	public void RemoveSlow(UnityEngine.Object o)
+	{
 		_slows.Remove(o);
+	}
+
+	public void SelectUnit(Unit u)
+	{
+		unit.Select();
+		unit.currAction = new Action(this);
+		TileGrid.Instance.SelectedTile = this;
+		HashSet<Tile> reachable = unit.reachableTiles;
+		HashSet<Tile> attackable = new HashSet<Tile>();
+		foreach (Tile o in reachable)
+		{
+			attackable.UnionWith(unit.AttackInfo.GetAttackTiles(unit, o));
+		}
+		TileGrid.Instance.MoveTiles = reachable;
+		TileGrid.Instance.AttackTiles = attackable;
+
+		StateManager.Instance.DebugPush(GameState.unitSelected);
 	}
 }

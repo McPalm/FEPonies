@@ -45,5 +45,10 @@ public class Action
 			return true;
 		}
 	}
+
+	public Action Duplicate()
+	{
+		return new Action(startTile, movement, attack, ability, abilityTarget);
+	}
 }
 
