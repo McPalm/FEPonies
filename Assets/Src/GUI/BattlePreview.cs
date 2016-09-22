@@ -13,6 +13,8 @@ public class BattlePreview : MonoBehaviour {
 	public Text retaliationText;
 	public Image retaliationBox;
 
+	public float yAdjust = 1f;
+
 	void Start()
 	{
 		Inactive();
@@ -51,14 +53,19 @@ public class BattlePreview : MonoBehaviour {
 		else
 		{
 			int dmg = 1;
+			int hp = 1;
 			float acc = 1f;
 			float crit = 0.05f;
 
-			Stats attacker = user.ModifiedStats;
-			Stats defender = target.ModifiedStats;
+			// get attack tile interaction thingy
+			Tile moveto = target.Tile.LazyMove(user, target);
+
+			Stats attacker = user.GetStatsAt(moveto, target);
+			Stats defender = target.GetStatsAt(target.Tile, user, moveto);
 
 			// attack stats
-			dmg = user.AttackInfo.effect.Apply(target.Tile, user, true);
+			dmg = user.AttackInfo.effect.Apply(target.Tile, user, true, moveto);
+			hp = defender.maxHP - target.damageTaken;
 			acc = attacker.HitVersus(defender);
 			crit = attacker.CritVersus(defender);
 
@@ -67,7 +74,7 @@ public class BattlePreview : MonoBehaviour {
 
 			text.text = (dmg + "\n" + acc + "\n" + crit);
 
-			willRetaliate = target.RetaliationsLeft > 0;
+			willRetaliate = target.RetaliationsLeft > 0 && target.AttackInfo.reach.GetTiles(target.Tile).Contains(moveto);
 
 			// defence stats
 			if (willRetaliate)
@@ -75,6 +82,7 @@ public class BattlePreview : MonoBehaviour {
 				dmg = target.AttackInfo.effect.Apply(user.Tile, target, true);
 				acc = attacker.HitVersus(attacker);
 				crit = attacker.CritVersus(attacker);
+				hp = attacker.maxHP - user.damageTaken;
 
 				acc = Mathf.RoundToInt(acc * 100);
 				crit = Mathf.RoundToInt(crit * 100);
@@ -86,7 +94,7 @@ public class BattlePreview : MonoBehaviour {
 			Vector2 sourceDirection = (user.transform.position - target.transform.position).normalized;
 
 			box.rectTransform.position = location + sourceDirection*60f;
-			retaliationBox.rectTransform.position = location + sourceDirection * 160f;
+			retaliationBox.rectTransform.position = location + sourceDirection * 160f * (1f + Mathf.Abs(sourceDirection.y) * yAdjust);
 
 			box.gameObject.SetActive(true);
 			retaliationBox.gameObject.SetActive(willRetaliate);

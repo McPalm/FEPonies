@@ -301,38 +301,10 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 				}
 				else if (TileGrid.Instance.AttackTiles.Contains(this))
 				{
-					// If we click a tile the unit can attack.
-					// Get Tiles you can attack target from
-					Tile suggestedMove = null;
-					HashSet <Tile> possibleMoves = new HashSet<Tile>();
-					possibleMoves.UnionWith(selectedUnit.AttackInfo.reach.GetTiles(this));
-					if (possibleMoves.Contains(selectedUnit.Tile))
-					{
-						suggestedMove = selectedUnit.Tile;
-					}
-					else
-					{
-						//Intersect with tiles this unit can move to
-						possibleMoves.IntersectWith(TileGrid.Instance.MoveTiles);
-
-						//Find out laziest move
-						suggestedMove = LazyMove();
-						float distance = 999f;
-						
-						foreach (Tile t in possibleMoves)
-						{
-							float cd = (selectedUnit.transform.position - t.transform.position).magnitude;
-							if (cd < distance)
-							{
-								suggestedMove = t;
-								distance = cd;
-							}
-						}
-					}
 					//construct a command to attack target and issue
 					Action a = new Action(
 						TileGrid.Instance.SelectedTile,
-						suggestedMove,
+						LazyMove(selectedUnit, Unit),
 						this
 						);
 					selectedUnit.PerformAction(a);
@@ -549,8 +521,37 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 		StateManager.Instance.DebugPush(GameState.unitSelected);
 	}
 
-	public Tile LazyMove()
+	/// <summary>
+	/// This method have several dependencies, use with care.
+	/// really, DONT USE THIS. Like, just don't touch it.
+	/// </summary>
+	/// <param name="client"></param>
+	/// <param name="target"></param>
+	/// <returns></returns>
+	public Tile LazyMove(Unit client, Unit target)
 	{
-		return null;
+		// possible attack zones
+		HashSet<Tile> possibleMoves = new HashSet<Tile>();
+		possibleMoves.UnionWith(client.AttackInfo.reach.GetTiles(target.Tile)); // attack moves
+
+		if (possibleMoves.Contains(client.Tile)) return client.Tile;
+
+		// intersect with tiles I can move to
+		possibleMoves.IntersectWith(TileGrid.Instance.MoveTiles);
+
+		// search for closest
+		Tile suggestedMove = null;
+		float distance = 999f;
+		foreach (Tile t in possibleMoves)
+		{
+			float cd = (client.transform.position - t.transform.position + new Vector3(0f, 0.1f, 0f)).magnitude;
+			if (cd < distance)
+			{
+				suggestedMove = t;
+				distance = cd;
+			}
+		}
+
+		return suggestedMove;
 	}
 }
