@@ -6,9 +6,12 @@ public class BattlePreview : MonoBehaviour {
 
 	Unit target;
 	Unit user;
+	bool willRetaliate;
 
 	public Text text;
 	public Image box;
+	public Text retaliationText;
+	public Image retaliationBox;
 
 	void Start()
 	{
@@ -25,9 +28,9 @@ public class BattlePreview : MonoBehaviour {
 		{
 			user = Unit.SelectedUnit;
 			target = underMouseTile.Unit;
-
+			
 			// figure out if target under mouse is a valid target
-			if (TileGrid.Instance.AttackTiles.Contains(underMouseTile))
+			if (TileGrid.Instance.AttackTiles != null && TileGrid.Instance.AttackTiles.Contains(underMouseTile))
 			{
 				// we have a valid target!
 				// build an attack output
@@ -47,7 +50,6 @@ public class BattlePreview : MonoBehaviour {
 		if (target == null || user == null) Inactive();
 		else
 		{
-			box.gameObject.SetActive(true);
 			int dmg = 1;
 			float acc = 1f;
 			float crit = 0.05f;
@@ -55,6 +57,7 @@ public class BattlePreview : MonoBehaviour {
 			Stats attacker = user.ModifiedStats;
 			Stats defender = target.ModifiedStats;
 
+			// attack stats
 			dmg = user.AttackInfo.effect.Apply(target.Tile, user, true);
 			acc = attacker.HitVersus(defender);
 			crit = attacker.CritVersus(defender);
@@ -64,8 +67,29 @@ public class BattlePreview : MonoBehaviour {
 
 			text.text = (dmg + "\n" + acc + "\n" + crit);
 
-			print(box.rectTransform.position);
-			box.rectTransform.position = Input.mousePosition;
+			willRetaliate = target.RetaliationsLeft > 0;
+
+			// defence stats
+			if (willRetaliate)
+			{
+				dmg = target.AttackInfo.effect.Apply(user.Tile, target, true);
+				acc = attacker.HitVersus(attacker);
+				crit = attacker.CritVersus(attacker);
+
+				acc = Mathf.RoundToInt(acc * 100);
+				crit = Mathf.RoundToInt(crit * 100);
+
+				retaliationText.text = (dmg + "\n" + acc + "\n" + crit);
+			}
+
+			Vector2 location = Camera.main.WorldToScreenPoint(target.transform.position);
+			Vector2 sourceDirection = (user.transform.position - target.transform.position).normalized;
+
+			box.rectTransform.position = location + sourceDirection*60f;
+			retaliationBox.rectTransform.position = location + sourceDirection * 160f;
+
+			box.gameObject.SetActive(true);
+			retaliationBox.gameObject.SetActive(willRetaliate);
 		}
 	}
 
@@ -73,6 +97,6 @@ public class BattlePreview : MonoBehaviour {
 	{
 		text.text = "0";
 		box.gameObject.SetActive(false);
-		print("No Bananas!");
+		retaliationBox.gameObject.SetActive(false);
 	}
 }
