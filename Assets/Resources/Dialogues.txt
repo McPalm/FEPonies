@@ -303,3 +303,19 @@ Ease up Perfect. Just follow my lead alright kid? I’ll soften em up.
 Yeah alright, I got this.
 @Perfy
 Just remember the supply team is going to try and get away, make sure we down them as fast as possible.
+
+§RoadAmbushWin01
+@Perfect Measure
+Mission accomplished, we need to move to join the battle at large, move out!
+
+§RoadAmbushWin02
+@Rusty
+He means good job kid, even if he doesn’t say it. What’s your name anyways? Don’t think I caught it.
+@Moonlight
+My name is Moonlight. 
+@Rusty
+Well good job Moonlight. Now we need to go reinforce the rest of our unit.
+
+§RoadAmbush03
+@Moonlight
+...
