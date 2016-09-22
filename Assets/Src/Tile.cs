@@ -544,6 +544,7 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 		float distance = 999f;
 		foreach (Tile t in possibleMoves)
 		{
+			if (t.isOccuppied) continue; // dont considering occupied squares
 			float cd = (client.transform.position - t.transform.position + new Vector3(0f, 0.1f, 0f)).magnitude;
 			if (cd < distance)
 			{
