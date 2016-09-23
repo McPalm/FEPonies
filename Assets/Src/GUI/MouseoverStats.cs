@@ -52,25 +52,16 @@ public class MouseoverStats : MonoBehaviour {
 		Vector2 middle = GetComponent<RectTransform>().position;
 		origin += new Vector2((origin.x > middle.x) ? -100f : 100f, 0);
 
-		print(origin.y);
-		print(box.rectTransform.sizeDelta.y / 2);
-		print(GetComponent<RectTransform>().position.y * 2);
-
-
 		// offset from borders
 		float sizeY = box.rectTransform.sizeDelta.y * box.rectTransform.localScale.y;
 		if (origin.y - sizeY/2 < 0)
 		{
-			print("Below?");
 			origin = new Vector2(origin.x, sizeY / 2);
 		}
 		else if (origin.y + sizeY / 2 > middle.y * 2)
 		{
-			print("Above?");
 			origin = new Vector2(origin.x, middle.y * 2 - sizeY / 2);
 		}
-		//print(box.rectTransform.sizeDelta);
-
 
 		// move there
 		box.rectTransform.position = origin;

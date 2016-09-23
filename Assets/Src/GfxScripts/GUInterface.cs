@@ -76,16 +76,6 @@ public class GUInterface : MonoBehaviour {
 			// displaying stat blocks
 #if UNITY_STANDALONE
 			// Mouseover statblock
-			Tile underMouseTile = TileGrid.Instance.GetTileAt(Camera.main.ScreenToWorldPoint(mpos));
-			/*
-			if(underMouseTile != null && underMouseTile.Visible && underMouseTile.isOccuppied && !underMouseTile.Unit.invisible){
-				if(mpos.x < Screen.width/2){
-					BuildUnitStatBlock(underMouseTile.Unit, (int)mpos.x+10, Screen.height-(int)mpos.y-50);
-				}else{
-					BuildUnitStatBlock(underMouseTile.Unit, (int)mpos.x-105, Screen.height-(int)mpos.y-50);
-				}
-			}
-			*/
 #endif
 #if UNITY_ANDROID
 			// selected unit statblock.
