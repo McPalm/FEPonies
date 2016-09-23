@@ -60,8 +60,10 @@ public class Pauser : MonoBehaviour {
 
 	public bool CanPause{
 		get{
-			if(StateManager.Instance.State == GameState.unitSelected) return false; // cancel used in this state
-			if(lockme) return false;
+			GameState gs = StateManager.Instance.State;
+			if (gs == GameState.unitSelected) return false; // cancel used in this state
+			if (gs == GameState.characterSheet) return false; // cancel used in this state
+			if (lockme) return false;
 			return true;
 		}
 	}

@@ -111,6 +111,15 @@ public class CameraControl : MonoBehaviour {
 				if(_Velocity.magnitude < 0.01f) _Velocity = Vector3.zero;
 				cam.transform.position += _Velocity*Time.deltaTime;
 			}
+			if (Input.GetMouseButtonUp(1))
+			{
+				if((_PressPosition-MousePosition.Get()).magnitude < 3f)
+				{
+					Debug.Log("Released RMB!");
+					if(MousePosition.GetTile().isOccuppied)
+						CharacterSheet.Instance.Open(MousePosition.GetTile().Unit);
+				}
+			}
 #endif
 #if UNITY_EDITOR
 

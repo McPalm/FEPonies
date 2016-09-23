@@ -20,5 +20,6 @@ public enum GameState{
 	evaluateAttack,
 	runningAttackSequence,
 	changingSkin,
-	fadeToBlack
+	fadeToBlack,
+	characterSheet
 }

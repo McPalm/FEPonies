@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 public class Tile : MonoBehaviour, IComparable<Tile>
 {
-
-
 	//Pathfinder Variables
 	public float G;
 	public float H
