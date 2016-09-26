@@ -116,8 +116,6 @@ public class CameraControl : MonoBehaviour {
 			if (Input.GetMouseButtonUp(1))
 			{
 				//check if we moved the mouse since pressing RMB
-				print(_PressScreenPoisition);
-				print(Input.mousePosition);
 				if((_PressScreenPoisition - Input.mousePosition).magnitude < 45f)
 				{
 					// open character sheet
