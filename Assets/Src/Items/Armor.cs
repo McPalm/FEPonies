@@ -8,5 +8,5 @@ using System.Collections.Generic;
 /// </summary>
 public class Armor : Equipment
 {
-    int weight;
+    public int weight;
 }

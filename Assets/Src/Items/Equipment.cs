@@ -7,6 +7,6 @@ using System.Collections.Generic;
 /// </summary>
 public class Equipment : Item
 {
-    Stats buff;
-    Skill ability;
+	public Stats buff;
+	public Skill ability;
 }

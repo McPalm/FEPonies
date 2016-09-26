@@ -1,4 +1,5 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ using System.Text;
 /// equippedTrinket - the Trinket currently equipped
 /// capacity - number of items that fit into the backpack
 /// </summary>
-class Backpack : IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<Weapon>
+class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<Weapon>
 {
     private List<Item> backpack = new List<Item>();
     Armor equippedArmor;
@@ -20,11 +21,44 @@ class Backpack : IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<Weapon>
     Equipment equippedTrinket;
     int capacity;
 
-    /// <summary>
-    /// Gets enumerator for the backpack
-    /// </summary>
-    /// <returns>enumerator</returns>
-    public IEnumerator<Item> GetEnumerator()
+	/// <summary>
+	/// Currently Equipped Armour
+	/// </summary>
+	public Armor EquippedArmour
+	{
+		get { throw new NotImplementedException(); }
+	}
+
+	/// <summary>
+	/// Currently Equipped Weapon
+	/// </summary>
+	public Weapon EquippedWeapon
+	{
+		get { throw new NotImplementedException(); }
+	}
+
+	/// <summary>
+	/// Currenlty Equipped Trinket
+	/// </summary>
+	public Equipment EquippedTrinket
+	{
+		get { throw new NotImplementedException(); }
+	}
+
+	/// <summary>
+	/// Maxmium number of items that can fit into the backpack
+	/// </summary>
+	public int Capacity
+	{
+		get { return capacity; }
+	}
+
+
+	/// <summary>
+	/// Gets enumerator for the backpack
+	/// </summary>
+	/// <returns>enumerator</returns>
+	public IEnumerator<Item> GetEnumerator()
     {
         return backpack.GetEnumerator();
     }
