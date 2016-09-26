@@ -25,6 +25,7 @@ public class CameraControl : MonoBehaviour {
 	private float _focusFrameDelay = 0f;
 	private Vector3 _PressPosition;
 	private Vector3 _Velocity;
+	private Vector3 _PressScreenPoisition;
 #if UNITY_ANDROID
 	private float _startMagnitude = 0f;
 	private float _startZoom = 1f;
@@ -101,6 +102,7 @@ public class CameraControl : MonoBehaviour {
 				// register where we press down the button.
 				_PressPosition = MousePosition.Get();
 				_Velocity = Vector3.zero;
+				_PressScreenPoisition = Input.mousePosition;
 			}else if(Input.GetMouseButton(1)){
 				Vector3 _curr = _PressPosition - MousePosition.Get();
 				cam.transform.position = cam.transform.position + _curr;
@@ -113,9 +115,12 @@ public class CameraControl : MonoBehaviour {
 			}
 			if (Input.GetMouseButtonUp(1))
 			{
-				if((_PressPosition-MousePosition.Get()).magnitude < 3f)
+				//check if we moved the mouse since pressing RMB
+				print(_PressScreenPoisition);
+				print(Input.mousePosition);
+				if((_PressScreenPoisition - Input.mousePosition).magnitude < 45f)
 				{
-					Debug.Log("Released RMB!");
+					// open character sheet
 					if(MousePosition.GetTile().isOccuppied)
 						CharacterSheet.Instance.Open(MousePosition.GetTile().Unit);
 				}
