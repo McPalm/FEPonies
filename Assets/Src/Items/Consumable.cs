@@ -8,4 +8,8 @@ using System.Collections.Generic;
 public abstract class Consumable : Item
 {
     public abstract bool use();
+	public abstract int Uses
+	{
+		get;
+	}
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+[RequireComponent(typeof(Unit))]
 /// <summary>
 /// Class to handle what the unit are carrying, one unit will have one backpack
 /// backpack - includes all items the unit are carrying
@@ -13,18 +14,20 @@ using System.Text;
 /// equippedTrinket - the Trinket currently equipped
 /// capacity - number of items that fit into the backpack
 /// </summary>
-class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<Weapon>
+class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<Weapon>, Buff
 {
     private List<Item> backpack = new List<Item>();
     Armor equippedArmor;
     Weapon equippedWeapon;
     Equipment equippedTrinket;
     int capacity;
+	Unit owner;
+	Stats _equipmentStats;
 
 	/// <summary>
-	/// Currently Equipped Armour
+	/// Currently Equipped Armor
 	/// </summary>
-	public Armor EquippedArmour
+	public Armor EquippedArmor
 	{
 		get { throw new NotImplementedException(); }
 	}
@@ -53,6 +56,23 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
 		get { return capacity; }
 	}
 
+	public Stats Stats
+	{
+		get
+		{
+			return _equipmentStats;
+		}
+	}
+
+	void Awake()
+	{
+		owner = GetComponent<Unit>();
+	}
+
+	void Start()
+	{
+		BuffManager.Instance.Add(this);
+	}
 
 	/// <summary>
 	/// Gets enumerator for the backpack
@@ -135,7 +155,24 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
     /// <returns>Returns false if failed for some reason</returns>
     public bool Equip(Equipment toBeEquipped)
     {
-        throw new NotImplementedException();
+		if (toBeEquipped is Armor)
+		{
+			equippedArmor = (Armor)toBeEquipped;
+			countStats();
+			return true;
+		}
+		else if (toBeEquipped is Weapon)
+		{
+			equippedWeapon = (Weapon)toBeEquipped;
+			countStats();
+			return true;
+		}
+		else
+		{
+			equippedTrinket = toBeEquipped;
+			countStats();
+			return true;
+		}
     }
 
     /// <summary>
@@ -143,9 +180,27 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
     /// </summary>
     /// <param name="toBeUnEquipped">The item to be unequipped</param>
     /// <returns>Returns false if failed for some reason</returns>
-    public bool UnEquip()
+    public bool UnEquip(Equipment toBeUnequipped)
     {
-        throw new NotImplementedException();
+        if(toBeUnequipped == equippedArmor)
+		{
+			equippedArmor = null;
+			countStats();
+			return true;
+		}
+		else if(toBeUnequipped == equippedWeapon)
+		{
+			equippedWeapon = null;
+			countStats();
+			return true;
+		}
+		else if(toBeUnequipped == equippedTrinket)
+		{
+			equippedTrinket = null;
+			countStats();
+			return true;
+		}
+		return false;
     }
 
     /// <summary>
@@ -156,4 +211,19 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
         throw new NotImplementedException();
     }
 
+	// part of the buff interface
+	public bool Affects(Unit u)
+	{
+		return u = owner;
+	}
+
+	/// <summary>
+	/// Recalclate the attribute boosts granted by the item.
+	/// </summary>
+	void countStats()
+	{
+		_equipmentStats = EquippedArmor.buff;
+		_equipmentStats += EquippedWeapon.buff;
+		_equipmentStats += EquippedTrinket.buff;
+	}
 }
