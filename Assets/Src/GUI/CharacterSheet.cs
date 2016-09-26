@@ -34,7 +34,7 @@ public class CharacterSheet : MonoBehaviour {
 	{
 		if (u != null) client = u;
 		Build(client);
-		StateManager.Instance.Push(GameState.characterSheet);
+		if(StateManager.Instance.State != GameState.characterSheet) StateManager.Instance.Push(GameState.characterSheet);
 		gameObject.SetActive(true);
 	}
 
