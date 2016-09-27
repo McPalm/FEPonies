@@ -8,7 +8,6 @@ public class SkipTurnEvent : EventTarget
 
 	public override void Notice()
 	{
-		print("notice me sempai!");
 		trigger = true;
 	}
 
@@ -16,7 +15,6 @@ public class SkipTurnEvent : EventTarget
 	{
 		if (trigger)
 		{
-			print("doing stuffs!");
 			foreach (Unit u in UnitManager.Instance.GetUnitsByTeam(UnitManager.PLAYER_TEAM))
 			{
 				u.HasActed = true;
