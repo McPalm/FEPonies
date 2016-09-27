@@ -4,6 +4,7 @@ using System;
 
 class ScalingBackpack : Backpack {
 
+	
 	public WeaponType wornWeapon;
 	[Range(0, 3)]
 	public int weight;
@@ -28,14 +29,14 @@ class ScalingBackpack : Backpack {
 		{
 			defence = 0;
 			resistance += 2;
-			a.name = "Robes";
+			a.Name = "Robes";
 		}
 
 		a.buff.defense = defence;
 		a.buff.resistance = resistance;
-		if (weight == 1) a.name = "Light Armour";
-		if (weight == 2) a.name = "Medium Armour";
-		if (weight == 3) a.name = "Heavy Armour";
+		if (weight == 1) a.Name = "Light Armour";
+		if (weight == 2) a.Name = "Medium Armour";
+		if (weight == 3) a.Name = "Heavy Armour";
 
 		Add(a);
 		Equip(a);
@@ -48,26 +49,28 @@ class ScalingBackpack : Backpack {
 			case WeaponType.axe:
 				w.buff.hitBonus = -0.2f;
 				w.buff.might = level + 5;
-				w.name = "Axe";
+				w.Name = "Axe";
 				break;
 			case WeaponType.sword:
 				w.buff.hitBonus = 0.1f;
 				w.buff.critBonus = 0.1f;
 				w.buff.might = level + 3;
-				w.name = "Sword";
+				w.Name = "Sword";
 				break;
 			case WeaponType.spear:
 				w.buff.might = level + 4;
-				w.name = "Spear";
+				w.Name = "Spear";
 				break;
 			default:
 				w.buff.might = level + 4;
-				w.name = "Weapon";
+				w.Name = "Weapon";
 				break;
 		}
 
 		Add(w);
 		Equip(w);
+
+		Add(new HealingPotion());
 	}
 
 	

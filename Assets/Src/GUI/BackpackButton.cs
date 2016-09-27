@@ -11,7 +11,8 @@ public class BackpackButton : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	foreach(Button b in buttons)
+		labels = new List<Text>();
+		foreach(Button b in buttons)
 		{
 			labels.Add(b.gameObject.GetComponentInChildren<Text>(true));
 		}
@@ -19,10 +20,11 @@ public class BackpackButton : MonoBehaviour {
 
 	public void Open()
 	{
-		if (open) Close();
+		if (open && StateManager.Instance.State == GameState.buttonMenu) Close();
 		// only open when a unit is selected
-		 else if(StateManager.Instance.State == GameState.unitSelected)
+		else if(StateManager.Instance.State == GameState.unitSelected)
 		{
+			StateManager.Instance.Push(GameState.buttonMenu);
 			Backpack b = Unit.SelectedUnit.GetComponent<Backpack>();
 			if(b != null)
 			{
@@ -30,7 +32,8 @@ public class BackpackButton : MonoBehaviour {
 				foreach(Item t in b)
 				{
 					buttons[i].gameObject.SetActive(true);
-					labels[i].text = t.name;
+					labels[i].text = t.Name;
+					i++;
 				}
 				open = true;
 			}
@@ -52,5 +55,15 @@ public class BackpackButton : MonoBehaviour {
 			b.gameObject.SetActive(false);
 		}
 		open = false;
+		if (StateManager.Instance.State == GameState.buttonMenu) StateManager.Instance.Pop();
+	}
+
+	public void Click(int button)
+	{
+		if(Unit.SelectedUnit.GetComponent<Backpack>().Use(button))
+		{
+			Close();
+			Unit.SelectedUnit.FinnishMovement();
+		}
 	}
 }

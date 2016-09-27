@@ -30,20 +30,27 @@ public class BattlePreview : MonoBehaviour {
 		{
 			user = Unit.SelectedUnit;
 			target = underMouseTile.Unit;
-			
-			// figure out if target under mouse is a valid target
-			if (TileGrid.Instance.AttackTiles != null && TileGrid.Instance.AttackTiles.Contains(underMouseTile))
+			if (StateManager.Instance.State == GameState.unitSelected)
 			{
-				// we have a valid target!
-				// build an attack output
-				UpdateStats();
 
+
+				// figure out if target under mouse is a valid target
+				if (TileGrid.Instance.AttackTiles != null && TileGrid.Instance.AttackTiles.Contains(underMouseTile))
+				{
+					// we have a valid target!
+					// build an attack output
+					UpdateStats();
+
+				}
+				else
+				{
+					Inactive();
+				}
 			}
 			else
 			{
 				Inactive();
 			}
-			
 		}
 	}
 

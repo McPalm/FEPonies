@@ -8,6 +8,8 @@ using System.Collections;
 
 public class CameraControl : MonoBehaviour {
 
+	static public int BottomBorder = 100;
+
 	// variables modifiable from Unity
 	public float scrollSpeed = 1;
 	public float xBorderScrollZone = 0.1f;
@@ -119,8 +121,13 @@ public class CameraControl : MonoBehaviour {
 				if((_PressScreenPoisition - Input.mousePosition).magnitude < 45f)
 				{
 					// open character sheet
-					if(MousePosition.GetTile().isOccuppied)
-						CharacterSheet.Instance.Open(MousePosition.GetTile().Unit);
+
+					if (Input.mousePosition.y > BottomBorder && MousePosition.GetTile().isOccuppied)
+					{
+						GameState s = StateManager.Instance.State;
+						if(s == GameState.playerTurn ||s == GameState.unitSelected)
+							CharacterSheet.Instance.Open(MousePosition.GetTile().Unit);
+					}
 				}
 			}
 #endif
@@ -187,10 +194,10 @@ public class CameraControl : MonoBehaviour {
 		Vector3 cameraPos = cam.transform.position;
 
 		float
-			maxX = TileGrid.Instance.maxX - cam.orthographicSize*cam.aspect + 0.5f,
-			minX = TileGrid.Instance.minX + cam.orthographicSize*cam.aspect - 0.5f,
+			maxX = TileGrid.Instance.maxX - cam.orthographicSize * cam.aspect + 0.5f,
+			minX = TileGrid.Instance.minX + cam.orthographicSize * cam.aspect - 0.5f,
 			maxY = TileGrid.Instance.maxY - cam.orthographicSize + 0.5f,
-			minY = TileGrid.Instance.minY + cam.orthographicSize - 0.5f;
+			minY = TileGrid.Instance.minY + cam.orthographicSize - 0.5f - (float)BottomBorder / cam.pixelHeight * cam.orthographicSize * 2; // size of a tile in pixels
 
 		if(maxX < minX){
 			minX = maxX = (minX+maxX)/2;

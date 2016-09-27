@@ -56,7 +56,7 @@ public class CharacterSheet : MonoBehaviour {
 			string val = "";
 			foreach (Item i in b)
 			{
-				val += i.name;
+				val += i.Name;
 				if (i is Equipment && b.IsEquipped((Equipment)i)) val += " (equipped)";
 				val += "\n";
 			}

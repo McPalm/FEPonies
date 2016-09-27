@@ -251,4 +251,25 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
 		if (EquippedTrinket == e) return true;
 		return false;
 	}
+
+	public bool Use(int item)
+	{
+		if(item > backpack.Count)
+		{
+			Debug.LogError("Used item out of range. Tried to use item #" + item);
+			return false;
+		}
+		if(backpack[item] is Consumable)
+		{
+			if (((Consumable)backpack[item]).use(owner)){
+				backpack[item].stack--;
+				if(backpack[item].stack == 0)
+				{
+					Remove(backpack[item]);
+				}
+				return true;
+			}
+		}
+		return false;
+	}
 }

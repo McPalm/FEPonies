@@ -9,7 +9,14 @@ using System.Collections.Generic;
 /// </summary>
 public class Item
 {
-	public string name;
+
+	string name;
+
+	public string Name {
+		set { name = value; }
+		get { return name; }
+	}
 	public int value;
 	public UnityEngine.UI.Image icon;
+	public int stack = 1;
 }

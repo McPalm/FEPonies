@@ -117,7 +117,7 @@ public class UnitManager : MonoBehaviour, Observable {
 		return retVal;
 	}
 
-	private void EndTurn(int team)
+	public void EndTurn(int team)
 	{
 		Refresh(team);
 		if(team == PLAYER_TEAM)
@@ -235,6 +235,7 @@ public class UnitManager : MonoBehaviour, Observable {
 		}
 	}
 
+	/*
 	public void OnGUI(){
 		// make a button that calls EndTurn(0) when pressed.
 		if(StateManager.Instance.State == GameState.playerTurn){
@@ -243,6 +244,7 @@ public class UnitManager : MonoBehaviour, Observable {
 			}
 		}
 	}
+	*/
 
 	public void Remove(Unit unit){
 		units.Remove(unit);

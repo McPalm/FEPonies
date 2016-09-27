@@ -249,6 +249,8 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 	// when this tile is clicked
 	void Clicked()
 	{
+		if (Input.mousePosition.y < CameraControl.BottomBorder) return; // ignore those under the bottom thingy of the screen.
+
 		if (!Visible) return;
 		Unit selectedUnit = Unit.SelectedUnit;
 
@@ -277,16 +279,7 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 			case GameState.unitSelected:
 				if (this == Unit.SelectedUnit.Tile)
 				{ // if we click where the selected unit is standing
-					List<IGUIButtonListener> l = new List<IGUIButtonListener>(7);
-					l.Add(new ConfirmMove());
-					foreach (Ability a in Unit.GetComponents<Ability>())
-					{
-						l.Add(new AbilityUse(a));
-					}
-					l.Add(new CancelMove(this));
-
-					GUInterface.Instance.ShowButtonMenu(l.ToArray());
-
+					CancelSelection();
 				}
 				else if (this == Unit.SelectedUnit.currAction.startTile)
 				{ // if we click where the selected unit started its turn

@@ -93,7 +93,7 @@ public class GUInterface : MonoBehaviour {
 				}
 			}
 		}
-
+		/*
 		// displayes the button menu
 		if(StateManager.Instance.State == GameState.buttonMenu){
 			for(int i = 0; i < buttons.Length; i++){
@@ -104,12 +104,15 @@ public class GUInterface : MonoBehaviour {
 				}
 			}
 		}
+		*/
 	}
 
+	/*
 	/// <summary>
 	/// Shows the button menu under the current mouse position.
 	/// </summary>
 	/// <param name="buttons">Buttons.</param>
+	///
 	public void ShowButtonMenu(params IGUIButtonListener[] buttons){
 		if(buttons.Length > 0){
 			StateManager.Instance.DebugPush(GameState.buttonMenu);
@@ -128,6 +131,7 @@ public class GUInterface : MonoBehaviour {
 			Debug.LogWarning("ShowButtonMenu() was given an empty list.");
 		}
 	}
+	*/
 	
 	private void BuildUnitStatBlock(Unit client, int x = 10, int y = -111)
 	{
