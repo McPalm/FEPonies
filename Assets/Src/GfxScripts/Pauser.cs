@@ -63,6 +63,7 @@ public class Pauser : MonoBehaviour {
 			GameState gs = StateManager.Instance.State;
 			if (gs == GameState.unitSelected) return false; // cancel used in this state
 			if (gs == GameState.characterSheet) return false; // cancel used in this state
+			if (gs == GameState.targetingAbility) return false; // cancel used in this state
 			if (lockme) return false;
 			return true;
 		}

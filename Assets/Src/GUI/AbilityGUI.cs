@@ -59,7 +59,10 @@ public class AbilityGUI : MonoBehaviour {
 	{
 		if(StateManager.Instance.State == GameState.unitSelected)
 		{
-			_abils[button].Use();
+			if (button < _abils.Count)
+			{
+				_abils[button].Use();
+			}
 		}
 	}
 }

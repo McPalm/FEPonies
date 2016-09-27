@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class TargetedAbilityInputManager : MonoBehaviour {
 
@@ -53,20 +54,29 @@ public class TargetedAbilityInputManager : MonoBehaviour {
 	void OnGUI(){
 		if(StateManager.Instance.State==GameState.targetingAbility){
 			if(GUI.Button(new Rect(Screen.width/2-50, Screen. height-50, 100, 25), "Cancel")){
-				StateManager.Instance.DebugPop();
-				Unit.Deselect();
-				// HACK goes under here...   sorta
-				Tile.UnColourAll();
-				StateManager.Instance.DebugPop();
+				Cancel();
+				
 			}
 		}
+	}
+
+	private void Cancel()
+	{
+		StateManager.Instance.DebugPop();
+		Unit.Deselect();
+		Tile.UnColourAll();
+		StateManager.Instance.DebugPop();
 	}
 
 	// Update is called once per frame
 	void LateUpdate () {
 		if(StateManager.Instance.State==GameState.targetingAbility)
 		{
-			if(Input.GetMouseButtonDown(0))
+			if (Input.GetButtonDown("Cancel"))
+			{
+				Cancel();
+			}
+			else if(Input.GetMouseButtonDown(0))
 			{
 				Tile clicked=MousePosition.GetTile();
 				if(listener.GetAvailableTargets().Contains(clicked))
