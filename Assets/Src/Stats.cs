@@ -145,26 +145,26 @@ public struct Stats
 		return new Stats(movement, Mathf.RoundToInt(maxHP*x), Mathf.RoundToInt(strength*x), Mathf.RoundToInt(agility*x), Mathf.RoundToInt(dexterity*x), Mathf.RoundToInt(intelligence*x),  Mathf.RoundToInt(defense*x), Mathf.RoundToInt(resistance*x));
 	}
 
-	static public Stats BaseStats(StatLevels hp, StatLevels str, StatLevels agi, StatLevels dex, StatLevels intel, StatLevels df, StatLevels rs, int sp, bool fl){
+	static public Stats BaseStats(StatLevels hp, StatLevels str, StatLevels agi, StatLevels dex, StatLevels intel, int sp, bool fl){
 		int thp = (hp == StatLevels.Low) ? 14 : (hp == StatLevels.Medium) ? 17 : (hp == StatLevels.Jeigan) ? 25 : (hp == StatLevels.Est) ? 14 : (hp == StatLevels.MidLow) ? 16 : 22; // last stat is high
 		int tstr = (str == StatLevels.Low) ? 1 : (str == StatLevels.Medium) ? 3 : (str == StatLevels.Jeigan) ? 5 : (str == StatLevels.Est) ? 1 : (str == StatLevels.MidLow) ? 2 : 4;
 		int tagi = (agi == StatLevels.Low) ? 1 : (agi == StatLevels.Medium) ? 3 : (agi == StatLevels.Jeigan) ? 5 : (agi == StatLevels.Est) ? 1 : (agi == StatLevels.MidLow) ? 2 : 4;
 		int tdex = (dex == StatLevels.Low) ? 1 : (dex == StatLevels.Medium) ? 3 : (dex == StatLevels.Jeigan) ? 5 : (dex == StatLevels.Est) ? 1 : (dex == StatLevels.MidLow) ? 2 : 4;
 		int tint =(intel == StatLevels.Low) ? 1 : (intel == StatLevels.Medium) ? 3 : (intel == StatLevels.Jeigan) ? 5 : (intel == StatLevels.Est) ? 1 : (intel == StatLevels.MidLow) ? 2 : 4;
-		int tdf = (df == StatLevels.Low) ? 1 : (df == StatLevels.Medium) ? 3 : (df == StatLevels.Jeigan) ? 5 : (df == StatLevels.Est) ? 1 : (df == StatLevels.MidLow) ? 2 : 4;
-		int trs = (rs == StatLevels.Low) ? 1 : (rs == StatLevels.Medium) ? 3 : (rs == StatLevels.Jeigan) ? 5 : (rs == StatLevels.Est) ? 1 : (rs == StatLevels.MidLow) ? 2 : 4;
-		return new Stats(new UnitMove(sp, (fl)? MoveType.flying : MoveType.walking), thp, tstr, tagi, tdex, tint, tdf, trs);
+		//int tdf = (df == StatLevels.Low) ? 1 : (df == StatLevels.Medium) ? 3 : (df == StatLevels.Jeigan) ? 5 : (df == StatLevels.Est) ? 1 : (df == StatLevels.MidLow) ? 2 : 4;
+		//int trs = (rs == StatLevels.Low) ? 1 : (rs == StatLevels.Medium) ? 3 : (rs == StatLevels.Jeigan) ? 5 : (rs == StatLevels.Est) ? 1 : (rs == StatLevels.MidLow) ? 2 : 4;
+		return new Stats(new UnitMove(sp, (fl)? MoveType.flying : MoveType.walking), thp, tstr, tagi, tdex, tint, 0, 0);
 	}
 
-	static public Stats StatsGrowth(StatLevels hp, StatLevels st, StatLevels agi, StatLevels dex, StatLevels intel, StatLevels df, StatLevels rs){
+	static public Stats StatsGrowth(StatLevels hp, StatLevels st, StatLevels agi, StatLevels dex, StatLevels intel){
 		int thp = (hp == StatLevels.Low) ? 150 : (hp == StatLevels.Medium) ? 200 : (hp == StatLevels.Jeigan) ? 100 : (hp == StatLevels.Est) ? 300 : (hp == StatLevels.MidLow) ? 175 : 280;
 		int tstr = (st == StatLevels.Low) ? 25 : (st == StatLevels.Medium) ? 45 : (st == StatLevels.Jeigan) ? 10 : (st == StatLevels.Est) ? 100 : (st == StatLevels.MidLow) ? 35 : 80;
 		int tagi = (agi == StatLevels.Low) ? 25 : (agi == StatLevels.Medium) ? 45 : (agi == StatLevels.Jeigan) ? 10 : (agi == StatLevels.Est) ? 100 : (agi == StatLevels.MidLow) ? 35 : 80;
 		int tdex = (dex == StatLevels.Low) ? 25 : (dex == StatLevels.Medium) ? 45 : (dex == StatLevels.Jeigan) ? 10 : (dex == StatLevels.Est) ? 100 : (dex == StatLevels.MidLow) ? 35 : 80;
 		int tint =(intel == StatLevels.Low) ? 25 : (intel == StatLevels.Medium) ? 45 : (intel == StatLevels.Jeigan) ? 10 : (intel == StatLevels.Est) ? 100 : (intel == StatLevels.MidLow) ? 35 : 80;
-		int tdef = (df == StatLevels.Low) ? 25 : (df == StatLevels.Medium) ? 45 : (df == StatLevels.Jeigan) ? 10 : (df == StatLevels.Est) ? 100 : (df == StatLevels.MidLow) ? 35 : 80;
-		int tres = (rs == StatLevels.Low) ? 25 : (rs == StatLevels.Medium) ? 45 : (rs == StatLevels.Jeigan) ? 10 : (rs == StatLevels.Est) ? 100 : (rs == StatLevels.MidLow) ? 35 : 80;
-		return new Stats(new UnitMove(), thp, tstr, tagi, tdex, tint, tdef, tres);
+		//int tdef = (df == StatLevels.Low) ? 25 : (df == StatLevels.Medium) ? 45 : (df == StatLevels.Jeigan) ? 10 : (df == StatLevels.Est) ? 100 : (df == StatLevels.MidLow) ? 35 : 80;
+		//int tres = (rs == StatLevels.Low) ? 25 : (rs == StatLevels.Medium) ? 45 : (rs == StatLevels.Jeigan) ? 10 : (rs == StatLevels.Est) ? 100 : (rs == StatLevels.MidLow) ? 35 : 80;
+		return new Stats(new UnitMove(), thp, tstr, tagi, tdex, tint, 0, 0);
 	}
 
 	public float HitVersus(Stats target)

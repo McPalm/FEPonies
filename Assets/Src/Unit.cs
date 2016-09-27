@@ -29,8 +29,6 @@ public class Unit : MonoBehaviour {
 	public StatLevels agility;
 	public StatLevels dexterity;
 	public StatLevels intelligence;
-	public StatLevels Defence;
-	public StatLevels Resistance;
     public int speed = 5;
 	public bool flight = false;
 	public int group; // move to other behaviour!
@@ -670,10 +668,9 @@ public class Unit : MonoBehaviour {
 	/// Recalcs the base stats. In case of level being changed.
 	/// </summary>
 	public void RecalcBaseStats(){
-		_baseStats = Stats.BaseStats(HP, strength, agility, dexterity, intelligence, Defence, Resistance, speed, flight);
-		_growth = Stats.StatsGrowth(HP, strength, agility, dexterity, intelligence, Defence, Resistance);
+		_baseStats = Stats.BaseStats(HP, strength, agility, dexterity, intelligence, speed, flight);
+		_growth = Stats.StatsGrowth(HP, strength, agility, dexterity, intelligence);
 		stats = _baseStats + _growth.Multiply( ((float)level)*0.01f);
-		stats.might = 5 + level;
 	}
 
 	// HACK

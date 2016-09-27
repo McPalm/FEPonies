@@ -11,6 +11,7 @@ public class CharacterSheet : MonoBehaviour {
 	public Image portrait;
 	public Text statText;
 	public Text abilityText;
+	public Text itemText;
 
 	private Unit client;
 
@@ -44,6 +45,27 @@ public class CharacterSheet : MonoBehaviour {
 		SetPortrait(u);
 		BuildStats(u);
 		BuildAbilities(u);
+		BuildItems(u);
+	}
+
+	private void BuildItems(Unit u)
+	{
+		Backpack b = u.GetComponent<Backpack>();
+		if (b != null)
+		{
+			string val = "";
+			foreach (Item i in b)
+			{
+				val += i.name;
+				if (i is Equipment && b.IsEquipped((Equipment)i)) val += " (equipped)";
+				val += "\n";
+			}
+			itemText.text = val;
+		}
+		else
+		{
+			itemText.text = "Error: Missing backpack.";
+		}
 	}
 
 	private void BuildAbilities(Unit u)

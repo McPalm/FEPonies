@@ -20,7 +20,7 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
     Armor equippedArmor;
     Weapon equippedWeapon;
     Equipment equippedTrinket;
-    int capacity;
+    int capacity = 5;
 	Unit owner;
 	Stats _equipmentStats;
 
@@ -29,7 +29,7 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
 	/// </summary>
 	public Armor EquippedArmor
 	{
-		get { throw new NotImplementedException(); }
+		get { return equippedArmor; }
 	}
 
 	/// <summary>
@@ -37,7 +37,7 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
 	/// </summary>
 	public Weapon EquippedWeapon
 	{
-		get { throw new NotImplementedException(); }
+		get { return equippedWeapon; }
 	}
 
 	/// <summary>
@@ -45,7 +45,7 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
 	/// </summary>
 	public Equipment EquippedTrinket
 	{
-		get { throw new NotImplementedException(); }
+		get { return equippedTrinket; }
 	}
 
 	/// <summary>
@@ -69,7 +69,7 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
 		owner = GetComponent<Unit>();
 	}
 
-	void Start()
+	protected void Start()
 	{
 		BuffManager.Instance.Add(this);
 	}
@@ -135,7 +135,9 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
     /// <returns>true if successful, false if not. Most likely full backpack</returns>
     public bool  Add(Item toBeAdded)
     {
-        throw new NotImplementedException();
+		if (backpack.Count >= Capacity) return false;
+		backpack.Add(toBeAdded);
+		return true;
     }
 
     /// <summary>
@@ -145,7 +147,12 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
     /// <returns>true if succesful, false if not, if false something is probably wrong.</returns>
     public bool Remove(Item toBeRemoved)
     {
-        throw new NotImplementedException();
+        if(toBeRemoved is Equipment)
+		{
+			UnEquip((Equipment)toBeRemoved);
+		}
+		backpack.Remove(toBeRemoved);
+		return true;
     }
 
     /// <summary>
@@ -155,24 +162,28 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
     /// <returns>Returns false if failed for some reason</returns>
     public bool Equip(Equipment toBeEquipped)
     {
-		if (toBeEquipped is Armor)
+		if (backpack.Contains(toBeEquipped))
 		{
-			equippedArmor = (Armor)toBeEquipped;
-			countStats();
-			return true;
+			if (toBeEquipped is Armor)
+			{
+				equippedArmor = (Armor)toBeEquipped;
+				countStats();
+				return true;
+			}
+			else if (toBeEquipped is Weapon)
+			{
+				equippedWeapon = (Weapon)toBeEquipped;
+				countStats();
+				return true;
+			}
+			else
+			{
+				equippedTrinket = toBeEquipped;
+				countStats();
+				return true;
+			}
 		}
-		else if (toBeEquipped is Weapon)
-		{
-			equippedWeapon = (Weapon)toBeEquipped;
-			countStats();
-			return true;
-		}
-		else
-		{
-			equippedTrinket = toBeEquipped;
-			countStats();
-			return true;
-		}
+		throw new Exception("Trying to equip an item not in the backpack!");
     }
 
     /// <summary>
@@ -214,7 +225,7 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
 	// part of the buff interface
 	public bool Affects(Unit u)
 	{
-		return u = owner;
+		return u == owner;
 	}
 
 	/// <summary>
@@ -222,8 +233,22 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
 	/// </summary>
 	void countStats()
 	{
-		_equipmentStats = EquippedArmor.buff;
-		_equipmentStats += EquippedWeapon.buff;
-		_equipmentStats += EquippedTrinket.buff;
+		_equipmentStats = new Stats();
+		if(EquippedArmor != null) _equipmentStats = EquippedArmor.buff;
+		if(EquippedWeapon != null) _equipmentStats += EquippedWeapon.buff;
+		if(EquippedTrinket != null) _equipmentStats += EquippedTrinket.buff;
+	}
+
+	/// <summary>
+	/// Checks if the item is equipped.
+	/// </summary>
+	/// <param name="e"></param>
+	/// <returns></returns>
+	public bool IsEquipped(Equipment e)
+	{
+		if (EquippedArmor == e) return true;
+		if (EquippedWeapon == e) return true;
+		if (EquippedTrinket == e) return true;
+		return false;
 	}
 }

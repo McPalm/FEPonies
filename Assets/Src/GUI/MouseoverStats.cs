@@ -79,7 +79,7 @@ public class MouseoverStats : MonoBehaviour {
 		int hpleft = client.CurrentHP;
 
 		text.text = "HP " + client.CurrentHP +  "/" + s.maxHP + "\n" +
-			"DMG " + s.might + s.strength + "\n" +
+			"DMG " + (s.might + s.strength) + "\n" +
 			"Def " + s.defense + "\n" +
 			"Res " + s.resistance + "\n";
 

@@ -5,7 +5,9 @@ public class HealthBar : MonoBehaviour {
 
 	public Unit represents;
 	public Transform healthBar;
+
 	private SpriteRenderer frame;
+	private int lastDamage = 99;
 
 	void Start (){
 		represents = transform.parent.GetComponent<Unit>();
@@ -19,17 +21,25 @@ public class HealthBar : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(represents.invisible || represents.CurrentHP < 1){
-			healthBar.gameObject.SetActive(false);
-			frame.enabled = false;
-		}else{
-			healthBar.gameObject.SetActive(true);
-			frame.enabled = true;
+		if (represents.damageTaken != lastDamage)
+		{
+			lastDamage = represents.damageTaken;
 
-			float scale = Mathf.Max((float)(represents.ModifiedStats.maxHP - represents.damageTaken) / (float)represents.ModifiedStats.maxHP, 0f);
-			healthBar.transform.localScale = new Vector3(scale, 1f, 1f);
+			if (represents.invisible || represents.CurrentHP < 1)
+			{
+				healthBar.gameObject.SetActive(false);
+				frame.enabled = false;
+			}
+			else
+			{
+				healthBar.gameObject.SetActive(true);
+				frame.enabled = true;
+
+				float scale = Mathf.Max((float)(represents.ModifiedStats.maxHP - represents.damageTaken) / (float)represents.ModifiedStats.maxHP, 0f);
+				healthBar.transform.localScale = new Vector3(scale, 1f, 1f);
+			}
+			FaceRight = represents.FaceRight;
 		}
-		FaceRight = represents.FaceRight;
 	}
 	/// <summary>
 	/// Creates a new healthbar attached to a partent GameObject. Will not function if the parent does not have a Unit component! But if the game object have a Unit component, then the healthbar should work autonomiously.

@@ -86,10 +86,10 @@ public class GUInterface : MonoBehaviour {
 #endif
 			if(Unit.SelectedUnit != null){
 				if(mpos.x < 120 && mpos.y < 160){
-					BuildUnitStatBlock(Unit.SelectedUnit, 10, 10);
+				//	BuildUnitStatBlock(Unit.SelectedUnit, 10, 10);
 				}
 				else{
-					BuildUnitStatBlock(Unit.SelectedUnit);
+					//BuildUnitStatBlock(Unit.SelectedUnit);
 				}
 			}
 		}
