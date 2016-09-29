@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 79ec95846840266499256821c658ac18
-timeCreated: 1475153590
+timeCreated: 1475155208
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -90,9 +90,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 58
-        y: 178
-        width: 42
-        height: 37
+        y: 168
+        width: 54
+        height: 47
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -103,9 +103,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 133
-        width: 37
-        height: 59
+        y: 114
+        width: 51
+        height: 78
       alignment: 9
       pivot: {x: 0.33758387, y: 0.103900716}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,9 +141,9 @@ TextureImporter:
       name: Roadrock4
       rect:
         serializedVersion: 2
-        x: 112
+        x: 113
         y: 200
-        width: 40
+        width: 39
         height: 30
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
