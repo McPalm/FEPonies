@@ -1,10 +1,16 @@
 fileFormatVersion: 2
 guid: 79ec95846840266499256821c658ac18
-timeCreated: 1475048002
+timeCreated: 1475153590
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: RoadProps_0
+    21300002: RoadRock
+    21300004: BrokenShield
+    21300006: LostSword
+    21300008: RoadRock2
+    21300010: RoadRock3
+    21300012: Roadrock4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -62,7 +68,85 @@ TextureImporter:
         width: 55
         height: 62
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RoadRock
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 217
+        width: 53
+        height: 38
+      alignment: 9
+      pivot: {x: 0.544094, y: 0.28035817}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BrokenShield
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 178
+        width: 42
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: LostSword
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 133
+        width: 37
+        height: 59
+      alignment: 9
+      pivot: {x: 0.33758387, y: 0.103900716}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RoadRock2
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 232
+        width: 35
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RoadRock3
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 222
+        width: 43
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Roadrock4
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 200
+        width: 40
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
