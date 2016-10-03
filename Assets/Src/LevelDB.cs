@@ -9,23 +9,23 @@ public class LevelDB
         "RoadAmbush",
         "BarbarianDefence"
         };
-    public string getMainMenu()
+    public string GetMainMenu()
     {
         return levels[0];
     }
 
-    public string getFirstLevel()
+    public string GetFirstLevel()
     {
         return levels[1];
     }
 
-    public List<string> getAllLevels()
+    public List<string> GetAllLevels()
     {
         List<string> temp = new List<string>(levels);
         return temp;
     }
 
-    public string getNextLevel(string curr)
+    public string GetNextLevel(string curr)
     {
         for(int n=0;n<levels.Length;n++)
         {
