@@ -18,7 +18,15 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Unit>
 	/// <returns></returns>
 	public Unit GetUnit(string name)
 	{
-		throw new System.NotImplementedException();
+		foreach(Unit u in roster)
+        {
+            if (u.name==name)
+            {
+                return u;
+            }
+        }
+        Debug.Log("Not found");
+        return null;
 	}
 
 	IEnumerator IEnumerable.GetEnumerator()
