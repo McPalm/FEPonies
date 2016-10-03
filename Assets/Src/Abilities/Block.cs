@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class Block : Passive, Buff {
+public class Block : Passive, AttackBuff {
 
 	private bool active = false;
 	private Unit user;
@@ -60,6 +60,11 @@ public class Block : Passive, Buff {
 	void Awake()
 	{
 		user = GetComponent<Unit>();
-		BuffManager.Instance.Add(this);
+		user.RegisterAttackBuff(this);
+	}
+
+	public bool Applies(Unit target, Tile source, Tile targetLocation)
+	{
+		return active;
 	}
 }

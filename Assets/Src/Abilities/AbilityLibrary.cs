@@ -55,6 +55,7 @@ public class AbilityLibrary
 		abilityLibrary.Add("Execute", typeof(Execute));
 		abilityLibrary.Add("Lightning Reflexes", typeof(LightningReflexes));
 		abilityLibrary.Add("Block", typeof(Block));
+		abilityLibrary.Add("Spearpoint", typeof(Spearpoint));
 	}
 
     public System.Type getTypeFromAbility(string s)
