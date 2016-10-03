@@ -31,10 +31,9 @@ public class Unit : MonoBehaviour {
 	public StatLevels intelligence;
     public int speed = 5;
 	public bool flight = false;
-	public int group; // move to other behaviour!
-    private int retaliations = 1;
-    // public Ability ability;
-    public Material greyscale;
+	private int retaliations = 1;
+	// public Ability ability;
+	public Material greyscale;
 	public Material normalMaterial;
 	public AttackInfo AttackInfo;
 	public IAIBehaviour unitAI;
@@ -133,7 +132,7 @@ public class Unit : MonoBehaviour {
 
 	public int RetaliationsLeft
 	{
-		get { return retaliations - retaliationsMade;}
+		get { return Retaliations - retaliationsMade;}
 	}
 
 	// Methods
@@ -307,7 +306,20 @@ public class Unit : MonoBehaviour {
 			}
 		}
 	}
-	
+
+	public int Retaliations
+	{
+		get
+		{
+			return retaliations;
+		}
+
+		set
+		{
+			retaliations = value;
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
 		if(isFirstUpdate){
