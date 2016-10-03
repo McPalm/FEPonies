@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 4f68023e403e58d40a4394cae7e43cb2
-timeCreated: 1473855925
+timeCreated: 1475491004
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -31,6 +31,7 @@ TextureImporter:
     21300048: Backstab
     21300050: z
     21300052: Crosshair
+    21300054: Block
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -73,11 +74,14 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: ParticleSheet_0
+    - serializedVersion: 2
+      name: ParticleSheet_0
       rect:
         serializedVersion: 2
         x: 300
@@ -87,14 +91,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -15.5, y: 29.5}
-        - {x: -26.5, y: 15.5}
-        - {x: -26.5, y: -18.5}
-        - {x: -14.5, y: -29.5}
-        - {x: 26.5, y: -29.5}
-        - {x: 26.5, y: 29.5}
-    - name: ParticleSheet_1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ParticleSheet_1
       rect:
         serializedVersion: 2
         x: 420
@@ -105,7 +105,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: ParticleSheet_2
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ParticleSheet_2
       rect:
         serializedVersion: 2
         x: 445
@@ -115,30 +117,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 7.5, y: 4}
-        - {x: 4.5, y: 0}
-        - {x: 10.5, y: 16}
-        - {x: 18.5, y: 45}
-        - {x: 13.5, y: 67}
-        - {x: -5.5, y: 67}
-        - {x: -12.5, y: 63}
-        - {x: -18.5, y: 54}
-        - {x: -10.5, y: 22}
-        - {x: -5.5, y: 24}
-        - {x: -3.5, y: 25}
-        - {x: -2.5, y: 28}
-        - {x: -3.5, y: 26}
-        - {x: -3.5, y: 22}
-        - {x: -13.5, y: 15}
-        - {x: -25.5, y: -18}
-        - {x: -25.5, y: -56}
-        - {x: -13.5, y: -67}
-        - {x: 18.5, y: -67}
-        - {x: 25.5, y: -60}
-        - {x: 25.5, y: -24}
-        - {x: 15.5, y: 9}
-    - name: ParticleSheet_4
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ParticleSheet_4
       rect:
         serializedVersion: 2
         x: 371
@@ -149,7 +131,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: BrokenShield2
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BrokenShield2
       rect:
         serializedVersion: 2
         x: 222
@@ -159,14 +143,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -20, y: 28.5}
-        - {x: -30, y: 9.5}
-        - {x: -30, y: -28.5}
-        - {x: 22, y: -28.5}
-        - {x: 30, y: -22.5}
-        - {x: 30, y: 28.5}
-    - name: ParticleSheet_6
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ParticleSheet_6
       rect:
         serializedVersion: 2
         x: 355
@@ -176,14 +156,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -42, y: 18.5}
-        - {x: -43, y: 17.5}
-        - {x: -43, y: -18.5}
-        - {x: 43, y: -18.5}
-        - {x: 43, y: 16.5}
-        - {x: 42, y: 18.5}
-    - name: BrokenShield1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: BrokenShield1
       rect:
         serializedVersion: 2
         x: 229
@@ -193,16 +169,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16.5, y: 28.5}
-        - {x: -24.5, y: 22.5}
-        - {x: -24.5, y: -24.5}
-        - {x: -10.5, y: -28.5}
-        - {x: 9.5, y: -28.5}
-        - {x: 24.5, y: -5.5}
-        - {x: 24.5, y: 22.5}
-        - {x: 13.5, y: 28.5}
-    - name: ParticleSheet_8
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ParticleSheet_8
       rect:
         serializedVersion: 2
         x: 297
@@ -212,16 +182,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -19, y: 37.5}
-        - {x: -28, y: 30.5}
-        - {x: -28, y: -15.5}
-        - {x: -17, y: -37.5}
-        - {x: 19, y: -37.5}
-        - {x: 21, y: -36.5}
-        - {x: 28, y: -9.5}
-        - {x: 28, y: 37.5}
-    - name: ParticleSheet_9
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ParticleSheet_9
       rect:
         serializedVersion: 2
         x: 387
@@ -231,15 +195,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -24.5, y: 28.5}
-        - {x: -26.5, y: 26.5}
-        - {x: -26.5, y: -28.5}
-        - {x: 23.5, y: -28.5}
-        - {x: 26.5, y: -27.5}
-        - {x: 26.5, y: 27.5}
-        - {x: 23.5, y: 28.5}
-    - name: ParticleSheet_10
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ParticleSheet_10
       rect:
         serializedVersion: 2
         x: 464
@@ -249,27 +208,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 2, y: 30.5}
-        - {x: -16, y: 16.5}
-        - {x: -16, y: -1.5}
-        - {x: -14, y: -3.5}
-        - {x: -12, y: -3.5}
-        - {x: -7, y: -0.5}
-        - {x: -7, y: 3.5}
-        - {x: 1, y: 5.5}
-        - {x: 1, y: 2.5}
-        - {x: -2, y: 3.5}
-        - {x: -4, y: 3.5}
-        - {x: -6, y: 1.5}
-        - {x: -9, y: -3.5}
-        - {x: -16, y: -3.5}
-        - {x: -16, y: -22.5}
-        - {x: -15, y: -30.5}
-        - {x: 11, y: -30.5}
-        - {x: 16, y: -25.5}
-        - {x: 16, y: 30.5}
-    - name: ParticleSheet_11
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ParticleSheet_11
       rect:
         serializedVersion: 2
         x: 401
@@ -279,13 +221,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -49.5, y: 18}
-        - {x: -49.5, y: -11}
-        - {x: -43.5, y: -18}
-        - {x: 49.5, y: -18}
-        - {x: 49.5, y: 18}
-    - name: ParticleSheet_12
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ParticleSheet_12
       rect:
         serializedVersion: 2
         x: 358
@@ -296,7 +235,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: ParticleSheet_13
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ParticleSheet_13
       rect:
         serializedVersion: 2
         x: 489
@@ -307,7 +248,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: ParticleSheet_14
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ParticleSheet_14
       rect:
         serializedVersion: 2
         x: 401
@@ -318,7 +261,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: ParticleSheet_15
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ParticleSheet_15
       rect:
         serializedVersion: 2
         x: 460
@@ -328,15 +273,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -19, y: -13.5}
-        - {x: -14, y: -16.5}
-        - {x: 16, y: -16.5}
-        - {x: 19, y: -13.5}
-        - {x: 19, y: 16.5}
-        - {x: -2, y: 16.5}
-        - {x: -19, y: 12.5}
-    - name: ParticleSheet_16
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ParticleSheet_16
       rect:
         serializedVersion: 2
         x: 430
@@ -347,7 +287,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: ParticleSheet_17
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: ParticleSheet_17
       rect:
         serializedVersion: 2
         x: 470
@@ -357,18 +299,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 16, y: -14}
-        - {x: 16, y: 16}
-        - {x: 14, y: 25}
-        - {x: 1, y: 25}
-        - {x: -16, y: 16}
-        - {x: -16, y: -25}
-        - {x: -8, y: -25}
-        - {x: -2, y: -18}
-        - {x: -1, y: -11}
-        - {x: 3, y: -21}
-    - name: WhiteDash
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: WhiteDash
       rect:
         serializedVersion: 2
         x: 361
@@ -379,7 +313,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Star
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Star
       rect:
         serializedVersion: 2
         x: 346
@@ -389,15 +325,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -18.5, y: 19.5}
-        - {x: -21.5, y: 17.5}
-        - {x: -21.5, y: -19.5}
-        - {x: 16.5, y: -19.5}
-        - {x: 21.5, y: -9.5}
-        - {x: 21.5, y: 16.5}
-        - {x: 14.5, y: 19.5}
-    - name: Lightning1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Lightning1
       rect:
         serializedVersion: 2
         x: 279
@@ -408,7 +339,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Lightning2
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Lightning2
       rect:
         serializedVersion: 2
         x: 257
@@ -419,7 +352,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Lightning3
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Lightning3
       rect:
         serializedVersion: 2
         x: 221
@@ -429,15 +364,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16.5, y: 24.5}
-        - {x: -17.5, y: 10.5}
-        - {x: -17.5, y: -24.5}
-        - {x: 13.5, y: -24.5}
-        - {x: 17.5, y: -19.5}
-        - {x: 17.5, y: 20.5}
-        - {x: 10.5, y: 24.5}
-    - name: Lightning4
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Lightning4
       rect:
         serializedVersion: 2
         x: 189
@@ -448,7 +378,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Backstab
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Backstab
       rect:
         serializedVersion: 2
         x: 256
@@ -458,12 +390,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -71.5, y: 17.5}
-        - {x: -71.5, y: -17.5}
-        - {x: 71.5, y: -17.5}
-        - {x: 71.5, y: 17.5}
-    - name: z
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: z
       rect:
         serializedVersion: 2
         x: 312
@@ -474,7 +404,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Crosshair
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Crosshair
       rect:
         serializedVersion: 2
         x: 271
@@ -484,16 +416,21 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 7, y: 29.5}
-        - {x: -11, y: 29.5}
-        - {x: -29, y: 6.5}
-        - {x: -29, y: -13.5}
-        - {x: -5, y: -29.5}
-        - {x: 13, y: -29.5}
-        - {x: 28, y: -8.5}
-        - {x: 29, y: -5.5}
-        - {x: 29, y: 8.5}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Block
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 155
+        width: 90
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 

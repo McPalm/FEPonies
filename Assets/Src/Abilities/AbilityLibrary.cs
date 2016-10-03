@@ -54,6 +54,7 @@ public class AbilityLibrary
 		abilityLibrary.Add("Follow Through", typeof(FollowThrough));
 		abilityLibrary.Add("Execute", typeof(Execute));
 		abilityLibrary.Add("Lightning Reflexes", typeof(LightningReflexes));
+		abilityLibrary.Add("Block", typeof(Block));
 	}
 
     public System.Type getTypeFromAbility(string s)
