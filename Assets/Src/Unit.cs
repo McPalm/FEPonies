@@ -133,6 +133,10 @@ public class Unit : MonoBehaviour {
 	public int RetaliationsLeft
 	{
 		get { return Retaliations - retaliationsMade;}
+		set {
+			retaliationsMade = retaliations - value;
+			// if (retaliationsMade > retaliations) retaliationsMade = retaliations;
+		}
 	}
 
 	// Methods
