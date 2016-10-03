@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Haxx : MonoBehaviour {
@@ -9,6 +10,12 @@ public class Haxx : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		// load GUI
+
+		SceneManager.LoadScene("BattleGUIScene", LoadSceneMode.Additive);
+
+
 		//StateManager.Instance.State = GameState.playerTurn;
 		//
 		//GUInterface.Instance.PrintMessage("Player Turn!");
