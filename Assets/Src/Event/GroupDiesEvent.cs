@@ -10,40 +10,12 @@ public class GroupDiesEvent : MonoBehaviour, Observer {
 
 	public void Notify()
 	{
-		HashSet<Unit> checkGroup=UnitManager.Instance.GetUnitsByTeam(team);
-		if(LevelManager.Instance.isLoaded){
-			if(hasSpawned)
-			{
-				bool noLeft=true;
-				foreach(Unit o in checkGroup)
-				{
-					if (o.group==group)
-					{
-						noLeft=false;
-						break;
-					}
-				}
-				if(noLeft)
-				{
-					triggerEvents();
-				}
-			}
-			else
-			{
-				foreach(Unit o in checkGroup)
-				{
-					if(o.group==group)
-					{
-						hasSpawned=true;
-						break;
-					}
-				}
-			}
-		}
+		Debug.LogError("GroupDiesEvent not Supported!");
 	}
 
 	void Awake()
 	{
+		Debug.LogError("GroupDiesEvent not Supported!");
 		UnitManager.Instance.registerObserver(this);
 	}
 

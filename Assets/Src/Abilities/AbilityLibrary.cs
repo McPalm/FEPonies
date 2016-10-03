@@ -53,6 +53,9 @@ public class AbilityLibrary
 		abilityLibrary.Add("Backstab", typeof(Backstab));
 		abilityLibrary.Add("Follow Through", typeof(FollowThrough));
 		abilityLibrary.Add("Execute", typeof(Execute));
+		abilityLibrary.Add("Lightning Reflexes", typeof(LightningReflexes));
+		abilityLibrary.Add("Block", typeof(Block));
+		abilityLibrary.Add("Spearpoint", typeof(Spearpoint));
 	}
 
     public System.Type getTypeFromAbility(string s)

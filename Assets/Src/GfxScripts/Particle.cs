@@ -69,6 +69,10 @@ public class Particle : MonoBehaviour {
 	static public void Backstab(Vector3 spawnPosition){
 		Instantiate(Resources.Load<GameObject>("Backstab"), spawnPosition, Quaternion.identity);
 	}
+	static public void Block(Vector3 spawnPosition)
+	{
+		Instantiate(Resources.Load<GameObject>("Block"), spawnPosition, Quaternion.identity);
+	}
 
 	// Use this for initialization
 	void Start () {
