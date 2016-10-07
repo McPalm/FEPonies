@@ -5,8 +5,6 @@ using System;
 
 public class CharacterSheet : MonoBehaviour {
 
-	static public CharacterSheet Instance;
-
 	public Text nameText;
 	public Image portrait;
 	public Text statText;
@@ -15,31 +13,7 @@ public class CharacterSheet : MonoBehaviour {
 
 	private Unit client;
 
-	// Use this for initialization
-	void Awake() {
-		Instance = this;
-		gameObject.SetActive(false);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetButtonDown("Cancel")) Close();
-	}
-
-	/// <summary>
-	/// Opens a stat window with the input character
-	/// Or the last charcter that was open in a window.
-	/// </summary>
-	/// <param name="u">Unit you want detailed stats of.</param>
-	public void Open(Unit u = null)
-	{
-		if (u != null) client = u;
-		Build(client);
-		if(StateManager.Instance.State != GameState.characterSheet) StateManager.Instance.Push(GameState.characterSheet);
-		gameObject.SetActive(true);
-	}
-
-	private void Build(Unit u)
+	public void Build(Unit u)
 	{
 		nameText.text = u.name;
 		SetPortrait(u);
@@ -109,23 +83,5 @@ public class CharacterSheet : MonoBehaviour {
 				mystats.defense + "\n" + //ARMOR
 				mystats.resistance + "\n" + //RESISTANCE
 				(mystats.might + mystats.strength) + "\n"; //DAMAGE TODO, make it work for casters
-	}
-
-	/// <summary>
-	/// Close the character sheet
-	/// Only usable in GameState.characterSheet!
-	/// </summary>
-	public void Close()
-	{
-		if (StateManager.Instance.Peek() == GameState.characterSheet)
-		{
-			gameObject.SetActive(false);
-			StateManager.Instance.Pop();
-		}
-		else
-		{
-			throw new System.Exception("Called CharacterSheet.Close() in the wrong state!");
-		}
-
 	}
 }

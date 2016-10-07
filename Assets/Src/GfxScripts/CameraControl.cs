@@ -126,7 +126,7 @@ public class CameraControl : MonoBehaviour {
 					{
 						GameState s = StateManager.Instance.State;
 						if(s == GameState.playerTurn ||s == GameState.unitSelected)
-							CharacterSheet.Instance.Open(MousePosition.GetTile().Unit);
+							BattleSheet.Instance.Open(MousePosition.GetTile().Unit);
 					}
 				}
 			}
