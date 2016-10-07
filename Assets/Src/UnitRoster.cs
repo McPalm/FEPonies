@@ -15,6 +15,32 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Unit>
         }
     }
 
+    //Singleton stuff
+    static private UnitRoster instance;
+
+    static public UnitRoster Instance
+    {
+        get
+        {
+//            if (instance == null)
+//            {
+//               new GameObject("UnitRoster").AddComponent<UnitRoster>();
+//            }
+            return instance;
+        }
+    }
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+    //End of Singleton stuff
+
+
     public IEnumerator<Unit> GetEnumerator()
 	{
 		return activeRoster.GetEnumerator();
@@ -42,4 +68,15 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Unit>
 	{
 		return activeRoster.GetEnumerator();
 	}
+
+    /// <summary>
+    /// Spawns the named unit in the indicated position
+    /// </summary>
+    /// <param name="name">Name of the unit</param>
+    /// <param name="position">Transform of the unit</param>
+    public void SpawnUnit(string name, Transform position)
+    {
+        Unit spawnUnit = GetUnit(name);
+        Instantiate(spawnUnit, position.position, position.rotation);
+    }
 }
