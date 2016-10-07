@@ -20,7 +20,7 @@ public class LevelManager : MonoBehaviour {
     public bool isLoaded = false;
 
     // fields
-    private int nextLevel;
+    private string nextLevel;
 	private float aniDuration;
 	private string msg;
 	private bool fadeToBlack = false;
@@ -72,12 +72,13 @@ public class LevelManager : MonoBehaviour {
 	public void Win(){
 		// goes to next level, if there is any, or return ot the main menu.
 		StateManager.Instance.Clear();
-		nextLevel = Application.loadedLevel+1;
-		if(nextLevel == Application.levelCount) nextLevel = 0;
-		StateManager.Instance.DebugPush(GameState.LevelManagerAnimation);
+		nextLevel = LevelDB.Instance.GetNextLevel(nextLevel);
+		if(nextLevel == "-1") nextLevel = LevelDB.Instance.GetMainMenu();
+        else Story.Instance.Checkpoint=nextLevel;
+        Story.Instance.Save();
+        StateManager.Instance.DebugPush(GameState.LevelManagerAnimation);
 		aniDuration = 2f;
 		msg = "VICTORY!";
-		if(nextLevel != 0 && SaveFile.Active != null) SaveFile.Active.SaveCheckpoint(nextLevel);
 		_inevitable = true;
 		fadeToBlack = true;
 	}
@@ -90,19 +91,19 @@ public class LevelManager : MonoBehaviour {
 		StateManager.Instance.DebugPush(GameState.LevelManagerAnimation);
 		aniDuration = 2f;
 		msg = "DEFEAT!";
-		nextLevel = 0;
+		nextLevel = LevelDB.Instance.GetMainMenu();
 		_inevitable = true;
 		fadeToBlack = true;
 	}
 
 	public void LoadFromCheckpoint(){
-		nextLevel = SaveFile.Active.LoadCheckpoint();
+        nextLevel = Story.Instance.Checkpoint;
 		GotoNextLevel();
 	}
 
 	public void MainMenu(bool defeatMessage = true){
-		// goes to the main menu!
-		nextLevel = 0;
+        // goes to the main menu!
+        nextLevel = LevelDB.Instance.GetMainMenu(); ;
 		if(defeatMessage){
 			aniDuration = 2f;
 			msg = "DEFEAT!";
@@ -113,9 +114,9 @@ public class LevelManager : MonoBehaviour {
 	/// Starts the battle from an intermission
 	/// </summary>
 	public void StartBattle(){
-		nextLevel = Application.loadedLevel+1;
-		if(nextLevel == Application.levelCount) nextLevel = 0;
-		StateManager.Instance.DebugPush(GameState.LevelManagerAnimation);
+		nextLevel = LevelDB.Instance.GetNextLevel(nextLevel);
+        if (nextLevel == "-1") nextLevel = LevelDB.Instance.GetMainMenu();
+        StateManager.Instance.DebugPush(GameState.LevelManagerAnimation);
 		aniDuration = 0f;
 		SceneFadeInOut.FadeToBlack();
 		//GotoNextLevel();
@@ -126,6 +127,10 @@ public class LevelManager : MonoBehaviour {
 		StateManager.Instance.Clean();
 		BuffManager.Instance.Clear();
         isLoaded = false;
-		Application.LoadLevel(nextLevel);
+		SceneManager.LoadScene(nextLevel);
+        if (LevelDB.Instance.isBattleLevel(nextLevel))
+        {
+            SceneManager.LoadScene("BattleGUIScene", LoadSceneMode.Additive);
+        }
 	}
 }

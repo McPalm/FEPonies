@@ -8,14 +8,35 @@ public class Story : MonoBehaviour {
 
 
 	string checkPoint;
-
-	/// <summary>
+    /// <summary>
 	/// Name of the level that is the current checkpoint
 	/// </summary>
 	public string Checkpoint
 	{
 		get { return checkPoint; }
+        set { checkPoint = value; }
 	}
+
+    //Singleton stuff
+    static private Story instance;
+
+    static public Story Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+    //End of Singleton stuff
 
     /// <summary>
     /// Save the game and marks a checkpoint

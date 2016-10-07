@@ -13,26 +13,14 @@ public class MainMenu : MonoBehaviour {
 
 
 		if(GUI.Button( new Rect (Screen.width/4, Screen.height/24*5, Screen.width/2, Screen.height/12), "New Game")){
-			PlayerPrefs.DeleteAll();
-			SaveFile.Active.SaveCheckpoint(1);
+            Story.Instance.Checkpoint = LevelDB.Instance.GetFirstLevel();
+            Story.Instance.Save();
 			LevelManager.Instance.LoadFromCheckpoint();
 		}
 		if(GUI.Button( new Rect(Screen.width/4, Screen.height/24*8, Screen.width/2, Screen.height/12), "Continue")){
+            Story.Instance.Load();
 			LevelManager.Instance.LoadFromCheckpoint();
 		}
-		level = int.Parse(GUI.TextField( new Rect(Screen.width/4, Screen.height/24*11, 200, Screen.height/12), "" + level));
-
-		if(GUI.Button( new Rect(Screen.width/4+210, Screen.height/24*11, Screen.width/2-200, Screen.height/12), "Start At Level " + level)){
-			SaveFile.Active.LoadCheckpoint();
-			SaveFile.Active.SaveCheckpoint(level);
-			LevelManager.Instance.LoadFromCheckpoint();
-		}
-
-		if(GUI.Button( new Rect(Screen.width - 200, Screen.height-50, 100, 30), "Reset")){ // HACK so much fucking remove this!
-			PlayerPrefs.DeleteAll();
-		}
-
-
 	}
 
 	void Awake(){
