@@ -4,11 +4,20 @@ using System.Collections;
 
 public class UnitRoster : MonoBehaviour, IEnumerable<Unit>
 {
-	List<Unit> roster;
+	public List<Unit> roster;
+    public List<Unit> activeRoster;
 
-	public IEnumerator<Unit> GetEnumerator()
+    public List<Unit> Roster
+    {
+        get
+        {
+            return roster;
+        }
+    }
+
+    public IEnumerator<Unit> GetEnumerator()
 	{
-		return roster.GetEnumerator();
+		return activeRoster.GetEnumerator();
 	}
 
 	/// <summary>
@@ -18,7 +27,7 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Unit>
 	/// <returns></returns>
 	public Unit GetUnit(string name)
 	{
-		foreach(Unit u in roster)
+		foreach(Unit u in Roster)
         {
             if (u.name==name)
             {
@@ -31,6 +40,6 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Unit>
 
 	IEnumerator IEnumerable.GetEnumerator()
 	{
-		return roster.GetEnumerator();
+		return activeRoster.GetEnumerator();
 	}
 }

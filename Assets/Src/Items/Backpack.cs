@@ -272,4 +272,12 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
 		}
 		return false;
 	}
+
+    /// <summary>
+    /// Removes all items in the backpack
+    /// </summary>
+    public void EmptyBackpack()
+    {
+        backpack.Clear();
+    }
 }

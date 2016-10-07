@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+using System;
 
 public class Story : MonoBehaviour {
 
@@ -14,19 +17,121 @@ public class Story : MonoBehaviour {
 		get { return checkPoint; }
 	}
 
-	/// <summary>
-	/// Save the game and marks a checkpoint
-	/// </summary>
-	public void Save()
+    /// <summary>
+    /// Save the game and marks a checkpoint
+    /// also saves all character in the UnitRoster
+    /// </summary>
+    public void Save()
+    {
+        Save("SaveGame");
+        Debug.Log("Saved!");
+    }
+    /// <summary>
+    /// Save the game with supplied filename and marks a checkpoint
+    /// also saves all character in the UnitRoster
+    /// </summary>
+    public void Save(string filename)
 	{
-		throw new System.NotImplementedException();
-	}
+        //Preparing save data
+        SaveData saveData = new SaveData();
+        saveData.Checkpoint = checkPoint;
+        UnitRoster roster = GetComponent<UnitRoster>();
+        saveData.Roster = new List<SaveCharacter>();
+        foreach(Unit u in roster.Roster)
+        {
+            SaveCharacter temp;
+            temp.Level = u.level;
+            temp.Name = u.name;
+            Backpack tempBackPack = u.GetComponent<Backpack>();
+            temp.Backpack = new List<string>();
+            if (tempBackPack != null)
+            {
+                foreach (Item i in tempBackPack)
+                {
+                    temp.Backpack.Add(i.Name);
+                }
+            }
+            if(roster.activeRoster.Contains(u))
+            {
+                temp.isActive = true;
+            }
+            else
+            {
+                temp.isActive = false;
+            }
+            saveData.Roster.Add(temp);
+        }
+        saveData.saveTime = DateTime.Now;
+        //TODO add abilities
+        //Now let's write it to a file
+        BinaryFormatter binary = new BinaryFormatter();
+        Debug.Log(Application.persistentDataPath);
+        FileStream file = File.Create(Application.persistentDataPath + "/"+ filename+ ".sav");
+        binary.Serialize(file, saveData);
+        file.Close();
+    }
+
+    /// <summary>
+	/// Load a game from the checkpoint being stored in this class
+    /// and stuffs all character info from the savefile into the UnitRoster
+	/// </summary>
+    public void Load()
+    {
+        Load("SaveGame");
+    }
 
 	/// <summary>
-	/// Load a game from the checlpoint being stored in this class
+	/// Load a game from provided filename from the checkpoint being stored in this class
+    /// and stuffs all character info from the savefile into the UnitRoster
 	/// </summary>
-	public void Load()
+	public void Load(string filename)
 	{
-		throw new System.NotImplementedException();
-	}
+        BinaryFormatter binary = new BinaryFormatter();
+        FileStream file = File.Open(Application.persistentDataPath + "/"+filename+".sav", FileMode.Open);
+        SaveData saveData= (SaveData)binary.Deserialize(file);
+        file.Close();
+        checkPoint = saveData.Checkpoint;
+        UnitRoster roster = GetComponent<UnitRoster>();
+        foreach(SaveCharacter character in saveData.Roster)
+        {
+            Unit tempUnit = roster.GetUnit(character.Name);
+            if (tempUnit != null)
+            {
+                tempUnit.level = character.Level;
+                if (character.isActive)
+                {
+                    if(!roster.activeRoster.Contains(tempUnit))
+                    {
+                        roster.activeRoster.Add(tempUnit);
+                    }
+                }
+                else
+                {
+                    if (roster.activeRoster.Contains(tempUnit))
+                    {
+                        roster.activeRoster.Remove(tempUnit);
+                    }
+                }
+                Backpack tempBackPack = tempUnit.GetComponent<Backpack>();
+                if (tempBackPack != null)
+                {
+                    tempBackPack.EmptyBackpack();
+                    foreach (string itemName in character.Backpack)
+                    {
+                        Item tempItem = ItemString.StringToItem(itemName);
+                        tempBackPack.Add(tempItem);
+                    }
+                }
+                else
+                {
+                    tempUnit.gameObject.AddComponent<Backpack>();
+                }
+            }
+            else
+            {
+                Debug.LogError("No characters in loaded file?");
+                return;
+            }
+        }
+    }
 }
