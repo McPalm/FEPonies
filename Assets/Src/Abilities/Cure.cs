@@ -83,8 +83,8 @@ public class Cure: AbilityWithManacost, TargetedAbility, AIAbility
 	
 	public void Notify(Tile target)
 	{
-		Unit u = GetComponent<Unit>();
-		int power = u.ModifiedStats.intelligence +5;
+		Character c = GetComponent<Character>();
+		int power = c.ModifiedStats.intelligence +5;
 		target.Unit.Heal(power);
 		foreach(Debuff d in target.Unit.GetComponents<Debuff>()){
 			Destroy(d);

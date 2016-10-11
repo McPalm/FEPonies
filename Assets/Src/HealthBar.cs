@@ -35,7 +35,7 @@ public class HealthBar : MonoBehaviour {
 				healthBar.gameObject.SetActive(true);
 				frame.enabled = true;
 
-				float scale = Mathf.Max((float)(represents.ModifiedStats.maxHP - represents.damageTaken) / (float)represents.ModifiedStats.maxHP, 0f);
+				float scale = Mathf.Max((float)(represents.CurrentHP) / (float)represents.Character.ModifiedStats.maxHP, 0f);
 				healthBar.transform.localScale = new Vector3(scale, 1f, 1f);
 			}
 			FaceRight = represents.FaceRight;

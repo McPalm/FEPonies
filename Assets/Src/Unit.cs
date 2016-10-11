@@ -72,7 +72,7 @@ public class Unit : MonoBehaviour {
 
 	public bool IsAlive{
 		get{
-			return damageTaken < ModifiedStats.maxHP;
+			return damageTaken < Character.ModifiedStats.maxHP;
 		}
 	}
 
@@ -122,7 +122,7 @@ public class Unit : MonoBehaviour {
 	}
 
 	public int CurrentHP{
-		get{return ModifiedStats.maxHP - damageTaken;} 
+		get{return Character.ModifiedStats.maxHP - damageTaken;} 
 	}
 
 	public int RetaliationsLeft
@@ -351,7 +351,7 @@ public class Unit : MonoBehaviour {
 							dx = startPosition.x - endPosition.x,
 							dy = startPosition.y - endPosition.y,
 							distance = Mathf.Sqrt(dx*dx+dy*dy);
-						tweenSpeed = SPEEDMULT*ModifiedStats.movement.moveSpeed/distance;
+						tweenSpeed = SPEEDMULT*Character.ModifiedStats.movement.moveSpeed/distance;
 						moving = true;
 						tweenPosition -= 1f;
 						currTile++;
@@ -444,7 +444,7 @@ public class Unit : MonoBehaviour {
 				dx = startPosition.x - endPosition.x,
 				dy = startPosition.y - endPosition.y,
 				distance = Mathf.Sqrt(dx*dx+dy*dy);
-			tweenSpeed = SPEEDMULT*ModifiedStats.movement.moveSpeed/distance;
+			tweenSpeed = SPEEDMULT* Character.ModifiedStats.movement.moveSpeed/distance;
 			moving = true;
 			tweenPosition = 0f;
 			currTile++;
@@ -474,7 +474,7 @@ public class Unit : MonoBehaviour {
 	public int Damage(int n, DamageType attackType, bool testAttack=false)
 	{
 		if(attackType.Normal){ // skip a bunch of logic if its just a regular attack.
-			n = Mathf.Max(n-ModifiedStats.defense, 0);
+			n = Mathf.Max(n-Character.ModifiedStats.defense, 0);
 		}else{
 			// defence/resistane reduction and armour piercing/poison/true damage.
 			if(attackType.True){
@@ -483,13 +483,13 @@ public class Unit : MonoBehaviour {
 				if(!testAttack) Particle.PoisonParticle(transform.position);
 			}else if(attackType.Magic){
 				if(attackType.ArmourPiercing)
-					n = Mathf.Max(n-ModifiedStats.resistance/2, n/4);
+					n = Mathf.Max(n-Character.ModifiedStats.resistance/2, n/4);
 				else
-					n = Mathf.Max(n-ModifiedStats.resistance, 0);
+					n = Mathf.Max(n-Character.ModifiedStats.resistance, 0);
 			}else if(attackType.ArmourPiercing){
-				n = Mathf.Max(n-ModifiedStats.defense/2, n/4);
+				n = Mathf.Max(n- Character.ModifiedStats.defense/2, n/4);
 			}else{
-				n = Mathf.Max(n-ModifiedStats.defense, 0);
+				n = Mathf.Max(n- Character.ModifiedStats.defense, 0);
 			}
 
 			if(attackType.AntiAir && Character.flight){
@@ -519,7 +519,7 @@ public class Unit : MonoBehaviour {
 			damageTaken += n;
 			NotifyHealthObservers(-n);
 		}
-		if(damageTaken >= ModifiedStats.maxHP){
+		if(damageTaken >= Character.ModifiedStats.maxHP){
 			Death (true);
 			SFXPlayer.Instance.DeathSound();
 		}
@@ -598,7 +598,7 @@ public class Unit : MonoBehaviour {
 	public HashSet<Tile> GetReachableTiles()
 	{
 		HashSet<Tile> retValue=new HashSet<Tile>();
-		Tile.GetReachableTiles(ModifiedStats.movement, retValue, this);
+		Tile.GetReachableTiles(Character.ModifiedStats.movement, retValue, this);
 		return retValue;
 	}
 

@@ -56,8 +56,8 @@ public class Explosion : AbilityWithManacost, TargetedAbility, AIAbility {
 	private IEnumerable<Tile> _tgts;
 	
 	void ApplyAndShit(Tile ti){
-		Unit user = GetComponent<Unit>();
-		int damageDealth = user.Character.level + 4 + user.ModifiedStats.intelligence;
+		Character user = GetComponent<Character>();
+		int damageDealth = user.level + 4 + user.ModifiedStats.intelligence;
 		foreach(Tile t in _tgts){
 
 
@@ -78,7 +78,7 @@ public class Explosion : AbilityWithManacost, TargetedAbility, AIAbility {
 		{
 			return 0;
 		}
-		int damageDealth = user.Character.level + 4 + user.ModifiedStats.intelligence;
+		int damageDealth = user.Character.level + 4 + user.Character.ModifiedStats.intelligence;
 		int value = -1;
 		int maxValue =-1;
 		foreach(Tile q in possibleTargets)

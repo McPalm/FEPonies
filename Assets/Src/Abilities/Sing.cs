@@ -50,7 +50,7 @@ public class Sing : Ability, HealthObserver, AIAbility {
 	}
 
 	void CalulateBuff(){
-		int i = GetComponent<Unit>().ModifiedStats.intelligence;
+		int i = GetComponent<Character>().ModifiedStats.intelligence;
 		Stats s = new Stats();
 		s.strength = (i+7)/5;
 		s.hitBonus = i*0.01f;

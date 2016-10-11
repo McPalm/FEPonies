@@ -25,7 +25,7 @@ public class Execute : Passive, AttackBuff {
 	public bool Applies(Unit target, Tile source, Tile targetLocation)
 	{
 		int lost = target.damageTaken;
-		int max = target.ModifiedStats.maxHP;
+		int max = target.Character.ModifiedStats.maxHP;
 
 		_stats.might = lost / 5;
 		if (lost * 2 > max) _stats.hitBonus = 0.2f;

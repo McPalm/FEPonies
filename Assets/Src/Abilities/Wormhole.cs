@@ -76,6 +76,6 @@ public class Wormhole : AbilityWithManacost, TargetedAbility {
 	}
 
 	void CalcRange(){
-		range = GetComponent<Unit>().ModifiedStats.intelligence/5+3;
+		range = GetComponent<Character>().ModifiedStats.intelligence/5+3;
 	}
 }
