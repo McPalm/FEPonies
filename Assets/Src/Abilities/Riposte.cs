@@ -1,22 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 
 /// <summary>
 /// Duelist.
 /// Increased dodge and damage and crit when you are getting attacked.
 /// </summary>
-public class Riposte : Passive, Buff{
+public class Riposte : Passive, AttackBuff{
 
 
 	private Unit _unit;
 	private Stats _buff;
 	private bool _autoCrit = false;
-
-	public bool Affects (Unit u)
-	{
-		return _autoCrit && u == _unit;
-	}
 
 	public Stats Stats {
 		get {
@@ -39,8 +35,11 @@ public class Riposte : Passive, Buff{
 	// Use this for initialization
 	void Start () {
 		_unit = GetComponent<Unit>();
-		calcBuff();
-		BuffManager.Instance.Add(this);
+		if (_unit)
+		{
+			calcBuff();
+			_unit.RegisterAttackBuff(this);
+		}
 	}
 
 	void OnDodgeAttack(Unit other){
@@ -55,9 +54,8 @@ public class Riposte : Passive, Buff{
 		_autoCrit = false;
 	}
 
-	void OnDestroy(){
-		BuffManager.Instance.RemoveBuff(this);
+	public bool Applies(Unit target, Tile source, Tile targetLocation)
+	{
+		return _autoCrit;
 	}
-
-
 }

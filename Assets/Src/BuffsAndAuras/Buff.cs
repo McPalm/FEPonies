@@ -1,8 +1,5 @@
 ﻿public interface Buff{
-	// dont forget to remove from the buff manager when the buff is destroyed. presumably when a new level is loaded.
-
-	bool Affects(Unit u);
-
+	// I dont even know how this would be handled anymore please send help
 	Stats Stats{
 		get;
 	}

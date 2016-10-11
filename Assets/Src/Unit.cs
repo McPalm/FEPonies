@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(Character))]
 public class Unit : MonoBehaviour {
 
 	//Path to walk
@@ -23,14 +24,6 @@ public class Unit : MonoBehaviour {
 	public static Unit retaliatingUnit;
 	public int team;
 	public bool invisible = false;
-	public int level = 1;
-	public StatLevels HP;
-	public StatLevels strength;
-	public StatLevels agility;
-	public StatLevels dexterity;
-	public StatLevels intelligence;
-    public int speed = 5;
-	public bool flight = false;
 	private int retaliations = 1;
 	// public Ability ability;
 	public Material greyscale;
@@ -49,18 +42,20 @@ public class Unit : MonoBehaviour {
 	private bool isFirstUpdate = true;
 	internal int damageTaken = 0;
 	private bool hasActed = false;
-	private Stats _baseStats;
-	private Stats _growth;
+	//private Stats _baseStats;
+	// private Stats _growth;
 	private HashSet<HealthObserver> _healthObservers = new HashSet<HealthObserver>();
-	private Stats stats;
+	// private Stats stats;
 	private Stats attackStats;
 	internal bool doubleAttack = false;
 	private HashSet<object> _inhibs = new HashSet<object>();
+	Character character;
 
 	// Properties
 	public Stats ModifiedStats{
 		get{
-			return stats + BuffManager.Instance.GetBuffs(this) + attackStats;
+			Debug.LogWarning("Unit.Modified Stats is deprechiated!");
+			return Character.ModifiedStats + BuffManager.Instance.GetBuffs(this) + attackStats;
 		}
 	}
 
@@ -177,12 +172,6 @@ public class Unit : MonoBehaviour {
 		UnitManager.Instance.Add(this);
 		// gimme a health bar!
 		HealthBar.NewHealthBar(transform);
-		if(team == 1){
-			level += MainMenu.levelBonus;
-		}
-
-		// stats.movement.moveSpeed = _baseStats.movement.moveSpeed;
-		RecalcBaseStats();
 	}
 
 	/// <summary>
@@ -321,6 +310,16 @@ public class Unit : MonoBehaviour {
 		set
 		{
 			retaliations = value;
+		}
+	}
+
+	public Character Character
+	{
+		get
+		{
+			if (character == null)
+				character = GetComponent<Character>();
+			return character;
 		}
 	}
 
@@ -493,7 +492,7 @@ public class Unit : MonoBehaviour {
 				n = Mathf.Max(n-ModifiedStats.defense, 0);
 			}
 
-			if(attackType.AntiAir && flight){
+			if(attackType.AntiAir && Character.flight){
 				n *= 2;
 			}
 
@@ -569,16 +568,12 @@ public class Unit : MonoBehaviour {
 		float bonus = 0f;
 		// I get bonus XP if I killed a boss!
 		if(dead.isBoss) bonus += 0.5f;
-		// I get bonus XP if I killed an enemy and I am below level 10.
-		if(level < 5){
-			bonus += Mathf.Max((5-level)*0.02f, 0f);
-		}
 		RewardExperience(dead, (fractionEach == 0f) ? 1f : 0.5f, bonus);
 	}
 
 	private void RewardExperience(Unit dead, float fraction, float bonus = 0f){
 		// calc xp gained
-		float sum = 0.55f * Mathf.Pow(1.12f, (float)dead.level) / Mathf.Pow(1.18f, (float)level)*fraction;
+		float sum = 0.55f * Mathf.Pow(1.12f, (float)dead.Character.level) / Mathf.Pow(1.18f, (float)Character.level) *fraction;
 		sum += bonus;
 		if(SaveFile.Active != null){
 			if(SaveFile.Active.GrantXP(this, sum)){
@@ -680,15 +675,6 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
-	/// <summary>
-	/// Recalcs the base stats. In case of level being changed.
-	/// </summary>
-	public void RecalcBaseStats(){
-		_baseStats = Stats.BaseStats(HP, strength, agility, dexterity, intelligence, speed, flight);
-		_growth = Stats.StatsGrowth(HP, strength, agility, dexterity, intelligence);
-		stats = _baseStats + _growth.Multiply( ((float)level)*0.01f);
-	}
-
 	// HACK
 	void StartingAttackSequence(Unit u){
 		invisible = false;
@@ -757,7 +743,7 @@ public class Unit : MonoBehaviour {
 		if(enemy != null)
 			if (enemyTile == null)
 				enemyTile = enemy.Tile;
-		Stats s = stats + BuffManager.Instance.GetBuffs(this, location);
+		Stats s = Character.ModifiedStats + BuffManager.Instance.GetBuffs(this, location);
 
 		if (enemy != null)
 		{

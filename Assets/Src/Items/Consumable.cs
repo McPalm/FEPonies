@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// </summary>
 public abstract class Consumable : Item
 {
-    public abstract bool use(Unit user);
+    public abstract bool use(Character user);
 	public abstract int MaxStack
 	{
 		get;

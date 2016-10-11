@@ -105,11 +105,14 @@ public class IntermissionMenu : MonoBehaviour {
 	}
 
 	private void DrawRoosterCell(int x, int y, Unit u){
+		/*
 		DrawRoosterCell(x, y, u.name, u.level.ToString(), u.ModifiedStats.maxHP.ToString(),
 		                "NaN", u.ModifiedStats.strength.ToString(), u.ModifiedStats.agility.ToString(), u.ModifiedStats.intelligence.ToString(),
 		                u.ModifiedStats.defense.ToString(), u.ModifiedStats.resistance.ToString(),
 		                (Mathf.Round(u.ModifiedStats.Hit*100f) + "%").ToString(), (Mathf.Round(u.ModifiedStats.Dodge*100f) + "%").ToString(), 
 		                true);
+						*/
+		Debug.LogError("IntermissionMenu.cs is no longer used!");
 	}
 
 	private void DrawRoosterCell(int x, int y, string name, string level, string hitpoints, string attack, string str, string agi, string inte, string defence, string resistance, string hit, string dodge, bool frame){

@@ -82,9 +82,7 @@ public class SaveFile{
 	public void UpdateUnit(Unit unit){
 		if(_playerUnits.Contains(unit.name)){
 			float exp = PlayerPrefs.GetFloat(slot + unit.name + "exp", 0f);
-			unit.level = 1 + (int)exp;
-			unit.RecalcBaseStats();
-
+			unit.Character.level = 1 + (int)exp;
 		}
 	}
 

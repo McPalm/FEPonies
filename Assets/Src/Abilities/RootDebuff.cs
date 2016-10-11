@@ -8,7 +8,7 @@ public class RootDebuff : Debuff, TurnObserver, Buff {
 	public int duration = 2;
 
 	private GameObject instaRoot;
-	private Unit unit;
+	private Character target;
 	private Unit owner;
 
 	private Stats mod;
@@ -20,12 +20,12 @@ public class RootDebuff : Debuff, TurnObserver, Buff {
 		mod.dodgeBonus = -0.3f;
 		mod.hitBonus = -0.1f;
 		UnitManager.Instance.RegisterTurnObserver(this);
-		unit = GetComponent<Unit>();
+		target = GetComponent<Character>();
 
 		instaRoot = Instantiate(Resources.Load("Vine"), transform.position, Quaternion.identity) as GameObject;
 		instaRoot.transform.parent = this.transform;
 
-		BuffManager.Instance.Add(this);
+		target.AddBuff(this);
 		UnitManager.Instance.RegisterTurnObserver(this);
 	}
 
@@ -61,13 +61,8 @@ public class RootDebuff : Debuff, TurnObserver, Buff {
 	
 	void OnDestroy(){
 		UnitManager.instance.unRegisterTurnObserver(this);
-		BuffManager.Instance.RemoveBuff(this);
+		target.RemoveBuff(this);
 		Destroy(instaRoot);
-	}
-
-	public bool Affects (Unit u)
-	{
-		return u == unit;
 	}
 
 	public Stats Stats{

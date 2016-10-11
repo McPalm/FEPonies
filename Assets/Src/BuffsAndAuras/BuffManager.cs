@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class BuffManager{
 
-	private HashSet<Buff> _buffs = new HashSet<Buff>();
+
 	private HashSet<BuffArea> _areas = new HashSet<BuffArea>();
 
 	static private BuffManager instance;
@@ -14,14 +14,6 @@ public class BuffManager{
 			}
 			return instance;
 		}
-	}
-
-	/// <summary>
-	/// Add the specified buff.
-	/// </summary>
-	/// <param name="buff">Buff.</param>
-	public void Add(Buff buff){
-		_buffs.Add(buff);
 	}
 
 	public void Add(BuffArea area)
@@ -37,11 +29,6 @@ public class BuffManager{
 	public Stats GetBuffs(Unit unit, Tile tile = null){
 		if (tile == null) tile = unit.Tile;
 		Stats rv = new Stats();
-		foreach(Buff buff in _buffs){
-			if(buff.Affects(unit)){
-				rv += buff.Stats;
-			}
-		}
 		foreach(BuffArea area in _areas)
 		{
 			if(area.Includes(unit, tile))
@@ -52,10 +39,6 @@ public class BuffManager{
 		return rv;
 	}
 
-	public void RemoveBuff(Buff buff){
-		_buffs.Remove(buff);
-	}
-
 	public void RemoveArea(BuffArea area)
 	{
 		_areas.Remove(area);
@@ -63,6 +46,6 @@ public class BuffManager{
 
 	public void Clear ()
 	{
-		_buffs.Clear();
+		_areas.Clear();
 	}
 }

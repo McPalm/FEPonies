@@ -12,12 +12,11 @@ class ScalingBackpack : Backpack {
 	void Start()
 	{
 		GenerateGear();
-		base.Start();
 	}
 
 	private void GenerateGear()
 	{
-		int level = GetComponent<Unit>().level;
+		int level = GetComponent<Unit>().Character.level;
 
 		// generate armour
 		Armor a = new Armor();

@@ -12,13 +12,13 @@ public class Wingslayer : Passive, AttackBuff {
 
 		buff.hitBonus = 0.3f;
 		host = GetComponent<Unit>();
-		buff.might = host.level / 2 + 3;
+		buff.might = host.Character.level / 2 + 3;
 		host.RegisterAttackBuff(this);
 	}
 
 	public bool Applies(Unit target, Tile source, Tile targetLocation)
 	{
-		return target.flight;
+		return target.Character.flight;
 	}
 
 	public Stats Stats {

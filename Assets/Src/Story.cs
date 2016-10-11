@@ -40,7 +40,7 @@ public class Story : MonoBehaviour {
         foreach(Unit u in roster.Roster)
         {
             SaveCharacter temp;
-            temp.Level = u.level;
+            temp.Level = u.Character.level;
             temp.Name = u.name;
             Backpack tempBackPack = u.GetComponent<Backpack>();
             temp.Backpack = new List<string>();
@@ -97,7 +97,7 @@ public class Story : MonoBehaviour {
             Unit tempUnit = roster.GetUnit(character.Name);
             if (tempUnit != null)
             {
-                tempUnit.level = character.Level;
+                tempUnit.Character.level = character.Level;
                 if (character.isActive)
                 {
                     if(!roster.activeRoster.Contains(tempUnit))

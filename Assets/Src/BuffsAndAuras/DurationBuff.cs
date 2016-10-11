@@ -35,7 +35,8 @@ public class DurationBuff : TurnObserver, Buff {
 	public DurationBuff(int duration, Stats b, Unit t)
 	{
 		endTurn=UnitManager.Instance.currTurn + duration;
-		BuffManager.Instance.Add(this);
+		//BuffManager.Instance.Add(this);
+		t.Character.AddBuff(this);
 		buff=b;
 		target=t;
 		UnitManager.Instance.RegisterTurnObserver(this);
@@ -51,6 +52,7 @@ public class DurationBuff : TurnObserver, Buff {
 
 	public void Destroy(){
 		UnitManager.instance.unRegisterTurnObserver(this);
-		BuffManager.Instance.RemoveBuff(this);
+		target.Character.RemoveBuff(this);
+		//BuffManager.Instance.RemoveBuff(this);
 	}
 }

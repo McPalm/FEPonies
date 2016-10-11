@@ -21,7 +21,7 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
     Weapon equippedWeapon;
     Equipment equippedTrinket;
     int capacity = 5;
-	Unit owner;
+	Character owner;
 	Stats _equipmentStats;
 
 	/// <summary>
@@ -66,12 +66,8 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
 
 	void Awake()
 	{
-		owner = GetComponent<Unit>();
-	}
-
-	protected void Start()
-	{
-		BuffManager.Instance.Add(this);
+		owner = GetComponent<Character>();
+		owner.AddBuff(this);
 	}
 
 	/// <summary>

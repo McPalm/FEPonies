@@ -147,8 +147,8 @@ public class GUInterface : MonoBehaviour {
 			y = Screen.height-MARGAIN*12-10;
 		}
 
-		Stats s = client.GetStatsAt(client.Tile);
-
+	
+		/*
 		GUI.Box(new Rect(x,y,100,MARGAIN*12+10), client.name);
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*1, 90, 23), ("Level: " + client.level));
 		GUI.Label(new Rect(x+5, y+5+MARGAIN*2, 90, 23), ("HP: " + client.CurrentHP + "/" + client.ModifiedStats.maxHP));
@@ -162,6 +162,7 @@ public class GUInterface : MonoBehaviour {
         GUI.Label(new Rect(x + 5, y + 5 + MARGAIN * 9, 90, 23), ("Crit: " + s.Crit * 100+"%"));
         GUI.Label(new Rect(x + 5, y + 5 + MARGAIN * 10, 90, 23), ("Crit Ddg: " + s.CritDodge * 100 + "%"));
         GUI.Label(new Rect(x+5, y+5+MARGAIN*11, 90, 23), (client.toolTip));
+		*/
 	}
 
 	/// <summary>

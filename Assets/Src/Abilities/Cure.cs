@@ -17,7 +17,7 @@ public class Cure: AbilityWithManacost, TargetedAbility, AIAbility
 		foreach(Tile q in possibleTargets)
 		{
 			value=0;
-			if(q.Unit.damageTaken< user.level+10)
+			if(q.Unit.damageTaken< user.Character.level+10)
 			{
 				value=0;
 			}

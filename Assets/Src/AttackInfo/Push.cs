@@ -87,7 +87,7 @@ public class Push : MonoBehaviour, IEffect {
 		if (pushTo == null) return false;
 		if (pushTo.isOccuppied) return false;
 		if (pushTo is WallTile) return false;
-		if (!target.Unit.flight && pushTo is WaterTile) return false;
+		if (!target.Unit.Character.flight && pushTo is WaterTile) return false;
 		target.Unit.MoveTo(pushTo);
 		return true;
 	}

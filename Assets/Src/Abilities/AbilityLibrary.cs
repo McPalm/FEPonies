@@ -21,14 +21,12 @@ public class AbilityLibrary
     public AbilityLibrary()
     {
         abilityLibrary.Add("ArmourPiercing", typeof(ArmourPiercing));
-        abilityLibrary.Add("Assassin", typeof(Assassin));
         abilityLibrary.Add("Backflip", typeof(Backflip));
         abilityLibrary.Add("BackupWeapon", typeof(BackupWeapon));
         abilityLibrary.Add("Bastion", typeof(Bastion));
         abilityLibrary.Add("Charge", typeof(Charge));
         abilityLibrary.Add("Charm", typeof(Charm));
         abilityLibrary.Add("Cure", typeof(Cure));
-        abilityLibrary.Add("DoubleAttack", typeof(DoubleAttack));
         abilityLibrary.Add("Explosion", typeof(Explosion));
         abilityLibrary.Add("Feint", typeof(Feint));
         abilityLibrary.Add("GravityField", typeof(GravityField));

@@ -21,12 +21,14 @@ public class HealingPotion : Consumable
 		}
 	}
 
-	public override bool use(Unit user)
+	public override bool use(Character user)
 	{
-		if (user.damageTaken == 0) return false;
+		Unit u = user.GetComponent<Unit>();
+		if (u = null) return false;
+		if (u.damageTaken == 0) return false;
 		else
 		{
-			user.Heal(15);
+			u.Heal(15);
 		}
 		return true;
 	}
