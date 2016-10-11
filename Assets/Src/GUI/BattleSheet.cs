@@ -42,7 +42,7 @@ public class BattleSheet : MonoBehaviour {
 	public void Open(Unit u = null)
 	{
 		if (u != null) client = u;
-		sheet.Build(client);
+		sheet.Build(client.Character);
 		if (StateManager.Instance.State != GameState.characterSheet) StateManager.Instance.Push(GameState.characterSheet);
 		sheet.gameObject.SetActive(true);
 	}

@@ -13,18 +13,18 @@ public class CharacterSheet : MonoBehaviour {
 
 	private Unit client;
 
-	public void Build(Unit u)
+	public void Build(Character c)
 	{
-		nameText.text = u.name;
-		SetPortrait(u);
-		BuildStats(u);
-		BuildAbilities(u);
-		BuildItems(u);
+		nameText.text = c.Name;
+		SetPortrait(c);
+		BuildStats(c);
+		BuildAbilities(c);
+		BuildItems(c);
 	}
 
-	private void BuildItems(Unit u)
+	private void BuildItems(Character c)
 	{
-		Backpack b = u.GetComponent<Backpack>();
+		Backpack b = c.GetComponent<Backpack>();
 		if (b != null)
 		{
 			string val = "";
@@ -42,10 +42,10 @@ public class CharacterSheet : MonoBehaviour {
 		}
 	}
 
-	private void BuildAbilities(Unit u)
+	private void BuildAbilities(Character c)
 	{
 		string output = "";
-		foreach(Skill a  in u.GetComponents<Skill>())
+		foreach(Skill a in c.GetComponents<Skill>())
 		{
 			output += a.Name;
 			if(a is Passive)
@@ -56,20 +56,35 @@ public class CharacterSheet : MonoBehaviour {
 		abilityText.text = output;
 	}
 
-	private void SetPortrait(Unit u)
+	private void SetPortrait(Character c)
 	{
-		Sprite s = u.GetComponent<SpriteRenderer>().sprite;
-		portrait.sprite = s;
+		try
+		{
+			Sprite s = c.GetComponent<SpriteRenderer>().sprite;
+			portrait.sprite = s;
+		}
+		catch(Exception e)
+		{
+			Debug.LogError(e);
+		}
+		
 	}
 
-	private void BuildStats(Unit u)
+	private void BuildStats(Character c)
 	{
-		Stats mystats = u.ModifiedStats;
+		Stats mystats = c.ModifiedStats;
+
+		int currenthp = mystats.maxHP;
+		Unit u = c.GetComponent<Unit>();
+		if(u != null)
+		{
+			currenthp = u.CurrentHP;
+		}
 
 		statText.text =
-				u.Character.level + "\n\n" +  // LEVEL
+				c.level + "\n\n" +  // LEVEL
 
-				u.CurrentHP + "/" + mystats.maxHP + "\n" + // HP
+				currenthp + "/" + mystats.maxHP + "\n" + // HP
 				mystats.strength + "\n" + // STR
 				mystats.agility + "\n" + // AGI
 				mystats.dexterity + "\n" + //DEX

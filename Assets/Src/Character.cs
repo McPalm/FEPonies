@@ -50,6 +50,7 @@ public class Character : MonoBehaviour {
 		baseStats.movement.moveSpeed = movement;
 		baseStats.movement.moveType = (flight) ? MoveType.flying : MoveType.walking;
 		// calculateSkillBonuses();
+		if (buffs == null) buffs = new HashSet<Buff>();
 	}
 
 	private void calculateSkillBonuses()

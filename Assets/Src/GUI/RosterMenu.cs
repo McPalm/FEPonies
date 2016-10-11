@@ -7,16 +7,16 @@ using System;
 public class RosterMenu : ScrollMenu, Observable {
 
 	List<Observer> observers;
-	private Unit unit;
+	private Character character;
 
 	public CharacterButton button;
-	public List<Unit> units;
+	public List<Character> characters;
 
-	public Unit Unit
+	public Character Character
 	{
 		get
 		{
-			return unit;
+			return character;
 		}
 	}
 
@@ -27,7 +27,7 @@ public class RosterMenu : ScrollMenu, Observable {
 
 	new void Start()
 	{
-		for (int i = 0; i < units.Count; i++)
+		for (int i = 0; i < characters.Count; i++)
 		{
 			CharacterButton b = Instantiate<CharacterButton>(button);
 			RectTransform rc = b.GetComponent<RectTransform>();
@@ -37,7 +37,7 @@ public class RosterMenu : ScrollMenu, Observable {
 
 			Height = i * 90 + 95;
 
-			b.Label = units[i].name;
+			b.Label = characters[i].name;
 
 			b.Register(Click, i);
 		}
@@ -47,7 +47,7 @@ public class RosterMenu : ScrollMenu, Observable {
 
 	void Click(int i)
 	{
-		unit = units[i];
+		character = characters[i];
 		notifyObservers();
 	}
 

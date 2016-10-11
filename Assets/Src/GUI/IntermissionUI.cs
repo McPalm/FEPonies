@@ -152,7 +152,7 @@ public class IntermissionUI : MonoBehaviour, Observer {
 
 	public void Notify()
 	{
-		characterSheet.Build(rosterMenu.Unit);
+		characterSheet.Build(rosterMenu.Character);
 		sheet();
 	}
 }
