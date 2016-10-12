@@ -8,4 +8,10 @@ public class SpawnPoint : MonoBehaviour {
 	/// Leave empty if the player can chose
 	/// </summary>
 	public string unitName;
+
+    void Start()
+    {
+        Debug.Log("Name:" + unitName + " Transform:" + transform);
+        UnitRoster.Instance.SpawnUnit(unitName, transform);
+    }
 }
