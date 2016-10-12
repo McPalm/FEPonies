@@ -65,7 +65,7 @@ public class Bastion : AbilityWithManacost, TurnObserver {
 	}
 
 	private void recaculateBuff(){
-		int intel = GetComponent<Unit>().ModifiedStats.intelligence;
+		int intel = GetComponent<Character>().ModifiedStats.intelligence;
 		Stats s = new Stats();
 		s.defense = (intel+2)/5+2;
 		s.resistance = (intel+2)/5+2;
