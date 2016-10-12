@@ -58,7 +58,9 @@ public class CharacterSheet : MonoBehaviour {
 
 	private void SetPortrait(Character c)
 	{
-		try
+		if (c.MugShot != null)
+			portrait.sprite = c.MugShot;
+		else try
 		{
 			Sprite s = c.GetComponent<SpriteRenderer>().sprite;
 			portrait.sprite = s;

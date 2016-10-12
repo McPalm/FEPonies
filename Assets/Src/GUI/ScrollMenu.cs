@@ -8,6 +8,7 @@ public class ScrollMenu : MonoBehaviour {
 	Vector3 origin;
 	Vector3 bottom;
 
+	public bool inverted = false;
 	public RectTransform anchor;
 	public RectMask2D mask;
 
@@ -21,7 +22,12 @@ public class ScrollMenu : MonoBehaviour {
 		set
 		{
 			if (value > mask.rectTransform.sizeDelta.y)
-				bottom = origin + new Vector3(0f, value - mask.rectTransform.sizeDelta.y , 0f);
+			{
+				if(inverted)
+					bottom = origin - new Vector3(0f, value - mask.rectTransform.sizeDelta.y, 0f);
+				else
+					bottom = origin + new Vector3(0f, value - mask.rectTransform.sizeDelta.y, 0f);
+			}
 			else
 				bottom = origin;
 			height = value;
@@ -37,6 +43,10 @@ public class ScrollMenu : MonoBehaviour {
 
 	public void Scroll(float f)
 	{
-		anchor.localPosition = Vector3.Lerp(bottom, origin, f);
+		if(inverted)
+			anchor.localPosition = Vector3.Lerp(bottom, origin, 1f-f);
+		else
+			anchor.localPosition = Vector3.Lerp(bottom, origin, f);
+
 	}
 }

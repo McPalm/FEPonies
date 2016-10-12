@@ -24,7 +24,7 @@ public class HealingPotion : Consumable
 	public override bool use(Character user)
 	{
 		Unit u = user.GetComponent<Unit>();
-		if (u = null) return false;
+		if (u == null) return false;
 		if (u.damageTaken == 0) return false;
 		else
 		{

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class Character : MonoBehaviour {
 
 	public string Name;
+	public Sprite MugShot;
 
 	public int level = 1;
 	[Range(15, 25)]

@@ -29,8 +29,10 @@ public class IntermissionUI : MonoBehaviour, Observer {
 
 	private RosterMenu rosterMenu;
 	private CharacterSheet characterSheet;
+	private SkillMenu skillMenu;
 
 	RectTransform me;
+	float scale = 1f;
 
 	// Use this for initialization
 	void Awake () {
@@ -42,6 +44,7 @@ public class IntermissionUI : MonoBehaviour, Observer {
 		rosterMenu = RosterMenu.GetComponent<RosterMenu>();
 		rosterMenu.registerObserver(this);
 		characterSheet = Sheet.GetComponent<CharacterSheet>();
+		skillMenu = Talents.GetComponent<SkillMenu>();
 	}
 	
 	// Update is called once per frame
@@ -124,6 +127,7 @@ public class IntermissionUI : MonoBehaviour, Observer {
 		move(Talents, CENTRE);
 		move(Sheet, UP);
 		move(RosterMenu, TOPLEFT);
+		skillMenu.Build(rosterMenu.Character);
 	}
 
 	void sheet()
