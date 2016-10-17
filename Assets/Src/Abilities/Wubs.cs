@@ -28,7 +28,7 @@ public class Wubs : AbilityWithManacost, TargetedAbility {
 	public void Notify (Tile target)
 	{
 		Unit user = GetComponent<Unit>();
-		int damageDealth = user.Character.level + 4 + user.ModifiedStats.intelligence;
+		int damageDealth = user.Character.Level + 4 + user.ModifiedStats.intelligence;
 		foreach(Tile t in TargetedAbilityInputManager.Line3(user.Tile, target)){
 			if(t.isOccuppied) t.Unit.Damage(damageDealth, new DamageType(DamageType.MAGIC), false);
 		}
@@ -58,7 +58,7 @@ public class Wubs : AbilityWithManacost, TargetedAbility {
 			return 0;
 		}
 
-		int damageDealth = user.Character.level + 4 + user.ModifiedStats.intelligence;
+		int damageDealth = user.Character.Level + 4 + user.ModifiedStats.intelligence;
 		int value = -1;
 		int maxValue =-1;
 		foreach(Tile q in possibleTargets)

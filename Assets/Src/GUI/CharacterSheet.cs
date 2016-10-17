@@ -84,7 +84,7 @@ public class CharacterSheet : MonoBehaviour {
 		}
 
 		statText.text =
-				c.level + "\n\n" +  // LEVEL
+				c.Level + "\n\n" +  // LEVEL
 
 				currenthp + "/" + mystats.maxHP + "\n" + // HP
 				mystats.strength + "\n" + // STR

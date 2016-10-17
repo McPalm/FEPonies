@@ -492,7 +492,7 @@ public class Unit : MonoBehaviour {
 				n = Mathf.Max(n- Character.ModifiedStats.defense, 0);
 			}
 
-			if(attackType.AntiAir && Character.flight){
+			if(attackType.AntiAir && Character.Flight){
 				n *= 2;
 			}
 
@@ -573,7 +573,7 @@ public class Unit : MonoBehaviour {
 
 	private void RewardExperience(Unit dead, float fraction, float bonus = 0f){
 		// calc xp gained
-		float sum = 0.55f * Mathf.Pow(1.12f, (float)dead.Character.level) / Mathf.Pow(1.18f, (float)Character.level) *fraction;
+		float sum = 0.55f * Mathf.Pow(1.12f, (float)dead.Character.Level) / Mathf.Pow(1.18f, (float)Character.Level) *fraction;
 		sum += bonus;
 		if(SaveFile.Active != null){
 			if(SaveFile.Active.GrantXP(this, sum)){

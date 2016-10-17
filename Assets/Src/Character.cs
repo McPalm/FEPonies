@@ -3,25 +3,37 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class Character : MonoBehaviour {
 
 	public string Name;
 	public Sprite MugShot;
 
-	public int level = 1;
+	[SerializeField]
+	SkillTree skilltree;
+
+	[SerializeField]
+	int level = 1;
+	[SerializeField]
 	[Range(15, 25)]
-	public int hp = 20;
+	int hp = 20;
+	[SerializeField]
 	[Range(1, 6)]
-	public int strength = 3;
+	int strength = 3;
+	[SerializeField]
 	[Range(1, 6)]
-	public int dexterity = 3;
+	int dexterity = 3;
+	[SerializeField]
 	[Range(1, 6)]
-	public int agility = 3;
+	int agility = 3;
+	[SerializeField]
 	[Range(1, 6)]
-	public int intelligence = 3;
-	public bool flight = false;
+	int intelligence = 3;
+	[SerializeField]
+	private bool flight = false;
+	[SerializeField]
 	[Range(4, 7)]
-	public int movement = 5;
+	int movement = 5;
 	public AttackInfo attackInfo;
 
 	Stats baseStats;
@@ -40,6 +52,32 @@ public class Character : MonoBehaviour {
 		}
 	}
 
+	public bool Flight
+	{
+		get
+		{
+			return flight;
+		}
+
+		set
+		{
+			flight = value;
+		}
+	}
+
+	public int Level
+	{
+		get
+		{
+			return level;
+		}
+
+		set
+		{
+			level = value;
+		}
+	}
+
 	void Awake()
 	{
 		baseStats = new Stats();
@@ -49,14 +87,13 @@ public class Character : MonoBehaviour {
 		baseStats.agility = agility;
 		baseStats.intelligence = intelligence;
 		baseStats.movement.moveSpeed = movement;
-		baseStats.movement.moveType = (flight) ? MoveType.flying : MoveType.walking;
-		// calculateSkillBonuses();
-		if (buffs == null) buffs = new HashSet<Buff>();
-	}
+		baseStats.movement.moveType = (Flight) ? MoveType.flying : MoveType.walking;
 
-	private void calculateSkillBonuses()
-	{
-		Debug.LogWarning("Not Yet implemented!");
+		if (buffs == null) buffs = new HashSet<Buff>();
+		if (skilltree == null) skilltree = GetComponent<SkillTree>();
+		if (skilltree == null) skilltree = gameObject.AddComponent<SkillTree>();
+			skilltree.CalculateStats(level);
+		buffs.Add(skilltree);
 	}
 
 	public void AddBuff(Buff b)

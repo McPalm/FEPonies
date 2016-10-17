@@ -39,7 +39,7 @@ public class PushAndFollow : Ability, TargetedAbility {
 	{
 		if(Push.SmartStaticApply(target, _unit))
 		{
-			if (target is WaterTile && !_unit.Character.flight)
+			if (target is WaterTile && !_unit.Character.Flight)
 			{
 				FinishUse();
 			}

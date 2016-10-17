@@ -35,7 +35,7 @@ public class Backstab : Skill, AttackBuff
 	{
 		u = GetComponent<Unit>();
 		damageBonus = new Stats();
-		damageBonus.might = 4 + u.Character.level / 2;
+		damageBonus.might = 4 + u.Character.Level / 2;
 		damageBonus.hitBonus = 0.2f;
 		u.RegisterAttackBuff(this);
 	}
