@@ -18,6 +18,20 @@ public class SkillTree : MonoBehaviour, Buff {
 		}
 	}
 
+	public int PointsSpent
+	{
+		get
+		{
+			int rv = 0;
+			foreach(SkillTreeLevel stl in skills)
+			{
+				if (stl.Choise == 0) return rv;
+				rv++;
+			}
+			return rv;
+		}
+	}
+
 	/// <summary>
 	/// Get the total attribute bonuses from skills.
 	/// </summary>

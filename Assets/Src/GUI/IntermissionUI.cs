@@ -146,6 +146,7 @@ public class IntermissionUI : MonoBehaviour, Observer {
 		move(RootMenu, LEFT);
 		move(Sheet, RIGHT);
 		move(Talents, DOWNRIGHT);
+		rosterMenu.UpdateLevels();
 	}
 
 	void root()
