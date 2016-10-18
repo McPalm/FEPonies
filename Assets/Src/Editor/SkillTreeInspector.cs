@@ -10,7 +10,7 @@ public class SkillTreeInspector : Editor {
 	{
 		SkillTree st = (SkillTree)target;
 
-		if (st.skills.Count != 15)
+		if (st.skills == null || st.skills.Count != 15)
 		{
 			st.skills = new List<SkillTree.SkillTreeLevel>();
 			for (int i = 0; i < 15; i++)

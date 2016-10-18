@@ -23,6 +23,7 @@ public class RosterMenu : ScrollMenu, Observable {
 	void Awake()
 	{
 		observers = new List<Observer>();
+		Pauser.Instance.gameObject.SetActive(false);
 	}
 
 	new void Start()

@@ -78,6 +78,14 @@ public class Character : MonoBehaviour {
 		}
 	}
 
+	public SkillTree Skilltree
+	{
+		get
+		{
+			return skilltree;
+		}
+	}
+
 	void Awake()
 	{
 		baseStats = new Stats();
