@@ -95,10 +95,8 @@ public class CharacterSheet : MonoBehaviour {
 				100 * mystats.Hit + "%\n" + //HIT
 				100 * mystats.Dodge + "%\n" + //DODGE
 				100 * mystats.Crit + "%\n" + //CRIT
-				100 * mystats.CritDodge + "%\n\n" + //CRIT.D
-
+				100 * mystats.CritDodge + "%\n" + //CRIT.D
 				mystats.defense + "\n" + //ARMOR
-				mystats.resistance + "\n" + //RESISTANCE
-				(mystats.might + mystats.strength) + "\n"; //DAMAGE TODO, make it work for casters
+				mystats.resistance; //RESISTANCE
 	}
 }
