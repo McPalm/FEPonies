@@ -133,6 +133,7 @@ public class IntermissionUI : MonoBehaviour, Observer {
 	void sheet()
 	{
 		state = STATBLOCK;
+		characterSheet.Build(rosterMenu.Character);
 		move(RosterMenu, LEFT);
 		move(Sheet, CENTRE);
 		move(Talents, DOWN);
@@ -156,7 +157,6 @@ public class IntermissionUI : MonoBehaviour, Observer {
 
 	public void Notify()
 	{
-		characterSheet.Build(rosterMenu.Character);
 		sheet();
 	}
 }
