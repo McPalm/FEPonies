@@ -11,7 +11,6 @@ public class SpawnPoint : MonoBehaviour {
 
     void Start()
     {
-        Debug.Log("Name:" + unitName + " Transform:" + transform);
         UnitRoster.Instance.SpawnUnit(unitName, transform);
     }
 }

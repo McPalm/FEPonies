@@ -42,9 +42,9 @@ public class Block : Passive, AttackBuff {
 
 	private void CalcStats(Unit u)
 	{
-		int damage = u.AttackInfo.effect.Apply(u.Tile, u, true, user.Tile);
+		/*int damage = u.AttackInfo.effect.Apply(u.Tile, u, true, user.Tile);
 		stats.defense = damage / 2;
-		stats.resistance = damage / 2;
+		stats.resistance = damage / 2;*/
 	}
 
 	void FinishedAttackSequence(Unit u)

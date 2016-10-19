@@ -58,10 +58,15 @@ public class Explosion : AbilityWithManacost, TargetedAbility, AIAbility {
 	void ApplyAndShit(Tile ti){
 		Character user = GetComponent<Character>();
 		int damageDealth = user.Level + 4 + user.ModifiedStats.intelligence;
+        DamageData attackData = new DamageData();
+        attackData.baseDamage = damageDealth;
+
 		foreach(Tile t in _tgts){
+            if (t.isOccuppied)
+            {
 
-
-			if(t.isOccuppied) t.Unit.Damage(damageDealth, dt);
+                t.Unit.Damage(damageDealth, dt);
+            }
 		}
 	}
 

@@ -17,9 +17,13 @@ using System.Text;
 class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<Weapon>, Buff
 {
     private List<Item> backpack = new List<Item>();
+    [SerializeField]
     Armor equippedArmor;
+    [SerializeField]
     Weapon equippedWeapon;
+    [SerializeField]
     Equipment equippedTrinket;
+    [SerializeField]
     int capacity = 5;
 	Character owner;
 	Stats _equipmentStats;
@@ -68,6 +72,19 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
 	{
 		owner = GetComponent<Character>();
 		owner.AddBuff(this);
+        //Add all equipments to the backpack if not there already
+        if (equippedArmor!=null&&!backpack.Contains(equippedArmor))
+        {
+            backpack.Add(equippedArmor);
+        }
+        if (equippedWeapon!=null&&!backpack.Contains(equippedWeapon))
+        {
+            backpack.Add(equippedWeapon);
+        }
+        if(equippedTrinket!=null&&!backpack.Contains(equippedTrinket))
+        {
+            backpack.Add(equippedTrinket);
+        }
 	}
 
 	/// <summary>

@@ -16,7 +16,7 @@ public class StartDialogue : EventTarget {
 			try{
 				et.Notice();
 			}catch(System.Exception e){
-				Debug.LogError(e);
+				Debug.LogException(e);
 				Debug.Log(et);
 			}
 		}

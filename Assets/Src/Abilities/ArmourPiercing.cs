@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// OBSOLETE!! WONT WORK
+/// </summary>
 public class ArmourPiercing : Passive {
 
 
@@ -12,10 +15,10 @@ public class ArmourPiercing : Passive {
 
 	// Use this for initialization
 	void Start () {
-		Unit u = GetComponent<Unit>();
+		/*Unit u = GetComponent<Unit>();
 
 		DamageType d =	u.AttackInfo.effect.damageType;
 		d.ArmourPiercing = true;
-		u.AttackInfo.effect.damageType = d;
+		u.AttackInfo.effect.damageType = d;*/
 	}
 }

@@ -7,13 +7,8 @@ public interface IEffect{
 	/// </summary>
 	/// <param name="target">Target tile for the effect.</param>
 	/// <param name="user">User of this effect, not neccecary for all implementations.</param>
-	void Apply(Tile target, Unit user);
+	void Apply(DamageData attackData);
 
-	DamageType damageType{
-		set;
-		get;
-	}
-
-	int Apply(Tile target, Unit user, bool testAttack);
-    int Apply(Tile target, Unit user, bool testAttack, Tile testTile);
+	int Apply(DamageData attackData, bool testAttack);
+    int Apply(DamageData attackData, bool testAttack, Tile testTile);
 }

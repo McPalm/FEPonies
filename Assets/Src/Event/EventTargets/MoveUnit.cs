@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class MoveUnit : EventTarget{
 
 	public Unit moveMe;
+    public Tile moveFrom; 
 	public Tile moveTo;
     public bool active=false;
     public List<EventTarget> events;
@@ -14,8 +15,16 @@ public class MoveUnit : EventTarget{
 
     public override void Notice()
 	{
-		moveMe.MoveToAndAnimate(moveTo, true);
-        active = true;
+        if (moveMe != null)
+        {
+            moveMe.MoveToAndAnimate(moveTo, true);
+            active = true;
+        }
+        else if(moveFrom!=null)
+        {
+            moveFrom.Unit.MoveToAndAnimate(moveTo, true);
+            active = true;
+        }
     }
 
     public void Update()

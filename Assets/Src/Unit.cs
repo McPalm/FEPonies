@@ -50,6 +50,7 @@ public class Unit : MonoBehaviour {
 	internal bool doubleAttack = false;
 	private HashSet<object> _inhibs = new HashSet<object>();
 	Character character;
+    DamageData attackData;
 
 	// Properties
 	public Stats ModifiedStats{
@@ -247,14 +248,14 @@ public class Unit : MonoBehaviour {
 			Stats s = GetStatsAt(Tile, target);
 			Stats es = target.GetStatsAt(target.Tile, this);
 			float roll = UnityEngine.Random.Range(0f,1f);
-			bool hit = roll < s.HitVersus(es); //ModifiedStats.Hit-target.ModifiedStats.Dodge;
-			bool crit = roll < s.CritVersus(es); //(ModifiedStats.crit - target.ModifiedStats.critDodge);
-
-			DamageType d = AttackInfo.effect.damageType;
-			d.Critical = crit;
-			AttackInfo.effect.damageType = d;
-
-			AnimateAttack(target.tile, hit);
+            DamageData dmgData=new DamageData();
+			dmgData.hit = roll < s.HitVersus(es); //ModifiedStats.Hit-target.ModifiedStats.Dodge;
+			dmgData.crit = roll < s.CritVersus(es); //(ModifiedStats.crit - target.ModifiedStats.critDodge);
+            dmgData.baseDamage = s.strength + s.might;
+            dmgData.target = target;
+            dmgData.source = this;
+            attackData = dmgData;
+			AnimateAttack();
 			return true;
 		}
 		return false;
@@ -417,10 +418,10 @@ public class Unit : MonoBehaviour {
 	/// </summary>
 	/// <returns><c>true</c>, if attack was animated, <c>false</c> otherwise.</returns>
 	/// <param name="tile">Tile.</param>
-	public bool AnimateAttack(Tile tile, bool hit)
+	public bool AnimateAttack()
 	{
-		if(hit)AttackInfo.attackAnimation.Animate(this, tile, new Action<Tile>(ApplyEffect), hit);
-		else AttackInfo.attackAnimation.Animate(this, tile, new Action<Tile>(SendOnMiss), hit);
+		if(attackData.hit)AttackInfo.attackAnimation.Animate(this, attackData.target.tile, new Action<Tile>(ApplyEffect), attackData.hit);
+		else AttackInfo.attackAnimation.Animate(this, attackData.target.tile, new Action<Tile>(SendOnMiss), attackData.hit);
 		return true;
 	}
 
@@ -486,48 +487,9 @@ public class Unit : MonoBehaviour {
 	/// Damage this Unit for N ammounts of damage, reduced by Defence.
 	/// </summary>
 	/// <param name="n">N.</param>
-	public int Damage(int n, DamageType attackType, bool testAttack=false)
+	public int Damage(DamageData attackData, bool testAttack=false)
 	{
-		if(attackType.Normal){ // skip a bunch of logic if its just a regular attack.
-			n = Mathf.Max(n-Character.ModifiedStats.defense, 0);
-		}else{
-			// defence/resistane reduction and armour piercing/poison/true damage.
-			if(attackType.True){
-				// Do nothing.
-			}else if(attackType.Poison){
-				if(!testAttack) Particle.PoisonParticle(transform.position);
-			}else if(attackType.Magic){
-				if(attackType.ArmourPiercing)
-					n = Mathf.Max(n-Character.ModifiedStats.resistance/2, n/4);
-				else
-					n = Mathf.Max(n-Character.ModifiedStats.resistance, 0);
-			}else if(attackType.ArmourPiercing){
-				n = Mathf.Max(n- Character.ModifiedStats.defense/2, n/4);
-			}else{
-				n = Mathf.Max(n- Character.ModifiedStats.defense, 0);
-			}
-
-			if(attackType.AntiAir && Character.Flight){
-				n *= 2;
-			}
-
-			if(attackType.MageSlayer){
-				Mana m = GetComponent<Mana>();
-				if(m && m.MaxMana > 0){
-					n *= 2;
-				}
-			}
-
-			if(attackType.Critical){
-				n *= 2;
-				if(!testAttack) Particle.Crit(transform.position);
-				else Debug.LogWarning("No crits on test attacks!");
-			}
-
-			if(attackType.Halved){
-				n /= 2;
-			}
-		}
+        int n = attackData.GetDamage(Character.ModifiedStats.defense, Character.ModifiedStats.resistance);
 
 		if(!testAttack)
 		{
@@ -673,7 +635,7 @@ public class Unit : MonoBehaviour {
 	}
 
 	public void ApplyEffect(Tile target){
-		AttackInfo.effect.Apply(target, this);
+		AttackInfo.effect.Apply(attackData);
 	}
 
 	public void RegisterHealthObserver(HealthObserver o){

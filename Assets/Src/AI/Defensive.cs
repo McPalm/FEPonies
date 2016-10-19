@@ -5,8 +5,11 @@ using System.Collections.Generic;
 
 public class Defensive : MonoBehaviour, IAIBehaviour {
 
+    protected DamageData damageData=new DamageData();
+
 	public virtual Action GetAction(Unit unit)
 	{
+        damageData.source = unit;
 		Unit target=null;
         Tile targetMove = null;
 		Action retValue=new Action(unit.Tile);
@@ -23,6 +26,7 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
             {
 			    foreach (Tile pa in possibleAttacks)
                 {
+                    damageData.target = pa.Unit;
                     if (pa.Unit.invisible)
                     {
                         continue;
@@ -106,8 +110,10 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 
     protected bool canMurder(Unit user, Unit target, Tile userPos)
     {
+        Stats st = user.GetStatsAt(userPos, target);
+        damageData.baseDamage = st.strength + st.might;
 		float hitChance = user.GetStatsAt(userPos, target).HitVersus(target.GetStatsAt(target.Tile, user, userPos));
-		if (user.AttackInfo.effect.Apply(target.Tile, user, true, userPos) >= target.CurrentHP && hitChance>0.5f)
+		if (user.AttackInfo.effect.Apply(damageData, true, userPos) >= target.CurrentHP && hitChance>0.5f)
         {
             return true;
         }
@@ -124,7 +130,8 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 		// gather data
 		Stats attackStats = user.GetStatsAt(moveTo, target);
 		Stats defenceStats = user.GetStatsAt(moveTo, target);
-        float damage = user.AttackInfo.effect.Apply(target.Tile, user, true, moveTo);
+        damageData.baseDamage = attackStats.strength + attackStats.might;
+        float damage = user.AttackInfo.effect.Apply(damageData, true, moveTo);
 		float hitChance = attackStats.HitVersus(defenceStats);
         float critChance = attackStats.CritVersus(defenceStats);
 
@@ -135,8 +142,15 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 
         if (target.RetaliationsLeft > 0&&target.AttackInfo.reach.GetTiles(target.Tile).Contains(moveTo))//If it will retaliate
         {
-			// repeat pervious calculation, but on the retaliation.
-            damage = target.AttackInfo.effect.Apply(user.Tile, target, true);
+            // repeat pervious calculation, but on the retaliation
+            Unit temp = damageData.target;
+            damageData.target = damageData.source;
+            damageData.source = temp;
+            damageData.baseDamage = defenceStats.strength + defenceStats.might;
+            damage = target.AttackInfo.effect.Apply(damageData, true);
+            temp = damageData.target;
+            damageData.target = damageData.source;
+            damageData.source = temp;
             hitChance = defenceStats.HitVersus(attackStats);
             critChance = defenceStats.CritVersus(attackStats);
           

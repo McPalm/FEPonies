@@ -1,4 +1,5 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 /// <summary>
@@ -9,7 +10,7 @@ using System.Collections.Generic;
 /// </summary>
 public class Item
 {
-
+    [SerializeField]
 	string name;
 
 	public string Name {

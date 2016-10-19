@@ -4,12 +4,14 @@ using System;
 public class DamageData {
 
 
-	public int baseDamage;
-	public float defenceMultiplier;
-	public float resistanceMultiplier;
-	public bool crit;
-	public bool hit;
-	public float damageMultipler;
+	public int baseDamage=1;
+	public float defenceMultiplier=1f;
+	public float resistanceMultiplier=0f;
+	public bool crit=false;
+    public bool hit = true;
+	public float damageMultipler=1f;
+    public Unit source;
+    public Unit target;
 
 	Action<DamageData> callbacks;
 

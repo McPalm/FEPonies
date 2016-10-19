@@ -2,47 +2,37 @@ using UnityEngine;
 using System.Collections;
 
 public class Damage : MonoBehaviour, IEffect {
-
-	private DamageType _damageType;
-	public DamageType damageType {
-		get {
-			return _damageType;
-		}
-		set {
-			_damageType = value;
-		}
-	}
-
-	public void Apply(Tile target, Unit user)
+    //TODO Add in damage multipliers
+	public void Apply(DamageData attackData)
 	{
-		int dmg = StaticApply (target, user, _damageType);
-		SendMessageUpwards("OnDamageDealt", dmg, SendMessageOptions.DontRequireReceiver);
-		_damageType.Critical = false;
+        //Get damage multipliers and put them in attackData
+        int dmg = StaticApply (attackData);
+		//SendMessageUpwards("OnDamageDealt", dmg, SendMessageOptions.DontRequireReceiver);
 	}
 
-	public int Apply (Tile target, Unit user, bool testAttack)
+	public int Apply (DamageData attackData, bool testAttack)
 	{
-		return StaticApply(target, user, _damageType, testAttack);
+        //Get damage multipliers and put them in attackData
+        return StaticApply(attackData, testAttack);
 	}
 
-    public int Apply(Tile target, Unit user, bool testAttack, Tile testTile)
+    public int Apply(DamageData attackData, bool testAttack, Tile testTile)
     {
-        return StaticApply(target, user, _damageType, testAttack, testTile);
+        //Get damage multipliers and put them in attackData
+        return StaticApply(attackData, testAttack, testTile);
     }
 
-    static public int StaticApply(Tile target, Unit user, DamageType typeOfAttack, bool testAttack = false, Tile testPosition = null){
-		Unit targetUnit = target.Unit;
-		if (testPosition == null) testPosition = user.Tile;
+    static public int StaticApply(DamageData attackData, bool testAttack = false, Tile testPosition = null){
+		Unit targetUnit = attackData.target;
+		if (testPosition == null) testPosition = attackData.source.Tile;
 		if(targetUnit != null){
 			// deliver damage to target.
-			Stats s = user.GetStatsAt(testPosition, targetUnit);
-			int damage = s.strength + s.might;
-			return targetUnit.Damage(damage, typeOfAttack, testAttack);
+			return targetUnit.Damage(attackData, testAttack);
 			
 		}else{
 			Debug.LogError("Damage IEffect may target an empty tile!\n" +
-			               "User=" + user + "\n" +
-			               "Target=" + target);
+			               "User=" + attackData.source + "\n" +
+			               "Target=" + attackData.target);
 			return 0;
 		}
 

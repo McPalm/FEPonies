@@ -77,6 +77,8 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Unit>
     public void SpawnUnit(string name, Transform position)
     {
         Unit spawnUnit = GetUnit(name);
-        Instantiate(spawnUnit, position.position, position.rotation);
+        GameObject go=Instantiate<Unit>(spawnUnit).gameObject;
+        go.transform.position = position.position;
+        go.name = name;
     }
 }

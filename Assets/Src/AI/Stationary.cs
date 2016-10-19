@@ -4,16 +4,20 @@ using System.Collections.Generic;
 
 public class Stationary : MonoBehaviour, IAIBehaviour {
 
-	public Action GetAction(Unit unit)
+    protected DamageData damageData = new DamageData();
+
+    public Action GetAction(Unit unit)
 	{
-		Unit target=null;
+        damageData.source = unit;
+        Unit target=null;
 		Action retValue=new Action(unit.Tile);
 		HashSet<Tile> possibleAttacks = new HashSet<Tile>(unit.AttackInfo.GetAttackTiles(unit));
 		possibleAttacks.Remove (unit.Tile);
 		if (possibleAttacks.Count > 0) {
 			int max = 0;
 			foreach (Tile o in possibleAttacks) {
-				if(o.Unit.invisible)
+                damageData.target = o.Unit;
+                if (o.Unit.invisible)
 				{
 					continue;
 				}
@@ -37,7 +41,10 @@ public class Stationary : MonoBehaviour, IAIBehaviour {
 
     protected bool canMurder(Unit user, Unit target, Tile userPos)
     {
-        if (user.AttackInfo.effect.Apply(target.Tile, user, true, userPos) >= target.CurrentHP)
+        Stats st = user.GetStatsAt(userPos, target);
+        damageData.baseDamage = st.strength + st.might;
+        float hitChance = user.GetStatsAt(userPos, target).HitVersus(target.GetStatsAt(target.Tile, user, userPos));
+        if (user.AttackInfo.effect.Apply(damageData, true, userPos) >= target.CurrentHP && hitChance > 0.5f)
         {
             return true;
         }
@@ -49,7 +56,9 @@ public class Stationary : MonoBehaviour, IAIBehaviour {
 
     protected int judgeAttackMove(Unit user, Unit target, Tile moveTo)///TODO Make sure this is correct
     {
-        int actionValue = user.AttackInfo.effect.Apply(target.Tile, user, true);
+        Stats st = user.GetStatsAt(moveTo, target);
+        damageData.baseDamage = st.strength + st.might;
+        int actionValue = user.AttackInfo.effect.Apply(damageData, true);
 
         if (target.RetaliationsLeft == 0)
         {
