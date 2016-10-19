@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Norange : MonoBehaviour, IReach {
+public class Norange : IReach {
 	
 	public List<Tile> GetTiles (Tile origin)
 	{

@@ -47,7 +47,7 @@ public class Stationary : MonoBehaviour, IAIBehaviour {
 		damageData.SourceTile = userPos;
 
         float hitChance = user.GetStatsAt(userPos, target).HitVersus(target.GetStatsAt(target.Tile, user, userPos));
-        if (user.AttackInfo.effect.Apply(damageData) >= target.CurrentHP && hitChance > 0.5f)
+        if (user.AttackInfo.Effect.Apply(damageData) >= target.CurrentHP && hitChance > 0.5f)
         {
             return true;
         }
@@ -62,36 +62,36 @@ public class Stationary : MonoBehaviour, IAIBehaviour {
         Stats st = user.GetStatsAt(moveTo, target);
         damageData.baseDamage = st.strength + st.might;
 
-        int actionValue = user.AttackInfo.effect.Apply(damageData);
+        int actionValue = user.AttackInfo.Effect.Apply(damageData);
 
         if (target.RetaliationsLeft == 0)
         {
             actionValue += 20;
         }
-        else if ((user.AttackInfo.reach) is Melee)
+        else if ((user.AttackInfo.Reach) is Melee)
         {
-            if (target.AttackInfo.reach is Ranged || target.AttackInfo.reach is IncreasedRange)
+            if (target.AttackInfo.Reach is Ranged || target.AttackInfo.Reach is IncreasedRange)
             {
                 actionValue += 20;
             }
         }
-        else if (user.AttackInfo.reach is Ranged)
+        else if (user.AttackInfo.Reach is Ranged)
         {
-            if (target.AttackInfo.reach is Melee)
+            if (target.AttackInfo.Reach is Melee)
             {
                 actionValue += 20;
             }
         }
-        else if (user.AttackInfo.reach is RangeAndMelee)
+        else if (user.AttackInfo.Reach is RangeAndMelee)
         {
-            if (target.AttackInfo.reach is Melee || target.AttackInfo.reach is Ranged || target.AttackInfo.reach is IncreasedRange)
+            if (target.AttackInfo.Reach is Melee || target.AttackInfo.Reach is Ranged || target.AttackInfo.Reach is IncreasedRange)
             {
                 actionValue += 20;
             }
         }
-        else if (user.AttackInfo.reach is IncreasedRange)
+        else if (user.AttackInfo.Reach is IncreasedRange)
         {
-            if (target.AttackInfo.reach is Melee || target.AttackInfo.reach is Ranged || target.AttackInfo.reach is RangeAndMelee)
+            if (target.AttackInfo.Reach is Melee || target.AttackInfo.Reach is Ranged || target.AttackInfo.Reach is RangeAndMelee)
             {
                 actionValue += 20;
             }

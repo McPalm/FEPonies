@@ -48,20 +48,24 @@ class ScalingBackpack : Backpack {
 			case WeaponType.axe:
 				w.buff.hitBonus = -0.2f;
 				w.buff.might = level + 5;
+				w.attackInfo = new AttackInfo();
 				w.Name = "Axe";
 				break;
 			case WeaponType.sword:
 				w.buff.hitBonus = 0.1f;
 				w.buff.critBonus = 0.1f;
 				w.buff.might = level + 3;
+				w.attackInfo = new AttackInfo();
 				w.Name = "Sword";
 				break;
 			case WeaponType.spear:
 				w.buff.might = level + 4;
+				w.attackInfo = new AttackInfo();
 				w.Name = "Spear";
 				break;
 			default:
 				w.buff.might = level + 4;
+				w.attackInfo = new AttackInfo();
 				w.Name = "Weapon";
 				break;
 		}

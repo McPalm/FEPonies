@@ -341,7 +341,7 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 			temp.Add(o.Tile);
 			foreach (Tile t in temp)
 			{
-				reachAbleTiles.UnionWith(o.AttackInfo.reach.GetTiles(t));
+				reachAbleTiles.UnionWith(o.AttackInfo.Reach.GetTiles(t));
 			}
 		}
 
@@ -524,7 +524,7 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 	{
 		// possible attack zones
 		HashSet<Tile> possibleMoves = new HashSet<Tile>();
-		possibleMoves.UnionWith(client.AttackInfo.reach.GetTiles(target.Tile)); // attack moves
+		possibleMoves.UnionWith(client.AttackInfo.Reach.GetTiles(target.Tile)); // attack moves
 
 		if (possibleMoves.Contains(client.Tile)) return client.Tile;
 

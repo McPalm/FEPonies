@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class RangeAndMelee : MonoBehaviour, IReach {
+public class RangeAndMelee : IReach {
 
 
 	public List<Tile> GetTiles(Tile origin){

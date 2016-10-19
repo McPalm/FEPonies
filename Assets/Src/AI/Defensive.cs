@@ -115,7 +115,7 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 		damageData.testAttack = true;
 		damageData.SourceTile = userPos;
 		float hitChance = user.GetStatsAt(userPos, target).HitVersus(target.GetStatsAt(target.Tile, user, userPos));
-		if (user.AttackInfo.effect.Apply(damageData) >= target.CurrentHP && hitChance>0.5f)
+		if (user.AttackInfo.Effect.Apply(damageData) >= target.CurrentHP && hitChance>0.5f)
         {
             return true;
         }
@@ -136,7 +136,7 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 		damageData.testAttack = true;
 		damageData.SourceTile = moveTo;
 
-        float damage = user.AttackInfo.effect.Apply(damageData);
+        float damage = user.AttackInfo.Effect.Apply(damageData);
 		float hitChance = attackStats.HitVersus(defenceStats);
         float critChance = attackStats.CritVersus(defenceStats);
 
@@ -145,14 +145,14 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
         damage = (damage / defenceStats.maxHP)*20;
         actionValue = damage * (hitChance+critChance);
 
-        if (target.RetaliationsLeft > 0&&target.AttackInfo.reach.GetTiles(target.Tile).Contains(moveTo))//If it will retaliate
+        if (target.RetaliationsLeft > 0&&target.AttackInfo.Reach.GetTiles(target.Tile).Contains(moveTo))//If it will retaliate
         {
             // repeat pervious calculation, but on the retaliation
             Unit temp = damageData.target;
             damageData.target = damageData.source;
             damageData.source = temp;
             damageData.baseDamage = defenceStats.strength + defenceStats.might;
-            damage = target.AttackInfo.effect.Apply(damageData);
+            damage = target.AttackInfo.Effect.Apply(damageData);
             temp = damageData.target;
             damageData.target = damageData.source;
             damageData.source = temp;
@@ -170,7 +170,7 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
     protected float judgeMove(Unit user, Tile moveTo, Unit target = null)
     {
         float moveValue = 0;
-        if (target!=null&&target.AttackInfo.reach.GetTiles(target.Tile).Contains(moveTo))
+        if (target!=null&&target.AttackInfo.Reach.GetTiles(target.Tile).Contains(moveTo))
         {
             moveValue -= 10;
         }

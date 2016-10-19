@@ -22,7 +22,6 @@ public class AbilityLibrary
     {
         abilityLibrary.Add("ArmourPiercing", typeof(ArmourPiercing));
         abilityLibrary.Add("Backflip", typeof(Backflip));
-        abilityLibrary.Add("BackupWeapon", typeof(BackupWeapon));
         abilityLibrary.Add("Bastion", typeof(Bastion));
         abilityLibrary.Add("Charge", typeof(Charge));
         abilityLibrary.Add("Charm", typeof(Charm));

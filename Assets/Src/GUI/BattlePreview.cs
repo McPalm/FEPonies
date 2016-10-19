@@ -78,7 +78,7 @@ public class BattlePreview : MonoBehaviour {
 			dd.baseDamage = attacker.might + attacker.strength;
 			dd.SourceTile = moveto;
 
-			user.AttackInfo.effect.Apply(dd);
+			user.AttackInfo.Effect.Apply(dd);
 
 			dmg = dd.FinalDamage;
 			hp = defender.maxHP - target.damageTaken;
@@ -90,7 +90,7 @@ public class BattlePreview : MonoBehaviour {
 
 			text.text = (dmg + "\n" + acc + "\n" + crit);
 
-			willRetaliate = target.RetaliationsLeft > 0 && target.AttackInfo.reach.GetTiles(target.Tile).Contains(moveto);
+			willRetaliate = target.RetaliationsLeft > 0 && target.AttackInfo.Reach.GetTiles(target.Tile).Contains(moveto);
 
 			// defence stats
 			if (willRetaliate)
@@ -102,7 +102,7 @@ public class BattlePreview : MonoBehaviour {
 				dd.baseDamage = attacker.might + attacker.strength;
 				dd.SourceTile = moveto;
 
-				target.AttackInfo.effect.Apply(dd);
+				target.AttackInfo.Effect.Apply(dd);
 				dmg = dmg = dd.FinalDamage;
 				acc = attacker.HitVersus(attacker);
 				crit = attacker.CritVersus(attacker);

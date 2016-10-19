@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Ranged : MonoBehaviour, IReach {
+public class Ranged : IReach {
 	public List<Tile> GetTiles(Tile origin)
 	{
 		return staticGetTiles(origin);

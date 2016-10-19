@@ -173,7 +173,7 @@ public class Unit : MonoBehaviour {
 		UnitManager.Instance.Add(this);
 		// gimme a health bar!
 		HealthBar.NewHealthBar(transform);
-		attackInfo = GetComponentInChildren<AttackInfo>();
+		attackInfo = new AttackInfo();
 	}
 
 	/// <summary>
@@ -331,7 +331,7 @@ public class Unit : MonoBehaviour {
 		{
 			// Get attack info from equipped weapon
 			Backpack bp = GetComponent<Backpack>();
-			if(bp && bp.EquippedWeapon != null)
+			if (bp && bp.EquippedWeapon != null)
 			{
 				return bp.EquippedWeapon.attackInfo;
 			}
@@ -420,8 +420,8 @@ public class Unit : MonoBehaviour {
 	/// <param name="tile">Tile.</param>
 	public bool AnimateAttack()
 	{
-		if(attackData.hit)AttackInfo.attackAnimation.Animate(this, attackData.target.tile, new Action<Tile>(ApplyEffect), attackData.hit);
-		else AttackInfo.attackAnimation.Animate(this, attackData.target.tile, new Action<Tile>(SendOnMiss), attackData.hit);
+		if(attackData.hit)AttackInfo.AttackAnimation.Animate(this, attackData.target.tile, new Action<Tile>(ApplyEffect), attackData.hit);
+		else AttackInfo.AttackAnimation.Animate(this, attackData.target.tile, new Action<Tile>(SendOnMiss), attackData.hit);
 		return true;
 	}
 
@@ -638,7 +638,7 @@ public class Unit : MonoBehaviour {
 	}
 
 	public void ApplyEffect(Tile target){
-		AttackInfo.effect.Apply(attackData);
+		AttackInfo.Effect.Apply(attackData);
 	}
 
 	public void RegisterHealthObserver(HealthObserver o){
@@ -670,10 +670,10 @@ public class Unit : MonoBehaviour {
 	public void AddInhibitor(object o){
 		if(_inhibs.Count == 0){
 			if(_range == null){
-				_range = gameObject.AddComponent<Norange>();
+				_range = new Norange();
 			}
-			_storeRange = AttackInfo.reach;
-			AttackInfo.reach = _range;
+			_storeRange = AttackInfo.Reach;
+			AttackInfo.Reach = _range;
 		}
 		_inhibs.Add(o);
 		MakeGrey(true);
@@ -682,7 +682,7 @@ public class Unit : MonoBehaviour {
 	public void RemoveInhibitor(object o){
 		if(_inhibs.Remove(o)){
 			if(_inhibs.Count == 0){
-				AttackInfo.reach = _storeRange;
+				AttackInfo.Reach = _storeRange;
 				Debug.Log("Removed Last one!");
 			}
 			HasActed = HasActed;

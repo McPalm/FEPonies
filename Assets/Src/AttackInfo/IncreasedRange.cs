@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class IncreasedRange : MonoBehaviour, IReach {
+public class IncreasedRange : IReach {
 	
 	public List<Tile> GetTiles (Tile origin)
 	{

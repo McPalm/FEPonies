@@ -26,7 +26,7 @@ public class Backstab : Skill, AttackBuff
 		// sneak attack if out retaliations
 		if(target.RetaliationsLeft == 0) return true;
 		// sneak attack if they cannot attack the tile
-		if (target.AttackInfo.reach.GetTiles(targetLocation).Contains(source)) return false;
+		if (target.AttackInfo.Reach.GetTiles(targetLocation).Contains(source)) return false;
 		return true;
 	}
 

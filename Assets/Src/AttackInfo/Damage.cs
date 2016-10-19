@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-public class Damage : MonoBehaviour, IEffect {
+public class Damage :  IEffect {
     //TODO Add in damage multipliers
 	public int Apply(DamageData attackData)
 	{

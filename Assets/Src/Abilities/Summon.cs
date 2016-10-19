@@ -53,7 +53,6 @@ public class Summon : AbilityWithManacost, TargetedAbility
 		iSpawned.name = unit.name;
 //		Stats stats = new Stats(iSpawned.baseStats.movement, host.baseStats.maxHP/2, host.baseStats.attack-2, host.baseStats.defense/2, host.baseStats.resistance/2);
 //		iSpawned.baseStats=stats;
-		Unit summoner = GetComponent<Unit>();
 		if(!iSpawned.MoveTo(target)){
 			Debug.LogError("Unable to Spawn unit! This is like a fatal error"); // Shouldn't really happen in this case
 		}

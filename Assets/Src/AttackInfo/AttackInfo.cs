@@ -2,43 +2,91 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class AttackInfo : MonoBehaviour
+public class AttackInfo
 {
 
+	private IReach reach;
+	private ITargetFilter filter;
+	private IEffect effect;
+	private IAnimation attackAnimation;
 
-
-
-	public IReach reach;
-	public ITargetFilter filter;
-	public IEffect effect;
-	public IAnimation attackAnimation;
-	
-	void Awake(){
-		foreach(MonoBehaviour m in GetComponents<MonoBehaviour>())
+	public IReach Reach
+	{
+		get
 		{
-
-			if(m is IReach){
-				reach = (IReach)m;
-			}else if(m is ITargetFilter){
-				filter = (ITargetFilter)m;
-			}else if(m is IEffect){
-				effect = (IEffect)m;
-			}else if(m is IAnimation){
-				attackAnimation = (IAnimation)m;
-			}
+			return reach;
 		}
-		if(attackAnimation == null){
-			attackAnimation = gameObject.AddComponent<Tackle>();
+
+		set
+		{
+			reach = value;
+		}
+	}
+
+	public ITargetFilter Filter
+	{
+		get
+		{
+			return filter;
+		}
+
+		set
+		{
+			filter = value;
+		}
+	}
+
+	public IEffect Effect
+	{
+		get
+		{
+			return effect;
+		}
+
+		set
+		{
+			effect = value;
+		}
+	}
+
+	public IAnimation AttackAnimation
+	{
+		get
+		{
+			return attackAnimation;
+		}
+
+		set
+		{
+			attackAnimation = value;
+		}
+	}
+
+	public AttackInfo(IReach reach = null, IEffect effect = null, ITargetFilter filter = null, IAnimation animation = null)
+	{
+		this.Reach = reach;
+		this.Effect = effect;
+		this.Filter = filter;
+		AttackAnimation = animation;
+
+		if (reach == null)
+			this.Reach = new Melee();
+		if (effect == null)
+			this.Effect = new Damage();
+		if (filter == null)
+			this.Filter = new TargetEnemy();
+		if (animation == null)
+		{
+			AttackAnimation = new GameObject().AddComponent<Tackle>();
 		}
 	}
 
 	public List<Tile> GetAttackTiles(Unit unit)
 	{
-		List<Tile> retVal;
-		retVal=reach.GetTiles(unit.Tile);
+		List<Tile> retVal = Reach.GetTiles(unit.Tile);
 		for(int i=retVal.Count-1;i>=0;i--)
 		{
-			if(!filter.ValidateTarget(retVal[i],unit))
+			if(!Filter.ValidateTarget(retVal[i],unit))
 			{
 				retVal.RemoveAt(i);
 			}
@@ -56,10 +104,10 @@ public class AttackInfo : MonoBehaviour
 	public List<Tile> GetAttackTiles(Unit unit, Tile position)
 	{
 		List<Tile> retVal;
-		retVal=reach.GetTiles(position);
+		retVal=Reach.GetTiles(position);
 		for(int i=retVal.Count-1;i>=0;i--)
 		{
-			if(!filter.ValidateTarget(retVal[i],unit))
+			if(!Filter.ValidateTarget(retVal[i],unit))
 			{
 				retVal.RemoveAt(i);
 			}

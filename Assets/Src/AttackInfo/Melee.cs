@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Melee : MonoBehaviour, IReach {
+public class Melee : IReach {
 
 	public List<Tile> GetTiles (Tile origin)
 	{
