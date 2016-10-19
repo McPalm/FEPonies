@@ -74,6 +74,7 @@ public class Character : MonoBehaviour {
 
 		set
 		{
+			baseStats.maxHP = hp * (4 + level) / 5;
 			level = value;
 		}
 	}
@@ -89,7 +90,7 @@ public class Character : MonoBehaviour {
 	void Awake()
 	{
 		baseStats = new Stats();
-		baseStats.maxHP = hp;
+		baseStats.maxHP = hp * (9 + level) / 10;
 		baseStats.strength = strength;
 		baseStats.dexterity = dexterity;
 		baseStats.agility = agility;
