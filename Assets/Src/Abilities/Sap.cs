@@ -12,7 +12,14 @@ public class Sap : Ability, TargetedAbility {
 	public void Notify (Tile target)
 	{
 		target.Unit.gameObject.AddComponent<SapDebuff>();
-		Damage.StaticApply(target, _unit, new DamageType(DamageType.HALVED, DamageType.ARMOUR_PIERCING));
+		DamageData dd = new DamageData();
+		Stats s = _unit.GetStatsAt(_unit.Tile, target.Unit);
+		dd.baseDamage = s.strength + s.might;
+		dd.damageMultipler = 0.5f;
+		dd.defenceMultiplier = 0.5f;
+		dd.target = target.Unit;
+		dd.source = _unit;
+		Damage.StaticApply(dd);
 
 		FinishUse();
 	}

@@ -12,37 +12,14 @@ public class Push : MonoBehaviour, IEffect {
 	public const int SOUTH = 3;
 	public const int WEST = 4;
 
-	public DamageType damageType
+	public int Apply(DamageData attackData)
 	{
-		get
-		{
-			return new DamageType();
-		}
-
-		set
-		{
-			
-		}
-	}
-
-
-	public void Apply(Tile target, Unit user)
-	{
-		Apply(target, user, false);
-	}
-
-	public int Apply(Tile target, Unit user, bool testAttack)
-	{
-		if (testAttack) return 0;
+		if (attackData.testAttack) return 0;
 		// TODO, calculate direction using user.
-		SmartStaticApply(target, user);
+		if (SmartStaticApply(attackData.target.Tile, attackData.source))
+			return 1;
 		return 0;
 	}
-
-    public int Apply(Tile target, Unit user, bool testAttack, Tile testTile)
-    {
-        return Apply(target, user, testAttack);
-    }
 
     /// <summary>
     /// Push an enemy 1 tile away from the source of the attack.
@@ -88,7 +65,7 @@ public class Push : MonoBehaviour, IEffect {
 		if (pushTo.isOccuppied) return false;
 		if (pushTo is WallTile) return false;
 		if (!target.Unit.Character.Flight && pushTo is WaterTile) return false;
-		target.Unit.MoveTo(pushTo);
+		target.Unit.MoveTo(pushTo); // implement test attack nonsense?
 		return true;
 	}
 
@@ -96,5 +73,4 @@ public class Push : MonoBehaviour, IEffect {
 	{
 		return 0;
 	}
-
 }

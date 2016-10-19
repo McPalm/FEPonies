@@ -9,43 +9,28 @@
 //------------------------------------------------------------------------------
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class Petrify : IEffect {
 
-	public DamageType damageType {
-		get {
-			return new DamageType();
-		}
-		set {}
+	public int Apply(DamageData attackData)
+	{
+		if (attackData.testAttack) return 10;
+		return StaticApply(attackData);
 	}
 
-	public bool Defence {
-		get {
-			return true;
-		}
-	}
-	
-	public int Apply (Tile target, Unit user, bool testAttack)
+	static public int StaticApply(DamageData dd)
 	{
-		throw new System.NotImplementedException ();
+		return StaticApply(dd.target.Tile, dd.source);
 	}
-	
-	public void Apply (Tile target, Unit user)
-	{
-		StaticApply(target, user);
-	}
-	
-	static public void StaticApply(Tile target, Unit user){
+
+	static public int StaticApply(Tile target, Unit user){
 		if(target.Unit && target.Unit.IsAlive && target.Unit.GetComponent<Petrification>() == null)
 			target.Unit.gameObject.AddComponent<Petrification>();
 		else
 			Debug.LogWarning("Tried to petrify an empty square!");
+		return 25;
 	}
-
-    public int Apply(Tile target, Unit user, bool testAttack, Tile testTile)
-    {
-        throw new System.NotImplementedException();
-    }
 }
 
 

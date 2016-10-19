@@ -30,7 +30,12 @@ public class Wubs : AbilityWithManacost, TargetedAbility {
 		Unit user = GetComponent<Unit>();
 		int damageDealth = user.Character.Level + 4 + user.ModifiedStats.intelligence;
 		foreach(Tile t in TargetedAbilityInputManager.Line3(user.Tile, target)){
-			if(t.isOccuppied) t.Unit.Damage(damageDealth, new DamageType(DamageType.MAGIC), false);
+			DamageData dd = new DamageData();
+			dd.baseDamage = damageDealth;
+			dd.resistanceMultiplier = 1f;
+			dd.defenceMultiplier = 1f;
+
+			if(t.isOccuppied) t.Unit.Damage(dd);
 		}
 
 		FinishUse();
@@ -58,7 +63,7 @@ public class Wubs : AbilityWithManacost, TargetedAbility {
 			return 0;
 		}
 
-		int damageDealth = user.Character.Level + 4 + user.ModifiedStats.intelligence;
+		int dmg = user.Character.Level + 4 + user.ModifiedStats.intelligence;
 		int value = -1;
 		int maxValue =-1;
 		foreach(Tile q in possibleTargets)
@@ -66,8 +71,14 @@ public class Wubs : AbilityWithManacost, TargetedAbility {
 			value=-1;
 			foreach(Tile t in TargetedAbilityInputManager.Line3(move,q)){
 				if(t.isOccuppied){
-					if(t.Unit.isHostile(user)) value += t.Unit.Damage(damageDealth, new DamageType(DamageType.MAGIC), true);
-					else if(t.Unit != user) value -= t.Unit.Damage(damageDealth, new DamageType(DamageType.MAGIC), true);
+					DamageData dd = new DamageData();
+					dd.defenceMultiplier = 0f;
+					dd.resistanceMultiplier = 0f;
+					dd.baseDamage = dmg;
+					dd.testAttack = true;
+					dd.SourceTile = move;
+					if(t.Unit.isHostile(user)) value += t.Unit.Damage(dd);
+					else if(t.Unit != user) value -= t.Unit.Damage(dd);
 				}
 			}
 			if(value > 5) value += 20;

@@ -1,33 +1,21 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class Damage : MonoBehaviour, IEffect {
     //TODO Add in damage multipliers
-	public void Apply(DamageData attackData)
+	public int Apply(DamageData attackData)
 	{
         //Get damage multipliers and put them in attackData
-        int dmg = StaticApply (attackData);
+        return StaticApply (attackData);
 		//SendMessageUpwards("OnDamageDealt", dmg, SendMessageOptions.DontRequireReceiver);
 	}
 
-	public int Apply (DamageData attackData, bool testAttack)
-	{
-        //Get damage multipliers and put them in attackData
-        return StaticApply(attackData, testAttack);
-	}
-
-    public int Apply(DamageData attackData, bool testAttack, Tile testTile)
-    {
-        //Get damage multipliers and put them in attackData
-        return StaticApply(attackData, testAttack, testTile);
-    }
-
-    static public int StaticApply(DamageData attackData, bool testAttack = false, Tile testPosition = null){
+    static public int StaticApply(DamageData attackData){
 		Unit targetUnit = attackData.target;
-		if (testPosition == null) testPosition = attackData.source.Tile;
 		if(targetUnit != null){
 			// deliver damage to target.
-			return targetUnit.Damage(attackData, testAttack);
+			return targetUnit.Damage(attackData);
 			
 		}else{
 			Debug.LogError("Damage IEffect may target an empty tile!\n" +

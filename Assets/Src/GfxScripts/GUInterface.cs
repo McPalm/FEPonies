@@ -169,7 +169,7 @@ public class GUInterface : MonoBehaviour {
 	/// Builds the attack confirmation.
 	/// </summary>
 	private void BuildAttackConfirmation(){
-
+		/*
 		int yAnchor = System.Math.Min(Screen.height-100, Screen.height/10*8);
 
 		Unit selected = Unit.SelectedUnit;
@@ -206,15 +206,18 @@ public class GUInterface : MonoBehaviour {
 
 		GUI.Box(new Rect(Screen.width/2+155, yAnchor-30, 100, 30), attackTarget.name);
 		GUI.Box(new Rect(Screen.width/2-155-134, yAnchor-30, 100, 30), selected.name);
+		*/
 	}
 
 	private void BuildAttackDefenceWindow(Unit unit, Unit other, int x, int y){
+		/*
 		GUI.Box(new Rect(x, y, 134, 36), "");
 		GUI.Label(new Rect(x+3, y+3, 32, 32), (other.AttackInfo.effect.damageType.Magic)? _resistance : _shield);
 		GUI.Label(new Rect(x+3+32, y+9, 32, 32), (other.AttackInfo.effect.damageType.Magic)? unit.ModifiedStats.resistance.ToString() : unit.ModifiedStats.defense.ToString());
 		GUI.Label(new Rect(x+3+64, y+3, 32, 32), _swords);
 		Stats s = unit.GetStatsAt(unit.Tile);
 		GUI.Label(new Rect(x+3+96, y+9, 32, 32), (unit.doubleAttack) ? (s.might + s.strength) + " x2" : (s.might + s.strength).ToString());
+		*/
 	}
 
 	private void BuildHealthBar(int x, int y, int maxHealth, int currentHealth, int projectedHealth, bool mirror = false){

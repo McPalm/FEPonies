@@ -21,10 +21,13 @@ public class PoisonDebuff : Debuff, TurnObserver {
 	}
 
 	void Tick(){
-		GetComponent<Unit>().Damage(damage, dt);
+		DamageData dd = new DamageData();
+		dd.baseDamage = damage;
+		dd.defenceMultiplier = 0f;
+		GetComponent<Unit>().Damage(dd);
 		ticks--;
 		if(ticks == 0) Destroy(this);
-
+		// TODO: apply poison sfx effect?
 	}
 
 	public void Stack(int damage, int ticks)

@@ -57,15 +57,16 @@ public class Explosion : AbilityWithManacost, TargetedAbility, AIAbility {
 	
 	void ApplyAndShit(Tile ti){
 		Character user = GetComponent<Character>();
-		int damageDealth = user.Level + 4 + user.ModifiedStats.intelligence;
-        DamageData attackData = new DamageData();
-        attackData.baseDamage = damageDealth;
+		int dmg = user.Level + 4 + user.ModifiedStats.intelligence;
 
 		foreach(Tile t in _tgts){
             if (t.isOccuppied)
             {
-
-                t.Unit.Damage(damageDealth, dt);
+				DamageData attackData = new DamageData();
+				attackData.baseDamage = dmg;
+				attackData.resistanceMultiplier = 1f;
+				attackData.defenceMultiplier = 0f;
+				t.Unit.Damage(attackData);
             }
 		}
 	}
@@ -83,7 +84,7 @@ public class Explosion : AbilityWithManacost, TargetedAbility, AIAbility {
 		{
 			return 0;
 		}
-		int damageDealth = user.Character.Level + 4 + user.Character.ModifiedStats.intelligence;
+		int dmg = user.Character.Level + 4 + user.Character.ModifiedStats.intelligence;
 		int value = -1;
 		int maxValue =-1;
 		foreach(Tile q in possibleTargets)
@@ -91,8 +92,13 @@ public class Explosion : AbilityWithManacost, TargetedAbility, AIAbility {
 			value=-1;
 			foreach(Tile t in TargetedAbilityInputManager.Burst(q)){
 				if(t && t.isOccuppied){
-					if(t.Unit.isHostile(user)) value += t.Unit.Damage(damageDealth, dt, true);
-					else value -= t.Unit.Damage(damageDealth, dt, true);
+					DamageData dd = new DamageData();
+					dd.defenceMultiplier = 0f;
+					dd.resistanceMultiplier = 0f;
+					dd.baseDamage = dmg;
+					dd.testAttack = true;
+					if(t.Unit.isHostile(user)) value += t.Unit.Damage(dd);
+					else value -= t.Unit.Damage(dd);
 				}
 			}
 			if(value > 5) value += 20;

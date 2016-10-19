@@ -71,7 +71,16 @@ public class BattlePreview : MonoBehaviour {
 			Stats defender = target.GetStatsAt(target.Tile, user, moveto);
 
 			// attack stats
-			dmg = user.AttackInfo.effect.Apply(target.Tile, user, true, moveto);
+			DamageData dd = new DamageData();
+			dd.target = target;
+			dd.source = user;
+			dd.testAttack = true;
+			dd.baseDamage = attacker.might + attacker.strength;
+			dd.SourceTile = moveto;
+
+			user.AttackInfo.effect.Apply(dd);
+
+			dmg = dd.FinalDamage;
 			hp = defender.maxHP - target.damageTaken;
 			acc = attacker.HitVersus(defender);
 			crit = attacker.CritVersus(defender);
@@ -86,7 +95,15 @@ public class BattlePreview : MonoBehaviour {
 			// defence stats
 			if (willRetaliate)
 			{
-				dmg = target.AttackInfo.effect.Apply(user.Tile, target, true);
+				dd = new DamageData();
+				dd.target = target;
+				dd.source = user;
+				dd.testAttack = true;
+				dd.baseDamage = attacker.might + attacker.strength;
+				dd.SourceTile = moveto;
+
+				target.AttackInfo.effect.Apply(dd);
+				dmg = dmg = dd.FinalDamage;
 				acc = attacker.HitVersus(attacker);
 				crit = attacker.CritVersus(attacker);
 				hp = attacker.maxHP - user.damageTaken;

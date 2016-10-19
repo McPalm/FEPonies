@@ -112,8 +112,10 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
     {
         Stats st = user.GetStatsAt(userPos, target);
         damageData.baseDamage = st.strength + st.might;
+		damageData.testAttack = true;
+		damageData.SourceTile = userPos;
 		float hitChance = user.GetStatsAt(userPos, target).HitVersus(target.GetStatsAt(target.Tile, user, userPos));
-		if (user.AttackInfo.effect.Apply(damageData, true, userPos) >= target.CurrentHP && hitChance>0.5f)
+		if (user.AttackInfo.effect.Apply(damageData) >= target.CurrentHP && hitChance>0.5f)
         {
             return true;
         }
@@ -131,7 +133,10 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 		Stats attackStats = user.GetStatsAt(moveTo, target);
 		Stats defenceStats = user.GetStatsAt(moveTo, target);
         damageData.baseDamage = attackStats.strength + attackStats.might;
-        float damage = user.AttackInfo.effect.Apply(damageData, true, moveTo);
+		damageData.testAttack = true;
+		damageData.SourceTile = moveTo;
+
+        float damage = user.AttackInfo.effect.Apply(damageData);
 		float hitChance = attackStats.HitVersus(defenceStats);
         float critChance = attackStats.CritVersus(defenceStats);
 
@@ -147,7 +152,7 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
             damageData.target = damageData.source;
             damageData.source = temp;
             damageData.baseDamage = defenceStats.strength + defenceStats.might;
-            damage = target.AttackInfo.effect.Apply(damageData, true);
+            damage = target.AttackInfo.effect.Apply(damageData);
             temp = damageData.target;
             damageData.target = damageData.source;
             damageData.source = temp;

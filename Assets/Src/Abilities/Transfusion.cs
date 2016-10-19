@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+// Ability is outdated
 public class Transfusion : Ability, TargetedAbility {
 	public override void Use(){
 		TargetedAbilityInputManager.Instance.Listen(this);
@@ -12,11 +13,12 @@ public class Transfusion : Ability, TargetedAbility {
 	
 	public void Notify(Tile target)
 	{
+		Debug.LogError("Transfusion not implemented!");
 		Unit user = GetComponent<Unit>();
 		// get my hp
 		int heal = user.CurrentHP/4;
 		// hurt self for one fourth that
-		user.Damage(heal, new DamageType(DamageType.TRUE));
+		// user.Damage(heal, new DamageType(DamageType.TRUE));
 		// heal target for double that
 		target.Unit.Heal(heal*2);
 		FinishUse();

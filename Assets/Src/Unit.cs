@@ -487,19 +487,22 @@ public class Unit : MonoBehaviour {
 	/// Damage this Unit for N ammounts of damage, reduced by Defence.
 	/// </summary>
 	/// <param name="n">N.</param>
-	public int Damage(DamageData attackData, bool testAttack=false)
+	public int Damage(DamageData attackData)
 	{
-        int n = attackData.GetDamage(Character.ModifiedStats.defense, Character.ModifiedStats.resistance);
+		
+        int n = attackData.ApplyDefences(Character.ModifiedStats.defense, Character.ModifiedStats.resistance);
 
-		if(!testAttack)
-		{
-			damageTaken += n;
-			NotifyHealthObservers(-n);
-		}
+		if (attackData.testAttack) return n;
+		
+		damageTaken += n;
+		NotifyHealthObservers(-n);
+		attackData.Callback();
+		
 		if(damageTaken >= Character.ModifiedStats.maxHP){
 			Death (true);
 			SFXPlayer.Instance.DeathSound();
 		}
+
 		return n;
 	}
 

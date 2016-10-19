@@ -20,10 +20,13 @@ public class PinningStrike : Ability, TargetedAbility {
 
 	public void Notify (Tile target)
 	{
-		Unit host = GetComponent<Unit>();
-		Pin.StaticApply(target, host);
+		DamageData dd = new DamageData();
+		if (target.Unit) dd.target = target.Unit;
+		dd.source = GetComponent<Unit>();
+
+		Pin.StaticApply(dd);
 		uses--;
-		host.StartAttackSequence (target.Unit);
+		dd.source.StartAttackSequence (target.Unit);
 		//FinishUse();
 	}
 

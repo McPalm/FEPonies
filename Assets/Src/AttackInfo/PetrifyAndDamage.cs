@@ -11,36 +11,14 @@ using System;
 using UnityEngine;
 
 public class PetrifyAndDamage : MonoBehaviour, IEffect {
-
-	private DamageType _damageType;
-	public DamageType damageType {
-		get {
-			return _damageType;
-		}
-		set {
-			_damageType = value;
-		}
-	}
 	
-	public int Apply (Tile target, Unit user, bool testAttack)
-	{
-		return Damage.StaticApply(target, user, _damageType, testAttack);
-	}
-	
-	public void Apply (Tile target, Unit user)
-	{
-		int dmg = StaticApply(target, user, _damageType);
-		SendMessageUpwards("OnDamageDealt", dmg, SendMessageOptions.DontRequireReceiver);
-		_damageType.Critical = false;
-	}
-	
-	static public int StaticApply(Tile target, Unit user, DamageType dtyp){
-		Petrify.StaticApply(target, user);
-		return Damage.StaticApply(target, user, dtyp); // may kill target, do last. Just to keep the sequence more safe.
+	static public int StaticApply(DamageData dd){
+		if(!dd.testAttack) Petrify.StaticApply(dd);
+		return Damage.StaticApply(dd); // may kill target, do last. Just to keep the sequence more safe.
 	}
 
-    public int Apply(Tile target, Unit user, bool testAttack, Tile testTile)
-    {
-        return Damage.StaticApply(target, user, _damageType, testAttack, testTile);
-    }
+	public int Apply(DamageData attackData)
+	{
+		return StaticApply(attackData);
+	}
 }

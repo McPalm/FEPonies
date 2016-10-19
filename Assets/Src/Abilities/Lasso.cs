@@ -15,7 +15,11 @@ public class Lasso : Ability, TargetedAbility {
 
 	public void Notify (Tile target)
 	{
-		Pin.StaticApply(target, GetComponent<Unit>());
+		DamageData dd = new DamageData();
+		if(target.Unit) dd.target = target.Unit;
+		dd.source = GetComponent<Unit>();
+
+		Pin.StaticApply(dd);
 		FinishUse();
 	}
 

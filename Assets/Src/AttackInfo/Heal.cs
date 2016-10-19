@@ -1,36 +1,14 @@
 using UnityEngine;
-using System.Collections;
+using System;
 
 public class Heal : MonoBehaviour, IEffect {
 
-	public DamageType damageType {
-		get {
-			return new DamageType();
-		}
-		set {}
-	}
-
 	public int healAmmount = 15;
 
-	public void Apply (Tile target, Unit user)
+	public int Apply (DamageData damageData)
 	{
-		target.Unit.Heal(healAmmount);
+		// (Tile target, Unit user)
+		damageData.target.Heal(healAmmount);
+		return Math.Min(damageData.target.damageTaken, healAmmount); // HACK
 	}
-
-	public int Apply (Tile target, Unit user, bool testAttack)
-	{
-		throw new System.NotImplementedException ();
-	}
-
-	public bool Defence {
-		get {
-			return true;
-		}
-	}
-
-    public int Apply(Tile target, Unit user, bool testAttack, Tile testTile)
-    {
-        throw new System.NotImplementedException();
-    }
-
 }
