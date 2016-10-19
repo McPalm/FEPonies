@@ -6,6 +6,7 @@ public class ItemFactory : MonoBehaviour {
 	static public Item CreateItem(string name)
 	{
 		ArmorFactory af = new ArmorFactory(name);
+		WeaponFactory wf = new WeaponFactory(name);
 		switch(name)
 		{
 			case "Healing Potion":
@@ -30,6 +31,29 @@ public class ItemFactory : MonoBehaviour {
 				af.Resistance = 0.5f;
 				af.Weight = 2;
 				return af.GetArmour();
+			case "Spear":
+				wf.Level = 1;
+				wf.SetMeleeAndRange();
+				return wf.GetWeapon();
+			case "Axe":
+				wf.Level = 1;
+				wf.HighCrit();
+				wf.LowHit();
+				return wf.GetWeapon();
+			case "Sword":
+				wf.Level = 1;
+				wf.HighHit();
+				return wf.GetWeapon();
+			case "Crossbow":
+				wf.Level = 1;
+				wf.SetLongRange();
+				return wf.GetWeapon();
+			case "Wand":
+				wf.Level = 1;
+				wf.SetMagic();
+				wf.SetMeleeAndRange();
+				return wf.GetWeapon();
+
 		}
 
 		Item i = new Item();
