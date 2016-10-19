@@ -130,6 +130,15 @@ public class WeaponFactory{
 		power /= 1f + advantages;
 		power *= 1f + disadvantages;
 
+		// grant the weapon appropiate range
+		IReach ir;
+		if (reach == MELEE) ir = new Melee();
+		else if (reach == MELEEANDRANGE) ir = new RangeAndMelee();
+		else if (reach == LONGRANGE) ir = new IncreasedRange();
+		else ir = new Ranged();
+
+		w.attackInfo = new AttackInfo(ir);
+
 		w.buff.hitBonus += hitMod * 0.1f;
 		w.buff.critBonus += hitMod * 0.15f;
 		w.buff.might = (int)(power);
