@@ -28,7 +28,7 @@ public class Unit : MonoBehaviour {
 	// public Ability ability;
 	public Material greyscale;
 	public Material normalMaterial;
-	public AttackInfo AttackInfo;
+	private AttackInfo attackInfo;
 	public IAIBehaviour unitAI;
 
 	// fields
@@ -172,6 +172,7 @@ public class Unit : MonoBehaviour {
 		UnitManager.Instance.Add(this);
 		// gimme a health bar!
 		HealthBar.NewHealthBar(transform);
+		attackInfo = GetComponentInChildren<AttackInfo>();
 	}
 
 	/// <summary>
@@ -320,6 +321,20 @@ public class Unit : MonoBehaviour {
 			if (character == null)
 				character = GetComponent<Character>();
 			return character;
+		}
+	}
+
+	public AttackInfo AttackInfo
+	{
+		get
+		{
+			// Get attack info from equipped weapon
+			Backpack bp = GetComponent<Backpack>();
+			if(bp && bp.EquippedWeapon != null)
+			{
+				return bp.EquippedWeapon.attackInfo;
+			}
+			return attackInfo;
 		}
 	}
 

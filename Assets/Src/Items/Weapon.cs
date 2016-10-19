@@ -17,4 +17,5 @@ public enum WeaponType {
 public class Weapon : Equipment
 {
 	public WeaponType type;
+	public AttackInfo attackInfo;
 }
