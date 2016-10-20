@@ -6,7 +6,7 @@ class ScalingBackpack : Backpack {
 
 	
 	public WeaponType wornWeapon;
-	[Range(0, 3)]
+	[Range(0, 2)]
 	public int weight;
 
 	void Start()
@@ -17,58 +17,57 @@ class ScalingBackpack : Backpack {
 	private void GenerateGear()
 	{
 		int level = GetComponent<Unit>().Character.Level;
+		int str = GetComponent<Unit>().Character.ModifiedStats.strength;
 
 		// generate armour
-		Armor a = new Armor();
-		a.weight = weight;
-		int defence = weight * 2 - 1 + level / 2;
-		int resistance = level / 3;
+		if (weight == 0) weight = 0;
+		else if(weight == 1) weight = str;
+		else weight = str * 2;
 
-		if (weight == 0)
-		{
-			defence = 0;
-			resistance += 2;
-			a.Name = "Robes";
-		}
-
-		a.buff.defense = defence;
-		a.buff.resistance = resistance;
-		if (weight == 1) a.Name = "Light Armour";
-		if (weight == 2) a.Name = "Medium Armour";
-		if (weight == 3) a.Name = "Heavy Armour";
+		Armor a = ArmorDB.Instance.GetArmor(level, weight);
 
 		Add(a);
 		Equip(a);
 
 		// generate weapon
-		Weapon w = new Weapon();
+		WeaponFactory wf = new WeaponFactory();
+		wf.Level = level;
 
 		switch (wornWeapon)
 		{
 			case WeaponType.axe:
-				w.buff.hitBonus = -0.2f;
-				w.buff.might = level + 5;
-				w.attackInfo = new AttackInfo();
-				w.Name = "Axe";
+				wf.Name = "Axe";
+				wf.LowHit();
+				wf.HighCrit();
 				break;
 			case WeaponType.sword:
-				w.buff.hitBonus = 0.1f;
-				w.buff.critBonus = 0.1f;
-				w.buff.might = level + 3;
-				w.attackInfo = new AttackInfo();
-				w.Name = "Sword";
+				wf.HighHit();
+				wf.Name = "Sword";
 				break;
 			case WeaponType.spear:
-				w.buff.might = level + 4;
-				w.attackInfo = new AttackInfo();
-				w.Name = "Spear";
+				wf.SetMeleeAndRange();
+				wf.Name = "Spear";
+				break;
+			case WeaponType.dagger:
+				wf.SetArmorPenetrating();
+				wf.HighCrit();
+				wf.Name = "Dagger";
+				break;
+			case WeaponType.crossbow:
+				wf.SetLongRange();
+				wf.Name = "Dagger";
+				break;
+			case WeaponType.tomb:
+				wf.SetMeleeAndRange();
+				wf.SetMagic();
+				wf.Name = "Magic Tomb";
 				break;
 			default:
-				w.buff.might = level + 4;
-				w.attackInfo = new AttackInfo();
-				w.Name = "Weapon";
+				wf.Name = "Weapon";
 				break;
 		}
+
+		Weapon w = wf.GetWeapon();
 
 		Add(w);
 		Equip(w);

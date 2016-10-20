@@ -20,7 +20,7 @@ public class WeaponFactory{
 	const int RESIST = 3;
 	const int HYBRID = 4;
 
-	public WeaponFactory(string name)
+	public WeaponFactory(string name = "")
 	{
 		this.name = name;
 	}
@@ -31,6 +31,19 @@ public class WeaponFactory{
 		{
 			if (value < 1) Debug.LogError("Item level cannot be lower than 1!");
 			else level = value;
+		}
+	}
+
+	public string Name
+	{
+		get
+		{
+			return name;
+		}
+
+		set
+		{
+			name = value;
 		}
 	}
 
@@ -109,7 +122,7 @@ public class WeaponFactory{
 	public Weapon GetWeapon()
 	{
 		Weapon w = new Weapon();
-		w.Name = name;
+		w.Name = Name;
 		w.buff = new Stats();
 
 		float power = level + 4;

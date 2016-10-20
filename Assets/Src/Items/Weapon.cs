@@ -7,7 +7,7 @@ using System.Text;
 /// the type of weapon
 /// </summary>
 public enum WeaponType {
-    axe, spear, sword
+    axe, spear, sword, dagger, crossbow, tomb
 }
 
 /// <summary>

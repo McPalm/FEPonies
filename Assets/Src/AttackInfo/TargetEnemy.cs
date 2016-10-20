@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class TargetEnemy : MonoBehaviour, ITargetFilter {
+public class TargetEnemy : ITargetFilter {
 
 	public bool ValidateTarget (Tile target, Unit user)
 	{

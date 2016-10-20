@@ -77,9 +77,15 @@ public class MouseoverStats : MonoBehaviour {
 		Unit client = tileUnderMouse.Unit;
 		Stats s = client.GetStatsAt(client.Tile);
 		int hpleft = client.CurrentHP;
+		int dmg = 0;
+		IEffect ie = client.AttackInfo.Effect;
+		if(ie is WeaponDamage)
+		{
+			dmg = (ie as WeaponDamage).GetDamage(s);
+		}
 
 		text.text = "HP " + client.CurrentHP +  "/" + s.maxHP + "\n" +
-			"DMG " + (s.might + s.strength) + "\n" +
+			"DMG " + dmg + "\n" +
 			"Def " + s.defense + "\n" +
 			"Res " + s.resistance + "\n";
 
