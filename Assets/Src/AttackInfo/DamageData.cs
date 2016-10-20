@@ -3,7 +3,6 @@ using System;
 
 public class DamageData {
 
-
 	public int baseDamage=1;
 	public float defenceMultiplier=1f;
 	public float resistanceMultiplier=0f;
@@ -58,4 +57,6 @@ public class DamageData {
 	{
 		callbacks += damageData;
 	}
+
+
 }

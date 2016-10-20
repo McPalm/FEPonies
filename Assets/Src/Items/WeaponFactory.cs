@@ -137,14 +137,34 @@ public class WeaponFactory{
 		else if (reach == LONGRANGE) ir = new IncreasedRange();
 		else ir = new Ranged();
 
-		w.attackInfo = new AttackInfo(ir);
+		// Weapon Damage Stuffs
+		WeaponDamage wd = GetWeaponDamage(power);
+
+		w.attackInfo = new AttackInfo(ir, wd);
 
 		w.buff.hitBonus += hitMod * 0.1f;
 		w.buff.critBonus += hitMod * 0.15f;
-		w.buff.might = (int)(power);
 
 		level += 4;
 		w.value = level * level * 2;
 		return w;
+	}
+
+	private WeaponDamage GetWeaponDamage(float power)
+	{
+		WeaponDamage wd = new WeaponDamage();
+		wd.BaseDamage = (int)power;
+		if (defences == APIERCE) wd.DefenceMulitiplier = 0.5f;
+		if (defences == RESIST)
+		{
+			wd.DefenceMulitiplier = 0f;
+			wd.ResistanceMultiplier = 1f;
+		}
+		if (defences == HYBRID)
+		{
+			wd.DefenceMulitiplier = 0.5f;
+			wd.ResistanceMultiplier = 0.5f;
+		}
+		return wd;
 	}
 }

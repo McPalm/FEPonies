@@ -18,7 +18,7 @@ public class Damage :  IEffect {
 			return targetUnit.Damage(attackData);
 			
 		}else{
-			Debug.LogError("Damage IEffect may target an empty tile!\n" +
+			Debug.LogError("Damage IEffect failed!\n" +
 			               "User=" + attackData.source + "\n" +
 			               "Target=" + attackData.target);
 			return 0;
