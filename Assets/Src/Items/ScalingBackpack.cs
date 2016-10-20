@@ -17,7 +17,10 @@ class ScalingBackpack : Backpack {
 	private void GenerateGear()
 	{
 		int level = GetComponent<Unit>().Character.Level;
-		int str = GetComponent<Unit>().Character.ModifiedStats.strength;
+		Stats stats = GetComponent<Unit>().Character.ModifiedStats;
+		int str = stats.strength;
+		int dex = stats.dexterity;
+		int inte = stats.intelligence;
 
 		// generate armour
 		if (weight == 0) weight = 0;
@@ -30,44 +33,7 @@ class ScalingBackpack : Backpack {
 		Equip(a);
 
 		// generate weapon
-		WeaponFactory wf = new WeaponFactory();
-		wf.Level = level;
-
-		switch (wornWeapon)
-		{
-			case WeaponType.axe:
-				wf.Name = "Axe";
-				wf.LowHit();
-				wf.HighCrit();
-				break;
-			case WeaponType.sword:
-				wf.HighHit();
-				wf.Name = "Sword";
-				break;
-			case WeaponType.spear:
-				wf.SetMeleeAndRange();
-				wf.Name = "Spear";
-				break;
-			case WeaponType.dagger:
-				wf.SetArmorPenetrating();
-				wf.HighCrit();
-				wf.Name = "Dagger";
-				break;
-			case WeaponType.crossbow:
-				wf.SetLongRange();
-				wf.Name = "Dagger";
-				break;
-			case WeaponType.tomb:
-				wf.SetMeleeAndRange();
-				wf.SetMagic();
-				wf.Name = "Magic Tomb";
-				break;
-			default:
-				wf.Name = "Weapon";
-				break;
-		}
-
-		Weapon w = wf.GetWeapon();
+		Weapon w = WeaponDB.Instance.GetWeapon(level, wornWeapon, (dex > str && dex > inte));
 
 		Add(w);
 		Equip(w);

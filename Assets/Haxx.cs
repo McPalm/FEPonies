@@ -16,6 +16,7 @@ public class Haxx : MonoBehaviour {
 		SceneManager.LoadScene("BattleGUIScene", LoadSceneMode.Additive);
 
 
+
 		//StateManager.Instance.State = GameState.playerTurn;
 		//
 		//GUInterface.Instance.PrintMessage("Player Turn!");

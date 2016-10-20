@@ -84,7 +84,6 @@ public class ArmorFactory
 		float power = level + 5;
 		float advantages = 0f;
 		float disadvantages = 0f;
-		Debug.Log("Base Power: " + power);
 		
 		// count advantages/disadvantages
 		disadvantages += weight / 20f;
@@ -102,9 +101,6 @@ public class ArmorFactory
 		a.weight = weight;
 		a.buff = new Stats();
 		a.Name = name;
-		Debug.Log("Power: " + power);
-		Debug.Log("Reistance: " + resistance);
-		Debug.Log("Weight: " + weight);
 
 		a.buff.defense = Mathf.RoundToInt(power * 0.99f* (1f - resistance) + weight * 0.25f);
 		a.buff.resistance = Mathf.RoundToInt(power * 1.01f * resistance);

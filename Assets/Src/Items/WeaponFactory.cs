@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-public class WeaponFactory{
+public class WeaponFactory {
 
 	string name;
 	int level = 1;
@@ -19,6 +19,11 @@ public class WeaponFactory{
 	const int APIERCE = 2;
 	const int RESIST = 3;
 	const int HYBRID = 4;
+
+	float strenght = 0;
+	float dexterity = 0;
+	float intelligence = 0;
+	float scaling = 1f;
 
 	public WeaponFactory(string name = "")
 	{
@@ -85,14 +90,14 @@ public class WeaponFactory{
 	/// <summary>
 	/// Makes the weapon ignore half armour
 	/// </summary>
-	public void SetArmorPenetrating()
+	public void ArmorPenetrating()
 	{
 		defences = APIERCE;
 	}
 	/// <summary>
 	/// Makes the weapon apply against resistance instead of defence
 	/// </summary>
-	public void SetMagic()
+	public void Magic()
 	{
 		defences = RESIST;
 	}
@@ -118,6 +123,41 @@ public class WeaponFactory{
 	{
 		hitMod = -ammount;
 	}
+	public void SetScaling(int str, int dex, int i)
+	{
+		float total = str + dex + i;
+		strenght = str / total;
+		dexterity = dex / total;
+		intelligence = i / total;
+
+		int spread = 0;
+		if (str > 0) spread++;
+		if (dex > 0) spread++;
+		if (i > 0) spread++;
+
+		strenght = strenght * 1.1f;
+
+		if (spread == 2)
+		{
+			strenght = strenght * 1.2f;
+			dexterity = dexterity * 1.2f;
+			intelligence = intelligence * 1.2f;
+		}
+		if(spread == 3)
+		{
+			strenght = strenght * 1.4f;
+			dexterity = dexterity * 1.4f;
+			intelligence = intelligence * 1.4f;
+		}
+	}
+	public void HighScaling()
+	{
+		scaling = 1.5f;
+	}
+	public void LowScaling()
+	{
+		scaling = 0.5f;
+	}
 
 	public Weapon GetWeapon()
 	{
@@ -135,13 +175,17 @@ public class WeaponFactory{
 		if (defences == APIERCE) advantages += 0.5f;
 		if (hitMod > 0) advantages += hitMod / 7f;
 		if (critMod > 0) advantages += critMod / 5f;
+		if (scaling > 0) advantages += 0.5f;
 
 		// disadvantages
 		if (hitMod < 0) disadvantages += hitMod / 10f;
+		if (scaling < 0) disadvantages += 0.25f;
 
 		// modify base damage to work with modifiers
 		power /= 1f + advantages;
 		power *= 1f + disadvantages;
+
+		scaling = scaling * (1f + level * 0.05f);
 
 		// grant the weapon appropiate range
 		IReach ir;
@@ -152,6 +196,10 @@ public class WeaponFactory{
 
 		// Weapon Damage Stuffs
 		WeaponDamage wd = GetWeaponDamage(power);
+
+		wd.StrScale = strenght * scaling;
+		wd.DexScale = dexterity * scaling;
+		wd.IntScale = intelligence * scaling;
 
 		w.attackInfo = new AttackInfo(ir, wd);
 
@@ -166,7 +214,7 @@ public class WeaponFactory{
 	private WeaponDamage GetWeaponDamage(float power)
 	{
 		WeaponDamage wd = new WeaponDamage();
-		wd.BaseDamage = (int)power;
+		wd.BaseDamage = (int)(power * 1.5f);
 		if (defences == APIERCE) wd.DefenceMulitiplier = 0.5f;
 		if (defences == RESIST)
 		{
