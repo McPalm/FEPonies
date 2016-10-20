@@ -39,11 +39,11 @@ public class ArmorDB
 		foreach(ArmorStats a in list)
 		{
 			adb.Add(a);
-			adb.Add(new ArmorStats(a.name + "+1", a.level + 2, a.weight));
-			adb.Add(new ArmorStats(a.name + "+2", a.level + 4, a.weight));
-			adb.Add(new ArmorStats(a.name + "+3", a.level + 6, a.weight));
-			adb.Add(new ArmorStats(a.name + "+4", a.level + 8, a.weight));
-			adb.Add(new ArmorStats(a.name + "+5", a.level + 10, a.weight));
+			adb.Add(new ArmorStats(a.name, a.level + 2, a.weight, 1));
+			adb.Add(new ArmorStats(a.name, a.level + 4, a.weight, 2));
+			adb.Add(new ArmorStats(a.name, a.level + 6, a.weight, 3));
+			adb.Add(new ArmorStats(a.name, a.level + 8, a.weight, 4));
+			adb.Add(new ArmorStats(a.name, a.level + 10, a.weight, 5));
 		}
 	}
 
