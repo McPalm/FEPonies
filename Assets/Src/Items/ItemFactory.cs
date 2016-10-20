@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class ItemFactory : MonoBehaviour {
+public class ItemFactory {
 
 	static public Item CreateItem(string name)
 	{

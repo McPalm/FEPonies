@@ -59,6 +59,11 @@ public class ArmorDB
 		return GetArmor(name);
 	}
 
+	/// <summary>
+	/// Get an armour by name
+	/// </summary>
+	/// <param name="name">name of armour, include +1, +2 etc if needed</param>
+	/// <returns>If no such armour exsist, null will be returned</returns>
 	public Armor GetArmor(string name)
 	{
 		ArmorStats a = null;
@@ -99,7 +104,6 @@ public class ArmorDB
 		public readonly int weight;
 		public readonly string name;
 		public readonly int magic;
-
 		public readonly string fullName;
 
 		public ArmorStats(string name, int level, int weight, int magic = 0)
