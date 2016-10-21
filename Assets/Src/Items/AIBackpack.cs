@@ -16,17 +16,23 @@ class AIBackpack : Backpack {
 	{
 		int level = GetComponent<Character>().Level;
 		int budget = level;
+		if (armor != "")
+		{
+			Armor a = ArmorDB.Instance.GetArmor(armor, budget);
+			if (a == null) Debug.LogError(armor + " not found in armor database");
+			Add(a);
+			Equip(a);
+			budget += level - ArmorDB.Instance.GetLevel(a.Name);
+		}
+		else budget += 2;
 
-		Armor a = ArmorDB.Instance.GetArmor(armor, budget);
-		if (a == null) Debug.LogError(armor + " not found in armor database");
-		Add(a);
-		Equip(a);
-		budget += level - ArmorDB.Instance.GetLevel(a.Name);
-
-		Weapon w = WeaponDB.Instance.GetWeapon(weapon, budget);
-		if (w == null) Debug.LogError(weapon + " not found in weapons database");
-		Add(w);
-		Equip(w);
+		if (weapon != "")
+		{
+			Weapon w = WeaponDB.Instance.GetWeapon(weapon, budget);
+			if (w == null) Debug.LogError(weapon + " not found in weapons database");
+			Add(w);
+			Equip(w);
+		}
 		foreach (string e in extras)
 		{
 			Item i = ItemFactory.CreateItem(e);

@@ -27,6 +27,7 @@ public class WeaponDB
 		list.Add(new WeaponInfo("Short Spear", 1, WeaponType.spear, 2, 1, 0));
 		list.Add(new WeaponInfo("Short Sword", 1, WeaponType.sword, 2, 3, 0));
 		list.Add(new WeaponInfo("Lightning Rod", 2, WeaponType.tome, 0, 2, 3));
+		list.Add(new WeaponInfo("Warhammer", 2, WeaponType.axe, 1, 0, 0));
 		list.Add(new WeaponInfo("Javelin", 3, WeaponType.spear, 2, 3, 0));
 		list.Add(new WeaponInfo("Long Sword", 2, WeaponType.sword, 3, 2, 0));
 		list.Add(new WeaponInfo("Halberd", 4, WeaponType.axe, 2, 1, 0));
@@ -140,6 +141,11 @@ public class WeaponDB
 				wf.HighCrit();
 				wf.Magic();
 				wf.SetMeleeAndRange();
+				break;
+			case "Warhammer":
+				wf.LowHit();
+				wf.ArmorPenetrating();
+				wf.HighScaling();
 				break;
 			case "Javelin":
 				wf.LowHit();
