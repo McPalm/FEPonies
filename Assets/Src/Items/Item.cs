@@ -8,9 +8,12 @@ using System.Collections.Generic;
 /// value - the value of the item in silver pieces (sp)
 /// icon - a icon for the item, is displayed in the backpack
 /// </summary>
+/// 
+
+
 public class Item
 {
-    [SerializeField]
+
 	string name;
 
 	public string Name {

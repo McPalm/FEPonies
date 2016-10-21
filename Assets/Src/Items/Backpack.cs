@@ -14,16 +14,14 @@ using System.Text;
 /// equippedTrinket - the Trinket currently equipped
 /// capacity - number of items that fit into the backpack
 /// </summary>
+/// 
+
 class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<Weapon>, Buff
 {
-    private List<Item> backpack = new List<Item>();
-    [SerializeField]
+    public List<Item> backpack = new List<Item>();
     Armor equippedArmor;
-    [SerializeField]
     Weapon equippedWeapon;
-    [SerializeField]
     Equipment equippedTrinket;
-    [SerializeField]
     int capacity = 5;
 	Character owner;
 	Stats _equipmentStats;
@@ -71,7 +69,7 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
 	void Awake()
 	{
 		owner = GetComponent<Character>();
-		owner.AddBuff(this);
+        owner.AddBuff(this);
         //Add all equipments to the backpack if not there already
         if (equippedArmor!=null&&!backpack.Contains(equippedArmor))
         {
@@ -293,4 +291,3 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
     {
         backpack.Clear();
     }
-}

@@ -26,7 +26,11 @@ public class Train : MonoBehaviour, IEnumerable<Item> {
 	/// <returns></returns>
 	public bool Add(Item i)
 	{
-		throw new System.NotImplementedException();
+        if (i != null)
+        {
+            items.Add(i);
+        }
+        return true;
 	}
 
 	/// <summary>
@@ -37,7 +41,19 @@ public class Train : MonoBehaviour, IEnumerable<Item> {
 	/// <returns></returns>
 	public bool Retrieve(Item i, int quantity = 1)
 	{
-		throw new System.NotImplementedException();
+		for (int n=0; n<quantity; n++)
+        {
+            if(items.Contains(i))
+            {
+                items.Remove(i);
+            }
+            else
+            {
+                Debug.Log("Not enough items here, something went wrong");
+                return false;
+            }
+        }
+        return true;
 	}
 
 	/// <summary>

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// class for armors
 /// weight - the weight of the armor
 /// </summary>
-[System.Serializable]
+
 public class Armor : Equipment
 {
     public int weight;
