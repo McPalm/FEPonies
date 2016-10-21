@@ -93,8 +93,8 @@ public class CharacterSheet : MonoBehaviour {
 				mystats.intelligence + "\n\n" + //INT
 
 				100 * mystats.Hit + "%\n" + //HIT
-				100 * mystats.Dodge + "%\n" + //DODGE
 				100 * mystats.Crit + "%\n" + //CRIT
+				100 * mystats.Dodge + "%\n" + //DODGE
 				100 * mystats.CritDodge + "%\n" + //CRIT.D
 				mystats.defense + "\n" + //ARMOR
 				mystats.resistance; //RESISTANCE

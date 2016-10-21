@@ -179,6 +179,7 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
 		{
 			if (toBeEquipped is Armor)
 			{
+				if (equippedArmor.weight > owner.ModifiedStats.CarryingCapacity * 2) return false;
 				equippedArmor = (Armor)toBeEquipped;
 				countStats();
 				return true;
@@ -250,6 +251,22 @@ class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEn
 		if(EquippedArmor != null) _equipmentStats = EquippedArmor.buff;
 		if(EquippedWeapon != null) _equipmentStats += EquippedWeapon.buff;
 		if(EquippedTrinket != null) _equipmentStats += EquippedTrinket.buff;
+
+		// calculate encumberance
+		if(equippedArmor != null)
+		{
+			if (equippedArmor.weight > owner.ModifiedStats.CarryingCapacity)
+			{
+				_equipmentStats.movement.moveSpeed--;
+				_equipmentStats.dodgeBonus -= (equippedArmor.weight - owner.ModifiedStats.CarryingCapacity) * 0.05f;
+			}
+			else
+			{
+				float ratio = 1f - (equippedArmor.weight / owner.ModifiedStats.CarryingCapacity);
+				print(ratio);
+				_equipmentStats.dodgeBonus = ratio * 0.1f;
+			}
+		}
 	}
 
 	/// <summary>
