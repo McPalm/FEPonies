@@ -5,7 +5,7 @@ using System.Collections;
 
 public class Train : MonoBehaviour, IEnumerable<Item> {
 
-
+#pragma warning disable
 	private List<Item> items;
 	private int cash;
 

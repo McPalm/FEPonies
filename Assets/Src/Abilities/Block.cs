@@ -6,6 +6,7 @@ public class Block : Passive, AttackBuff {
 
 	private bool active = false;
 	private Unit user;
+#pragma warning disable
 	private Stats stats;
 
 	public override string Name

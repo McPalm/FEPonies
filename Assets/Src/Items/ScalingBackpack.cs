@@ -2,10 +2,11 @@
 using System.Collections;
 using System;
 
+[System.Serializable]
 class ScalingBackpack : Backpack {
 
-	
-	public WeaponType wornWeapon;
+	[SerializeField]
+	WeaponType wornWeapon;
 	[Range(0, 2)]
 	public int weight;
 

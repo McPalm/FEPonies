@@ -7,7 +7,6 @@ public class MainMenu : MonoBehaviour {
 	/// Add this to the level of ALL enemies across all levels. makes the game harder. Keep at zero please...  for now...
 	/// </summary>
 	static public int levelBonus = 0;
-	int level = 0;
 
 	void OnGUI(){
 

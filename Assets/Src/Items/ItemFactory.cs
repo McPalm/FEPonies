@@ -5,7 +5,6 @@ public class ItemFactory {
 
 	static public Item CreateItem(string name)
 	{
-		WeaponFactory wf = new WeaponFactory(name);
 		switch (name)
 		{
 			case "Healing Potion":

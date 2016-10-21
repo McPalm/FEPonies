@@ -19,11 +19,7 @@ public class GUInterface : MonoBehaviour {
 	private float duration;
 	private IGUIButtonListener[] buttons;
 	private Vector2 buttonAnchor;
-	private int _buttonMenuButtonSize = 32;
 	private Unit attackTarget;
-	private Texture _shield;
-	private Texture _swords;
-	private Texture _resistance;
 	private Texture _healthBar;
 	private Texture _healthBarRed;
 	private Texture _healthFrame;
@@ -32,9 +28,6 @@ public class GUInterface : MonoBehaviour {
 		instance = this;
 		Pauser.Instance.UnPause();
 
-		_shield = Resources.Load<Texture>("Shield");
-		_swords = Resources.Load<Texture>("Swords");
-		_resistance = Resources.Load<Texture>("Resistance");
 		_healthBar = Resources.Load<Texture>("HealthBar");
 		_healthBarRed = Resources.Load<Texture>("HealthBarRed");
 		_healthFrame = Resources.Load<Texture>("HealthFrame");

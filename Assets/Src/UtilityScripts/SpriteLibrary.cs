@@ -37,7 +37,9 @@ public class SpriteLibrary : MonoBehaviour {
 	[System.Serializable]
 	private class SpriteBook
 	{
+		#pragma warning disable
 		public string name;
+		#pragma warning disable
 		public Sprite sprite;
 	}
 }

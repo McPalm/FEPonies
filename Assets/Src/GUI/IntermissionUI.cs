@@ -32,7 +32,6 @@ public class IntermissionUI : MonoBehaviour, Observer {
 	private SkillMenu skillMenu;
 
 	RectTransform me;
-	float scale = 1f;
 
 	// Use this for initialization
 	void Awake () {

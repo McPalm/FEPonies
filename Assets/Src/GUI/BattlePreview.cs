@@ -60,7 +60,6 @@ public class BattlePreview : MonoBehaviour {
 		else
 		{
 			int dmg = 1;
-			int hp = 1;
 			float acc = 1f;
 			float crit = 0.05f;
 
@@ -81,7 +80,6 @@ public class BattlePreview : MonoBehaviour {
 			user.AttackInfo.Effect.Apply(dd);
 
 			dmg = dd.FinalDamage;
-			hp = defender.maxHP - target.damageTaken;
 			acc = attacker.HitVersus(defender);
 			crit = attacker.CritVersus(defender);
 
@@ -103,10 +101,9 @@ public class BattlePreview : MonoBehaviour {
 				dd.SourceTile = moveto;
 
 				target.AttackInfo.Effect.Apply(dd);
-				dmg = dmg = dd.FinalDamage;
+				dmg = dd.FinalDamage;
 				acc = attacker.HitVersus(attacker);
 				crit = attacker.CritVersus(attacker);
-				hp = attacker.maxHP - user.damageTaken;
 
 				acc = Mathf.RoundToInt(acc * 100);
 				crit = Mathf.RoundToInt(crit * 100);
