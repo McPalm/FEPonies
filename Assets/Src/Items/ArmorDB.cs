@@ -60,6 +60,24 @@ public class ArmorDB
 	}
 
 	/// <summary>
+	/// Gets a specific armor and applies +'s on it to match the level
+	/// </summary>
+	/// <param name="name">name without +'es</param>
+	/// <param name="level">max level of it item</param>
+	/// <returns></returns>
+	public Armor GetArmor(string name, int level)
+	{
+		List<ArmorStats> list = new List<ArmorStats>();
+		foreach(ArmorStats astats in adb)
+		{
+			if (astats.name == name && astats.level <= level) list.Add(astats);
+		}
+		if (list.Count == 0) return GetArmor(name);
+		list.Sort();
+		return GetArmor(list[list.Count - 1].fullName);
+	}
+
+	/// <summary>
 	/// Get an armour by name
 	/// </summary>
 	/// <param name="name">name of armour, include +1, +2 etc if needed</param>
@@ -91,13 +109,27 @@ public class ArmorDB
 			case "Dapper Vest":
 				af.IntelligenceBonus();
 				break;
-			case "Brass Curiass":
+			case "Brass Cuirass":
 			case "Wyrm Plate":
 				af.StrenghtBonus();
 				break;
 		}
 
 		return af.GetArmour();
+	}
+
+	/// <summary>
+	/// Gets the item level of a specific armor.
+	/// </summary>
+	/// <param name="armorName"></param>
+	/// <returns>level of the item, 0 if not found.</returns>
+	public int GetLevel(string armorName)
+	{
+		foreach (ArmorStats w in adb)
+		{
+			if (w.fullName == armorName) return w.level;
+		}
+		return 0;
 	}
 
 	private class ArmorStats : IComparable<ArmorStats>
