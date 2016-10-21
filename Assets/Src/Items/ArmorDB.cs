@@ -18,32 +18,32 @@ public class ArmorDB
 	ArmorDB()
 	{
 		List<ArmorStats> list = new List<ArmorStats>();
-		list.Add(new ArmorStats("Plain Robes", 1, 0));
-		list.Add(new ArmorStats("Leather Armor", 1, 2));
-		list.Add(new ArmorStats("Ring Mail", 1, 5));
-		list.Add(new ArmorStats("Cuirass", 1, 8));
-		list.Add(new ArmorStats("Splint Mail", 1, 10));
-		list.Add(new ArmorStats("Thieves Cape", 3, 1));
-		list.Add(new ArmorStats("Voluminous Robes", 3, 1));
-		list.Add(new ArmorStats("Ring Vest", 4, 3));
-		list.Add(new ArmorStats("Full Plate", 4, 12));
-		list.Add(new ArmorStats("Magicans Robes", 5, 0));
-		list.Add(new ArmorStats("Brass Cuirass", 6, 8));
-		list.Add(new ArmorStats("Dapper Vest", 8, 2));
-		list.Add(new ArmorStats("Mithral Ring Mail", 10, 4));
-		list.Add(new ArmorStats("Wyrm Scale", 10, 8));
-		list.Add(new ArmorStats("Wyrm Plate", 10, 12));
-		list.Add(new ArmorStats("Stone Plate", 10, 20));
+		list.Add(new ArmorStats("Plain Robes", 1, 0, 1f));
+		list.Add(new ArmorStats("Leather Armor", 1, 2, 0.5f));
+		list.Add(new ArmorStats("Ring Mail", 1, 5, 0.4f));
+		list.Add(new ArmorStats("Cuirass", 1, 8, 0.3f));
+		list.Add(new ArmorStats("Splint Mail", 1, 10, 0.25f));
+		list.Add(new ArmorStats("Thieves Cape", 3, 1, 0.5f));
+		list.Add(new ArmorStats("Voluminous Robes", 3, 1, 0.8f));
+		list.Add(new ArmorStats("Ring Vest", 4, 3, 0.5f));
+		list.Add(new ArmorStats("Full Plate", 4, 12, 0.25f));
+		list.Add(new ArmorStats("Magicans Robes", 5, 0, 1f));
+		list.Add(new ArmorStats("Brass Cuirass", 6, 8, 0.7f));
+		list.Add(new ArmorStats("Dapper Vest", 8, 2, 0.75f));
+		list.Add(new ArmorStats("Mithral Ring Mail", 10, 4, 0.5f));
+		list.Add(new ArmorStats("Wyrm Scale", 10, 8, 0.5f));
+		list.Add(new ArmorStats("Wyrm Plate", 10, 12, 0.5f));
+		list.Add(new ArmorStats("Stone Plate", 10, 20, 0.35f));
 
 		adb = new HashSet<ArmorStats>();
 		foreach(ArmorStats a in list)
 		{
 			adb.Add(a);
-			adb.Add(new ArmorStats(a.name, a.level + 2, a.weight, 1));
-			adb.Add(new ArmorStats(a.name, a.level + 4, a.weight, 2));
-			adb.Add(new ArmorStats(a.name, a.level + 6, a.weight, 3));
-			adb.Add(new ArmorStats(a.name, a.level + 8, a.weight, 4));
-			adb.Add(new ArmorStats(a.name, a.level + 10, a.weight, 5));
+			adb.Add(new ArmorStats(a.name, a.level + 2, a.weight, a.resistance, 1));
+			adb.Add(new ArmorStats(a.name, a.level + 4, a.weight, a.resistance, 2));
+			adb.Add(new ArmorStats(a.name, a.level + 6, a.weight, a.resistance, 3));
+			adb.Add(new ArmorStats(a.name, a.level + 8, a.weight, a.resistance, 4));
+			adb.Add(new ArmorStats(a.name, a.level + 10, a.weight, a.resistance, 5));
 		}
 	}
 
@@ -76,6 +76,8 @@ public class ArmorDB
 		ArmorFactory af = new ArmorFactory(a.fullName);
 		af.Weight = a.weight;
 		af.Level = a.level;
+		af.Resistance = a.resistance;
+		// Special attributes
 		switch(a.name)
 		{
 			case "Thieves Cape":
@@ -104,13 +106,15 @@ public class ArmorDB
 		public readonly int weight;
 		public readonly string name;
 		public readonly int magic;
+		public readonly float resistance;
 		public readonly string fullName;
 
-		public ArmorStats(string name, int level, int weight, int magic = 0)
+		public ArmorStats(string name, int level, int weight, float resistance, int magic = 0)
 		{
 			this.level = level;
 			this.weight = weight;
 			this.name = name;
+			this.resistance = resistance;
 			this.magic = magic;
 			if (magic > 0)
 				fullName = name + "+" + magic;

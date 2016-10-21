@@ -92,6 +92,8 @@ public class ArmorFactory
 		if (dexterity) advantages += 0.25f;
 		if (agility) advantages += 0.25f;
 		if (intelligence) advantages += 0.25f;
+		
+		advantages += Mathf.Max(resistance, 1f - resistance) - 0.5f; // specialization penalty
 
 		power /= 1f + advantages;
 		power *= 1f + disadvantages;
