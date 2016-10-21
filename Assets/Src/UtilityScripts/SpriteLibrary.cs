@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 
 [System.Serializable]
-public class SpriteLibrary : MonoBehaviour {
+public class SpriteLibrary : MonoBehaviour
+{
 
 	static SpriteLibrary instance;
 
@@ -13,7 +14,7 @@ public class SpriteLibrary : MonoBehaviour {
 	{
 		get
 		{
-			if(instance == null)
+			if (instance == null)
 			{
 				instance = Resources.Load<SpriteLibrary>("Sprites");
 			}
@@ -33,13 +34,13 @@ public class SpriteLibrary : MonoBehaviour {
 		Debug.LogWarning(name + " does not exsist in Sprite Library!");
 		return library[0].sprite;
 	}
-	
+
 	[System.Serializable]
 	private class SpriteBook
 	{
-		#pragma warning disable
+#pragma warning disable
 		public string name;
-		#pragma warning disable
+#pragma warning disable
 		public Sprite sprite;
 	}
 }

@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class ItemFactory {
+public class ItemFactory
+{
 
 	static public Item CreateItem(string name)
 	{
+
 		switch (name)
 		{
 			case "Healing Potion":

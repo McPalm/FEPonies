@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System;
 using System.Collections;
 
-public class Train : MonoBehaviour, IEnumerable<Item> {
+public class Train : MonoBehaviour, IEnumerable<Item>
+{
 
 #pragma warning disable
 	private List<Item> items;
@@ -45,7 +46,7 @@ public class Train : MonoBehaviour, IEnumerable<Item> {
 	/// </summary>
 	public int Cash
 	{
-		get { return cash;}
-		set { cash = value;}
+		get { return cash; }
+		set { cash = value; }
 	}
 }
