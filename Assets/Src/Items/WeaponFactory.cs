@@ -208,6 +208,9 @@ public class WeaponFactory {
 
 		level += 4;
 		w.value = level * level * 2;
+
+		w.icon = SpriteLibrary.GetIcon("weapon");
+
 		return w;
 	}
 
@@ -228,4 +231,6 @@ public class WeaponFactory {
 		}
 		return wd;
 	}
+
+	Sprite sprite;
 }

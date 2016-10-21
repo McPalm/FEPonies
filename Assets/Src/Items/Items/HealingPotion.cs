@@ -36,5 +36,6 @@ public class HealingPotion : Consumable
 	public HealingPotion()
 	{
 		Name = "Healing Potion";
+		icon = SpriteLibrary.GetIcon("potion");
 	}
 }

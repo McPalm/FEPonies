@@ -14,7 +14,7 @@ using System.Text;
 /// equippedTrinket - the Trinket currently equipped
 /// capacity - number of items that fit into the backpack
 /// </summary>
-class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<Weapon>, Buff
+public class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<Weapon>, Buff
 {
     private List<Item> backpack = new List<Item>();
     [SerializeField]

@@ -18,6 +18,6 @@ public class Item
 		get { return name; }
 	}
 	public int value;
-	public UnityEngine.UI.Image icon;
+	public Sprite icon;
 	public int stack = 1;
 }

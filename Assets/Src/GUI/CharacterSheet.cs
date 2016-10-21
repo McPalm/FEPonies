@@ -9,7 +9,8 @@ public class CharacterSheet : MonoBehaviour {
 	public Image portrait;
 	public Text statText;
 	public Text abilityText;
-	public Text itemText;
+	[SerializeField]
+	ItemFrame itemFrame;
 
 	private Unit client;
 
@@ -19,27 +20,7 @@ public class CharacterSheet : MonoBehaviour {
 		SetPortrait(c);
 		BuildStats(c);
 		BuildAbilities(c);
-		BuildItems(c);
-	}
-
-	private void BuildItems(Character c)
-	{
-		Backpack b = c.GetComponent<Backpack>();
-		if (b != null)
-		{
-			string val = "";
-			foreach (Item i in b)
-			{
-				val += i.Name;
-				if (i is Equipment && b.IsEquipped((Equipment)i)) val += " (equipped)";
-				val += "\n";
-			}
-			itemText.text = val;
-		}
-		else
-		{
-			itemText.text = "Error: Missing backpack.";
-		}
+		itemFrame.Build(c.GetComponent<Backpack>());
 	}
 
 	private void BuildAbilities(Character c)

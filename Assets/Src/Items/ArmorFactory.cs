@@ -117,6 +117,8 @@ public class ArmorFactory
 		level += 5;
 		a.value = (int)((level * power) * (0.5f + weight * 0.1f));
 
+		a.icon = SpriteLibrary.GetIcon("armor");
+
 		return a;
 	}
 }
