@@ -37,7 +37,6 @@ public class ItemFrame :  ScrollMenu {
 		count++;
 		if (count > ilist.Count)  // generate new button
 		{
-			Debug.Log("generating button");
 			ItemInfo ii = Instantiate<ItemInfo>(template);
 			ii.transform.SetParent(anchor);
 			ii.transform.localScale = Vector3.one;

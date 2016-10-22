@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-[RequireComponent(typeof(Unit))]
+[System.Serializable]
 /// <summary>
 /// Class to handle what the unit are carrying, one unit will have one backpack
 /// backpack - includes all items the unit are carrying
@@ -14,7 +14,7 @@ using System.Text;
 /// equippedTrinket - the Trinket currently equipped
 /// capacity - number of items that fit into the backpack
 /// </summary>
-public class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<Weapon>, Buff
+public class Backpack : IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<Weapon>, Buff
 {
     private List<Item> backpack = new List<Item>();
     [SerializeField]
@@ -25,6 +25,7 @@ public class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumabl
     Equipment equippedTrinket;
     [SerializeField]
     int capacity = 5;
+	[NonSerialized]
 	Character owner;
 	Stats _equipmentStats;
 
@@ -68,23 +69,23 @@ public class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumabl
 		}
 	}
 
-	void Awake()
+	public Character Owner
 	{
-		owner = GetComponent<Character>();
+		get
+		{
+			return owner;
+		}
+
+		set
+		{
+			owner = value;
+		}
+	}
+
+	void Initialize(Character owner)
+	{
+		this.owner = owner;
 		owner.AddBuff(this);
-        //Add all equipments to the backpack if not there already
-        if (equippedArmor!=null&&!backpack.Contains(equippedArmor))
-        {
-            backpack.Add(equippedArmor);
-        }
-        if (equippedWeapon!=null&&!backpack.Contains(equippedWeapon))
-        {
-            backpack.Add(equippedWeapon);
-        }
-        if(equippedTrinket!=null&&!backpack.Contains(equippedTrinket))
-        {
-            backpack.Add(equippedTrinket);
-        }
 	}
 
 	/// <summary>
@@ -179,7 +180,7 @@ public class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumabl
 		{
 			if (toBeEquipped is Armor)
 			{
-				if (equippedArmor.weight > owner.ModifiedStats.CarryingCapacity * 2) return false;
+				if ((toBeEquipped as Armor).weight > owner.ModifiedStats.CarryingCapacity * 2) return false;
 				equippedArmor = (Armor)toBeEquipped;
 				countStats();
 				return true;
@@ -236,12 +237,6 @@ public class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumabl
         throw new NotImplementedException();
     }
 
-	// part of the buff interface
-	public bool Affects(Unit u)
-	{
-		return u == owner;
-	}
-
 	/// <summary>
 	/// Recalclate the attribute boosts granted by the item.
 	/// </summary>
@@ -263,7 +258,7 @@ public class Backpack : MonoBehaviour , IEnumerable<Item>, IEnumerable<Consumabl
 			else
 			{
 				float ratio = 1f - (equippedArmor.weight / owner.ModifiedStats.CarryingCapacity);
-				print(ratio);
+				Debug.Log(ratio);
 				_equipmentStats.dodgeBonus = ratio * 0.1f;
 			}
 		}

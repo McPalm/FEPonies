@@ -145,7 +145,7 @@ public class Story : MonoBehaviour {
                 }
                 else
                 {
-                    tempUnit.gameObject.AddComponent<Backpack>();
+					tempUnit.Character.Backpack = new Backpack();
                 }
             }
             else

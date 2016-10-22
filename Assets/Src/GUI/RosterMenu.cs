@@ -41,7 +41,7 @@ public class RosterMenu : ScrollMenu, Observable {
 
 			Height = i * 90 + 95;
 
-			b.Label = characters[i].name;
+			b.Label = characters[i].Name;
 			b.Register(Click, i);
 		}
 		button.gameObject.SetActive(false);

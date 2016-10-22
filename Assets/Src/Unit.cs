@@ -12,7 +12,7 @@ public class Unit : MonoBehaviour {
 
 	// animation fields
 	private float tweenSpeed;
-	private readonly float SPEEDMULT = 1.5f;
+	const float SPEEDMULT = 1.5f;
 	private Vector3 startPosition;
 	private Vector3 endPosition;
 	private bool moving = false;
@@ -20,18 +20,18 @@ public class Unit : MonoBehaviour {
 
 	// fields visible in the unity editor
 	public bool isBoss=false;
-	public string toolTip = "";
-	public static Unit retaliatingUnit;
 	public int team;
 	public bool invisible = false;
 	private int retaliations = 1;
-	// public Ability ability;
 	public Material greyscale;
 	public Material normalMaterial;
 	private AttackInfo attackInfo;
 	public IAIBehaviour unitAI;
+	[SerializeField]
+	Character character;
 
 	// fields
+	public static Unit retaliatingUnit;
 	private Tile tile;
 	public HashSet<Tile> reachableTiles;
 	internal int retaliationsMade = 0; // TODO, encapsulate
@@ -42,14 +42,11 @@ public class Unit : MonoBehaviour {
 	private bool isFirstUpdate = true;
 	internal int damageTaken = 0;
 	private bool hasActed = false;
-	//private Stats _baseStats;
-	// private Stats _growth;
 	private HashSet<HealthObserver> _healthObservers = new HashSet<HealthObserver>();
-	// private Stats stats;
 	private Stats attackStats;
 	internal bool doubleAttack = false;
 	private HashSet<object> _inhibs = new HashSet<object>();
-	Character character;
+	
     DamageData attackData;
 
 	// Properties
@@ -174,6 +171,7 @@ public class Unit : MonoBehaviour {
 		// gimme a health bar!
 		HealthBar.NewHealthBar(transform);
 		attackInfo = new AttackInfo();
+		character.Initialize(this);
 	}
 
 	/// <summary>
@@ -319,9 +317,11 @@ public class Unit : MonoBehaviour {
 	{
 		get
 		{
-			if (character == null)
-				character = GetComponent<Character>();
 			return character;
+		}
+		set
+		{
+			character = value;
 		}
 	}
 
@@ -330,8 +330,8 @@ public class Unit : MonoBehaviour {
 		get
 		{
 			// Get attack info from equipped weapon
-			Backpack bp = GetComponent<Backpack>();
-			if (bp && bp.EquippedWeapon != null)
+			Backpack bp = character.Backpack;
+			if (bp != null && bp.EquippedWeapon != null)
 			{
 				return bp.EquippedWeapon.attackInfo;
 			}
