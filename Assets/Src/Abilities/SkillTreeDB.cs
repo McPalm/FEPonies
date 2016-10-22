@@ -16,7 +16,7 @@ public class SkillTreeDB : MonoBehaviour {
 	[SerializeField]
 	List<TreeContainer> trees;
 
-	static SkillTree GetSkillTree(string name)
+	public static SkillTree GetSkillTree(string name)
 	{
 		foreach(TreeContainer st in Instance.trees)
 		{
@@ -27,10 +27,57 @@ public class SkillTreeDB : MonoBehaviour {
 		return null;
 	}
 
+	public static List<string> GetAllNames()
+	{
+		List<string> rs = new List<string>();
+		foreach(TreeContainer tc in Instance.trees)
+		{
+			rs.Add(tc.name);
+		}
+		return rs;
+	}
+
+	public static void Expand()
+	{
+		Instance.trees.Add(new TreeContainer());
+	}
+
+	public static void ChangeName(string oldName, string newName)
+	{
+		foreach (TreeContainer tc in Instance.trees)
+		{
+			if (tc.name == oldName)
+			{
+				tc.name = newName;
+				break;
+			}
+		}
+	}
+
+	public static void Remove(string name)
+	{
+		TreeContainer target = null;
+		foreach (TreeContainer tc in Instance.trees)
+		{
+			if (tc.name == name)
+				target = tc;
+		}
+		if(target != null)
+		{
+			Instance.trees.Remove(target);
+		}
+	}
+
 	[System.Serializable]
 	private class TreeContainer
 	{
 		public string name;
 		public SkillTree tree;
+
+		public TreeContainer()
+		{
+			name = "new";
+			tree = new SkillTree();
+		}
 	}
 }

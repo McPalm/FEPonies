@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 
 [System.Serializable]
-public class SkillTree : MonoBehaviour, Buff {
+public class SkillTree : Buff {
 
 	[SerializeField]
 	public List<SkillTreeLevel> skills;

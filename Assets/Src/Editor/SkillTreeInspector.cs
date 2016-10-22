@@ -1,14 +1,79 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEditor;
+using System;
 
 [CustomEditor(typeof(SkillTree))]
-public class SkillTreeInspector : Editor {
+public class SkillTreeInspector : EditorWindow{
+
+
+	[MenuItem("FE Clone/Skill Tree Inspector")]
+	static void Init()
+	{
+		SkillTreeInspector window = (SkillTreeInspector)EditorWindow.GetWindow(typeof(SkillTreeInspector));
+		window.Show();
+	}
+
+
+	const int SELECT = 0;
+	const int EDIT = 1;
+	int state = SELECT;
+	bool remove = false;
+
+	string target = "";
+	string changeName = "enter name";
 
 	// Use this for initialization
-	public override void OnInspectorGUI()
+	void OnGUI()
 	{
-		SkillTree st = (SkillTree)target;
+
+		if (state == EDIT) Edit();
+		if (state == SELECT) Select();
+
+	}
+
+	private void Select()
+	{
+		remove = false;
+		foreach (String name in SkillTreeDB.GetAllNames())
+		{
+			if (GUILayout.Button(name))
+			{
+				state = EDIT;
+				target = name;
+				changeName = name;
+			}
+		}
+		GUILayout.Space(25f);
+
+		if (GUILayout.Button("Add"))
+		{
+			SkillTreeDB.Expand();
+		}
+	}
+
+	void Edit()
+	{
+		SkillTree st = SkillTreeDB.GetSkillTree(target);
+
+		if (st == null) state = SELECT;
+
+		GUILayout.Label(target);
+
+		EditorGUILayout.Space();
+		EditorGUILayout.BeginHorizontal();
+
+		GUILayout.Label("New name");
+		changeName = GUILayout.TextField(changeName);
+		
+		if (GUILayout.Button("Change name") && changeName.Length > 2)
+		{
+			SkillTreeDB.ChangeName(target, changeName);
+			target = changeName;
+		}
+
+		EditorGUILayout.EndHorizontal();
+		EditorGUILayout.Space();
 
 		if (st.skills == null || st.skills.Count != 15)
 		{
@@ -18,15 +83,27 @@ public class SkillTreeInspector : Editor {
 				st.skills.Add(new SkillTree.SkillTreeLevel());
 			}
 		}
-			
-		for(int i = 0; i < st.skills.Count; i++)
+
+		for (int i = 0; i < st.skills.Count; i++)
 		{
 			BuildLevel(st.skills[i], i);
 		}
 
-		if (GUILayout.Button("verify"))
+		if (GUILayout.Button("Verify"))
 			Verify(st);
-		
+		if (GUILayout.Button("Back"))
+			state = SELECT;
+		if (GUILayout.Button((remove) ? "Abort" : "Remove"))
+			remove = !remove;
+		if(remove)
+		{
+			if (GUILayout.Button("CONFIRM!"))
+			{
+				SkillTreeDB.Remove(target);
+				state = SELECT;
+				remove = false;
+			}
+		}
 	}
 
 	void BuildLevel(SkillTree.SkillTreeLevel stl, int level)
