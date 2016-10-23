@@ -46,6 +46,7 @@ public class Character {
 		get
 		{
 			Stats r = baseStats;
+			if (buffs == null) buffs = new HashSet<Buff>();
 			foreach(Buff b in buffs)
 			{
 				r += b.Stats;
@@ -93,6 +94,7 @@ public class Character {
 	{
 		get
 		{
+			if (backpack == null) backpack = new Backpack();
 			return backpack;
 		}
 

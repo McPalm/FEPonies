@@ -10,7 +10,6 @@ public class RosterMenu : ScrollMenu, Observable {
 	private Character character;
 
 	public CharacterButton button;
-	public List<Character> characters;
 	List<CharacterButton> buttons;
 
 	public Character Character
@@ -30,8 +29,9 @@ public class RosterMenu : ScrollMenu, Observable {
 	new void Start()
 	{
 		buttons = new List<CharacterButton>();
-		for (int i = 0; i < characters.Count; i++)
-		{
+		int i = 0;
+		foreach(Character c in UnitRoster.Instance)
+		{ 
 			CharacterButton b = Instantiate<CharacterButton>(button);
 			buttons.Add(b);
 			RectTransform rc = b.GetComponent<RectTransform>();
@@ -41,8 +41,10 @@ public class RosterMenu : ScrollMenu, Observable {
 
 			Height = i * 90 + 95;
 
-			b.Label = characters[i].Name;
+			b.Label = c.Name;
 			b.Register(Click, i);
+
+			i++;
 		}
 		button.gameObject.SetActive(false);
 		UpdateLevels();
@@ -51,7 +53,7 @@ public class RosterMenu : ScrollMenu, Observable {
 
 	void Click(int i)
 	{
-		character = characters[i];
+		character = UnitRoster.Instance.activeRoster[i];
 		notifyObservers();
 	}
 
@@ -73,9 +75,9 @@ public class RosterMenu : ScrollMenu, Observable {
 
 	public void UpdateLevels()
 	{
-		for (int i = 0; i < characters.Count; i++)
+		for (int i = 0; i < UnitRoster.Instance.activeRoster.Count; i++)
 		{
-			buttons[i].LevelUp = characters[i].Level > characters[i].Skilltree.PointsSpent;
+			// buttons[i].LevelUp = UnitRoster.Instance.activeRoster[i].Level > UnitRoster.Instance.activeRoster[i].Skilltree.PointsSpent;
 		}
 	}
 }

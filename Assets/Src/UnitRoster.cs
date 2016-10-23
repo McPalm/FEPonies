@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Collections;
 
-public class UnitRoster : MonoBehaviour, IEnumerable<Unit>
+[System.Serializable]
+public class UnitRoster : MonoBehaviour, IEnumerable<Character>
 {
-	public List<Unit> roster;
-    public List<Unit> activeRoster;
+	[SerializeField]
+	private List<Character> roster;
+    public List<Character> activeRoster;
 
-    public List<Unit> Roster
+    public List<Character> Roster
     {
         get
         {
@@ -37,11 +39,13 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Unit>
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+		// HACK
+		activeRoster = roster;
     }
     //End of Singleton stuff
 
 
-    public IEnumerator<Unit> GetEnumerator()
+    public IEnumerator<Character> GetEnumerator()
 	{
 		return activeRoster.GetEnumerator();
 	}
@@ -51,11 +55,11 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Unit>
 	/// </summary>
 	/// <param name="name"></param>
 	/// <returns></returns>
-	public Unit GetUnit(string name)
+	public Character GetUnit(string name)
 	{
-		foreach(Unit u in Roster)
+		foreach(Character u in Roster)
         {
-            if (u.name==name)
+            if (u.Name==name)
             {
                 return u;
             }
@@ -76,9 +80,11 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Unit>
     /// <param name="position">Transform of the unit</param>
     public void SpawnUnit(string name, Transform position)
     {
+		/*
         Unit spawnUnit = GetUnit(name);
         GameObject go=Instantiate<Unit>(spawnUnit).gameObject;
         go.transform.position = position.position;
         go.name = name;
+		*/
     }
 }
