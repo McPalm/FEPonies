@@ -109,7 +109,7 @@ public class SkillTreeInspector : EditorWindow{
 	void BuildLevel(SkillTree.SkillTreeLevel stl, int level)
 	{
 		EditorGUILayout.BeginHorizontal();
-		GUILayout.Label(level.ToString());
+		GUILayout.Label((level+1).ToString());
 		stl.option1 = GUILayout.TextField(stl.option1);
 		stl.option2 = GUILayout.TextField(stl.option2);
 		EditorGUILayout.EndHorizontal();

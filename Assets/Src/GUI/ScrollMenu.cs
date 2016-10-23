@@ -11,6 +11,7 @@ public class ScrollMenu : MonoBehaviour {
 	public bool inverted = false;
 	public RectTransform anchor;
 	public RectMask2D mask;
+	public Scrollbar scrollbar;
 
 	public int Height
 	{
@@ -23,13 +24,17 @@ public class ScrollMenu : MonoBehaviour {
 		{
 			if (value > mask.rectTransform.sizeDelta.y)
 			{
-				if(inverted)
+				if (scrollbar) scrollbar.gameObject.SetActive(true);
+				if (inverted)
 					bottom = origin - new Vector3(0f, value - mask.rectTransform.sizeDelta.y, 0f);
 				else
 					bottom = origin + new Vector3(0f, value - mask.rectTransform.sizeDelta.y, 0f);
 			}
 			else
+			{
 				bottom = origin;
+				if (scrollbar) scrollbar.gameObject.SetActive(false);
+			}
 			height = value;
 		}
 	}
