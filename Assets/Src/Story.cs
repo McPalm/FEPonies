@@ -115,7 +115,7 @@ public class Story : MonoBehaviour {
         UnitRoster roster = GetComponent<UnitRoster>();
         foreach(SaveCharacter character in saveData.Roster)
         {
-			Character tempUnit = roster.GetUnit(character.Name);
+			Character tempUnit = roster.GetCharacter(character.Name);
             if (tempUnit != null)
             {
                 tempUnit.Level = character.Level;

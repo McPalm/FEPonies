@@ -51,11 +51,11 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Character>
 	}
 
 	/// <summary>
-	/// Gets a unit by name
+	/// Gets a character by name
 	/// </summary>
 	/// <param name="name"></param>
 	/// <returns></returns>
-	public Character GetUnit(string name)
+	public Character GetCharacter(string name)
 	{
 		foreach(Character u in Roster)
         {

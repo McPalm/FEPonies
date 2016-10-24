@@ -25,7 +25,7 @@ public class BackpackButton : MonoBehaviour {
 		else if(StateManager.Instance.State == GameState.unitSelected)
 		{
 			StateManager.Instance.Push(GameState.buttonMenu);
-			Backpack b = Unit.SelectedUnit.GetComponent<Backpack>();
+			Backpack b = Unit.SelectedUnit.Character.Backpack;
 			if(b != null)
 			{
 				int i = 0;

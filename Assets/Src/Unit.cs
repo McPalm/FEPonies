@@ -27,7 +27,7 @@ public class Unit : MonoBehaviour {
 	public Material normalMaterial;
 	private AttackInfo attackInfo;
 	public IAIBehaviour unitAI;
-	[SerializeField]
+	[NonSerialized]
 	Character character;
 
 	// fields
@@ -74,15 +74,6 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
-	/*
-	public int AttackStat{
-		get{
-			Stats  s = ModifiedStats;
-			return s.strength + Mathf.RoundToInt((level * 2 / 3 + 5)*(1+s.baseAttackMod));
-		}
-	}
-	*/
-
 	public bool HasActed {
 		get {
 			if(_inhibs.Count > 0)
@@ -120,7 +111,11 @@ public class Unit : MonoBehaviour {
 	}
 
 	public int CurrentHP{
-		get{return Character.ModifiedStats.maxHP - damageTaken;} 
+		get
+		{ 
+			if (character == null) return -1;
+			return Character.ModifiedStats.maxHP - damageTaken;
+		} 
 	}
 
 	public int RetaliationsLeft
@@ -171,7 +166,13 @@ public class Unit : MonoBehaviour {
 		// gimme a health bar!
 		HealthBar.NewHealthBar(transform);
 		attackInfo = new AttackInfo();
-		character.Initialize(this);
+		WeaponDamage wd = new WeaponDamage();
+		wd.BaseDamage = 1;
+		wd.DexScale = 0.5f;
+		wd.IntScale = 0.25f;
+		wd.StrScale = 0.75f;
+		attackInfo.Effect = wd;
+		if(character != null )Character = character;
 	}
 
 	/// <summary>
@@ -322,6 +323,9 @@ public class Unit : MonoBehaviour {
 		set
 		{
 			character = value;
+			character.Initialize(this);
+			// Assign Sprite
+			GetComponent<SpriteRenderer>().sprite = character.Sprite;
 		}
 	}
 
