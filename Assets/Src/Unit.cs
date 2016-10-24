@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Character))]
 public class Unit : MonoBehaviour {
 
 	//Path to walk

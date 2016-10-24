@@ -101,6 +101,7 @@ public class Character {
 		set
 		{
 			backpack = value;
+			backpack.Owner = this;
 		}
 	}
 
@@ -178,8 +179,7 @@ public class Character {
 		if (skilltree == null) skilltree = new SkillTree();
 		skilltree.CalculateStats(level);
 		buffs.Add(skilltree);
-		if(backpack == null) backpack = new Backpack();
-		backpack.Owner = this;
+		if(backpack == null) Backpack = new Backpack();
 	}
 
 	public void AddBuff(Buff b)

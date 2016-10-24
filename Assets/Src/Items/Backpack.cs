@@ -79,14 +79,10 @@ public class Backpack : IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<
 		set
 		{
 			owner = value;
+			owner.AddBuff(this);
 		}
 	}
 
-	void Initialize(Character owner)
-	{
-		this.owner = owner;
-		owner.AddBuff(this);
-	}
 
 	/// <summary>
 	/// Gets enumerator for the backpack

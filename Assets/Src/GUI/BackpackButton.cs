@@ -60,7 +60,7 @@ public class BackpackButton : MonoBehaviour {
 
 	public void Click(int button)
 	{
-		if(Unit.SelectedUnit.GetComponent<Backpack>().Use(button))
+		if(Unit.SelectedUnit.Character.Backpack.Use(button))
 		{
 			Close();
 			Unit.SelectedUnit.FinnishMovement();
