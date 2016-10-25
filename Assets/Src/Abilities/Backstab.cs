@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class Backstab : Skill, AttackBuff
+public class Backstab : Passive, IAttackModifier, AttackBuff
 {
 
 	private Unit u;
-	private Stats damageBonus;
+	private Stats hitBonus;
 
 	public override string Name
 	{
@@ -15,10 +16,20 @@ public class Backstab : Skill, AttackBuff
 		}
 	}
 
+	public int Priority
+	{
+		get
+		{
+			return 1;
+		}
+	}
+
 	public Stats Stats
 	{
-		
-		get{return damageBonus; }
+		get
+		{
+			return hitBonus;
+		}
 	}
 
 	public bool Applies(Unit target, Tile source, Tile targetLocation)
@@ -34,9 +45,18 @@ public class Backstab : Skill, AttackBuff
 	public void Start()
 	{
 		u = GetComponent<Unit>();
-		damageBonus = new Stats();
-		damageBonus.might = 4 + u.Character.Level / 2;
-		damageBonus.hitBonus = 0.2f;
+		hitBonus = new Stats();
+		hitBonus.hitBonus = 0.2f;
 		u.RegisterAttackBuff(this);
+	}
+
+	public void Test(DamageData dd)
+	{
+		print("Backstab!");
+		if(Applies(dd.target, dd.SourceTile, dd.target.Tile))
+		{
+			dd.damageMultipler *= 1.2f;
+			dd.backstab = true;
+		}
 	}
 }

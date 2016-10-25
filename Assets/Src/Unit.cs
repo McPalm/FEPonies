@@ -253,6 +253,7 @@ public class Unit : MonoBehaviour {
             dmgData.target = target;
             dmgData.source = this;
             attackData = dmgData;
+			AttackModifiers(dmgData); // run the attack through modifiers
 			AnimateAttack();
 			return true;
 		}
@@ -492,7 +493,9 @@ public class Unit : MonoBehaviour {
 	/// <param name="n">N.</param>
 	public int Damage(DamageData attackData)
 	{
-		
+		// Run attack through defencive buffs and abiliites
+		DefenceModifiers(attackData);
+
         int n = attackData.ApplyDefences(Character.ModifiedStats.defense, Character.ModifiedStats.resistance);
 
 		if (attackData.testAttack) return n;
@@ -737,5 +740,25 @@ public class Unit : MonoBehaviour {
 		}
 
 		return s;
+	}
+
+	public void AttackModifiers(DamageData dd)
+	{
+		List<IAttackModifier> amods = new List<IAttackModifier>(GetComponents<IAttackModifier>());
+		amods.Sort(delegate (IAttackModifier a, IAttackModifier b) { return b.Priority - a.Priority; });
+		foreach(IAttackModifier amod in amods)
+		{
+			amod.Test(dd);
+		}
+	}
+
+	public void DefenceModifiers(DamageData dd)
+	{
+		List<IDefenceModifiers> dmods = new List<IDefenceModifiers>(GetComponents<IDefenceModifiers>());
+		dmods.Sort(delegate (IDefenceModifiers a, IDefenceModifiers b) { return b.Priority - a.Priority; });
+		foreach (IDefenceModifiers dmod in dmods)
+		{
+			dmod.Test(dd);
+		}
 	}
 }

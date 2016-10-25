@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class Block : Passive, AttackBuff {
+public class Block : Passive, IDefenceModifiers {
 
 	private bool active = false;
 	private Unit user;
@@ -17,55 +17,27 @@ public class Block : Passive, AttackBuff {
 		}
 	}
 
-	public Stats Stats
+	public int Priority
 	{
 		get
 		{
-			return stats;
+			return 0;
 		}
 	}
 
-	void StartingAttackSequence(Unit u)
+	public void Test(DamageData dd)
 	{
-		CalcStats(u);
-		active = Roll;
-		if (Roll) Particle.Block(transform.position);
-	}
-
-	private bool Roll
-	{
-		get
+		Debug.Log("Block?");
+		if (dd.testAttack)
 		{
-			int roll = UnityEngine.Random.Range(0, 2);
-			return (roll == 0);
+			Debug.Log("Just a test..");
+			dd.damageMultipler *= 0.75f;
 		}
-	}
-
-	private void CalcStats(Unit u)
-	{
-		/*int damage = u.AttackInfo.effect.Apply(u.Tile, u, true, user.Tile);
-		stats.defense = damage / 2;
-		stats.resistance = damage / 2;*/
-	}
-
-	void FinishedAttackSequence(Unit u)
-	{
-		active = false;
-	}
-
-	public bool Affects(Unit u)
-	{
-		return (active && u == user);
-	}
-
-	void Awake()
-	{
-		user = GetComponent<Unit>();
-		user.RegisterAttackBuff(this);
-	}
-
-	public bool Applies(Unit target, Tile source, Tile targetLocation)
-	{
-		return active;
+		else if(UnityEngine.Random.Range(0, 2) == 0)
+		{
+			Debug.Log("Block!!");
+			dd.damageMultipler *= 0.5f;
+			Particle.Block(transform.position);
+		}
 	}
 }
