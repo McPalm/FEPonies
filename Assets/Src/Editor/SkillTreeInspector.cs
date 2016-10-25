@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using System;
 
-[CustomEditor(typeof(SkillTree))]
 public class SkillTreeInspector : EditorWindow{
 
 
@@ -92,7 +91,10 @@ public class SkillTreeInspector : EditorWindow{
 		if (GUILayout.Button("Verify"))
 			Verify(st);
 		if (GUILayout.Button("Back"))
+		{
 			state = SELECT;
+			AssetDatabase.SaveAssets();
+		}
 		if (GUILayout.Button((remove) ? "Abort" : "Remove"))
 			remove = !remove;
 		if(remove)
@@ -121,6 +123,8 @@ public class SkillTreeInspector : EditorWindow{
 		{
 			if (stl.option1 == "" || stl.option1 == "Str" || stl.option1 == "Dex" || stl.option1 == "Agi" || stl.option1 == "Int")
 				new object(); // This is editor only, so I dont give a shit how bad this is.
+			else if (stl.option1 == "" || stl.option1 == "Str2" || stl.option1 == "Dex2" || stl.option1 == "Agi2" || stl.option1 == "Int2")
+				new object();
 			else {
 				try {
 					AbilityLibrary.Instance.getTypeFromAbility(stl.option1);
@@ -132,6 +136,8 @@ public class SkillTreeInspector : EditorWindow{
 			}
 
 			if (stl.option2 == "" || stl.option2 == "Str" || stl.option2 == "Dex" || stl.option2 == "Agi" || stl.option2 == "Int")
+				new object();
+			else if (stl.option2 == "" || stl.option2 == "Str2" || stl.option2 == "Dex2" || stl.option2 == "Agi2" || stl.option2 == "Int2")
 				new object();
 			else
 			{
