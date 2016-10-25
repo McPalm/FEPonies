@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class GroupDiesEvent : MonoBehaviour, Observer {
 	public int group=0;//What group the event triggers on killing;
 	public int team=1;//What team the group belongs to. Mostly Computer i imagine.
+	#pragma warning disable
 	private bool hasSpawned=false;
 	public List<EventTarget> events;
 

@@ -12,6 +12,7 @@ public class DamageData {
     public Unit source;
     public Unit target;
 	public bool testAttack = false;
+	public bool backstab = false;
 
 	private Tile sourceTile;
 	private int finalDamage = -1;

@@ -3,12 +3,32 @@ using System.Collections.Generic;
 using System;
 
 [System.Serializable]
-public class SkillTree : MonoBehaviour, Buff {
+public class SkillTree : Buff {
 
 	[SerializeField]
 	public List<SkillTreeLevel> skills;
-
+	[NonSerialized]
 	private Stats _stats;
+
+	public SkillTree()
+	{
+		_stats = new Stats();
+	}
+
+	/// <summary>
+	/// Craetesa a new Skilltree that is an identical copy of a previous one.
+	/// </summary>
+	/// <param name="o"></param>
+	public SkillTree(SkillTree o)
+	{
+		skills = new List<SkillTreeLevel>();
+		foreach(SkillTreeLevel stl in o.skills)
+		{
+			skills.Add(new SkillTreeLevel(stl));
+		}
+		_stats = o._stats;
+	}
+
 
 	public Stats Stats
 	{
@@ -62,6 +82,18 @@ public class SkillTree : MonoBehaviour, Buff {
 		int choise = 0;
 		public string option1 = "";
 		public string option2 = "";
+
+		public SkillTreeLevel()
+		{
+
+		}
+
+		public SkillTreeLevel(SkillTreeLevel o)
+		{
+			choise = o.choise;
+			option1 = o.option1;
+			option2 = o.option2;
+		}
 
 		public string Selected
 		{

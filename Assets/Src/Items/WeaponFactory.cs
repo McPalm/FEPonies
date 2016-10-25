@@ -204,10 +204,13 @@ public class WeaponFactory {
 		w.attackInfo = new AttackInfo(ir, wd);
 
 		w.buff.hitBonus += hitMod * 0.1f;
-		w.buff.critBonus += hitMod * 0.15f;
+		w.buff.critBonus += critMod * 0.15f;
 
 		level += 4;
 		w.value = level * level * 2;
+
+		w.icon = SpriteLibrary.GetIcon("weapon");
+
 		return w;
 	}
 
@@ -228,4 +231,6 @@ public class WeaponFactory {
 		}
 		return wd;
 	}
+
+	Sprite sprite;
 }

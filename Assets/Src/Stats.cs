@@ -58,6 +58,14 @@ public struct Stats
 		}
 	}
 
+	public int CarryingCapacity
+	{
+		get
+		{
+			return strength;
+		}
+	}
+
 	public Stats (UnitMove movement, int maxHP, int strength, int agility, int dexterity, int intelligence, int defense, int resistance)
 	{
 		this.movement = movement;

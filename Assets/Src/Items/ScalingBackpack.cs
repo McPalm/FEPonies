@@ -2,10 +2,11 @@
 using System.Collections;
 using System;
 
+[System.Serializable]
 class ScalingBackpack : Backpack {
 
-	
-	public WeaponType wornWeapon;
+	[SerializeField]
+	WeaponType wornWeapon;
 	[Range(0, 2)]
 	public int weight;
 
@@ -16,8 +17,8 @@ class ScalingBackpack : Backpack {
 
 	private void GenerateGear()
 	{
-		int level = GetComponent<Unit>().Character.Level;
-		Stats stats = GetComponent<Unit>().Character.ModifiedStats;
+		int level = Owner.Level;
+		Stats stats = Owner.ModifiedStats;
 		int str = stats.strength;
 		int dex = stats.dexterity;
 		int inte = stats.intelligence;

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(CharacterSheet))]
 public class BattleSheet : MonoBehaviour {
 
 	static BattleSheet instance;

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3a344a8121f960b4fa1fb1afb4c945a8
-timeCreated: 1476269967
+timeCreated: 1477058234
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,6 +8,10 @@ TextureImporter:
     21300002: Icon_Agi
     21300004: Icon_Str
     21300006: Icon_Dex
+    21300008: Icon_Armor
+    21300010: Icon_Weapon
+    21300012: Icon_Potion
+    21300014: Icon_Equipped
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,10 +34,10 @@ TextureImporter:
   cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -3
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
+    filterMode: 1
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -103,6 +107,58 @@ TextureImporter:
         y: 6
         width: 109
         height: 107
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Icon_Armor
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 316
+        width: 101
+        height: 69
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Icon_Weapon
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 284
+        width: 109
+        height: 105
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Icon_Potion
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 402
+        width: 96
+        height: 105
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Icon_Equipped
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 512
+        width: 49
+        height: 67
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

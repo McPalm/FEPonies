@@ -23,7 +23,7 @@ public class HealingPotion : Consumable
 
 	public override bool use(Character user)
 	{
-		Unit u = user.GetComponent<Unit>();
+		Unit u = user.Unit;
 		if (u == null) return false;
 		if (u.damageTaken == 0) return false;
 		else
@@ -36,5 +36,6 @@ public class HealingPotion : Consumable
 	public HealingPotion()
 	{
 		Name = "Healing Potion";
+		icon = SpriteLibrary.GetIcon("potion");
 	}
 }

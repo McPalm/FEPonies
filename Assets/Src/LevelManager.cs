@@ -37,6 +37,7 @@ public class LevelManager : MonoBehaviour {
 
 	void SceneLoaded(Scene scene, LoadSceneMode m)
 	{
+		print("SceneLoaded?");
 		isLoaded = true;
     }
 

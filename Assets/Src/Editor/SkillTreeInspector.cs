@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEditor;
+using System;
 
-<<<<<<< HEAD
-[CustomEditor(typeof(SkillTree))]
-public class SkillTreeInspector : Editor {
-=======
 public class SkillTreeInspector : EditorWindow{
 
 
@@ -24,12 +21,58 @@ public class SkillTreeInspector : EditorWindow{
 
 	string target = "";
 	string changeName = "enter name";
->>>>>>> dee71704e70c6d067d00bcb81c6fa6b32e4d6b39
 
 	// Use this for initialization
-	public override void OnInspectorGUI()
+	void OnGUI()
 	{
-		SkillTree st = (SkillTree)target;
+
+		if (state == EDIT) Edit();
+		if (state == SELECT) Select();
+
+	}
+
+	private void Select()
+	{
+		remove = false;
+		foreach (String name in SkillTreeDB.GetAllNames())
+		{
+			if (GUILayout.Button(name))
+			{
+				state = EDIT;
+				target = name;
+				changeName = name;
+			}
+		}
+		GUILayout.Space(25f);
+
+		if (GUILayout.Button("Add"))
+		{
+			SkillTreeDB.Expand();
+		}
+	}
+
+	void Edit()
+	{
+		SkillTree st = SkillTreeDB.GetSkillTree(target);
+
+		if (st == null) state = SELECT;
+
+		GUILayout.Label(target);
+
+		EditorGUILayout.Space();
+		EditorGUILayout.BeginHorizontal();
+
+		GUILayout.Label("New name");
+		changeName = GUILayout.TextField(changeName);
+		
+		if (GUILayout.Button("Change name") && changeName.Length > 2)
+		{
+			SkillTreeDB.ChangeName(target, changeName);
+			target = changeName;
+		}
+
+		EditorGUILayout.EndHorizontal();
+		EditorGUILayout.Space();
 
 		if (st.skills == null || st.skills.Count != 15)
 		{
@@ -39,17 +82,14 @@ public class SkillTreeInspector : EditorWindow{
 				st.skills.Add(new SkillTree.SkillTreeLevel());
 			}
 		}
-			
-		for(int i = 0; i < st.skills.Count; i++)
+
+		for (int i = 0; i < st.skills.Count; i++)
 		{
 			BuildLevel(st.skills[i], i);
 		}
 
-		if (GUILayout.Button("verify"))
+		if (GUILayout.Button("Verify"))
 			Verify(st);
-<<<<<<< HEAD
-		
-=======
 		if (GUILayout.Button("Back"))
 		{
 			state = SELECT;
@@ -66,13 +106,12 @@ public class SkillTreeInspector : EditorWindow{
 				remove = false;
 			}
 		}
->>>>>>> dee71704e70c6d067d00bcb81c6fa6b32e4d6b39
 	}
 
 	void BuildLevel(SkillTree.SkillTreeLevel stl, int level)
 	{
 		EditorGUILayout.BeginHorizontal();
-		GUILayout.Label(level.ToString());
+		GUILayout.Label((level+1).ToString());
 		stl.option1 = GUILayout.TextField(stl.option1);
 		stl.option2 = GUILayout.TextField(stl.option2);
 		EditorGUILayout.EndHorizontal();

@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class BattlePreview : MonoBehaviour {
+public class BattlePreview : MonoBehaviour
+{
 
 	Unit target;
 	Unit user;
@@ -21,7 +22,7 @@ public class BattlePreview : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update ()
+	void Update()
 	{
 		// figure out if target under mouse has changed
 		Tile underMouseTile = TileGrid.Instance.GetTileAt(Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -60,7 +61,6 @@ public class BattlePreview : MonoBehaviour {
 		else
 		{
 			int dmg = 1;
-			int hp = 1;
 			float acc = 1f;
 			float crit = 0.05f;
 
@@ -81,7 +81,6 @@ public class BattlePreview : MonoBehaviour {
 			user.AttackInfo.Effect.Apply(dd);
 
 			dmg = dd.FinalDamage;
-			hp = defender.maxHP - target.damageTaken;
 			acc = attacker.HitVersus(defender);
 			crit = attacker.CritVersus(defender);
 
@@ -103,10 +102,9 @@ public class BattlePreview : MonoBehaviour {
 				dd.SourceTile = moveto;
 
 				target.AttackInfo.Effect.Apply(dd);
-				dmg = dmg = dd.FinalDamage;
+				dmg = dd.FinalDamage;
 				acc = attacker.HitVersus(attacker);
 				crit = attacker.CritVersus(attacker);
-				hp = attacker.maxHP - user.damageTaken;
 
 				acc = Mathf.RoundToInt(acc * 100);
 				crit = Mathf.RoundToInt(crit * 100);
@@ -117,7 +115,7 @@ public class BattlePreview : MonoBehaviour {
 			Vector2 location = Camera.main.WorldToScreenPoint(target.transform.position);
 			Vector2 sourceDirection = (user.transform.position - target.transform.position).normalized;
 
-			box.rectTransform.position = location + sourceDirection*60f;
+			box.rectTransform.position = location + sourceDirection * 60f;
 			retaliationBox.rectTransform.position = location + sourceDirection * 160f * (1f + Mathf.Abs(sourceDirection.y) * yAdjust);
 
 			box.gameObject.SetActive(true);

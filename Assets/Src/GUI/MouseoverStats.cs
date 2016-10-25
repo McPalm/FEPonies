@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 using System;
 
-public class MouseoverStats : MonoBehaviour {
+public class MouseoverStats : MonoBehaviour
+{
 
 	private Tile tileUnderMouse;
 
@@ -11,12 +12,14 @@ public class MouseoverStats : MonoBehaviour {
 	public Image attackIcon;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start()
+	{
+
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
+	void Update()
+	{
 		if (StateManager.Instance.State == GameState.playerTurn)
 		{
 			Vector2 mpos = Input.mousePosition;
@@ -54,7 +57,7 @@ public class MouseoverStats : MonoBehaviour {
 
 		// offset from borders
 		float sizeY = box.rectTransform.sizeDelta.y * box.rectTransform.localScale.y;
-		if (origin.y - sizeY/2 < 0)
+		if (origin.y - sizeY / 2 < 0)
 		{
 			origin = new Vector2(origin.x, sizeY / 2);
 		}
@@ -76,15 +79,14 @@ public class MouseoverStats : MonoBehaviour {
 	{
 		Unit client = tileUnderMouse.Unit;
 		Stats s = client.GetStatsAt(client.Tile);
-		int hpleft = client.CurrentHP;
 		int dmg = 0;
 		IEffect ie = client.AttackInfo.Effect;
-		if(ie is WeaponDamage)
+		if (ie is WeaponDamage)
 		{
 			dmg = (ie as WeaponDamage).GetDamage(s);
 		}
 
-		text.text = "HP " + client.CurrentHP +  "/" + s.maxHP + "\n" +
+		text.text = "HP " + client.CurrentHP + "/" + s.maxHP + "\n" +
 			"DMG " + dmg + "\n" +
 			"Def " + s.defense + "\n" +
 			"Res " + s.resistance + "\n";

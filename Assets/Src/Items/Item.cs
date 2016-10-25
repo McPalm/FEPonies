@@ -8,12 +8,9 @@ using System.Collections.Generic;
 /// value - the value of the item in silver pieces (sp)
 /// icon - a icon for the item, is displayed in the backpack
 /// </summary>
-/// 
-
-
 public class Item
 {
-
+    [SerializeField]
 	string name;
 
 	public string Name {
@@ -21,6 +18,6 @@ public class Item
 		get { return name; }
 	}
 	public int value;
-	public UnityEngine.UI.Image icon;
+	public Sprite icon;
 	public int stack = 1;
 }

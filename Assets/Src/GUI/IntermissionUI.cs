@@ -2,7 +2,8 @@
 using System.Collections;
 using System;
 
-public class IntermissionUI : MonoBehaviour, Observer {
+public class IntermissionUI : MonoBehaviour, Observer
+{
 
 
 	private const int ROOT = 0;
@@ -32,10 +33,10 @@ public class IntermissionUI : MonoBehaviour, Observer {
 	private SkillMenu skillMenu;
 
 	RectTransform me;
-	float scale = 1f;
 
 	// Use this for initialization
-	void Awake () {
+	void Awake()
+	{
 		me = GetComponent<RectTransform>();
 	}
 
@@ -46,15 +47,16 @@ public class IntermissionUI : MonoBehaviour, Observer {
 		characterSheet = Sheet.GetComponent<CharacterSheet>();
 		skillMenu = Talents.GetComponent<SkillMenu>();
 	}
-	
+
 	// Update is called once per frame
-	void Update() {
+	void Update()
+	{
 		if (Input.GetButtonDown("Cancel")) Cancel();
 	}
 
 	public void ClickRoster()
 	{
-		if(state == ROOT)
+		if (state == ROOT)
 		{
 			roster();
 		}
@@ -76,7 +78,7 @@ public class IntermissionUI : MonoBehaviour, Observer {
 
 	public void CharacterClick(int index)
 	{
-		if(state == ROSTER || state == TALENTS)
+		if (state == ROSTER || state == TALENTS)
 		{
 			sheet();
 		}
@@ -84,7 +86,7 @@ public class IntermissionUI : MonoBehaviour, Observer {
 
 	public void TalentScreen(int index)
 	{
-		if(state == STATBLOCK || state == ROSTER)
+		if (state == STATBLOCK || state == ROSTER)
 		{
 			levelUp();
 		}

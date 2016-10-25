@@ -91,7 +91,7 @@ public class SkillMenu : ScrollMenu {
 			portrait.sprite = c.MugShot;
 		else try
 			{
-				Sprite s = c.GetComponent<SpriteRenderer>().sprite;
+				Sprite s = c.Sprite;
 				portrait.sprite = s;
 			}
 			catch (Exception e)

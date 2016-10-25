@@ -22,6 +22,7 @@ public class MoveUnitByName : EventTarget
         Unit moveThis=null;
         foreach(Unit u in units)
         {
+            Debug.Log(u.name);
             if(u.name==moveMe)
             {
                 moveThis = u;

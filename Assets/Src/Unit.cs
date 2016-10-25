@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Character))]
 public class Unit : MonoBehaviour {
 
 	//Path to walk
@@ -12,7 +11,7 @@ public class Unit : MonoBehaviour {
 
 	// animation fields
 	private float tweenSpeed;
-	private readonly float SPEEDMULT = 1.5f;
+	const float SPEEDMULT = 1.5f;
 	private Vector3 startPosition;
 	private Vector3 endPosition;
 	private bool moving = false;
@@ -20,18 +19,18 @@ public class Unit : MonoBehaviour {
 
 	// fields visible in the unity editor
 	public bool isBoss=false;
-	public string toolTip = "";
-	public static Unit retaliatingUnit;
 	public int team;
 	public bool invisible = false;
 	private int retaliations = 1;
-	// public Ability ability;
 	public Material greyscale;
 	public Material normalMaterial;
 	private AttackInfo attackInfo;
 	public IAIBehaviour unitAI;
+	[NonSerialized]
+	Character character;
 
 	// fields
+	public static Unit retaliatingUnit;
 	private Tile tile;
 	public HashSet<Tile> reachableTiles;
 	internal int retaliationsMade = 0; // TODO, encapsulate
@@ -42,14 +41,11 @@ public class Unit : MonoBehaviour {
 	private bool isFirstUpdate = true;
 	internal int damageTaken = 0;
 	private bool hasActed = false;
-	//private Stats _baseStats;
-	// private Stats _growth;
 	private HashSet<HealthObserver> _healthObservers = new HashSet<HealthObserver>();
-	// private Stats stats;
 	private Stats attackStats;
 	internal bool doubleAttack = false;
 	private HashSet<object> _inhibs = new HashSet<object>();
-	Character character;
+	
     DamageData attackData;
 
 	// Properties
@@ -76,15 +72,6 @@ public class Unit : MonoBehaviour {
 			return damageTaken < Character.ModifiedStats.maxHP;
 		}
 	}
-
-	/*
-	public int AttackStat{
-		get{
-			Stats  s = ModifiedStats;
-			return s.strength + Mathf.RoundToInt((level * 2 / 3 + 5)*(1+s.baseAttackMod));
-		}
-	}
-	*/
 
 	public bool HasActed {
 		get {
@@ -123,7 +110,11 @@ public class Unit : MonoBehaviour {
 	}
 
 	public int CurrentHP{
-		get{return Character.ModifiedStats.maxHP - damageTaken;} 
+		get
+		{ 
+			if (character == null) return -1;
+			return Character.ModifiedStats.maxHP - damageTaken;
+		} 
 	}
 
 	public int RetaliationsLeft
@@ -174,6 +165,13 @@ public class Unit : MonoBehaviour {
 		// gimme a health bar!
 		HealthBar.NewHealthBar(transform);
 		attackInfo = new AttackInfo();
+		WeaponDamage wd = new WeaponDamage();
+		wd.BaseDamage = 1;
+		wd.DexScale = 0.5f;
+		wd.IntScale = 0.25f;
+		wd.StrScale = 0.75f;
+		attackInfo.Effect = wd;
+		if(character != null )Character = character;
 	}
 
 	/// <summary>
@@ -255,6 +253,7 @@ public class Unit : MonoBehaviour {
             dmgData.target = target;
             dmgData.source = this;
             attackData = dmgData;
+			AttackModifiers(dmgData); // run the attack through modifiers
 			AnimateAttack();
 			return true;
 		}
@@ -319,9 +318,14 @@ public class Unit : MonoBehaviour {
 	{
 		get
 		{
-			if (character == null)
-				character = GetComponent<Character>();
 			return character;
+		}
+		set
+		{
+			character = value;
+			character.Initialize(this);
+			// Assign Sprite
+			GetComponent<SpriteRenderer>().sprite = character.Sprite;
 		}
 	}
 
@@ -330,8 +334,8 @@ public class Unit : MonoBehaviour {
 		get
 		{
 			// Get attack info from equipped weapon
-			Backpack bp = GetComponent<Backpack>();
-			if (bp && bp.EquippedWeapon != null)
+			Backpack bp = character.Backpack;
+			if (bp != null && bp.EquippedWeapon != null)
 			{
 				return bp.EquippedWeapon.attackInfo;
 			}
@@ -489,7 +493,9 @@ public class Unit : MonoBehaviour {
 	/// <param name="n">N.</param>
 	public int Damage(DamageData attackData)
 	{
-		
+		// Run attack through defencive buffs and abiliites
+		DefenceModifiers(attackData);
+
         int n = attackData.ApplyDefences(Character.ModifiedStats.defense, Character.ModifiedStats.resistance);
 
 		if (attackData.testAttack) return n;
@@ -734,5 +740,25 @@ public class Unit : MonoBehaviour {
 		}
 
 		return s;
+	}
+
+	public void AttackModifiers(DamageData dd)
+	{
+		List<IAttackModifier> amods = new List<IAttackModifier>(GetComponents<IAttackModifier>());
+		amods.Sort(delegate (IAttackModifier a, IAttackModifier b) { return b.Priority - a.Priority; });
+		foreach(IAttackModifier amod in amods)
+		{
+			amod.Test(dd);
+		}
+	}
+
+	public void DefenceModifiers(DamageData dd)
+	{
+		List<IDefenceModifiers> dmods = new List<IDefenceModifiers>(GetComponents<IDefenceModifiers>());
+		dmods.Sort(delegate (IDefenceModifiers a, IDefenceModifiers b) { return b.Priority - a.Priority; });
+		foreach (IDefenceModifiers dmod in dmods)
+		{
+			dmod.Test(dd);
+		}
 	}
 }

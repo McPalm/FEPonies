@@ -58,12 +58,12 @@ public class Story : MonoBehaviour {
         saveData.Checkpoint = checkPoint;
         UnitRoster roster = GetComponent<UnitRoster>();
         saveData.Roster = new List<SaveCharacter>();
-        foreach(Unit u in roster.Roster)
+        foreach(Character u in roster.Roster)
         {
             SaveCharacter temp;
-            temp.Level = u.Character.Level;
-            temp.Name = u.name;
-            Backpack tempBackPack = u.GetComponent<Backpack>();
+            temp.Level = u.Level;
+            temp.Name = u.Name;
+            Backpack tempBackPack = u.Backpack;
             temp.Backpack = new List<string>();
             if (tempBackPack != null)
             {
@@ -115,10 +115,10 @@ public class Story : MonoBehaviour {
         UnitRoster roster = GetComponent<UnitRoster>();
         foreach(SaveCharacter character in saveData.Roster)
         {
-            Unit tempUnit = roster.GetUnit(character.Name);
+			Character tempUnit = roster.GetCharacter(character.Name);
             if (tempUnit != null)
             {
-                tempUnit.Character.Level = character.Level;
+                tempUnit.Level = character.Level;
                 if (character.isActive)
                 {
                     if(!roster.activeRoster.Contains(tempUnit))
@@ -133,7 +133,7 @@ public class Story : MonoBehaviour {
                         roster.activeRoster.Remove(tempUnit);
                     }
                 }
-                Backpack tempBackPack = tempUnit.GetComponent<Backpack>();
+                Backpack tempBackPack = tempUnit.Backpack;
                 if (tempBackPack != null)
                 {
                     tempBackPack.EmptyBackpack();
@@ -145,7 +145,7 @@ public class Story : MonoBehaviour {
                 }
                 else
                 {
-                    tempUnit.gameObject.AddComponent<Backpack>();
+					tempUnit.Backpack = new Backpack();
                 }
             }
             else

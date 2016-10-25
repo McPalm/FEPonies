@@ -23,16 +23,17 @@ public class WeaponDB
 		list.Add(new WeaponInfo("Battle Axe", 1, WeaponType.axe, 1, 0, 0));
 		list.Add(new WeaponInfo("Crossbow", 1, WeaponType.crossbow, 0, 1, 0));
 		list.Add(new WeaponInfo("Dagger", 1, WeaponType.dagger, 1, 2, 0));
-		list.Add(new WeaponInfo("Pyromancers Tomb", 1, WeaponType.tomb, 0, 0, 1));
+		list.Add(new WeaponInfo("Pyromancers Tome", 1, WeaponType.tome, 0, 0, 1));
 		list.Add(new WeaponInfo("Short Spear", 1, WeaponType.spear, 2, 1, 0));
 		list.Add(new WeaponInfo("Short Sword", 1, WeaponType.sword, 2, 3, 0));
-		list.Add(new WeaponInfo("Lightning Rod", 2, WeaponType.tomb, 0, 2, 3));
+		list.Add(new WeaponInfo("Lightning Rod", 2, WeaponType.tome, 0, 2, 3));
+		list.Add(new WeaponInfo("Warhammer", 2, WeaponType.axe, 1, 0, 0));
 		list.Add(new WeaponInfo("Javelin", 3, WeaponType.spear, 2, 3, 0));
 		list.Add(new WeaponInfo("Long Sword", 2, WeaponType.sword, 3, 2, 0));
 		list.Add(new WeaponInfo("Halberd", 4, WeaponType.axe, 2, 1, 0));
 		list.Add(new WeaponInfo("Rapier", 5, WeaponType.sword, 1, 2, 0));
 		list.Add(new WeaponInfo("Arbalest", 6, WeaponType.crossbow, 0, 1, 0));
-		list.Add(new WeaponInfo("Sanguine Tomb", 6, WeaponType.tomb, 0, 0, 1));
+		list.Add(new WeaponInfo("Sanguine Tome", 6, WeaponType.tome, 0, 0, 1));
 		list.Add(new WeaponInfo("Naginata", 7, WeaponType.spear, 2, 3, 0));
 		list.Add(new WeaponInfo("Great Axe", 7, WeaponType.axe, 1, 0, 0));
 		list.Add(new WeaponInfo("Greatsword", 7, WeaponType.sword, 2, 1, 0));
@@ -79,6 +80,24 @@ public class WeaponDB
 		return GetWeapon(list[list.Count-1].fullName);
 	}
 
+	/// <summary>
+	/// Gets a weapon of a certain type and leveld up to wanted item level.
+	/// </summary>
+	/// <param name="name"></param>
+	/// <param name="level">maximum level of the item.</param>
+	/// <returns></returns>
+	public Weapon GetWeapon(string name, int level)
+	{
+		List<WeaponInfo> list = new List<WeaponInfo>();
+		foreach(WeaponInfo w in infos)
+		{
+			if (w.name == name && w.level <= level) list.Add(w);
+		}
+		if (list.Count == 0) return GetWeapon(name);
+		list.Sort();
+		return GetWeapon(list[list.Count - 1].fullName);
+	}
+
 	public Weapon GetWeapon(string name)
 	{
 		WeaponInfo wi = null;
@@ -106,7 +125,7 @@ public class WeaponDB
 				wf.ArmorPenetrating();
 				wf.LowScaling();
 				break;
-			case "Pyromancers Tomb":
+			case "Pyromancers Tome":
 				wf.Magic();
 				wf.SetMeleeAndRange();
 				break;
@@ -122,6 +141,11 @@ public class WeaponDB
 				wf.HighCrit();
 				wf.Magic();
 				wf.SetMeleeAndRange();
+				break;
+			case "Warhammer":
+				wf.LowHit();
+				wf.ArmorPenetrating();
+				wf.HighScaling();
 				break;
 			case "Javelin":
 				wf.LowHit();
@@ -139,11 +163,11 @@ public class WeaponDB
 				wf.ArmorPenetrating();
 				wf.SetLongRange();
 				break;
-			case "Sanguine Tomb":
+			case "Sanguine Tome":
 				wf.LowScaling();
 				wf.Magic();
 				wf.SetMeleeAndRange();
-				UnityEngine.Debug.LogWarning("Still no lifesteal on Sanguine Tomb."); // TODO
+				UnityEngine.Debug.LogWarning("Still no lifesteal on Sanguine Tome."); // TODO
 				break;
 			case "Naginata":
 				wf.LowScaling();
@@ -202,6 +226,20 @@ public class WeaponDB
 		}
 
 		return wf.GetWeapon();
+	}
+
+	/// <summary>
+	/// Gets the item level of a specific weapon
+	/// </summary>
+	/// <param name="weaponName"></param>
+	/// <returns>level of the item, 0 if not found.</returns>
+	public int GetLevel(string weaponName)
+	{
+		foreach(WeaponInfo w in infos)
+		{
+			if (w.fullName == weaponName) return w.level;
+		}
+		return 0;
 	}
 
 	private class WeaponInfo : IComparable<WeaponInfo>

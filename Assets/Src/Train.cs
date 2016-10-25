@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System;
 using System.Collections;
 
-public class Train : MonoBehaviour, IEnumerable<Item> {
+public class Train : MonoBehaviour, IEnumerable<Item>
+{
 
-
+#pragma warning disable
 	private List<Item> items;
 	private int cash;
 
@@ -26,11 +27,7 @@ public class Train : MonoBehaviour, IEnumerable<Item> {
 	/// <returns></returns>
 	public bool Add(Item i)
 	{
-        if (i != null)
-        {
-            items.Add(i);
-        }
-        return true;
+		throw new System.NotImplementedException();
 	}
 
 	/// <summary>
@@ -41,19 +38,7 @@ public class Train : MonoBehaviour, IEnumerable<Item> {
 	/// <returns></returns>
 	public bool Retrieve(Item i, int quantity = 1)
 	{
-		for (int n=0; n<quantity; n++)
-        {
-            if(items.Contains(i))
-            {
-                items.Remove(i);
-            }
-            else
-            {
-                Debug.Log("Not enough items here, something went wrong");
-                return false;
-            }
-        }
-        return true;
+		throw new System.NotImplementedException();
 	}
 
 	/// <summary>
@@ -61,7 +46,7 @@ public class Train : MonoBehaviour, IEnumerable<Item> {
 	/// </summary>
 	public int Cash
 	{
-		get { return cash;}
-		set { cash = value;}
+		get { return cash; }
+		set { cash = value; }
 	}
 }

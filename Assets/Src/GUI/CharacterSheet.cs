@@ -9,7 +9,8 @@ public class CharacterSheet : MonoBehaviour {
 	public Image portrait;
 	public Text statText;
 	public Text abilityText;
-	public Text itemText;
+	[SerializeField]
+	ItemFrame itemFrame;
 
 	private Unit client;
 
@@ -19,32 +20,14 @@ public class CharacterSheet : MonoBehaviour {
 		SetPortrait(c);
 		BuildStats(c);
 		BuildAbilities(c);
-		BuildItems(c);
-	}
-
-	private void BuildItems(Character c)
-	{
-		Backpack b = c.GetComponent<Backpack>();
-		if (b != null)
-		{
-			string val = "";
-			foreach (Item i in b)
-			{
-				val += i.Name;
-				if (i is Equipment && b.IsEquipped((Equipment)i)) val += " (equipped)";
-				val += "\n";
-			}
-			itemText.text = val;
-		}
-		else
-		{
-			itemText.text = "Error: Missing backpack.";
-		}
+		itemFrame.Build(c.Backpack);
 	}
 
 	private void BuildAbilities(Character c)
 	{
-		string output = "";
+		
+		string output = "Not yet Implemented";
+		/*
 		foreach(Skill a in c.GetComponents<Skill>())
 		{
 			output += a.Name;
@@ -53,6 +36,7 @@ public class CharacterSheet : MonoBehaviour {
 			else
 				output += " \n";
 		}
+		*/
 		abilityText.text = output;
 	}
 
@@ -62,7 +46,7 @@ public class CharacterSheet : MonoBehaviour {
 			portrait.sprite = c.MugShot;
 		else try
 		{
-			Sprite s = c.GetComponent<SpriteRenderer>().sprite;
+			Sprite s = c.Sprite;
 			portrait.sprite = s;
 		}
 		catch(Exception e)
@@ -77,7 +61,7 @@ public class CharacterSheet : MonoBehaviour {
 		Stats mystats = c.ModifiedStats;
 
 		int currenthp = mystats.maxHP;
-		Unit u = c.GetComponent<Unit>();
+		Unit u = null; // TODO, get max HP in combat scenes. c.GetComponent<Unit>();
 		if(u != null)
 		{
 			currenthp = u.CurrentHP;
@@ -93,8 +77,8 @@ public class CharacterSheet : MonoBehaviour {
 				mystats.intelligence + "\n\n" + //INT
 
 				100 * mystats.Hit + "%\n" + //HIT
-				100 * mystats.Dodge + "%\n" + //DODGE
 				100 * mystats.Crit + "%\n" + //CRIT
+				100 * mystats.Dodge + "%\n" + //DODGE
 				100 * mystats.CritDodge + "%\n" + //CRIT.D
 				mystats.defense + "\n" + //ARMOR
 				mystats.resistance; //RESISTANCE
