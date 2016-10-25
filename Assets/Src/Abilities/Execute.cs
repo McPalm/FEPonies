@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class Execute : Passive, AttackBuff {
+public class Execute : Passive, IAttackModifier {
 
 	private Stats _stats;
 
@@ -14,22 +14,18 @@ public class Execute : Passive, AttackBuff {
 		}
 	}
 
-	public Stats Stats
+	public int Priority
 	{
 		get
 		{
-			return _stats;
+			return 0;
 		}
 	}
 
-	public bool Applies(Unit target, Tile source, Tile targetLocation)
+	public void Test(DamageData dd)
 	{
-		int lost = target.damageTaken;
-		int max = target.Character.ModifiedStats.maxHP;
-
-		_stats.might = lost / 5;
-		if (lost * 2 > max) _stats.hitBonus = 0.2f;
-		else _stats.hitBonus = 0f;
-		return true;
+		float targetp = 1f - ((float)dd.target.CurrentHP / (float)dd.target.Character.ModifiedStats.maxHP);
+		Debug.Log("Execute: " + targetp);
+		dd.damageMultipler *= 1f + 0.3f * targetp;
 	}
 }
