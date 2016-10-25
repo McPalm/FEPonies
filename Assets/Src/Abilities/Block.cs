@@ -4,9 +4,11 @@ using System;
 
 public class Block : Passive, AttackBuff {
 
-	private bool active = false;
 	private Unit user;
+<<<<<<< HEAD
 	private Stats stats;
+=======
+>>>>>>> dee71704e70c6d067d00bcb81c6fa6b32e4d6b39
 
 	public override string Name
 	{
