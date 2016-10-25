@@ -68,6 +68,11 @@ public class SkillTreeDB : MonoBehaviour {
 		}
 	}
 
+	public static SkillTree GetSkillTreeClone(string name)
+	{
+		return new SkillTree(GetSkillTree(name));
+	}
+
 	[System.Serializable]
 	private class TreeContainer
 	{
