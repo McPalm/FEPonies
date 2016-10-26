@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class SkillTreeDB : MonoBehaviour {
 
 	static SkillTreeDB instance;
-	static SkillTreeDB Instance
+	public static SkillTreeDB Instance
 	{
 		get
 		{

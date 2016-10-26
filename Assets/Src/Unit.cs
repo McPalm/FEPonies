@@ -249,7 +249,7 @@ public class Unit : MonoBehaviour {
             DamageData dmgData=new DamageData();
 			dmgData.hit = roll < s.HitVersus(es); //ModifiedStats.Hit-target.ModifiedStats.Dodge;
 			dmgData.crit = roll < s.CritVersus(es); //(ModifiedStats.crit - target.ModifiedStats.critDodge);
-            dmgData.baseDamage = s.strength + s.might;
+			dmgData.baseDamage = -1; // s.strength + s.might;
             dmgData.target = target;
             dmgData.source = this;
             attackData = dmgData;

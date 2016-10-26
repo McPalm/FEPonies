@@ -12,7 +12,6 @@ public class Wingslayer : Passive, AttackBuff {
 
 		buff.hitBonus = 0.3f;
 		host = GetComponent<Unit>();
-		buff.might = host.Character.Level / 2 + 3;
 		host.RegisterAttackBuff(this);
 	}
 

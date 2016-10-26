@@ -27,7 +27,7 @@ public struct Stats
 	public float baseAttackMod;
 	public float critBonus;
     public float critDodgeBonus;
-	public int might;
+	public int carryBonus;
 
 	public float Dodge
 	{
@@ -81,7 +81,7 @@ public struct Stats
 		baseAttackMod = 0f;
 		critBonus = 0f;
         critDodgeBonus = 0f;
-		might = 0;
+		carryBonus = 0;
 	}
 
 	public Stats (UnitMove movement, int maxHP, int strength, int agility, int dexterity, int intelligence,
@@ -100,10 +100,10 @@ public struct Stats
 		this.baseAttackMod = baseAttackMod;
 		this.critBonus = crit;
         this.critDodgeBonus = critDodge;
-		might = 0;
+		carryBonus = 0;
 	}
 	public Stats(UnitMove movement, int maxHP, int strength, int agility, int dexterity, int intelligence,
-				  int defense, int resistance, float dodgeBonus, float hitBonus, float baseAttackMod, float crit, float critDodge, int might)
+				  int defense, int resistance, float dodgeBonus, float hitBonus, float baseAttackMod, float crit, float critDodge, int carry)
 	{
 		this.movement = movement;
 		this.maxHP = maxHP;
@@ -118,7 +118,7 @@ public struct Stats
 		this.baseAttackMod = baseAttackMod;
 		this.critBonus = crit;
 		this.critDodgeBonus = critDodge;
-		this.might = might;
+		carryBonus = 0;
 	}
 
 	// overload operator +
@@ -126,7 +126,7 @@ public struct Stats
 		return new Stats(a.movement+b.movement, a.maxHP+b.maxHP,
 		                 a.strength+b.strength, a.agility+b.agility, a.dexterity+b.dexterity, a.intelligence+b.intelligence,
 		                 a.defense+b.defense, a.resistance+b.resistance, a.dodgeBonus + b.dodgeBonus, a.hitBonus+b.hitBonus,
-		                 a.baseAttackMod+b.baseAttackMod, a.critBonus+b.critBonus, a.critDodgeBonus+b.critDodgeBonus, a.might+b.might);
+		                 a.baseAttackMod+b.baseAttackMod, a.critBonus+b.critBonus, a.critDodgeBonus+b.critDodgeBonus, a.carryBonus+b.carryBonus);
 	}
 
 	/// <summary>
@@ -143,7 +143,7 @@ public struct Stats
 			rv.defense = (rv.defense > a[i].defense) ? rv.defense : a[i].defense;
 			rv.resistance = (rv.resistance > a[i].resistance) ? rv.resistance : a[i].resistance;
 			rv.movement.moveSpeed = (rv.movement.moveSpeed > a[i].movement.moveSpeed) ? rv.movement.moveSpeed : a[i].movement.moveSpeed;
-			rv.might = (rv.might > a[i].might) ? rv.might : a[i].might;
+			rv.carryBonus = (rv.carryBonus > a[i].carryBonus) ? rv.carryBonus : a[i].carryBonus;
 			if(a[i].movement.moveType == MoveType.flying) rv.movement.moveType = MoveType.flying;
 		}
 		return rv;

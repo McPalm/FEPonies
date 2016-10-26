@@ -25,7 +25,6 @@ public class MageSlayer : Skill, AttackBuff {
 		int targetMana = target.GetComponent<Mana>().MaxMana;
 		if(targetMana > 0)
 		{
-			_stats.might = targetMana * 2;
 			return true;
 		}
 		return false;

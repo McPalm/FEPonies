@@ -72,6 +72,17 @@ public class SkillTree : Buff {
 			else if (s == "Dex2") r.dexterity += 2;
 			else if (s == "Agi2") r.agility += 2;
 			else if (s == "Int2") r.intelligence += 2;
+			else if (s == "AgiDex")
+			{
+				r.agility++;
+				r.dexterity++;
+			}
+			else if (s == "DexInt")
+			{
+				r.intelligence++;
+				r.dexterity++;
+			}
+			else if (s == "Weight2") r.carryBonus += 2;
 		}
 		_stats = r;
 	}

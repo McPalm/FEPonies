@@ -42,7 +42,6 @@ public class Stationary : MonoBehaviour, IAIBehaviour {
     protected bool canMurder(Unit user, Unit target, Tile userPos)
     {
         Stats st = user.GetStatsAt(userPos, target);
-        damageData.baseDamage = st.strength + st.might;
 		damageData.testAttack = true;
 		damageData.SourceTile = userPos;
 
@@ -60,7 +59,6 @@ public class Stationary : MonoBehaviour, IAIBehaviour {
     protected int judgeAttackMove(Unit user, Unit target, Tile moveTo)///TODO Make sure this is correct
     {
         Stats st = user.GetStatsAt(moveTo, target);
-        damageData.baseDamage = st.strength + st.might;
 
         int actionValue = user.AttackInfo.Effect.Apply(damageData);
 

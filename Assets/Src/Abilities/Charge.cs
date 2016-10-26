@@ -10,6 +10,7 @@
 using System;
 using UnityEngine;
 
+// not working anymore
 public class Charge : Passive, AttackBuff, TurnObserver
 {
 	int distance = 0;
@@ -43,8 +44,6 @@ public class Charge : Passive, AttackBuff, TurnObserver
 	{
 		distance = TileGrid.GetDelta(startPosition, target);
 		_stats.critBonus = (float)distance / 20f;
-		if (distance > 3) _stats.might = 2;
-		else _stats.might = 0;
 
 		return true;
 	}

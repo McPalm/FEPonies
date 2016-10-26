@@ -75,7 +75,7 @@ public class BattlePreview : MonoBehaviour
 			dd.target = target;
 			dd.source = user;
 			dd.testAttack = true;
-			dd.baseDamage = attacker.might + attacker.strength;
+			dd.baseDamage = -1; //attacker.might + attacker.strength;
 			dd.SourceTile = moveto;
 
 			user.AttackInfo.Effect.Apply(dd);
@@ -98,7 +98,7 @@ public class BattlePreview : MonoBehaviour
 				dd.target = target;
 				dd.source = user;
 				dd.testAttack = true;
-				dd.baseDamage = attacker.might + attacker.strength;
+				dd.baseDamage = -1; // attacker.might + attacker.strength;
 				dd.SourceTile = moveto;
 
 				target.AttackInfo.Effect.Apply(dd);

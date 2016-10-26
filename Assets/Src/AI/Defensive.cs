@@ -111,7 +111,6 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
     protected bool canMurder(Unit user, Unit target, Tile userPos)
     {
         Stats st = user.GetStatsAt(userPos, target);
-        damageData.baseDamage = st.strength + st.might;
 		damageData.testAttack = true;
 		damageData.SourceTile = userPos;
 		float hitChance = user.GetStatsAt(userPos, target).HitVersus(target.GetStatsAt(target.Tile, user, userPos));
@@ -132,7 +131,6 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 		// gather data
 		Stats attackStats = user.GetStatsAt(moveTo, target);
 		Stats defenceStats = user.GetStatsAt(moveTo, target);
-        damageData.baseDamage = attackStats.strength + attackStats.might;
 		damageData.testAttack = true;
 		damageData.SourceTile = moveTo;
 
@@ -151,7 +149,6 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
             Unit temp = damageData.target;
             damageData.target = damageData.source;
             damageData.source = temp;
-            damageData.baseDamage = defenceStats.strength + defenceStats.might;
             damage = target.AttackInfo.Effect.Apply(damageData);
             temp = damageData.target;
             damageData.target = damageData.source;

@@ -36,7 +36,6 @@ public class FollowThrough: Passive, AttackBuff {
 	void Start () {
 		_stats.hitBonus = 0.2f;
 		_stats.critBonus = -0.2f;
-		_stats.might = -4;
 
 		_unit = GetComponent<Unit>();
 
