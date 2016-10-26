@@ -29,6 +29,20 @@ public class Backpack : IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<
 	Character owner;
 	Stats _equipmentStats;
 
+    public Backpack()
+    {
+
+    }
+
+    public Backpack(Backpack toCopy)
+    {
+        backpack = new List<Item>(toCopy.backpack);
+        equippedArmor = toCopy.equippedArmor;
+        equippedWeapon = toCopy.equippedWeapon;
+        equippedTrinket = toCopy.equippedTrinket;
+        capacity = toCopy.capacity;
+    }
+
 	/// <summary>
 	/// Currently Equipped Armor
 	/// </summary>
