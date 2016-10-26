@@ -15,6 +15,9 @@ public class DamageData {
 	public bool backstab = false;
 	public int flatBonus = 0; // bonuses(or penalties) infliced by abilitites, + or - to this.
 
+	public float hitChance;
+	public float critChance;
+
 	private Tile sourceTile;
 	private int finalDamage = -1;
 

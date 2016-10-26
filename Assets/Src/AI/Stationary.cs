@@ -41,7 +41,6 @@ public class Stationary : MonoBehaviour, IAIBehaviour {
 
     protected bool canMurder(Unit user, Unit target, Tile userPos)
     {
-        Stats st = user.GetStatsAt(userPos, target);
 		damageData.testAttack = true;
 		damageData.SourceTile = userPos;
 
@@ -58,8 +57,6 @@ public class Stationary : MonoBehaviour, IAIBehaviour {
 
     protected int judgeAttackMove(Unit user, Unit target, Tile moveTo)///TODO Make sure this is correct
     {
-        Stats st = user.GetStatsAt(moveTo, target);
-
         int actionValue = user.AttackInfo.Effect.Apply(damageData);
 
         if (target.RetaliationsLeft == 0)

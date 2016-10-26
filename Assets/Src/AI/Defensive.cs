@@ -5,11 +5,8 @@ using System.Collections.Generic;
 
 public class Defensive : MonoBehaviour, IAIBehaviour {
 
-    protected DamageData damageData=new DamageData();
-
 	public virtual Action GetAction(Unit unit)
 	{
-        damageData.source = unit;
 		Unit target=null;
         Tile targetMove = null;
 		Action retValue=new Action(unit.Tile);
@@ -26,7 +23,6 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
             {
 			    foreach (Tile pa in possibleAttacks)
                 {
-                    damageData.target = pa.Unit;
                     if (pa.Unit.invisible)
                     {
                         continue;
@@ -110,11 +106,10 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 
     protected bool canMurder(Unit user, Unit target, Tile userPos)
     {
-        Stats st = user.GetStatsAt(userPos, target);
-		damageData.testAttack = true;
-		damageData.SourceTile = userPos;
-		float hitChance = user.GetStatsAt(userPos, target).HitVersus(target.GetStatsAt(target.Tile, user, userPos));
-		if (user.AttackInfo.Effect.Apply(damageData) >= target.CurrentHP && hitChance>0.5f)
+ 
+		// float hitChance = user.GetStatsAt(userPos, target).HitVersus(target.GetStatsAt(target.Tile, user, userPos));
+		DamageData dd = user.TestAttack(target, userPos);
+		if (dd.FinalDamage >= target.CurrentHP && dd.hitChance>0.5f)
         {
             return true;
         }
@@ -130,34 +125,23 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 
 		// gather data
 		Stats attackStats = user.GetStatsAt(moveTo, target);
-		Stats defenceStats = user.GetStatsAt(moveTo, target);
-		damageData.testAttack = true;
-		damageData.SourceTile = moveTo;
-
-        float damage = user.AttackInfo.Effect.Apply(damageData);
-		float hitChance = attackStats.HitVersus(defenceStats);
-        float critChance = attackStats.CritVersus(defenceStats);
+		Stats defenceStats = target.GetStatsAt(moveTo, user);
+		DamageData dd = user.TestAttack(target, moveTo);
+        float damage = dd.FinalDamage;
 
 		// calculate average damage as a function of targets max health
         if (damage > defenceStats.maxHP) damage = 20;
         damage = (damage / defenceStats.maxHP)*20;
-        actionValue = damage * (hitChance+critChance);
+        actionValue = damage * (dd.hitChance + dd.critChance);
 
         if (target.RetaliationsLeft > 0&&target.AttackInfo.Reach.GetTiles(target.Tile).Contains(moveTo))//If it will retaliate
         {
-            // repeat pervious calculation, but on the retaliation
-            Unit temp = damageData.target;
-            damageData.target = damageData.source;
-            damageData.source = temp;
-            damage = target.AttackInfo.Effect.Apply(damageData);
-            temp = damageData.target;
-            damageData.target = damageData.source;
-            damageData.source = temp;
-            hitChance = defenceStats.HitVersus(attackStats);
-            critChance = defenceStats.CritVersus(attackStats);
-          
+			// repeat pervious calculation, but on the retaliation
+			DamageData rd = target.TestAttack(user);
+
+			damage = rd.FinalDamage;
             damage = (damage / attackStats.maxHP)*20;
-            actionValue -= (damage * (hitChance + critChance))/2;
+            actionValue -= (damage * (rd.hitChance + rd.critChance))/2;
         }
 
         actionValue += judgeMove(user, moveTo, target);

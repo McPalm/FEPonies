@@ -67,25 +67,13 @@ public class BattlePreview : MonoBehaviour
 			// get attack tile interaction thingy
 			Tile moveto = target.Tile.LazyMove(user, target);
 
-			Stats attacker = user.GetStatsAt(moveto, target);
-			Stats defender = target.GetStatsAt(target.Tile, user, moveto);
-
 			// attack stats
-			DamageData dd = new DamageData();
-			dd.target = target;
-			dd.source = user;
-			dd.testAttack = true;
-			dd.baseDamage = -1; //attacker.might + attacker.strength;
-			dd.SourceTile = moveto;
+			DamageData dd = user.TestAttack(target, moveto);
 
 			user.AttackInfo.Effect.Apply(dd);
 
-			dmg = dd.FinalDamage;
-			acc = attacker.HitVersus(defender);
-			crit = attacker.CritVersus(defender);
-
-			acc = Mathf.RoundToInt(acc * 100);
-			crit = Mathf.RoundToInt(crit * 100);
+			acc = Mathf.RoundToInt(dd.hitChance * 100);
+			crit = Mathf.RoundToInt(dd.critChance * 100);
 
 			text.text = (dmg + "\n" + acc + "\n" + crit);
 
@@ -101,13 +89,13 @@ public class BattlePreview : MonoBehaviour
 				dd.baseDamage = -1; // attacker.might + attacker.strength;
 				dd.SourceTile = moveto;
 
-				target.AttackInfo.Effect.Apply(dd);
-				dmg = dd.FinalDamage;
-				acc = attacker.HitVersus(attacker);
-				crit = attacker.CritVersus(attacker);
+				DamageData rd = new DamageData();
+				target.TestAttack(user);
 
-				acc = Mathf.RoundToInt(acc * 100);
-				crit = Mathf.RoundToInt(crit * 100);
+				dmg = rd.FinalDamage;
+
+				acc = Mathf.RoundToInt(rd.hitChance * 100);
+				crit = Mathf.RoundToInt(rd.critChance * 100);
 
 				retaliationText.text = (dmg + "\n" + acc + "\n" + crit);
 			}
