@@ -20,12 +20,14 @@ public class AbilityLibrary
 
     public AbilityLibrary()
     {
-        abilityLibrary.Add("ArmourPiercing", typeof(ArmourPiercing));
+		abilityLibrary.Add("Advice", typeof(Advice));
+		abilityLibrary.Add("ArmourPiercing", typeof(ArmourPiercing));
         abilityLibrary.Add("Backflip", typeof(Backflip));
 		abilityLibrary.Add("Backstab", typeof(Backstab));
 		abilityLibrary.Add("Bastion", typeof(Bastion));
 		abilityLibrary.Add("Blade Dancing", typeof(BladeDancing));
 		abilityLibrary.Add("Block", typeof(Block));
+		abilityLibrary.Add("Careful Aim", typeof(CarefulAim));
 		abilityLibrary.Add("Charge", typeof(Charge));
         abilityLibrary.Add("Charm", typeof(Charm));
         abilityLibrary.Add("Cure", typeof(Cure));
@@ -49,6 +51,7 @@ public class AbilityLibrary
         abilityLibrary.Add("Sniper", typeof(Sniper));
         abilityLibrary.Add("Summon", typeof(Summon));
 		abilityLibrary.Add("Spearpoint", typeof(Spearpoint));
+		abilityLibrary.Add("Study", typeof(Study));
 		abilityLibrary.Add("Teleport", typeof(Teleport));
 		abilityLibrary.Add("Thievery", typeof(Thievery));
 		abilityLibrary.Add("Transfusion", typeof(Transfusion));

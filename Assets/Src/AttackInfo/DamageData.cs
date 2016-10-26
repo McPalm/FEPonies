@@ -3,7 +3,7 @@ using System;
 
 public class DamageData {
 
-	public int baseDamage=1;
+	public int baseDamage=1; // base damge caused by weapons
 	public float defenceMultiplier=1f;
 	public float resistanceMultiplier=0f;
 	public bool crit=false;
@@ -13,6 +13,7 @@ public class DamageData {
     public Unit target;
 	public bool testAttack = false;
 	public bool backstab = false;
+	public int flatBonus = 0; // bonuses(or penalties) infliced by abilitites, + or - to this.
 
 	private Tile sourceTile;
 	private int finalDamage = -1;
@@ -43,7 +44,7 @@ public class DamageData {
 
 	public int ApplyDefences(int defence, int resistance)
 	{
-		int dmg = (int)((baseDamage - defence * defenceMultiplier - resistance * resistanceMultiplier) * damageMultipler);
+		int dmg = (int)((baseDamage + flatBonus - defence * defenceMultiplier - resistance * resistanceMultiplier) * damageMultipler);
 		if (crit) dmg *= 2;
 		finalDamage = Math.Max(dmg, 0);
 		return finalDamage;
