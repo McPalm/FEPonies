@@ -8,6 +8,7 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Character>
 	[SerializeField]
 	private List<Character> roster;
     public List<Character> activeRoster;
+    public CharacterDB StarterDatabase;
 
     public List<Character> Roster
     {
