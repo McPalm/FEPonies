@@ -21,6 +21,7 @@ public class AbilityLibrary
     public AbilityLibrary()
     {
 		abilityLibrary.Add("Advice", typeof(Advice));
+		abilityLibrary.Add("Aim for the Head", typeof(AimForTheHead));
 		abilityLibrary.Add("ArmourPiercing", typeof(ArmourPiercing));
         abilityLibrary.Add("Backflip", typeof(Backflip));
 		abilityLibrary.Add("Backstab", typeof(Backstab));
