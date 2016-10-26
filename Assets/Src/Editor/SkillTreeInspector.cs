@@ -126,7 +126,7 @@ public class SkillTreeInspector : EditorWindow{
 				new object(); // This is editor only, so I dont give a shit how bad this is.
 			else if (stl.option1 == "Str2" || stl.option1 == "Dex2" || stl.option1 == "Agi2" || stl.option1 == "Int2")
 				new object();
-			else if (stl.option2 == "AgiDex" || stl.option2 == "Weight2" || stl.option2 == "DexInt")
+			else if (stl.option1 == "AgiDex" || stl.option1 == "Weight2" || stl.option1 == "DexInt")
 				new object();
 			else {
 				try {

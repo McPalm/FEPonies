@@ -13,7 +13,7 @@ public class Sap : Ability, TargetedAbility {
 	{
 		target.Unit.gameObject.AddComponent<SapDebuff>();
 		DamageData dd = new DamageData();
-		Stats s = _unit.GetStatsAt(_unit.Tile, target.Unit);
+		// Stats s = _unit.GetStatsAt(_unit.Tile, target.Unit);
 		dd.damageMultipler = 0.5f;
 		dd.defenceMultiplier = 0.5f;
 		dd.target = target.Unit;
