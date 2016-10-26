@@ -524,6 +524,7 @@ public class Unit : MonoBehaviour {
 		damageTaken += n;
 		NotifyHealthObservers(-n);
 		attackData.Callback();
+		if (attackData.crit) Particle.Crit(transform.position);
 		
 		if(damageTaken >= Character.ModifiedStats.maxHP){
 			Death (true);

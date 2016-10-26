@@ -70,8 +70,7 @@ public class BattlePreview : MonoBehaviour
 			// attack stats
 			DamageData dd = user.TestAttack(target, moveto);
 
-			user.AttackInfo.Effect.Apply(dd);
-
+			dmg = dd.FinalDamage;
 			acc = Mathf.RoundToInt(dd.hitChance * 100);
 			crit = Mathf.RoundToInt(dd.critChance * 100);
 
@@ -82,18 +81,9 @@ public class BattlePreview : MonoBehaviour
 			// defence stats
 			if (willRetaliate)
 			{
-				dd = new DamageData();
-				dd.target = target;
-				dd.source = user;
-				dd.testAttack = true;
-				dd.baseDamage = -1; // attacker.might + attacker.strength;
-				dd.SourceTile = moveto;
-
-				DamageData rd = new DamageData();
-				target.TestAttack(user);
+				DamageData rd = target.TestAttack(user);
 
 				dmg = rd.FinalDamage;
-
 				acc = Mathf.RoundToInt(rd.hitChance * 100);
 				crit = Mathf.RoundToInt(rd.critChance * 100);
 
