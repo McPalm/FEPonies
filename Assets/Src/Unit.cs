@@ -247,9 +247,10 @@ public class Unit : MonoBehaviour {
 			Stats es = target.GetStatsAt(target.Tile, this);
 			float roll = UnityEngine.Random.Range(0f,1f);
             DamageData dmgData=new DamageData();
-			dmgData.hit = roll < s.HitVersus(es); //ModifiedStats.Hit-target.ModifiedStats.Dodge;
-			dmgData.crit = roll < s.CritVersus(es); //(ModifiedStats.crit - target.ModifiedStats.critDodge);
-			dmgData.baseDamage = -1; // s.strength + s.might;
+			dmgData.hitChance = s.HitVersus(es);
+			dmgData.critChance = s.CritVersus(es);
+			dmgData.hit = roll < dmgData.hitChance; //ModifiedStats.Hit-target.ModifiedStats.Dodge;
+			dmgData.crit = roll < dmgData.critChance; //(ModifiedStats.crit - target.ModifiedStats.critDodge);
             dmgData.target = target;
             dmgData.source = this;
             attackData = dmgData;
@@ -259,6 +260,26 @@ public class Unit : MonoBehaviour {
 		}
 		return false;
 	}
+
+	public DamageData TestAttack(Unit target, Tile location = null, Tile targetLocation = null)
+	{
+		if (location == null) location = Tile;
+		if (targetLocation == null) targetLocation = target.Tile;
+		Stats s = GetStatsAt(location, target);
+		Stats es = target.GetStatsAt(targetLocation, this);
+		DamageData dd = new DamageData();
+		dd.testAttack = true;
+		dd.hitChance = s.HitVersus(es);
+		dd.critChance = s.CritVersus(es);
+		dd.target = target;
+		dd.source = this;
+		dd.SourceTile = location;
+		AttackModifiers(dd);
+		AttackInfo.Effect.Apply(dd);
+
+		return dd;
+	}
+
 	// Use this for initialization
 	void Start () {
 		foreach(MonoBehaviour mb in GetComponents<MonoBehaviour>()){
