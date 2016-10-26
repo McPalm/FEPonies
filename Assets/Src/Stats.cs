@@ -40,7 +40,7 @@ public struct Stats
 	{
 		get
 		{
-			return (90 + dexterity * 2 + intelligence * 2) / 100f + hitBonus;
+			return (85 + dexterity * 2 + intelligence * 2) / 100f + hitBonus;
 		}
 	}
 	public float Crit
