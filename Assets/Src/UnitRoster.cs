@@ -5,10 +5,10 @@ using System.Collections;
 [System.Serializable]
 public class UnitRoster : MonoBehaviour, IEnumerable<Character>
 {
-	[SerializeField]
 	private List<Character> roster;
     public List<Character> activeRoster;
-    public CharacterDB StarterDatabase;
+    [SerializeField]
+    private CharacterDB StarterDatabase;
 
     public List<Character> Roster
     {
@@ -40,7 +40,7 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Character>
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-		// HACK
+        roster = StarterDatabase.StarterCharacters;
 		activeRoster = roster;
     }
     //End of Singleton stuff

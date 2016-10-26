@@ -6,7 +6,17 @@ using System.Collections.Generic;
 /// </summary>
 public class CharacterDB : MonoBehaviour {
 
-    public List<Character> StarterCharacters;
+    [SerializeField]
+    private List<Character> starterCharacters;
+
+    public List<Character> StarterCharacters
+    {
+        get
+        {
+            Debug.Log("gettingcharacters");
+            return new List<Character>(starterCharacters);
+        }
+    }
 	// Use this for initialization
 	void Start () {
 	
@@ -24,7 +34,7 @@ public class CharacterDB : MonoBehaviour {
     /// <returns>a copy of the character or null if not found</returns>
     public Character GetCharacter(string name)
     {
-        foreach(Character ch in StarterCharacters)
+        foreach(Character ch in starterCharacters)
         {
             if(ch.Name==name)
             {
