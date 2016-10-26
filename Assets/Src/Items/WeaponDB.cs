@@ -209,7 +209,7 @@ public class WeaponDB
 				wf.LowHit();
 				UnityEngine.Debug.LogWarning("No AGI bonus for Assasin Blades yet!"); // TODO
 				break;
-			case "Fiery Axe":
+			case "Burning Axe":
 				wf.HighCrit();
 				wf.LowHit();
 				wf.SetHybrid();
