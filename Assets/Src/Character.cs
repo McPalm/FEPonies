@@ -36,10 +36,27 @@ public class Character {
 	int intelligence = 3;
 	[SerializeField]
 	private bool flight = false;
-	public AttackInfo attackInfo;
 
 	Stats baseStats;
 	HashSet<Buff> buffs;
+
+    public Character(Character toCopy)
+    {
+        name = toCopy.Name; 
+        mugShot = toCopy.MugShot;
+        sprite = toCopy.Sprite;
+        unit = toCopy.Unit;
+        skilltree = new SkillTree(toCopy.Skilltree);
+        Backpack temp = new Backpack(toCopy.Backpack);
+        Backpack = temp;
+        level = toCopy.level;
+        hp = toCopy.hp;
+        strength = toCopy.strength;
+        dexterity = toCopy.dexterity;
+        agility = toCopy.agility;
+        intelligence = toCopy.intelligence;
+        flight = toCopy.flight;
+    }
 
 	public Stats ModifiedStats
 	{
