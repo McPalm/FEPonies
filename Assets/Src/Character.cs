@@ -15,6 +15,7 @@ public class Character {
 	Unit unit;
 
 	SkillTree skilltree;
+	[NonSerialized]
 	Backpack backpack;
 
 	[SerializeField]
