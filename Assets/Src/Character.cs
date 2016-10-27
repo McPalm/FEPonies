@@ -106,6 +106,10 @@ public class Character {
 		{
 			return skilltree;
 		}
+        set
+        {
+            skilltree = value;
+        }
 	}
 
 	public Backpack Backpack

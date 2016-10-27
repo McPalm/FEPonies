@@ -40,7 +40,8 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Character>
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        roster = StarterDatabase.StarterCharacters;
+        roster = StarterDatabase.GetRoster();
+        
 		activeRoster = roster;
     }
     //End of Singleton stuff
