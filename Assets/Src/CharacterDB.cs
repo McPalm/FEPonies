@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 /// <summary>
@@ -7,16 +8,8 @@ using System.Collections.Generic;
 public class CharacterDB : MonoBehaviour {
 
     [SerializeField]
-    private List<Character> starterCharacters;
+    private List<CharacterDBContainer> starterCharacters;
 
-    public List<Character> StarterCharacters
-    {
-        get
-        {
-            Debug.Log("gettingcharacters");
-            return new List<Character>(starterCharacters);
-        }
-    }
 	// Use this for initialization
 	void Start () {
 	
@@ -34,14 +27,39 @@ public class CharacterDB : MonoBehaviour {
     /// <returns>a copy of the character or null if not found</returns>
     public Character GetCharacter(string name)
     {
-        foreach(Character ch in starterCharacters)
+        foreach(CharacterDBContainer character in starterCharacters)
         {
-            if(ch.Name==name)
+            if(character.character.Name==name)
             {
-                Character temp = new Character(ch);
-                return temp;
+                Character tempChar = new Character(character.character);
+                tempChar.Backpack = character.backpack.GetBackpack();
+                tempChar.Skilltree = SkillTreeDB.GetSkillTreeClone(character.skillTree);
+                return tempChar;
             }
         }
         return null;
+    }
+
+    public List<Character> GetRoster()
+    {
+        List<Character> starterRoster = new List<Character>();
+        foreach (CharacterDBContainer character in starterCharacters)
+        {
+            Character tempChar = new Character(character.character);
+            tempChar.Backpack = character.backpack.GetBackpack();
+            tempChar.Skilltree = SkillTreeDB.GetSkillTreeClone(character.skillTree);
+            starterRoster.Add(tempChar);
+        }
+        return starterRoster;
+    }
+
+    [Serializable]
+    private class CharacterDBContainer
+    {
+#pragma warning disable 0649
+        public Character character;
+        public string skillTree;
+        public GearPackage backpack;
+#pragma warning restore 0649
     }
 }

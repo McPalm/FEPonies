@@ -94,6 +94,7 @@ public class Backpack : IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<
 		{
 			owner = value;
 			owner.AddBuff(this);
+            countStats();
 		}
 	}
 
@@ -190,7 +191,10 @@ public class Backpack : IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<
 		{
 			if (toBeEquipped is Armor)
 			{
-				if ((toBeEquipped as Armor).weight > owner.ModifiedStats.CarryingCapacity * 2) return false;
+                if (owner != null)
+                {
+                    if ((toBeEquipped as Armor).weight > owner.ModifiedStats.CarryingCapacity * 2) return false;
+                }
 				equippedArmor = (Armor)toBeEquipped;
 				countStats();
 				return true;
@@ -252,25 +256,28 @@ public class Backpack : IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<
 	/// </summary>
 	void countStats()
 	{
-		_equipmentStats = new Stats();
-		if(EquippedArmor != null) _equipmentStats = EquippedArmor.buff;
-		if(EquippedWeapon != null) _equipmentStats += EquippedWeapon.buff;
-		if(EquippedTrinket != null) _equipmentStats += EquippedTrinket.buff;
+        if (owner != null)
+        {
+            _equipmentStats = new Stats();
+            if (EquippedArmor != null) _equipmentStats = EquippedArmor.buff;
+            if (EquippedWeapon != null) _equipmentStats += EquippedWeapon.buff;
+            if (EquippedTrinket != null) _equipmentStats += EquippedTrinket.buff;
 
-		// calculate encumberance
-		if(equippedArmor != null)
-		{
-			if (equippedArmor.weight > owner.ModifiedStats.CarryingCapacity)
-			{
-				_equipmentStats.movement.moveSpeed--;
-				_equipmentStats.dodgeBonus -= (equippedArmor.weight - owner.ModifiedStats.CarryingCapacity) * 0.05f;
-			}
-			else
-			{
-				float ratio = 1f - (equippedArmor.weight / owner.ModifiedStats.CarryingCapacity);
-				_equipmentStats.dodgeBonus = ratio * 0.1f;
-			}
-		}
+            // calculate encumberance
+            if (equippedArmor != null)
+            {
+                if (equippedArmor.weight > owner.ModifiedStats.CarryingCapacity)
+                {
+                    _equipmentStats.movement.moveSpeed--;
+                    _equipmentStats.dodgeBonus -= (equippedArmor.weight - owner.ModifiedStats.CarryingCapacity) * 0.05f;
+                }
+                else
+                {
+                    float ratio = 1f - (equippedArmor.weight / owner.ModifiedStats.CarryingCapacity);
+                    _equipmentStats.dodgeBonus = ratio * 0.1f;
+                }
+            }
+        }
 	}
 
 	/// <summary>
