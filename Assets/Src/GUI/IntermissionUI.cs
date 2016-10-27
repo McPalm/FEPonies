@@ -29,6 +29,7 @@ public class IntermissionUI : MonoBehaviour, Observer
 	public AutoLerp Talents;
 
 	private RosterMenu rosterMenu;
+	[SerializeField]
 	private CharacterSheet characterSheet;
 	private SkillMenu skillMenu;
 
@@ -44,7 +45,6 @@ public class IntermissionUI : MonoBehaviour, Observer
 	{
 		rosterMenu = RosterMenu.GetComponent<RosterMenu>();
 		rosterMenu.registerObserver(this);
-		characterSheet = Sheet.GetComponent<CharacterSheet>();
 		skillMenu = Talents.GetComponent<SkillMenu>();
 	}
 
