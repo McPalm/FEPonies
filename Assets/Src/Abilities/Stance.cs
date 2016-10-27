@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System;
 
-abstract public class Stance : Ability {
+/// <summary>
+/// Stance abilities
+/// Activating a stance ability deactivates all other stances.
+/// </summary>
+abstract public class Stance : Ability, SustainedAbility {
 
 	public override void Use()
 	{

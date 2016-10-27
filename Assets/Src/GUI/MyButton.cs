@@ -40,7 +40,12 @@ public class MyButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 		set
 		{
-			icon.sprite = value;
+			if (value == null) icon.gameObject.SetActive(false);
+			else
+			{
+				icon.gameObject.SetActive(true);
+				icon.sprite = value;
+			}
 		}
 	}
 
@@ -71,6 +76,14 @@ public class MyButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		set
 		{
 			pulse = value;
+		}
+	}
+
+	public bool HighLight
+	{
+		set
+		{
+			GetComponent<Image>().color = (value) ? Color.yellow : Color.white;
 		}
 	}
 

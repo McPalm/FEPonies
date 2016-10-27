@@ -19,6 +19,7 @@ public class ArmorDB
 	{
 		List<ArmorStats> list = new List<ArmorStats>();
 		list.Add(new ArmorStats("Plain Robes", 1, 0, 1f));
+		list.Add(new ArmorStats("War Paint", 1, 0, 0.75f));
 		list.Add(new ArmorStats("Leather Armor", 1, 2, 0.5f));
 		list.Add(new ArmorStats("Ring Mail", 1, 5, 0.4f));
 		list.Add(new ArmorStats("Cuirass", 1, 8, 0.3f));
@@ -34,16 +35,17 @@ public class ArmorDB
 		list.Add(new ArmorStats("Wyrm Scale", 10, 8, 0.5f));
 		list.Add(new ArmorStats("Wyrm Plate", 10, 12, 0.5f));
 		list.Add(new ArmorStats("Stone Plate", 10, 20, 0.35f));
+		
 
 		adb = new HashSet<ArmorStats>();
 		foreach(ArmorStats a in list)
 		{
 			adb.Add(a);
-			adb.Add(new ArmorStats(a.name, a.level + 2, a.weight, a.resistance, 1));
-			adb.Add(new ArmorStats(a.name, a.level + 4, a.weight, a.resistance, 2));
-			adb.Add(new ArmorStats(a.name, a.level + 6, a.weight, a.resistance, 3));
-			adb.Add(new ArmorStats(a.name, a.level + 8, a.weight, a.resistance, 4));
-			adb.Add(new ArmorStats(a.name, a.level + 10, a.weight, a.resistance, 5));
+			adb.Add(new ArmorStats(a.name, a.level + 3, a.weight, a.resistance, 1));
+			adb.Add(new ArmorStats(a.name, a.level + 6, a.weight, a.resistance, 2));
+			adb.Add(new ArmorStats(a.name, a.level + 9, a.weight, a.resistance, 3));
+			adb.Add(new ArmorStats(a.name, a.level + 12, a.weight, a.resistance, 4));
+			adb.Add(new ArmorStats(a.name, a.level + 15, a.weight, a.resistance, 5));
 		}
 	}
 
@@ -98,6 +100,10 @@ public class ArmorDB
 		// Special attributes
 		switch(a.name)
 		{
+			case "War Paint":
+				af.StrenghtBonus();
+				af.AgilityBonus();
+				break;
 			case "Thieves Cape":
 				af.AgilityBonus();
 				break;

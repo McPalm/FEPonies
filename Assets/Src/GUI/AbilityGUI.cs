@@ -8,7 +8,7 @@ public class AbilityGUI : MonoBehaviour {
 
 	Unit client;
 
-	public List<Text> abilitytexts;
+	public List<MyButton> buttons;
 
 	List<Ability> _abils;
 
@@ -19,8 +19,7 @@ public class AbilityGUI : MonoBehaviour {
 			case GameState.unitSelected:
 				if(client != Unit.SelectedUnit)
 				{
-					client = Unit.SelectedUnit;
-					Build();
+					Build(Unit.SelectedUnit);
 				}
 				if (Input.GetButtonDown("a1")) Use(0);
 				else if (Input.GetButtonDown("a2")) Use(1);
@@ -36,22 +35,32 @@ public class AbilityGUI : MonoBehaviour {
 
 	private void Clear()
 	{
+		client = null;
 		for(int i = 0; i < 5; i++)
 		{
-			abilitytexts[i].text = (i + 1).ToString();
+			buttons[i].Label  = (i + 1).ToString();
+			buttons[i].chain = false;
+			buttons[i].HighLight = false;
+			buttons[i].Icon = null;
 		}
 	}
 
-	private void Build()
+	private void Build(Unit client)
 	{
 		Clear();
+		this.client = client;
 		client.GetComponents<Ability>(_abils = new List<Ability>());
 		int i = 0;
 		foreach(Ability a in _abils)
 		{
-			if (i == abilitytexts.Count) break;
-			abilitytexts[i].text = a.Name;
+			if (i == buttons.Count) break;
+			if(a is SustainedAbility)
+			{
+				if ((a as SustainedAbility).Active) buttons[i].HighLight = true;
+			}
+			buttons[i].Label = a.Name;
 			i++;
+			
 		}
 	}
 
@@ -64,5 +73,14 @@ public class AbilityGUI : MonoBehaviour {
 				_abils[button].Use();
 			}
 		}
+		if(StateManager.Instance.State == GameState.unitSelected)
+		{
+			Build(client);
+		}
+	}
+
+	void Start()
+	{
+		Clear();
 	}
 }
