@@ -29,7 +29,7 @@ public class CharacterDB : MonoBehaviour {
     {
         foreach(CharacterDBContainer character in starterCharacters)
         {
-            if(character.character.Name==name)
+            if(character.name == name)
             {
                 Character tempChar = new Character(character.character);
                 tempChar.Backpack = character.backpack.GetBackpack();
@@ -57,6 +57,7 @@ public class CharacterDB : MonoBehaviour {
     private class CharacterDBContainer
     {
 #pragma warning disable 0649
+		public string name;
         public Character character;
         public string skillTree;
         public GearPackage backpack;
