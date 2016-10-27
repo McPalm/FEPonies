@@ -94,6 +94,7 @@ public class Backpack : IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<
 		{
 			owner = value;
 			owner.AddBuff(this);
+            countStats();
 		}
 	}
 
