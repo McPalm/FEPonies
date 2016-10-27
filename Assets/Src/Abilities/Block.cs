@@ -22,7 +22,7 @@ public class Block : Passive, IDefenceModifiers {
 		}
 	}
 
-	public void Test(DamageData dd)
+	public void DefenceTest(DamageData dd)
 	{
 		if (dd.testAttack)
 		{

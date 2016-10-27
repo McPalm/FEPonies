@@ -780,7 +780,7 @@ public class Unit : MonoBehaviour {
 		dmods.Sort(delegate (IDefenceModifiers a, IDefenceModifiers b) { return b.Priority - a.Priority; });
 		foreach (IDefenceModifiers dmod in dmods)
 		{
-			dmod.Test(dd);
+			dmod.DefenceTest(dd);
 		}
 	}
 }

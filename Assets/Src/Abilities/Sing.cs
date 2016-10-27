@@ -118,7 +118,7 @@ public class Sing : Ability, AIAbility, SustainedAbility, IDefenceModifiers {
 		Particle.NoteParticle(  (transform.position + new Vector3(UnityEngine.Random.Range(-0.1f, 0.4f), UnityEngine.Random.Range(0.3f, 0.7f), 0f))  );
 	}
 
-	public void Test(DamageData dd)
+	public void DefenceTest(DamageData dd)
 	{
 		dd.RegisterCallback(NotifyHealth);
 	}
