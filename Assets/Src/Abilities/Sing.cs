@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
-public class Sing : Ability, HealthObserver, AIAbility {
+public class Sing : Ability, AIAbility, SustainedAbility, IDefenceModifiers {
 
-	private BuffArea _areaBuff;
 	private bool _isSinging = false;
 	private float _nextParticle = 5f;
 
@@ -22,7 +22,7 @@ public class Sing : Ability, HealthObserver, AIAbility {
 			_nextParticle -= Time.deltaTime;
 			if(_nextParticle < 0f){
 				Note();
-				_nextParticle = Random.Range(0.1f, 4f);
+				_nextParticle = UnityEngine.Random.Range(0.1f, 4f);
 			}
 		}
 
@@ -32,33 +32,25 @@ public class Sing : Ability, HealthObserver, AIAbility {
 	{
 		if(_isSinging){
 			_isSinging = false;
-			_areaBuff.Stop();
 		}else{
 			_isSinging = true;
-			if(_areaBuff == null){
-				_areaBuff = gameObject.AddComponent<BuffArea>();
-				_areaBuff.Initialize(3, new Stats());
-				CalulateBuff();
-				GetComponent<Unit>().RegisterHealthObserver(this);
-			}else{
-				_areaBuff.Start();
-			}
+			HandOutBuff();
 			Note();
 			_nextParticle = 0.1f;
 			FinishUse();
 		}
 	}
 
-	void CalulateBuff(){
-		int i = GetComponent<Character>().ModifiedStats.intelligence;
-		Stats s = new Stats();
-		s.strength = (i+7)/5;
-		s.hitBonus = i*0.01f;
-		_areaBuff.buff = s;
-	}
-
-	void LevelUp(){
-		CalulateBuff();
+	private void HandOutBuff()
+	{
+		foreach (Unit u in UnitManager.Instance.GetUnitsByFriendliness(GetComponent<Unit>()))
+		{
+			if (u.GetComponent<SingBuff>() == null)
+			{
+				SingBuff sb = u.gameObject.AddComponent<SingBuff>();
+				sb.Initialize(this);
+			}
+		}
 	}
 
 	public int judgeAbility(Unit user, Tile move, out Tile target)
@@ -97,10 +89,25 @@ public class Sing : Ability, HealthObserver, AIAbility {
 		}
 	}
 
-	public void NotifyHealth (Unit unit, int change)
+	public bool Active
 	{
-		if(change < 0){
-			_areaBuff.Stop();
+		get
+		{
+			return _isSinging;
+		}
+	}
+
+	public int Priority
+	{
+		get
+		{
+			throw new NotImplementedException();
+		}
+	}
+
+	public void NotifyHealth (DamageData dd)
+	{
+		if(dd.FinalDamage > 0){
 			if(_isSinging) Particle.Clave(transform.position);
 			_isSinging = false;
 			// SFXPlayer.Instance.Scratch();
@@ -108,6 +115,11 @@ public class Sing : Ability, HealthObserver, AIAbility {
 	}
 
 	private void Note(){
-		Particle.NoteParticle(  (transform.position + new Vector3(Random.Range(-0.1f, 0.4f), Random.Range(0.3f, 0.7f), 0f))  );
+		Particle.NoteParticle(  (transform.position + new Vector3(UnityEngine.Random.Range(-0.1f, 0.4f), UnityEngine.Random.Range(0.3f, 0.7f), 0f))  );
+	}
+
+	public void DefenceTest(DamageData dd)
+	{
+		dd.RegisterCallback(NotifyHealth);
 	}
 }

@@ -15,6 +15,6 @@ public interface IDefenceModifiers
 		get;
 	}
 
-	void Test(DamageData dd);
+	void DefenceTest(DamageData dd);
 
 }

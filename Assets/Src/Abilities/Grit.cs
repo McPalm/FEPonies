@@ -21,7 +21,7 @@ public class Grit : Passive, IDefenceModifiers
 		}
 	}
 
-	public void Test(DamageData dd)
+	public void DefenceTest(DamageData dd)
 	{
 		Stats s = dd.target.GetStatsAt(dd.target.Tile);
 		if (dd.ApplyDefences(s.defense, s.resistance) >= dd.target.CurrentHP)
