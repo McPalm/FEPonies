@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 public class Mana : MonoBehaviour{
 
-	public int maxMana = 0;
-	private int _manaSpent = 0;
+	int maxMana = 0;
+	int _manaSpent = 0;
 	
 	public Mana (int maxMana)
 	{
@@ -13,6 +13,7 @@ public class Mana : MonoBehaviour{
 
 	void Start(){
 		ManaBar.Create(transform);
+		maxMana = GetComponent<Unit>().Character.ModifiedStats.maxMana;
 	}
 	
 	public int MaxMana{

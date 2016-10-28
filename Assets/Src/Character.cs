@@ -35,6 +35,8 @@ public class Character {
 	[SerializeField]
 	[Range(1, 6)]
 	int intelligence = 3;
+	[SerializeField, Range(0, 5)]
+	int mana = 0;
 	[SerializeField]
 	private bool flight = false;
 
@@ -194,6 +196,7 @@ public class Character {
 		baseStats.dexterity = dexterity;
 		baseStats.agility = agility;
 		baseStats.intelligence = intelligence;
+		baseStats.maxMana = mana;
 		baseStats.movement.moveSpeed = (Flight) ? 6 : 5;
 		baseStats.movement.moveType = (Flight) ? MoveType.flying : MoveType.walking;
 

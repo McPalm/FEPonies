@@ -28,6 +28,7 @@ public struct Stats
 	public float critBonus;
     public float critDodgeBonus;
 	public int carryBonus;
+	public int maxMana;
 
 	public float Dodge
 	{
@@ -62,7 +63,7 @@ public struct Stats
 	{
 		get
 		{
-			return strength;
+			return strength + carryBonus;
 		}
 	}
 
@@ -82,6 +83,7 @@ public struct Stats
 		critBonus = 0f;
         critDodgeBonus = 0f;
 		carryBonus = 0;
+		maxMana = 0;
 	}
 
 	public Stats (UnitMove movement, int maxHP, int strength, int agility, int dexterity, int intelligence,
@@ -101,9 +103,10 @@ public struct Stats
 		this.critBonus = crit;
         this.critDodgeBonus = critDodge;
 		carryBonus = 0;
+		maxMana = 0;
 	}
 	public Stats(UnitMove movement, int maxHP, int strength, int agility, int dexterity, int intelligence,
-				  int defense, int resistance, float dodgeBonus, float hitBonus, float baseAttackMod, float crit, float critDodge, int carry)
+				  int defense, int resistance, float dodgeBonus, float hitBonus, float baseAttackMod, float crit, float critDodge, int carry, int maxMana)
 	{
 		this.movement = movement;
 		this.maxHP = maxHP;
@@ -118,7 +121,8 @@ public struct Stats
 		this.baseAttackMod = baseAttackMod;
 		this.critBonus = crit;
 		this.critDodgeBonus = critDodge;
-		carryBonus = 0;
+		carryBonus = carry;
+		this.maxMana = maxMana;
 	}
 
 	// overload operator +
@@ -126,7 +130,8 @@ public struct Stats
 		return new Stats(a.movement+b.movement, a.maxHP+b.maxHP,
 		                 a.strength+b.strength, a.agility+b.agility, a.dexterity+b.dexterity, a.intelligence+b.intelligence,
 		                 a.defense+b.defense, a.resistance+b.resistance, a.dodgeBonus + b.dodgeBonus, a.hitBonus+b.hitBonus,
-		                 a.baseAttackMod+b.baseAttackMod, a.critBonus+b.critBonus, a.critDodgeBonus+b.critDodgeBonus, a.carryBonus+b.carryBonus);
+		                 a.baseAttackMod+b.baseAttackMod, a.critBonus+b.critBonus, a.critDodgeBonus+b.critDodgeBonus,
+						 a.carryBonus+b.carryBonus, a.maxMana + b.maxMana);
 	}
 
 	/// <summary>
@@ -144,7 +149,8 @@ public struct Stats
 			rv.resistance = (rv.resistance > a[i].resistance) ? rv.resistance : a[i].resistance;
 			rv.movement.moveSpeed = (rv.movement.moveSpeed > a[i].movement.moveSpeed) ? rv.movement.moveSpeed : a[i].movement.moveSpeed;
 			rv.carryBonus = (rv.carryBonus > a[i].carryBonus) ? rv.carryBonus : a[i].carryBonus;
-			if(a[i].movement.moveType == MoveType.flying) rv.movement.moveType = MoveType.flying;
+			rv.maxMana = (rv.maxMana > a[i].maxMana) ? rv.maxMana : a[i].maxMana;
+			if (a[i].movement.moveType == MoveType.flying) rv.movement.moveType = MoveType.flying;
 		}
 		return rv;
 	}
