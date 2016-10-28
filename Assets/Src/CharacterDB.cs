@@ -31,12 +31,10 @@ public class CharacterDB : MonoBehaviour {
         {
             if(character.name == name)
             {
-                Character tempChar = new Character(character.character);
-                tempChar.Backpack = character.backpack.GetBackpack();
-                tempChar.Skilltree = SkillTreeDB.GetSkillTreeClone(character.skillTree);
-                return tempChar;
+                return BuildCharacter(character);
             }
         }
+		Debug.LogError("Unable to retrieve " + name + " from the Character Database.");
         return null;
     }
 
@@ -45,13 +43,20 @@ public class CharacterDB : MonoBehaviour {
         List<Character> starterRoster = new List<Character>();
         foreach (CharacterDBContainer character in starterCharacters)
         {
-            Character tempChar = new Character(character.character);
-            tempChar.Backpack = character.backpack.GetBackpack();
-            tempChar.Skilltree = SkillTreeDB.GetSkillTreeClone(character.skillTree);
-            starterRoster.Add(tempChar);
+            starterRoster.Add(BuildCharacter(character));
         }
         return starterRoster;
     }
+
+	Character BuildCharacter(CharacterDBContainer cc)
+	{
+		Character retVal = new Character(cc.character);
+		retVal.Backpack = cc.backpack.GetBackpack();
+		retVal.Skilltree = SkillTreeDB.GetSkillTreeClone(cc.skillTree);
+		retVal.Initialize(null);
+
+		return retVal;
+	}
 
     [Serializable]
     private class CharacterDBContainer
