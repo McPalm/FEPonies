@@ -111,11 +111,26 @@ public class SkillTreeInspector : EditorWindow{
 
 	void BuildLevel(SkillTree.SkillTreeLevel stl, int level)
 	{
+		
+		
+
 		EditorGUILayout.BeginHorizontal();
-		GUILayout.Label((level+1).ToString());
-		stl.option1 = GUILayout.TextField(stl.option1);
-		stl.option2 = GUILayout.TextField(stl.option2);
+		
+		stl.option1 = GUILayout.TextField(stl.option1, GUILayout.MinWidth(100f));
+
+		bool one = (stl.Choise == 1);
+		one = EditorGUILayout.Toggle(one, GUILayout.Width(13f));
+		if (one) stl.Choise = 1;
+
+		GUILayout.Label((level + 1).ToString(), GUILayout.Width(25f));
+
+		bool two = (stl.Choise == 2);
+		two = EditorGUILayout.Toggle(two, GUILayout.Width(13f));
+		if (two) stl.Choise = 2;
+
+		stl.option2 = GUILayout.TextField(stl.option2, GUILayout.MinWidth(100f));
 		EditorGUILayout.EndHorizontal();
+		if (!one && !two) stl.Choise = 0;
 	}
 
 	void Verify(SkillTree st)
