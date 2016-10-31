@@ -20,7 +20,7 @@ public class SkillDB : MonoBehaviour {
 			if (sc.name == name)
 				return sc.icon;
 		}
-		Debug.LogError("Missing icon for " + name);
+		Debug.LogWarning("Missing icon for " + name);
 		return _instance.defaultSprite;
 	}
 
@@ -31,7 +31,7 @@ public class SkillDB : MonoBehaviour {
 			if (sc.name == name)
 				return sc.name + "\n" + sc.tooltip;
 		}
-		Debug.LogError("Missing tooltip for " + name);
+		Debug.LogWarning("Missing tooltip for " + name);
 		return name;
 	}
 
@@ -42,7 +42,7 @@ public class SkillDB : MonoBehaviour {
 			if (sc.name == name)
 				return string.Format(sc.description, userName);
 		}
-		Debug.LogError("Missing description for " + name);
+		Debug.LogWarning("Missing description for " + name);
 		return name;
 	}
 
