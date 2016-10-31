@@ -3,20 +3,19 @@ using System.Collections.Generic;
 
 public class SkillDB : MonoBehaviour {
 
-	static private SkillDB _instance;
-
+	static SkillDB _instance;
 	static public SkillDB Instance
 	{
 		get
 		{
-			if(Instance == null)_instance = Resources.Load<SkillDB>("SkillDB");
+			if(_instance == null)_instance = Resources.Load<SkillDB>("SkillDB");
 			return _instance;
 		}
 	}
 
 	static public Sprite GetIcon(string name)
 	{
-		foreach(SkillContainer sc in _instance.library)
+		foreach (SkillContainer sc in Instance.library)
 		{
 			if (sc.name == name)
 				return sc.icon;

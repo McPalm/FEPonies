@@ -78,7 +78,7 @@ public class SkillMenu : ScrollMenu {
 		else if (n == "Dex") mb.icon.sprite = dex;
 		else if (n == "Agi") mb.icon.sprite = agi;
 		else if (n == "Int") mb.icon.sprite = inte;
-		else mb.icon.sprite = missing;
+		else mb.icon.sprite = SkillDB.GetIcon(n);
 		if (enabled) mb.Register(Select, callback);
 		mb.Pulse = enabled;
 		mb.chain = chain;
