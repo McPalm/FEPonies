@@ -13,8 +13,11 @@ public class MyButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	[SerializeField]
 	private Image chains;
 	private bool pulse;
+	private string _toolTip = "";
 
 	Action<int> callback;
+	Action<string> mouseoverEvent;
+	string mouseoverString;
 	int callbackInt;
 	private float pulsecount = 0f;
 
@@ -87,6 +90,19 @@ public class MyButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		}
 	}
 
+	public string MouseoverText
+	{
+		get
+		{
+			return _toolTip;
+		}
+
+		set
+		{
+			_toolTip = value;
+		}
+	}
+
 	public void Update()
 	{
 		if(pulse)
@@ -109,14 +125,20 @@ public class MyButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 	public void OnPointerEnter(PointerEventData p)
 	{
-		if(Active)
+		if (Active)
 			transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+		if (_toolTip != "")
+			ToolTip.Set(_toolTip);
+		if (mouseoverEvent != null)
+			mouseoverEvent(mouseoverString);
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
 		if (Active)
 			transform.localScale = Vector3.one;
+		if (_toolTip != "")
+			ToolTip.Hide();
 	}
 
 	public void OnPointerDown(PointerEventData eventData)
@@ -128,5 +150,11 @@ public class MyButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	public void OnPointerClick(PointerEventData eventData)
 	{
 		transform.localScale = Vector3.one;
+	}
+
+	public void MouseoverCallback(Action<string> a, string s)
+	{
+		mouseoverEvent = a;
+		mouseoverString = s;
 	}
 }

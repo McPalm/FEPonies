@@ -24,6 +24,28 @@ public class SkillDB : MonoBehaviour {
 		return _instance.defaultSprite;
 	}
 
+	static public string GetToolTip(string name)
+	{
+		foreach (SkillContainer sc in Instance.library)
+		{
+			if (sc.name == name)
+				return sc.name + "\n" + sc.tooltip;
+		}
+		Debug.LogError("Missing tooltip for " + name);
+		return name;
+	}
+
+	static public string GetDescription(string name, string userName)
+	{
+		foreach (SkillContainer sc in Instance.library)
+		{
+			if (sc.name == name)
+				return string.Format(sc.description, userName);
+		}
+		Debug.LogError("Missing description for " + name);
+		return name;
+	}
+
 
 	[SerializeField]
 	Sprite defaultSprite;

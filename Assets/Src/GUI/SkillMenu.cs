@@ -9,6 +9,10 @@ public class SkillMenu : ScrollMenu {
 	public Image portrait;
 	[SerializeField]
 	private MyButton skillButton;
+	[SerializeField]
+	Text skillName;
+	[SerializeField]
+	Text skillDecription;
 
 	public Sprite str;
 	public Sprite dex;
@@ -83,6 +87,14 @@ public class SkillMenu : ScrollMenu {
 		mb.Pulse = enabled;
 		mb.chain = chain;
 		mb.Active = enabled;
+		mb.MouseoverCallback(BuildStringText, n);
+		// mb.MouseoverText = SkillDB.GetToolTip(n);
+	}
+
+	private void BuildStringText(string s)
+	{
+		skillName.text = s;
+		skillDecription.text = SkillDB.GetDescription(s, active.Name);
 	}
 
 	private void SetPortrait(Character c)
