@@ -58,7 +58,8 @@ public class AbilityGUI : MonoBehaviour {
 			{
 				if ((a as SustainedAbility).Active) buttons[i].HighLight = true;
 			}
-			buttons[i].Label = a.Name;
+			buttons[i].Label = "";
+			buttons[i].Icon = SkillDB.GetIcon(a.Name);
 			i++;
 			
 		}
