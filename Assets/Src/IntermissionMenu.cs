@@ -157,7 +157,7 @@ public class IntermissionMenu : MonoBehaviour {
 			if(DrawSkillCell(rootX, rootY+40*(i), name, "    " + sv.skillpointsAvailable(name).ToString())){
 				_selectedPony = name;
 				_sub = subMenu.ViewPonySkills;
-				_skills = SkillDB.GetSkills(name);
+				_skills = oldSkillDB.GetSkills(name);
 				_zeroIndex = 0;
 				_skillDescription = "select ability for details";
 				_learnedSkills = new List<string>(SaveFile.Active.GetAbilities(name));
@@ -212,7 +212,7 @@ public class IntermissionMenu : MonoBehaviour {
 			if(GUI.Button(new Rect(anchorX+410, anchorY+40*(i), 190, 30), preformat + skill + postformat)){
 				//Debug.Log(_skills[i+_zeroIndex]);
 				_selectedSkill = skill;
-				_skillDescription = SkillDB.GetDescription(skill);
+				_skillDescription = oldSkillDB.GetDescription(skill);
 			}
 		}
 

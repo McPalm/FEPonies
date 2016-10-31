@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-static public class SkillDB{
+static public class oldSkillDB{
 
 	static public string[] GetSkills(string name){
 		switch(name){
