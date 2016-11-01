@@ -21,6 +21,7 @@ public class SkillTree : Buff {
 	/// <param name="o"></param>
 	public SkillTree(SkillTree o)
 	{
+		if (o == null) Debug.LogError("Tried to copy a tree that is null!");
 		skills = new List<SkillTreeLevel>();
 		foreach(SkillTreeLevel stl in o.skills)
 		{

@@ -49,9 +49,12 @@ public class Character {
         mugShot = toCopy.MugShot;
         sprite = toCopy.Sprite;
         unit = toCopy.Unit;
-        skilltree = new SkillTree(toCopy.Skilltree);
-        Backpack temp = new Backpack(toCopy.Backpack);
-        Backpack = temp;
+        if(toCopy.Skilltree != null) skilltree = new SkillTree(toCopy.Skilltree);
+		if (toCopy.Backpack != null)
+		{
+			Backpack temp = new Backpack(toCopy.Backpack);
+			Backpack = temp;
+		}
         level = toCopy.level;
         hp = toCopy.hp;
         strength = toCopy.strength;
