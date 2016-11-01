@@ -91,6 +91,7 @@ public class SkillTree : Buff {
 	[System.Serializable]
 	public class SkillTreeLevel
 	{
+		[SerializeField]
 		int choise = 0;
 		public string option1 = "";
 		public string option2 = "";
