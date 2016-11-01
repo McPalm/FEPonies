@@ -63,12 +63,6 @@ public class AbilityLibrary
         abilityLibrary.Add("Wingslayer", typeof(Wingslayer));
         abilityLibrary.Add("Wormhole", typeof(Wormhole));
         abilityLibrary.Add("Wubs", typeof(Wubs));
-
-
-
-
-
-
 	}
 
     public System.Type getTypeFromAbility(string s)
@@ -76,4 +70,9 @@ public class AbilityLibrary
         System.Type rv = abilityLibrary[s];
         return rv;
     }
+
+	public bool Contains(string s)
+	{
+		return abilityLibrary.ContainsKey(s);
+	}
 }

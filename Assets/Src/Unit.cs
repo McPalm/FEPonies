@@ -347,6 +347,13 @@ public class Unit : MonoBehaviour {
 			character.Initialize(this);
 			// Assign Sprite
 			GetComponent<SpriteRenderer>().sprite = character.Sprite;
+			// do skills
+			foreach (String s in Character.Skilltree.GetSkills(character.Level))
+			{
+				Type t = AbilityLibrary.Instance.getTypeFromAbility(s);
+				gameObject.AddComponent(t);
+
+			}
 		}
 	}
 

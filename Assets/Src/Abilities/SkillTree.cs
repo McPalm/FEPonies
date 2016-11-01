@@ -88,6 +88,19 @@ public class SkillTree : Buff {
 		_stats = r;
 	}
 
+	public string[] GetSkills(int level)
+	{
+		List<string> retval = new List<string>();
+		for(int i = 0; i < level; i++)
+		{
+			if(AbilityLibrary.Instance.Contains(skills[i].Selected))
+			{
+				retval.Add(skills[i].Selected);
+			}
+		}
+		return retval.ToArray();
+	}
+
 	[System.Serializable]
 	public class SkillTreeLevel
 	{
