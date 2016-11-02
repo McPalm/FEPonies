@@ -8,9 +8,10 @@ public class CharacterSheet : MonoBehaviour {
 	public Text nameText;
 	public Image portrait;
 	public Text statText;
-	public Text abilityText;
 	[SerializeField]
 	ItemFrame itemFrame;
+	[SerializeField]
+	AbilityFrame abilityFrame;
 
 	private Unit client;
 
@@ -19,25 +20,8 @@ public class CharacterSheet : MonoBehaviour {
 		nameText.text = c.Name;
 		SetPortrait(c);
 		BuildStats(c);
-		BuildAbilities(c);
+		abilityFrame.Build(c);
 		itemFrame.Build(c.Backpack);
-	}
-
-	private void BuildAbilities(Character c)
-	{
-		
-		string output = "Not yet Implemented";
-		/*
-		foreach(Skill a in c.GetComponents<Skill>())
-		{
-			output += a.Name;
-			if(a is Passive)
-				output += "\n";
-			else
-				output += " \n";
-		}
-		*/
-		abilityText.text = output;
 	}
 
 	private void SetPortrait(Character c)

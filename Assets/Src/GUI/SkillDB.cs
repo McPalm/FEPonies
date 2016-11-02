@@ -65,6 +65,7 @@ public class SkillDB : MonoBehaviour {
 	[System.Serializable]
 	class SkillContainer
 	{
+#pragma warning disable
 		public string name;
 		public Sprite icon;
 		public string tooltip;
