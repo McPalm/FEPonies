@@ -6,6 +6,7 @@ public class BattleSheet : MonoBehaviour {
 	static BattleSheet instance;
 
 	public CharacterSheet sheet;
+	public MyButton closeButton;
 
 	Unit client;
 
@@ -25,6 +26,7 @@ public class BattleSheet : MonoBehaviour {
 	// Update is called once per frame
 	void Start () {
 		sheet.gameObject.SetActive(false);
+		closeButton.gameObject.SetActive(false);
 	}
 
 	// Update is called once per frame
@@ -44,6 +46,7 @@ public class BattleSheet : MonoBehaviour {
 		sheet.Build(client.Character);
 		if (StateManager.Instance.State != GameState.characterSheet) StateManager.Instance.Push(GameState.characterSheet);
 		sheet.gameObject.SetActive(true);
+		closeButton.gameObject.SetActive(true);
 	}
 
 	/// <summary>
@@ -55,6 +58,7 @@ public class BattleSheet : MonoBehaviour {
 		if (StateManager.Instance.Peek() == GameState.characterSheet)
 		{
 			sheet.gameObject.SetActive(false);
+			closeButton.gameObject.SetActive(false);
 			StateManager.Instance.Pop();
 		}
 		else
