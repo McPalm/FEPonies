@@ -15,6 +15,9 @@ public class ItemInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	[SerializeField]
 	Image frame;
 
+	System.Action<Item> mouseovercallback;
+	Item callbackitem;
+
 	public bool Equipped
 	{
 		set
@@ -32,10 +35,17 @@ public class ItemInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	public void OnPointerEnter(PointerEventData eventData)
 	{
 		frame.transform.localScale = Vector3.one * 1.1f;
+		if (mouseovercallback != null) mouseovercallback(callbackitem);
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
 		frame.transform.localScale = Vector3.one;
+	}
+
+	public void MouseoverCallback(Action<Item> a, Item s)
+	{
+		mouseovercallback = a;
+		callbackitem = s;
 	}
 }

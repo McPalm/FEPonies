@@ -12,6 +12,12 @@ public class CharacterSheet : MonoBehaviour {
 	ItemFrame itemFrame;
 	[SerializeField]
 	AbilityFrame abilityFrame;
+	[SerializeField]
+	Text descriptionTitle;
+	[SerializeField]
+	Text descriptionText;
+	[SerializeField]
+	Image descriptionPicture;
 
 	private Unit client;
 
@@ -20,8 +26,9 @@ public class CharacterSheet : MonoBehaviour {
 		nameText.text = c.Name;
 		SetPortrait(c);
 		BuildStats(c);
-		abilityFrame.Build(c);
-		itemFrame.Build(c.Backpack);
+		abilityFrame.Build(c, SetDescription);
+		itemFrame.Build(c.Backpack, SetDescription);
+		SetDescription("", "", null);
 	}
 
 	private void SetPortrait(Character c)
@@ -66,5 +73,13 @@ public class CharacterSheet : MonoBehaviour {
 				100 * mystats.CritDodge + "%\n" + //CRIT.D
 				mystats.defense + "\n" + //ARMOR
 				mystats.resistance; //RESISTANCE
+	}
+
+	public void SetDescription(string title, string body, Sprite image)
+	{
+		descriptionTitle.text = title;
+		descriptionText.text = body;
+		descriptionPicture.gameObject.SetActive(image != null);
+		descriptionPicture.sprite = image;
 	}
 }
