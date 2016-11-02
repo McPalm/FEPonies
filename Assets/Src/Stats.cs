@@ -24,7 +24,7 @@ public struct Stats
 	public int resistance;
 	public float dodgeBonus;
 	public float hitBonus;
-	public float baseAttackMod;
+	public float baseAttackMod; // deprechiated
 	public float critBonus;
     public float critDodgeBonus;
 	public int carryBonus;
