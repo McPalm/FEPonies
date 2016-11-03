@@ -25,6 +25,8 @@ public class WeaponFactory {
 	float intelligence = 0;
 	float scaling = 1f;
 
+	int spread = 0;
+
 	public WeaponFactory(string name = "")
 	{
 		this.name = name;
@@ -130,7 +132,7 @@ public class WeaponFactory {
 		dexterity = dex / total;
 		intelligence = i / total;
 
-		int spread = 0;
+		spread = 0;
 		if (str > 0) spread++;
 		if (dex > 0) spread++;
 		if (i > 0) spread++;
@@ -139,24 +141,24 @@ public class WeaponFactory {
 
 		if (spread == 2)
 		{
-			strenght = strenght * 1.2f;
-			dexterity = dexterity * 1.2f;
-			intelligence = intelligence * 1.2f;
+			strenght = strenght * 1.15f;
+			dexterity = dexterity * 1.15f;
+			intelligence = intelligence * 1.15f;
 		}
 		if(spread == 3)
 		{
-			strenght = strenght * 1.4f;
-			dexterity = dexterity * 1.4f;
-			intelligence = intelligence * 1.4f;
+			strenght = strenght * 1.35f;
+			dexterity = dexterity * 1.35f;
+			intelligence = intelligence * 1.35f;
 		}
 	}
 	public void HighScaling()
 	{
-		scaling = 1.5f;
+		scaling = 1.3f;
 	}
 	public void LowScaling()
 	{
-		scaling = 0.5f;
+		scaling = 0.7f;
 	}
 
 	public Weapon GetWeapon()
@@ -175,7 +177,7 @@ public class WeaponFactory {
 		if (defences == APIERCE) advantages += 0.5f;
 		if (hitMod > 0) advantages += hitMod / 7f;
 		if (critMod > 0) advantages += critMod / 5f;
-		if (scaling > 0) advantages += 0.5f;
+		if (scaling > 0) advantages += 0.75f;
 
 		// disadvantages
 		if (hitMod < 0) disadvantages += hitMod / 10f;
@@ -185,7 +187,7 @@ public class WeaponFactory {
 		power /= 1f + advantages;
 		power *= 1f + disadvantages;
 
-		scaling = scaling * (1f + level * 0.05f);
+		scaling = scaling * (1f + level * 0.025f + power * 0.01f);
 
 		// grant the weapon appropiate range
 		IReach ir;
@@ -217,7 +219,7 @@ public class WeaponFactory {
 	private WeaponDamage GetWeaponDamage(float power)
 	{
 		WeaponDamage wd = new WeaponDamage();
-		wd.BaseDamage = (int)(power * 1.5f);
+		wd.BaseDamage = (int)(power * 1.5f * (1.25f - spread * 0.25f));
 		if (defences == APIERCE) wd.DefenceMulitiplier = 0.5f;
 		if (defences == RESIST)
 		{

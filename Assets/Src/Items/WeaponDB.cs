@@ -143,7 +143,7 @@ public class WeaponDB
 				wf.SetMeleeAndRange();
 				break;
 			case "Warhammer":
-				wf.LowHit();
+				wf.LowHit(3);
 				wf.ArmorPenetrating();
 				wf.HighScaling();
 				break;
