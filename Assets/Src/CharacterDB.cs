@@ -53,6 +53,8 @@ public class CharacterDB : MonoBehaviour {
 		Character retVal = new Character(cc.character);
 		retVal.Backpack = cc.backpack.GetBackpack();
 		retVal.Skilltree = SkillTreeDB.GetSkillTreeClone(cc.skillTree);
+        retVal.Sprite = cc.sprite;
+        retVal.MugShot = cc.mugShot;
 		retVal.Initialize(null);
 
 		return retVal;
@@ -66,6 +68,8 @@ public class CharacterDB : MonoBehaviour {
         public Character character;
         public string skillTree;
         public GearPackage backpack;
+        public Sprite mugShot;
+        public Sprite sprite;
 #pragma warning restore 0649
     }
 }

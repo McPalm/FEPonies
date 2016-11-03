@@ -7,13 +7,14 @@ public class Character {
 
 	[SerializeField]
 	string name;
-	[SerializeField]
-	Sprite mugShot;
-	[SerializeField]
-	Sprite sprite;
+    [NonSerialized]
+    Sprite mugShot;
+    [NonSerialized]
+    Sprite sprite;
 	[NonSerialized]
 	Unit unit;
 
+    [NonSerialized]
 	SkillTree skilltree;
 	[NonSerialized]
 	Backpack backpack;
@@ -40,8 +41,10 @@ public class Character {
 	[SerializeField]
 	private bool flight = false;
 
+    [NonSerialized]
 	Stats baseStats;
-	HashSet<Buff> buffs;
+    [NonSerialized]
+    HashSet<Buff> buffs;
 
     public Character(Character toCopy)
     {
@@ -204,7 +207,7 @@ public class Character {
 		baseStats.movement.moveType = (Flight) ? MoveType.flying : MoveType.walking;
 
 		if (buffs == null) buffs = new HashSet<Buff>();
-		if (skilltree == null) skilltree = new SkillTree();
+        if (skilltree == null) skilltree = new SkillTree();
 		skilltree.CalculateStats(level);
 		buffs.Add(skilltree);
 		if(backpack == null) Backpack = new Backpack();
