@@ -9,12 +9,17 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Character>
     public List<Character> activeRoster;
     [SerializeField]
     private CharacterDB StarterDatabase;
+    public Train train;
 
     public List<Character> Roster
     {
         get
         {
             return roster;
+        }
+        set
+        {
+            roster = value;
         }
     }
 
@@ -43,6 +48,7 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Character>
         roster = StarterDatabase.GetRoster();
         
 		activeRoster = roster;
+        train = new Train();
     }
     //End of Singleton stuff
 
@@ -69,6 +75,11 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Character>
         Debug.Log("Not found");
         return null;
 	}
+
+    public Character getBaseCharacter(string name)
+    {
+        return StarterDatabase.GetCharacter(name);
+    }
 
 	IEnumerator IEnumerable.GetEnumerator()
 	{

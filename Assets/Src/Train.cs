@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System;
 using System.Collections;
 
-public class Train : MonoBehaviour, IEnumerable<Item>
+public class Train : IEnumerable<Item>
 {
 
 #pragma warning disable
 	private List<Item> items;
 	private int cash;
+
+    public Train()
+    {
+        items = new List<Item>();
+    }
 
 	public IEnumerator<Item> GetEnumerator()
 	{
