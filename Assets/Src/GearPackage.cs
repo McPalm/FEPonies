@@ -16,6 +16,17 @@ public class GearPackage
     [SerializeField]
     private string equippedTrinket;
 
+    private bool isTrain = false;
+    private int cash;
+
+    public bool IsTrain
+    {
+        get
+        {
+            return isTrain;
+        }
+    }
+
     public GearPackage()
     {
 
@@ -27,9 +38,28 @@ public class GearPackage
         {
             backpack.Add(i.Name);
         }
-        equippedArmor = source.EquippedArmor.Name;
-        equippedWeapon = source.EquippedWeapon.Name;
-        equippedTrinket = source.EquippedTrinket.Name;
+        if (source.EquippedArmor != null)
+        {
+            equippedArmor = source.EquippedArmor.Name;
+        }
+        if (source.EquippedWeapon != null)
+        {
+            equippedWeapon = source.EquippedWeapon.Name;
+        }
+        if (source.EquippedTrinket != null)
+        {
+            equippedTrinket = source.EquippedTrinket.Name;
+        }
+    }
+
+    public GearPackage(Train source)
+    {
+        foreach (Item i in source)
+        {
+            backpack.Add(i.Name);
+        }
+        isTrain = true;
+        cash = source.Cash;
     }
 
     public Backpack GetBackpack()
@@ -47,6 +77,18 @@ public class GearPackage
                 tempBackpack.Equip((Equipment)i);
             }
         }
+        return tempBackpack;
+    }
+
+    public Train GetTrain()
+    {
+        Train tempBackpack = new Train();
+        foreach (string item in backpack)
+        {
+            Item tempItem = ItemFactory.CreateItem(item);
+            tempBackpack.Add(tempItem);
+        }
+        tempBackpack.Cash = cash;
         return tempBackpack;
     }
 }

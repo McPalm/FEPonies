@@ -61,17 +61,10 @@ public class Story : MonoBehaviour {
         foreach(Character u in roster.Roster)
         {
             SaveCharacter temp;
-            temp.Level = u.Level;
-            temp.Name = u.Name;
-            Backpack tempBackPack = u.Backpack;
-            temp.Backpack = new List<string>();
-            if (tempBackPack != null)
-            {
-                foreach (Item i in tempBackPack)
-                {
-                    temp.Backpack.Add(i.Name);
-                }
-            }
+            temp = new SaveCharacter();
+            temp.character = new Character(u);
+            GearPackage tempBackPack = new GearPackage(u.Backpack);
+            temp.backpack = tempBackPack;
             if(roster.activeRoster.Contains(u))
             {
                 temp.isActive = true;
@@ -80,10 +73,12 @@ public class Story : MonoBehaviour {
             {
                 temp.isActive = false;
             }
+            temp.skills = new SkillTree( u.Skilltree);
             saveData.Roster.Add(temp);
         }
+        GearPackage train = new GearPackage(roster.train);
+        saveData.train = train;
         saveData.saveTime = DateTime.Now;
-        //TODO add abilities
         //Now let's write it to a file
         BinaryFormatter binary = new BinaryFormatter();
         Debug.Log(Application.persistentDataPath);
@@ -113,46 +108,33 @@ public class Story : MonoBehaviour {
         file.Close();
         checkPoint = saveData.Checkpoint;
         UnitRoster roster = GetComponent<UnitRoster>();
+        roster.activeRoster.Clear();
+        List<Character> savedRoster = new List<Character>();
         foreach(SaveCharacter character in saveData.Roster)
         {
-			Character tempUnit = roster.GetCharacter(character.Name);
+            Character tempUnit = character.character;
+            Character baseChar = roster.getBaseCharacter(character.character.Name);
             if (tempUnit != null)
             {
-                tempUnit.Level = character.Level;
+                tempUnit = character.character;
                 if (character.isActive)
                 {
-                    if(!roster.activeRoster.Contains(tempUnit))
-                    {
-                        roster.activeRoster.Add(tempUnit);
-                    }
+                    roster.activeRoster.Add(tempUnit);
                 }
-                else
-                {
-                    if (roster.activeRoster.Contains(tempUnit))
-                    {
-                        roster.activeRoster.Remove(tempUnit);
-                    }
-                }
-                Backpack tempBackPack = tempUnit.Backpack;
-                if (tempBackPack != null)
-                {
-                    tempBackPack.EmptyBackpack();
-                    foreach (string itemName in character.Backpack)
-                    {
-                        Item tempItem = ItemString.StringToItem(itemName);
-                        tempBackPack.Add(tempItem);
-                    }
-                }
-                else
-                {
-					tempUnit.Backpack = new Backpack();
-                }
+                Backpack tempBackPack = character.backpack.GetBackpack();
+                tempUnit.Backpack = tempBackPack;
+                tempUnit.Skilltree = new SkillTree(character.skills);
+                tempUnit.Sprite = baseChar.Sprite;
+                tempUnit.MugShot = baseChar.MugShot;
             }
             else
             {
                 Debug.LogError("No characters in loaded file?");
                 return;
             }
+            savedRoster.Add(tempUnit);
         }
+        roster.train = saveData.train.GetTrain();
+
     }
 }

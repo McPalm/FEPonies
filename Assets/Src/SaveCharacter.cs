@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public struct SaveCharacter
 {
     //TODO add abilities
-    public int Level;
-    public string Name;
+    public Character character;
+    public GearPackage backpack;
+    public SkillTree skills;
     public bool isActive;
-    public List<string> Backpack;
 }

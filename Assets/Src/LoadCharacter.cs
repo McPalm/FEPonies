@@ -29,7 +29,7 @@ public class LoadCharacter : MonoBehaviour {
 		else
 		{
 			// use preset character
-			Debug.LogWarning("Prefferably load from roster or database instead of hardcoding a character here.");
+			Debug.LogWarning("Prefferably load from roster or database instead of hardcoding a character here. ");
 			loadedCharacter = presetCharacter;
 		}
 
