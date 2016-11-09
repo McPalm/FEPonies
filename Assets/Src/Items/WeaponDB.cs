@@ -119,6 +119,7 @@ public class WeaponDB
 			case "Crossbow":
 				wf.LowScaling();
 				wf.SetLongRange();
+				wf.BowAnimation();
 				break;
 			case "Dagger":
 				wf.HighCrit();
@@ -132,6 +133,7 @@ public class WeaponDB
 			case "Short Spear":
 				wf.LowScaling();
 				wf.SetMeleeAndRange();
+				wf.SpearAnimation();
 				break;
 			case "Short Sword":
 				wf.HighHit();
@@ -150,6 +152,7 @@ public class WeaponDB
 			case "Javelin":
 				wf.LowHit();
 				wf.SetMeleeAndRange();
+				wf.SpearAnimation();
 				break;
 			case "Halberd":
 				wf.HighScaling();
@@ -162,6 +165,7 @@ public class WeaponDB
 				wf.LowScaling();
 				wf.ArmorPenetrating();
 				wf.SetLongRange();
+				wf.BowAnimation();
 				break;
 			case "Sanguine Tome":
 				wf.LowScaling();
@@ -172,6 +176,7 @@ public class WeaponDB
 			case "Naginata":
 				wf.LowScaling();
 				wf.SetMeleeAndRange();
+				wf.SpearAnimation();
 				UnityEngine.Debug.LogWarning("No AGI bonus on naginatas."); // TODO
 				break;
 			case "Great Axe":
@@ -203,6 +208,7 @@ public class WeaponDB
 				wf.SetHybrid();
 				wf.HighCrit();
 				wf.SetLongRange();
+				wf.BowAnimation();
 				break;
 			case "Assassin Blades":
 				wf.HighCrit();
@@ -219,6 +225,7 @@ public class WeaponDB
 				wf.LowHit();
 				wf.LowScaling();
 				wf.SetLongRange();
+				wf.BowAnimation();
 				break;
 			default:
 				UnityEngine.Debug.LogError("WeaponDB: " + wf.Name + " is not implemented.");

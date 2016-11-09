@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class Tackle : MonoBehaviour, IAnimation {
+public class Tackle : IAnimation {
 
 	private float _tweenPosition;
 	private bool _moving = false;
@@ -12,20 +12,17 @@ public class Tackle : MonoBehaviour, IAnimation {
 	private bool _hit;
 
 	private Unit source;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
 	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log("Tackle Update!");
 		if(_moving && StateManager.Instance.State == GameState.unitAttack){
 			_tweenPosition += _tweenSpeed*Time.deltaTime;
 			if(_tweenPosition >= 1f){
 				StateManager.Instance.DebugPop();
 				source.transform.position = _endPosition;
 				_moving = false;
+				DirtyUpdate.Instance.UnregisterUpdate(Update);
 			}else{
 				source.transform.position = _endPosition*_tweenPosition + _startPosition*(1f-_tweenPosition);
 			}
@@ -34,6 +31,7 @@ public class Tackle : MonoBehaviour, IAnimation {
 
 	public void Animate (Unit source, Tile target, Action<Tile> actn, bool hit=true)
 	{
+		DirtyUpdate.Instance.RegisterUpdate(Update);
 		_hit=hit;
 		if(!_moving){
 			this.source = source;

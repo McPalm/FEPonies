@@ -76,9 +76,7 @@ public class AttackInfo
 		if (filter == null)
 			this.Filter = new TargetEnemy();
 		if (animation == null)
-		{
-			AttackAnimation = new GameObject().AddComponent<Tackle>();
-		}
+			AttackAnimation = new Tackle();
 	}
 
 	public List<Tile> GetAttackTiles(Unit unit)

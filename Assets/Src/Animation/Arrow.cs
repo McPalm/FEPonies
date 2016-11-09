@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class Arrow : MonoBehaviour, IAnimation {
+public class Arrow : IAnimation {
 
 	private GameObject _arrow;
 	private Vector3 _startPosition;
@@ -25,7 +25,8 @@ public class Arrow : MonoBehaviour, IAnimation {
 				// if we reach the goal, pop animaiton state, apply effect, destroy arrow
 				//Unit.ApplyEffect();
 				StateManager.Instance.DebugPop();
-				if(_hit==true)
+				DirtyUpdate.Instance.UnregisterUpdate(Update);
+				if (_hit==true)
 				{
 					SFXPlayer.Instance.AttackSound();
 				}
@@ -39,7 +40,7 @@ public class Arrow : MonoBehaviour, IAnimation {
 
 				_active = false;
 				step1 = true;
-				Destroy(_arrow);
+				UnityEngine.Object.Destroy(_arrow);
 			}else{
 				_arrow.transform.position = _endPosition*_tweenProgression + _startPosition * (1f-_tweenProgression);
 			}
@@ -48,6 +49,7 @@ public class Arrow : MonoBehaviour, IAnimation {
 
 	public void Animate (Unit source, Tile target, Action<Tile> tile, bool hit=true)
 	{
+		DirtyUpdate.Instance.RegisterUpdate(Update);
 		_hit=hit;
 		if(!_active){
 			_callback = tile;
@@ -56,7 +58,7 @@ public class Arrow : MonoBehaviour, IAnimation {
 			StateManager.Instance.DebugPush(GameState.unitAttack);
 			_active = true;
 			// create new arrow
-			_arrow = Instantiate(Resources.Load("arrow")) as GameObject;
+			_arrow = UnityEngine.Object.Instantiate(Resources.Load("arrow")) as GameObject;
 
 			// set it on tweening towards target
 			_startPosition = source.transform.position + new Vector3(0f, 0.25f, 0f);
@@ -84,9 +86,5 @@ public class Arrow : MonoBehaviour, IAnimation {
 			tile(target);
 				Debug.LogWarning("Tried to do arrow attack twice!");
 		}
-	}
-
-	void OnDestroy(){
-		Destroy(_arrow);
 	}
 }

@@ -2,16 +2,16 @@
 using System.Collections;
 using System;
 
-public class SpearToss : MonoBehaviour, IAnimation {
+public class SpearToss : IAnimation {
 
 
 	Tackle tackle;
 	Arrow arrow;
 
-	void Start()
+	public SpearToss()
 	{
-		arrow = gameObject.AddComponent<Arrow>();
-		tackle = gameObject.AddComponent<Tackle>();
+		arrow = new Arrow();
+		tackle = new Tackle();
 	}
 
 	public void Animate(Unit source, Tile target, Action<Tile> tile, bool hit = true)

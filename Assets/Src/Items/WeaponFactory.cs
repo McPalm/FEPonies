@@ -26,6 +26,7 @@ public class WeaponFactory {
 	float scaling = 1f;
 
 	int spread = 0;
+	IAnimation anim = null;
 
 	public WeaponFactory(string name = "")
 	{
@@ -160,7 +161,19 @@ public class WeaponFactory {
 	{
 		scaling = 0.7f;
 	}
+	public void BowAnimation()
+	{
+		anim = new Arrow();
+	}
+	public void SpearAnimation()
+	{
+		anim = new SpearToss();
+	}
 
+	/// <summary>
+	/// Get the weapon you generated.
+	/// </summary>
+	/// <returns></returns>
 	public Weapon GetWeapon()
 	{
 		Weapon w = new Weapon();
@@ -203,7 +216,7 @@ public class WeaponFactory {
 		wd.DexScale = dexterity * scaling;
 		wd.IntScale = intelligence * scaling;
 
-		w.attackInfo = new AttackInfo(ir, wd);
+		w.attackInfo = new AttackInfo(ir, wd, null, anim);
 
 		w.buff.hitBonus += hitMod * 0.1f;
 		w.buff.critBonus += critMod * 0.15f;
