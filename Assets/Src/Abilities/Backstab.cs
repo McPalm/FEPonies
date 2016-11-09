@@ -52,10 +52,10 @@ public class Backstab : Passive, IAttackModifier, AttackBuff
 
 	public void Test(DamageData dd)
 	{
-		print("Backstab!");
 		if(Applies(dd.target, dd.SourceTile, dd.target.Tile))
 		{
 			dd.damageMultipler *= 1.2f;
+			dd.flatBonus += 1;
 			dd.backstab = true;
 		}
 	}

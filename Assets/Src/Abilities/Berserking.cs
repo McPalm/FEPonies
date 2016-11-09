@@ -42,6 +42,6 @@ public class Berserking : Passive, IAttackModifier {
 	void Activate()
 	{
 		active = true;
-		GetComponent<SpriteRenderer>().color = Color.red;
+		GetComponent<SpriteRenderer>().color = new Color(1f, 0.3f, 0.3f);
 	}
 }
