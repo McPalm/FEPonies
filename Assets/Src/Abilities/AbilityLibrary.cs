@@ -50,7 +50,8 @@ public class AbilityLibrary
 		abilityLibrary.Add("Momentum", typeof(Momentum));
 		abilityLibrary.Add("Pin", typeof(Pin));
 		abilityLibrary.Add("PinningStrike", typeof(PinningStrike));
-        abilityLibrary.Add("Riposte", typeof(Riposte));
+		abilityLibrary.Add("Revenge", typeof(Revenge));
+		abilityLibrary.Add("Riposte", typeof(Riposte));
         abilityLibrary.Add("Sap", typeof(Sap));
 		abilityLibrary.Add("Shove", typeof(Shove));
 		abilityLibrary.Add("Sing", typeof(Sing));

@@ -38,6 +38,14 @@ public class EyeForAnEye : Passive, HealthObserver, Observer, IAttackModifier, T
 		}
 	}
 
+	public int Stacks
+	{
+		get
+		{
+			return stacks;
+		}
+	}
+
 	HashSet<Unit> allies;
 
 	void Start()

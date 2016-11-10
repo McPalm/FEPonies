@@ -5,6 +5,8 @@ using System;
 public class Shove : Ability, SustainedAbility, IAttackModifier
 {
 	bool _active = true;
+	int speedPenalty = -1;
+
 
 	public bool Active
 	{
@@ -30,6 +32,19 @@ public class Shove : Ability, SustainedAbility, IAttackModifier
 		}
 	}
 
+	public int SpeedPenalty
+	{
+		get
+		{
+			return speedPenalty;
+		}
+
+		set
+		{
+			speedPenalty = value;
+		}
+	}
+
 	public void Test(DamageData dd)
 	{
 		if(_active && UnitManager.Instance.IsItMyTurn(dd.source))
@@ -46,7 +61,7 @@ public class Shove : Ability, SustainedAbility, IAttackModifier
 	public void OnHit(DamageData dd)
 	{
 		Tile moveTo = dd.target.Tile;
-		new Mydebuff(dd.target.Character);
+		new Mydebuff(dd.target.Character, speedPenalty);
 		//if we can enter the tile
 		if(!(moveTo is WaterTile) &! dd.source.Character.Flight)
 		{
@@ -74,11 +89,11 @@ public class Shove : Ability, SustainedAbility, IAttackModifier
 			}
 		}
 
-		public Mydebuff(Character target)
+		public Mydebuff(Character target, int penalty)
 		{
 			this.target = target;
 			_stats = new Stats();
-			_stats.movement.moveSpeed = -1;
+			_stats.movement.moveSpeed = penalty;
 			target.AddBuff(this);
 			endTurn = UnitManager.Instance.currTurn + 1;
 			endPhase = StateManager.Instance.Turn;

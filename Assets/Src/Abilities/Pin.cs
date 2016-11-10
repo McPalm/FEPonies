@@ -36,6 +36,7 @@ public class Pin : Passive, IAttackModifier
 	void Start()
 	{
 		shove = GetComponent<Shove>();
+		shove.SpeedPenalty -= 2;
 	}
 
 
