@@ -28,7 +28,6 @@ public class BloodThirst : Passive, IAttackModifier {
 			berserk = GetComponent<Berserking>();
 		if (berserk && berserk.Active)
 		{
-			print("Rawr!");
 			dd.RegisterCallback(Healme);
 		}
 	}
@@ -40,8 +39,6 @@ public class BloodThirst : Passive, IAttackModifier {
 		{
 			int heal = (d.FinalDamage / 2 + d.source.Character.Level) / 2 + 3;
 			d.source.Heal(heal);
-			print("Heald four " + heal);
 		}
-		else print("Not Held!");
 	}
 }

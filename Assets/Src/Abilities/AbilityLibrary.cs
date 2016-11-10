@@ -36,7 +36,8 @@ public class AbilityLibrary
         abilityLibrary.Add("Cure", typeof(Cure));
 		abilityLibrary.Add("Execute", typeof(Execute));
 		abilityLibrary.Add("Explosion", typeof(Explosion));
-        abilityLibrary.Add("Feint", typeof(Feint));
+		abilityLibrary.Add("Eye for an Eye", typeof(EyeForAnEye));
+		abilityLibrary.Add("Feint", typeof(Feint));
 		abilityLibrary.Add("Follow Through", typeof(FollowThrough));
 		abilityLibrary.Add("GravityField", typeof(GravityField));
 		abilityLibrary.Add("Grit", typeof(Grit));
