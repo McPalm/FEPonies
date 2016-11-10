@@ -76,4 +76,8 @@ public class FireballAnimation : MonoBehaviour, IAnimation {
 		Destroy(_particle);
 	}
 
+	public void Cancel()
+	{
+		// Should not cause trouble
+	}
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// This animation summons three that goes out from a target while spinning..  and then goes after the enemy target.
@@ -103,7 +104,7 @@ public class TrippleSphere : MonoBehaviour, IAnimation {
 
 	private Vector2 lastMidPoint = new Vector2(1f, 1f);
 	private Vector2 generateMidpoint(){
-		Vector2 point = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * rangeFromUser;
+		Vector2 point = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized * rangeFromUser;
 
 		if(Mathf.Sign(point.x) == Mathf.Sign(lastMidPoint.x) && Mathf.Sign(point.y) == Mathf.Sign(lastMidPoint.y))
 			point = new Vector2(-point.x, -point.y);
@@ -159,6 +160,11 @@ public class TrippleSphere : MonoBehaviour, IAnimation {
 		StateManager.Instance.DebugPop();
 		_action(_target);
 		_active = false;
+	}
+
+	public void Cancel()
+	{
+		// wow this is a big class
 	}
 
 	private class Missile{

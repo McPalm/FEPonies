@@ -57,4 +57,9 @@ public class Lightning : MonoBehaviour, IAnimation{
 	void OnDestroy(){
 		Destroy(_sprite);
 	}
+
+	public void Cancel()
+	{
+		// blorp
+	}
 }

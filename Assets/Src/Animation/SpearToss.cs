@@ -23,4 +23,9 @@ public class SpearToss : IAnimation {
 
 
 	}
+
+	public void Cancel()
+	{
+		tackle.Cancel();
+	}
 }

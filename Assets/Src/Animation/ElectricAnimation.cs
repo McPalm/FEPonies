@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class ElectricAnimation : MonoBehaviour, IAnimation {
 
@@ -111,7 +112,7 @@ public class ElectricAnimation : MonoBehaviour, IAnimation {
 			// set it on tweening towards target
 			_startPosition = source.transform.position + new Vector3(0f, 0.25f);
 			if(hit) _endPosition = target.transform.position + new Vector3(0f, 0.25f);
-			else _endPosition = target.transform.position + new Vector3(0f +  Random.Range(-0.5f, 0.5f), 0.25f  +  Random.Range(-0.5f, 0.5f));
+			else _endPosition = target.transform.position + new Vector3(0f +  UnityEngine.Random.Range(-0.5f, 0.5f), 0.25f  + UnityEngine.Random.Range(-0.5f, 0.5f));
 			_magnitude = (_startPosition-_endPosition).magnitude;
 			_magnitude = Mathf.Max(_magnitude, 0.3f);
 			_tweenProgression = 0f;
@@ -145,10 +146,14 @@ public class ElectricAnimation : MonoBehaviour, IAnimation {
 		if(_nextHitEffect >= _myHitEffects.Length) _nextHitEffect = 0;
 
 		_myHitEffects[_nextHitEffect].SetActive(true);
-		_myHitEffects[_nextHitEffect].transform.position = _endPosition + new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.1f, 0.5f));
-		_myHitEffects[_nextHitEffect].transform.localRotation = Quaternion.AngleAxis(Random.Range(0f, 360f), Vector3.forward);
+		_myHitEffects[_nextHitEffect].transform.position = _endPosition + new Vector2(UnityEngine.Random.Range(-0.3f, 0.3f), UnityEngine.Random.Range(-0.1f, 0.5f));
+		_myHitEffects[_nextHitEffect].transform.localRotation = Quaternion.AngleAxis(UnityEngine.Random.Range(0f, 360f), Vector3.forward);
 
 		_hitEffectsSpawned++;
 	}
 
+	public void Cancel()
+	{
+		// should not need to do anything.
+	}
 }

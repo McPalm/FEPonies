@@ -36,7 +36,8 @@ public class AbilityLibrary
         abilityLibrary.Add("Cure", typeof(Cure));
 		abilityLibrary.Add("Execute", typeof(Execute));
 		abilityLibrary.Add("Explosion", typeof(Explosion));
-        abilityLibrary.Add("Feint", typeof(Feint));
+		abilityLibrary.Add("Eye for an Eye", typeof(EyeForAnEye));
+		abilityLibrary.Add("Feint", typeof(Feint));
 		abilityLibrary.Add("Follow Through", typeof(FollowThrough));
 		abilityLibrary.Add("GravityField", typeof(GravityField));
 		abilityLibrary.Add("Grit", typeof(Grit));
@@ -47,10 +48,13 @@ public class AbilityLibrary
 		abilityLibrary.Add("Lightning Reflexes", typeof(LightningReflexes));
 		abilityLibrary.Add("MageSlayer", typeof(MageSlayer));
 		abilityLibrary.Add("Momentum", typeof(Momentum));
+		abilityLibrary.Add("Pin", typeof(Pin));
 		abilityLibrary.Add("PinningStrike", typeof(PinningStrike));
-        abilityLibrary.Add("Riposte", typeof(Riposte));
+		abilityLibrary.Add("Revenge", typeof(Revenge));
+		abilityLibrary.Add("Riposte", typeof(Riposte));
         abilityLibrary.Add("Sap", typeof(Sap));
-        abilityLibrary.Add("Sing", typeof(Sing));
+		abilityLibrary.Add("Shove", typeof(Shove));
+		abilityLibrary.Add("Sing", typeof(Sing));
         abilityLibrary.Add("Sniper", typeof(Sniper));
         abilityLibrary.Add("Summon", typeof(Summon));
 		abilityLibrary.Add("Spearpoint", typeof(Spearpoint));
