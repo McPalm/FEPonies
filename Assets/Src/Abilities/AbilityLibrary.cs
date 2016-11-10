@@ -28,6 +28,7 @@ public class AbilityLibrary
 		abilityLibrary.Add("Bastion", typeof(Bastion));
 		abilityLibrary.Add("Berserking", typeof(Berserking));
 		abilityLibrary.Add("Blade Dancing", typeof(BladeDancing));
+		abilityLibrary.Add("Blood Thirst", typeof(BloodThirst));
 		abilityLibrary.Add("Block", typeof(Block));
 		abilityLibrary.Add("Careful Aim", typeof(CarefulAim));
 		abilityLibrary.Add("Charge", typeof(Charge));

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 
-public class Berserking : Passive, IAttackModifier {
+public class Berserking : Passive, IAttackModifier, HealthObserver {
 
 	bool active = false;
 
@@ -22,20 +22,19 @@ public class Berserking : Passive, IAttackModifier {
 		}
 	}
 
-	public void Test(DamageData dd)
+	public bool Active
 	{
-		if(active)
+		get
 		{
-			dd.damageMultipler *= 1.2f;
+			return active;
 		}
 	}
 
-	void FinishedAttackSequence(Unit u)
+	public void Test(DamageData dd)
 	{
-		Unit user = GetComponent<Unit>();
-		if (user.damageTaken >= user.CurrentHP)
-		{
-			Activate();
+		if(Active)
+		{ 
+			dd.damageMultipler *= 1.2f;
 		}
 	}
 
@@ -43,5 +42,27 @@ public class Berserking : Passive, IAttackModifier {
 	{
 		active = true;
 		GetComponent<SpriteRenderer>().color = new Color(1f, 0.3f, 0.3f);
+	}
+
+	void Deactivate()
+	{
+		active = false;
+		GetComponent<SpriteRenderer>().color = Color.white;
+	}
+
+	public void NotifyHealth(Unit unit, int change)
+	{
+		if(Active &! (unit.damageTaken >= unit.CurrentHP))
+		{
+			Deactivate();
+		}
+		else if (unit.damageTaken >= unit.CurrentHP & !Active)
+		{
+			Activate();
+		}
+	}
+	void Awake()
+	{
+		GetComponent<Unit>().RegisterHealthObserver(this);
 	}
 }
