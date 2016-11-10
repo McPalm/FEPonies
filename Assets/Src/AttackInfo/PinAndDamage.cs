@@ -8,7 +8,7 @@ public class PinAndDamage : MonoBehaviour, IEffect {
 
     public int StaticApply(DamageData dd, int duration = 1)
 	{
-		Pin.StaticApply(dd, duration);
+		PinEffect.StaticApply(dd, duration);
 		return Damage.StaticApply(dd); // may kill target, do last. Just to keep the sequence more safe.
 	}
 

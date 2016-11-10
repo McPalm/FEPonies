@@ -48,6 +48,7 @@ public class AbilityLibrary
 		abilityLibrary.Add("Lightning Reflexes", typeof(LightningReflexes));
 		abilityLibrary.Add("MageSlayer", typeof(MageSlayer));
 		abilityLibrary.Add("Momentum", typeof(Momentum));
+		abilityLibrary.Add("Pin", typeof(Pin));
 		abilityLibrary.Add("PinningStrike", typeof(PinningStrike));
         abilityLibrary.Add("Riposte", typeof(Riposte));
         abilityLibrary.Add("Sap", typeof(Sap));

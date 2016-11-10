@@ -25,6 +25,19 @@ public class EyeForAnEye : Passive, HealthObserver, Observer, IAttackModifier, T
 		}
 	}
 
+	public int Distance
+	{
+		get
+		{
+			return distance;
+		}
+
+		set
+		{
+			distance = value;
+		}
+	}
+
 	HashSet<Unit> allies;
 
 	void Start()
@@ -66,7 +79,7 @@ public class EyeForAnEye : Passive, HealthObserver, Observer, IAttackModifier, T
 	{
 		if(change < 0)
 		{
-			if(! UnitManager.Instance.IsItMyTurn(user) && TileGrid.GetDelta(unit, user) <= distance)
+			if(! UnitManager.Instance.IsItMyTurn(user) && TileGrid.GetDelta(unit, user) <= Distance)
 			{
 				Particle.ExlamationPoint(new Vector3(transform.position.x, transform.position.y + 0.3f));
 				stacks++;

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-public class Pin : IEffect {
+public class PinEffect : IEffect {
 
 	static public void StaticApply(DamageData attackData, int duration = 1){
 		if(attackData.target && attackData.target.IsAlive)

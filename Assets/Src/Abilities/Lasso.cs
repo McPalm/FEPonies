@@ -19,7 +19,7 @@ public class Lasso : Ability, TargetedAbility {
 		if(target.Unit) dd.target = target.Unit;
 		dd.source = GetComponent<Unit>();
 
-		Pin.StaticApply(dd);
+		PinEffect.StaticApply(dd);
 		FinishUse();
 	}
 
