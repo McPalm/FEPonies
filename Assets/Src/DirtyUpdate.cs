@@ -53,4 +53,9 @@ public class DirtyUpdate : MonoBehaviour {
 		}
 		_removeUpdate.Clear();
 	}
+
+    void OnDestroy()
+    {
+        _instance = null;
+    }
 }

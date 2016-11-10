@@ -34,7 +34,8 @@ public class MoveUnitByName : EventTarget
         }
         else
         {
-            Debug.LogError("No Unit with that name or Unit=null in MoveUnitByName");
+            Debug.LogWarning("No Unit with that name or Unit=null in MoveUnitByName");
+            active = true;
         }       
     }
 
