@@ -87,4 +87,9 @@ public class Arrow : IAnimation {
 				Debug.LogWarning("Tried to do arrow attack twice!");
 		}
 	}
+
+	public void Cancel()
+	{
+		// Should work just fine.
+	}
 }

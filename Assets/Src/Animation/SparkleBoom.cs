@@ -49,4 +49,9 @@ public class SparkleBoom : MonoBehaviour, IAnimation {
 
 		}
 	}
+
+	public void Cancel()
+	{
+		// this animation is old.
+	}
 }

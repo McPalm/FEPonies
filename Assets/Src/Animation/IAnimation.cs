@@ -13,4 +13,10 @@ public interface IAnimation{
 	/// <param name="source">Source, unit who peforms the attack/cast the spell etc.</param>
 	/// <param name="target">Target.</param>
 	void Animate(Unit source, Tile target, System.Action<Tile> tile, bool hit=true);
+
+	/// <summary>
+	/// Stops an animation from play enough to pop the animation state.
+	/// Some sfx may still persist.
+	/// </summary>
+	void Cancel();
 }

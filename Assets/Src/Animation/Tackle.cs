@@ -15,7 +15,6 @@ public class Tackle : IAnimation {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log("Tackle Update!");
 		if(_moving && StateManager.Instance.State == GameState.unitAttack){
 			_tweenPosition += _tweenSpeed*Time.deltaTime;
 			if(_tweenPosition >= 1f){
@@ -51,5 +50,16 @@ public class Tackle : IAnimation {
 			}
 		}
 		actn(target);
+	}
+
+	public void Cancel()
+	{
+		if (_moving)
+		{
+			StateManager.Instance.DebugPop();
+			source.transform.position = _endPosition;
+			_moving = false;
+			DirtyUpdate.Instance.UnregisterUpdate(Update);
+		}
 	}
 }
