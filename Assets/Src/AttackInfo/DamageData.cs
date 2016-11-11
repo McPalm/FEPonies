@@ -14,12 +14,14 @@ public class DamageData {
 	public bool testAttack = false;
 	public bool backstab = false;
 	public int flatBonus = 0; // bonuses(or penalties) infliced by abilitites, + or - to this.
+	public bool killingBlow = false;
 
 	public float hitChance;
 	public float critChance;
 
 	private Tile sourceTile;
 	private int finalDamage = -1;
+	
 
 	Action<DamageData> callbacks;
 
