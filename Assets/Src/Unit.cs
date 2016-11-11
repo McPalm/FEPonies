@@ -47,6 +47,7 @@ public class Unit : MonoBehaviour {
 	private HashSet<object> _inhibs = new HashSet<object>();
 	
     DamageData attackData;
+	static List<DamageData> damageDatas;
 
 	// Properties
 	public Stats ModifiedStats{
@@ -181,6 +182,7 @@ public class Unit : MonoBehaviour {
 	/// <param name="target">Target.</param>
 	public void StartAttackSequence(Unit target = null)
 	{
+		damageDatas = new List<DamageData>();
 		if(target == null) target = retaliatingUnit;
 		else retaliatingUnit=target;
 		StartCoroutine("AttackSequenceCoroutine");
@@ -527,14 +529,18 @@ public class Unit : MonoBehaviour {
         int n = attackData.ApplyDefences(Character.ModifiedStats.defense, Character.ModifiedStats.resistance);
 
 		if (attackData.testAttack) return n;
-		
+
+		damageDatas.Add(attackData);
 		damageTaken += n;
 		NotifyHealthObservers(-n);
+		if (damageTaken >= Character.ModifiedStats.maxHP) attackData.killingBlow = true;
+
 		attackData.Callback();
 		if (attackData.crit) Particle.Crit(transform.position);
 		
-		if(damageTaken >= Character.ModifiedStats.maxHP){
-			Death (true);
+		if(attackData.killingBlow)
+		{
+			Death (false);
 			SFXPlayer.Instance.DeathSound();
 		}
 
@@ -626,6 +632,7 @@ public class Unit : MonoBehaviour {
 		{
 			StateManager.Instance.DebugPop();
 		}
+		currAction.damageDatas = damageDatas;
 		History.Instance.Add(currAction);
 		currAction = null;
 	}

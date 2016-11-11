@@ -7,7 +7,7 @@
 //     koden återgenereras.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
+using System.Collections.Generic;
 public class Action
 {
 	public Tile startTile;
@@ -15,14 +15,16 @@ public class Action
 	public Tile attack;
 	public Tile abilityTarget;
 	public Ability ability;
+	public List<DamageData> damageDatas;
 
-	public Action (Tile startTile, Tile movement = null, Tile attack = null, Ability ability = null, Tile abilityTarget = null)
+	public Action (Tile startTile, Tile movement = null, Tile attack = null, Ability ability = null, Tile abilityTarget = null, params DamageData[] damageDatas)
 	{
 		this.startTile = startTile;
 		this.movement = movement;
 		this.attack = attack;
 		this.ability = ability;
 		this.abilityTarget = abilityTarget;
+		this.damageDatas = new List<DamageData>(damageDatas);
 	}
 
 	public override string ToString ()
@@ -48,7 +50,7 @@ public class Action
 
 	public Action Duplicate()
 	{
-		return new Action(startTile, movement, attack, ability, abilityTarget);
+		return new Action(startTile, movement, attack, ability, abilityTarget, damageDatas.ToArray());
 	}
 }
 
