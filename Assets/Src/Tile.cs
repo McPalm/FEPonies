@@ -385,7 +385,7 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 	{
 		foreach (Tile t in colouredTiles)
 		{
-			t.UnColourMe();
+			if(t) t.UnColourMe();
 		}
 
 		colouredTiles = new HashSet<Tile>();

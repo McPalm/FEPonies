@@ -14,7 +14,7 @@ public class MainMenuRandomSprite : MonoBehaviour {
 		int max = sprites.Count;
 
 		int a = Random.Range(0, max);
-		int b = (a + Random.Range(0, max-1) % max);
+		int b = (a + Random.Range(1, max)) % max;
 
 		sr1.sprite = sprites[a];
 		sr2.sprite = sprites[b];
