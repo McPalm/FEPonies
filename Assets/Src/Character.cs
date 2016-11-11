@@ -212,6 +212,7 @@ public class Character {
 		skilltree.CalculateStats(level);
 		buffs.Add(skilltree);
 		if(backpack == null) Backpack = new Backpack();
+		backpack.countStats();
 	}
 
 	public void AddBuff(Buff b)

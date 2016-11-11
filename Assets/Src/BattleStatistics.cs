@@ -42,7 +42,7 @@ public class BattleStatistics : MonoBehaviour, Observer {
 		Qbert q = GetStats(source);
 		Qbert qt = GetStats(target);
 		if (q != null) q.attack++;
-		if (qt != null) q.defend++;
+		if (qt != null) qt.defend++;
 	}
 
 

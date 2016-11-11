@@ -58,14 +58,15 @@ public class Story : MonoBehaviour {
         saveData.Checkpoint = checkPoint;
         UnitRoster roster = GetComponent<UnitRoster>();
         saveData.Roster = new List<SaveCharacter>();
-        foreach(Character u in roster.Roster)
+        foreach(KeyValuePair<string, Character> pair in roster.Roster)
         {
             SaveCharacter temp;
             temp = new SaveCharacter();
-            temp.character = new Character(u);
-            GearPackage tempBackPack = new GearPackage(u.Backpack);
+			temp.name = pair.Key;
+            temp.character = new Character(pair.Value);
+            GearPackage tempBackPack = new GearPackage(pair.Value.Backpack);
             temp.backpack = tempBackPack;
-            if(roster.activeRoster.Contains(u))
+            if(roster.activeRoster.Contains(pair.Value))
             {
                 temp.isActive = true;
             }
@@ -73,7 +74,7 @@ public class Story : MonoBehaviour {
             {
                 temp.isActive = false;
             }
-            temp.skills = new SkillTree( u.Skilltree);
+            temp.skills = new SkillTree( pair.Value.Skilltree);
             saveData.Roster.Add(temp);
         }
         GearPackage train = new GearPackage(roster.train);

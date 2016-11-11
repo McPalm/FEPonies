@@ -5,13 +5,13 @@ using System.Collections;
 [System.Serializable]
 public class UnitRoster : MonoBehaviour, IEnumerable<Character>
 {
-	private List<Character> roster;
+	private Dictionary<string, Character> roster;
     public List<Character> activeRoster;
     [SerializeField]
     private CharacterDB StarterDatabase;
     public Train train;
 
-    public List<Character> Roster
+    public Dictionary<string, Character> Roster
     {
         get
         {
@@ -45,9 +45,13 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Character>
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        roster = StarterDatabase.GetRoster();
-        
-		activeRoster = roster;
+        roster = StarterDatabase.GetDictionary(0);
+
+		activeRoster = new List<Character>();
+		foreach(KeyValuePair<string, Character> c in roster)
+		{
+			activeRoster.Add(c.Value);
+		}
         train = new Train();
     }
     //End of Singleton stuff
@@ -65,14 +69,8 @@ public class UnitRoster : MonoBehaviour, IEnumerable<Character>
 	/// <returns></returns>
 	public Character GetCharacter(string name)
 	{
-		foreach(Character u in Roster)
-        {
-            if (u.Name==name)
-            {
-                return u;
-            }
-        }
-        Debug.Log("Not found");
+		if (roster.ContainsKey(name)) return roster[name];
+        Debug.LogWarning(name + " not found in Roster");
         return null;
 	}
 

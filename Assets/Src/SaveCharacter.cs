@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [Serializable]
 public struct SaveCharacter
 {
-    //TODO add abilities
+	public string name;
     public Character character;
     public GearPackage backpack;
     public SkillTree skills;

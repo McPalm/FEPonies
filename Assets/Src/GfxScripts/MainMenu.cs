@@ -97,7 +97,6 @@ public class MainMenu : MonoBehaviour {
 				destination = centre + new Vector3(Camera.main.pixelWidth, -Camera.main.pixelHeight, 0f); ;
 				break;
 		}
-		print(what);
 		what.Lerp(destination);
 	}
 }

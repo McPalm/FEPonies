@@ -254,7 +254,7 @@ public class Backpack : IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<
 	/// <summary>
 	/// Recalclate the attribute boosts granted by the item.
 	/// </summary>
-	void countStats()
+	public void countStats()
 	{
         if (owner != null)
         {
