@@ -50,27 +50,14 @@ public class BattleStatistics : MonoBehaviour, Observer {
 	{
 		Qbert q = GetStats(source);
 		Qbert qt = GetStats(target);
-		if(q != null)
-		{
-			q.damageDone += damage;
-			print(source.Character.Name + " has dealth a total of " + q.damageDone + "!");
-		}
-		if(qt != null)
-		{
-			qt.damageSuffered += damage;
-			print(source.Character.Name + " has sustained a total of " + q.damageDone + "!");
-		}
+		if(q != null) q.damageDone += damage;
+		if(qt != null) qt.damageSuffered += damage;
 	}
 
 	void KillingBlow(Unit u)
 	{
-		print(u.Character.Name + " scored a  Killing blow!");
 		Qbert q = GetStats(u);
-		if(q != null)
-		{
-			q.killingBlows++;
-			print("Total: " + q.killingBlows);
-		}
+		if(q != null) q.killingBlows++;
 	}
 
 	Qbert GetStats(Unit u)

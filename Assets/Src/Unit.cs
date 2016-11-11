@@ -134,6 +134,7 @@ public class Unit : MonoBehaviour {
 	private Action command;
 	public void PerformAction(Action act = null)
 	{
+		damageDatas = new List<DamageData>();
 		// Debug.Log(act.ToString());
 		if (act != null)
 		{
@@ -258,6 +259,7 @@ public class Unit : MonoBehaviour {
             attackData = dmgData;
 			AttackModifiers(dmgData); // run the attack through modifiers
 			AnimateAttack();
+			AddDamageData(dmgData);
 			return true;
 		}
 		return false;
@@ -530,7 +532,7 @@ public class Unit : MonoBehaviour {
 
 		if (attackData.testAttack) return n;
 
-		damageDatas.Add(attackData);
+		AddDamageData(attackData);
 		damageTaken += n;
 		NotifyHealthObservers(-n);
 		if (damageTaken >= Character.ModifiedStats.maxHP) attackData.killingBlow = true;
@@ -633,6 +635,7 @@ public class Unit : MonoBehaviour {
 			StateManager.Instance.DebugPop();
 		}
 		currAction.damageDatas = damageDatas;
+		damageDatas = new List<DamageData>();
 		History.Instance.Add(currAction);
 		currAction = null;
 	}
@@ -796,5 +799,15 @@ public class Unit : MonoBehaviour {
 		{
 			dmod.DefenceTest(dd);
 		}
+	}
+
+	/// <summary>
+	/// Add a damagedata to the action so it well be recoded in history.
+	/// Made to handle redundant calls, attempting to add an exsisting action does nothing.
+	/// </summary>
+	/// <param name="d"></param>
+	public void AddDamageData(DamageData d)
+	{
+		if (!damageDatas.Contains(d)) damageDatas.Add(d);
 	}
 }
