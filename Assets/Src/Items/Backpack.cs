@@ -271,7 +271,7 @@ public class Backpack : IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<
                     _equipmentStats.movement.moveSpeed--;
                     _equipmentStats.dodgeBonus -= (equippedArmor.weight - owner.ModifiedStats.CarryingCapacity) * 0.05f;
                 }
-                else
+                else if(owner.ModifiedStats.CarryingCapacity > 0)
                 {
                     float ratio = 1f - (equippedArmor.weight / owner.ModifiedStats.CarryingCapacity);
                     _equipmentStats.dodgeBonus = ratio * 0.1f;

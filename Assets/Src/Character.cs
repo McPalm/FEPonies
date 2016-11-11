@@ -190,22 +190,14 @@ public class Character {
 
 	Character()
 	{
-		
+		CalcBaseStats();
 	}
 
 	public void Initialize(Unit u)
 	{
 		Unit = u;
 
-		baseStats = new Stats();
-		baseStats.maxHP = hp * (9 + level) / 10;
-		baseStats.strength = strength;
-		baseStats.dexterity = dexterity;
-		baseStats.agility = agility;
-		baseStats.intelligence = intelligence;
-		baseStats.maxMana = mana;
-		baseStats.movement.moveSpeed = (Flight) ? 6 : 5;
-		baseStats.movement.moveType = (Flight) ? MoveType.flying : MoveType.walking;
+		CalcBaseStats();
 
 		if (buffs == null) buffs = new HashSet<Buff>();
         if (skilltree == null) skilltree = new SkillTree();
@@ -224,5 +216,18 @@ public class Character {
 	public void RemoveBuff(Buff b)
 	{
 		buffs.Remove(b);
+	}
+
+	void CalcBaseStats()
+	{
+		baseStats = new Stats();
+		baseStats.maxHP = hp * (9 + level) / 10;
+		baseStats.strength = strength;
+		baseStats.dexterity = dexterity;
+		baseStats.agility = agility;
+		baseStats.intelligence = intelligence;
+		baseStats.maxMana = mana;
+		baseStats.movement.moveSpeed = (Flight) ? 6 : 5;
+		baseStats.movement.moveType = (Flight) ? MoveType.flying : MoveType.walking;
 	}
 }

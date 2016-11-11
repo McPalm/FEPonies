@@ -114,7 +114,7 @@ public class Story : MonoBehaviour {
         foreach(SaveCharacter character in saveData.Roster)
         {
             Character tempUnit = character.character;
-            Character baseChar = roster.getBaseCharacter(character.character.Name);
+            Character baseChar = roster.getBaseCharacter(character.name);
             if (tempUnit != null)
             {
                 tempUnit = character.character;
