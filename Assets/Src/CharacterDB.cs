@@ -60,6 +60,24 @@ public class CharacterDB : MonoBehaviour {
 		return retVal;
 	}
 
+	/// <summary>
+	/// Gets a library with the unit, keyed with the units dev name.
+	/// </summary>
+	/// <param name="team">0 is all, 1 is PCs, 2 is enemies</param>
+	/// <returns></returns>
+	public Dictionary<string, Character> GetDictionary(int team)
+	{
+		Dictionary<string, Character> ret = new Dictionary<string, Character>();
+		foreach (CharacterDBContainer dbz in starterCharacters)
+		{
+			if(team == 0 || (team == 1 && dbz.PC) || (team == 2 &! dbz.PC))
+			{
+				ret.Add(dbz.name, BuildCharacter(dbz));
+			}
+		}
+		return ret;
+	}
+
     [Serializable]
     private class CharacterDBContainer
     {
@@ -70,6 +88,7 @@ public class CharacterDB : MonoBehaviour {
         public GearPackage backpack;
         public Sprite mugShot;
         public Sprite sprite;
+		public bool PC = true;
 #pragma warning restore 0649
     }
 }
