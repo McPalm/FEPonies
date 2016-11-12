@@ -128,38 +128,9 @@ public class WeaponFactory {
 	}
 	public void SetScaling(int str, int dex, int i)
 	{
-		float total = str + dex + i;
-		strenght = str / total;
-		dexterity = dex / total;
-		intelligence = i / total;
-
-		spread = 0;
-		if (str > 0) spread++;
-		if (dex > 0) spread++;
-		if (i > 0) spread++;
-
-		strenght = strenght * 1.1f;
-
-		if (spread == 2)
-		{
-			strenght = strenght * 1.15f;
-			dexterity = dexterity * 1.15f;
-			intelligence = intelligence * 1.15f;
-		}
-		if(spread == 3)
-		{
-			strenght = strenght * 1.35f;
-			dexterity = dexterity * 1.35f;
-			intelligence = intelligence * 1.35f;
-		}
-	}
-	public void HighScaling()
-	{
-		scaling = 1.3f;
-	}
-	public void LowScaling()
-	{
-		scaling = 0.7f;
+		strenght = str;
+		dexterity = dex;
+		intelligence = i;
 	}
 	public void BowAnimation()
 	{
@@ -186,21 +157,17 @@ public class WeaponFactory {
 
 		// advantages
 		if (reach == MELEEANDRANGE) advantages += 0.25f;
-		if (reach == LONGRANGE) advantages += 0.25f;
+		if (reach == LONGRANGE) advantages += 0.15f;
 		if (defences == APIERCE) advantages += 0.5f;
-		if (hitMod > 0) advantages += hitMod / 7f;
-		if (critMod > 0) advantages += critMod / 5f;
-		if (scaling > 0) advantages += 0.75f;
+		if (hitMod > 0) advantages += hitMod / 20f;
+		if (critMod > 0) advantages += critMod / 20f;
 
 		// disadvantages
-		if (hitMod < 0) disadvantages += hitMod / 10f;
-		if (scaling < 0) disadvantages += 0.25f;
+		if (hitMod < 0) disadvantages += hitMod / 20f;
 
 		// modify base damage to work with modifiers
 		power /= 1f + advantages;
 		power *= 1f + disadvantages;
-
-		scaling = scaling * (1f + level * 0.025f + power * 0.01f);
 
 		// grant the weapon appropiate range
 		IReach ir;
@@ -210,11 +177,12 @@ public class WeaponFactory {
 		else ir = new Ranged();
 
 		// Weapon Damage Stuffs
-		WeaponDamage wd = GetWeaponDamage(power);
+		WeaponDamage wd = new WeaponDamage();
 
-		wd.StrScale = strenght * scaling;
-		wd.DexScale = dexterity * scaling;
-		wd.IntScale = intelligence * scaling;
+		wd.StrScale = strenght * 0.25f;
+		wd.DexScale = dexterity * 0.25f;
+		wd.IntScale = intelligence * 0.25f;
+		wd.BaseDamage = (int)power;
 
 		w.attackInfo = new AttackInfo(ir, wd, null, anim);
 
@@ -227,24 +195,6 @@ public class WeaponFactory {
 		w.icon = SpriteLibrary.GetIcon("weapon");
 
 		return w;
-	}
-
-	private WeaponDamage GetWeaponDamage(float power)
-	{
-		WeaponDamage wd = new WeaponDamage();
-		wd.BaseDamage = (int)(power * 1.5f * (1.25f - spread * 0.25f));
-		if (defences == APIERCE) wd.DefenceMulitiplier = 0.5f;
-		if (defences == RESIST)
-		{
-			wd.DefenceMulitiplier = 0f;
-			wd.ResistanceMultiplier = 1f;
-		}
-		if (defences == HYBRID)
-		{
-			wd.DefenceMulitiplier = 0.5f;
-			wd.ResistanceMultiplier = 0.5f;
-		}
-		return wd;
 	}
 
 	Sprite sprite;

@@ -20,29 +20,29 @@ public class WeaponDB
 	{
 		infos = new HashSet<WeaponInfo>();
 		List<WeaponInfo> list = new List<WeaponInfo>();
-		list.Add(new WeaponInfo("Battle Axe", 1, WeaponType.axe, 1, 0, 0));
-		list.Add(new WeaponInfo("Crossbow", 1, WeaponType.crossbow, 0, 1, 0));
-		list.Add(new WeaponInfo("Dagger", 1, WeaponType.dagger, 1, 2, 0));
-		list.Add(new WeaponInfo("Pyromancers Tome", 1, WeaponType.tome, 0, 0, 1));
-		list.Add(new WeaponInfo("Short Spear", 1, WeaponType.spear, 2, 1, 0));
-		list.Add(new WeaponInfo("Short Sword", 1, WeaponType.sword, 2, 3, 0));
+		list.Add(new WeaponInfo("Battle Axe", 1, WeaponType.axe, 4, 0, 0));
+		list.Add(new WeaponInfo("Crossbow", 1, WeaponType.crossbow, 0, 4, 0));
+		list.Add(new WeaponInfo("Dagger", 1, WeaponType.dagger, 2, 2, 0));
+		list.Add(new WeaponInfo("Pyromancers Tome", 1, WeaponType.tome, 0, 0, 4));
+		list.Add(new WeaponInfo("Short Spear", 1, WeaponType.spear, 2, 2, 0));
+		list.Add(new WeaponInfo("Short Sword", 1, WeaponType.sword, 3, 2, 0));
 		list.Add(new WeaponInfo("Lightning Rod", 2, WeaponType.tome, 0, 2, 3));
-		list.Add(new WeaponInfo("Warhammer", 2, WeaponType.axe, 1, 0, 0));
-		list.Add(new WeaponInfo("Javelin", 3, WeaponType.spear, 2, 3, 0));
+		list.Add(new WeaponInfo("Warhammer", 2, WeaponType.axe, 4, 0, 0));
+		list.Add(new WeaponInfo("Javelin", 3, WeaponType.spear, 2, 2, 0));
 		list.Add(new WeaponInfo("Long Sword", 2, WeaponType.sword, 3, 2, 0));
-		list.Add(new WeaponInfo("Halberd", 4, WeaponType.axe, 2, 1, 0));
-		list.Add(new WeaponInfo("Rapier", 5, WeaponType.sword, 1, 2, 0));
-		list.Add(new WeaponInfo("Arbalest", 6, WeaponType.crossbow, 0, 1, 0));
-		list.Add(new WeaponInfo("Sanguine Tome", 6, WeaponType.tome, 0, 0, 1));
-		list.Add(new WeaponInfo("Naginata", 7, WeaponType.spear, 2, 3, 0));
-		list.Add(new WeaponInfo("Great Axe", 7, WeaponType.axe, 1, 0, 0));
-		list.Add(new WeaponInfo("Greatsword", 7, WeaponType.sword, 2, 1, 0));
+		list.Add(new WeaponInfo("Halberd", 4, WeaponType.axe, 4, 1, 0));
+		list.Add(new WeaponInfo("Rapier", 5, WeaponType.sword, 2, 3, 0));
+		list.Add(new WeaponInfo("Arbalest", 6, WeaponType.crossbow, 0, 4, 0));
+		list.Add(new WeaponInfo("Sanguine Tome", 6, WeaponType.tome, 0, 0, 4));
+		list.Add(new WeaponInfo("Naginata", 7, WeaponType.spear, 2, 2, 0));
+		list.Add(new WeaponInfo("Great Axe", 7, WeaponType.axe, 4, 0, 0));
+		list.Add(new WeaponInfo("Greatsword", 7, WeaponType.sword, 3, 2, 0));
 		list.Add(new WeaponInfo("Estoc", 7, WeaponType.sword, 1, 2, 0));
-		list.Add(new WeaponInfo("Flaming Sword", 8, WeaponType.sword, 2, 1, 2));
-		list.Add(new WeaponInfo("Lightning Rapier", 8, WeaponType.sword, 1, 2, 2));
-		list.Add(new WeaponInfo("Assassin Blades", 10, WeaponType.dagger, 0, 1, 0));
-		list.Add(new WeaponInfo("Burning Axe", 11, WeaponType.axe, 2, 0, 1));
-		list.Add(new WeaponInfo("Heartseeker", 15, WeaponType.crossbow, 0, 1, 0));
+		list.Add(new WeaponInfo("Flaming Sword", 8, WeaponType.sword, 2, 2, 2));
+		list.Add(new WeaponInfo("Lightning Rapier", 8, WeaponType.sword, 2, 2, 2));
+		list.Add(new WeaponInfo("Assassin Blades", 10, WeaponType.dagger, 0, 4, 0));
+		list.Add(new WeaponInfo("Burning Axe", 11, WeaponType.axe, 4, 0, 1));
+		list.Add(new WeaponInfo("Heartseeker", 15, WeaponType.crossbow, 0, 4, 0));
 
 		foreach(WeaponInfo i in list)
 		{
@@ -117,21 +117,18 @@ public class WeaponDB
 				wf.HighCrit();
 				break;
 			case "Crossbow":
-				wf.LowScaling();
 				wf.SetLongRange();
 				wf.BowAnimation();
 				break;
 			case "Dagger":
 				wf.HighCrit();
 				wf.ArmorPenetrating();
-				wf.LowScaling();
 				break;
 			case "Pyromancers Tome":
 				wf.Magic();
 				wf.SetMeleeAndRange();
 				break;
 			case "Short Spear":
-				wf.LowScaling();
 				wf.SetMeleeAndRange();
 				wf.SpearAnimation();
 				break;
@@ -147,45 +144,35 @@ public class WeaponDB
 			case "Warhammer":
 				wf.LowHit(3);
 				wf.ArmorPenetrating();
-				wf.HighScaling();
 				break;
 			case "Javelin":
 				wf.LowHit();
 				wf.SetMeleeAndRange();
 				wf.SpearAnimation();
 				break;
-			case "Halberd":
-				wf.HighScaling();
-				break;
 			case "Rapier":
-				wf.HighScaling();
 				wf.ArmorPenetrating();
 				break;
 			case "Arbalest":
-				wf.LowScaling();
 				wf.ArmorPenetrating();
 				wf.SetLongRange();
 				wf.BowAnimation();
 				break;
 			case "Sanguine Tome":
-				wf.LowScaling();
 				wf.Magic();
 				wf.SetMeleeAndRange();
 				UnityEngine.Debug.LogWarning("Still no lifesteal on Sanguine Tome."); // TODO
 				break;
 			case "Naginata":
-				wf.LowScaling();
 				wf.SetMeleeAndRange();
 				wf.SpearAnimation();
 				UnityEngine.Debug.LogWarning("No AGI bonus on naginatas."); // TODO
 				break;
 			case "Great Axe":
-				wf.HighScaling();
 				wf.HighCrit();
 				wf.LowHit();
 				break;
 			case "Greatsword":
-				wf.HighScaling();
 				wf.HighCrit();
 				wf.LowHit();
 				break;
@@ -198,13 +185,11 @@ public class WeaponDB
 				wf.SetHybrid();
 				break;
 			case "Lightning Rapier":
-				wf.HighScaling();
 				wf.SetHybrid();
 				wf.LowHit();
 				wf.HighCrit();
 				break;
 			case "Lightning Crossbow":
-				wf.LowScaling();
 				wf.SetHybrid();
 				wf.HighCrit();
 				wf.SetLongRange();
@@ -223,7 +208,6 @@ public class WeaponDB
 			case "Heartseeker":
 				wf.HighCrit();
 				wf.LowHit();
-				wf.LowScaling();
 				wf.SetLongRange();
 				wf.BowAnimation();
 				break;
