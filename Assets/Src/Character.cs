@@ -59,6 +59,7 @@ public class Character {
         dexterity = toCopy.dexterity;
         agility = toCopy.agility;
         intelligence = toCopy.intelligence;
+		mana = toCopy.mana;
         flight = toCopy.flight;
         Initialize(null);
         if (toCopy.Backpack != null)

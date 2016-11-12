@@ -7,25 +7,31 @@ using System.Collections.Generic;
 /// </summary>
 public class CharacterDB : MonoBehaviour {
 
+	static CharacterDB _instance;
+
+	void Awake()
+	{
+		_instance = this;
+	}
+
     [SerializeField]
     private List<CharacterDBContainer> starterCharacters;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public static CharacterDB Instance
+	{
+		get
+		{
+			if (_instance == null) _instance = Resources.Load<CharacterDB>("CharacterDB");
+			return _instance;
+		}
 	}
 
-    /// <summary>
-    /// Gets a character by name from the starter character list.
-    /// </summary>
-    /// <param name="name">name of the character to search for</param>
-    /// <returns>a copy of the character or null if not found</returns>
-    public Character GetCharacter(string name)
+	/// <summary>
+	/// Gets a character by name from the starter character list.
+	/// </summary>
+	/// <param name="name">name of the character to search for</param>
+	/// <returns>a copy of the character or null if not found</returns>
+	public Character GetCharacter(string name)
     {
         foreach(CharacterDBContainer character in starterCharacters)
         {

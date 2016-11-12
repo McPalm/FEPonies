@@ -3,23 +3,36 @@ using System.Collections;
 
 public class SpawnUnit : EventTarget {
 
-	public Unit unit;
+	public string rosterCharacter;
+	public string databaseCharacter;
+	int level = -1;
 	public int team = 1;
 	public bool changeAI = false;
 	public AITypes ai;
 
 	public override void Notice ()
 	{
-		GameObject go = Instantiate(unit.gameObject) as GameObject;
-		Unit iSpawned = go.GetComponent<Unit>();
-		iSpawned.name = unit.name;
+		Character c = null;
+		if(rosterCharacter != "")
+		{
+			c = UnitRoster.Instance.GetCharacter(rosterCharacter);
+		}
+		else
+		{
+			c = CharacterDB.Instance.GetCharacter(databaseCharacter);
+		}
+		if (level > 0) c.Level = level;
+
+		Unit iSpawned = Unit.Create(c);
+		iSpawned.name = (rosterCharacter != null) ? databaseCharacter : rosterCharacter;
+
 		Tile targetTile = TileGrid.Instance.GetTileAt(transform.position);
 		if(!iSpawned.MoveTo(targetTile)){
 			if(targetTile.North == null || !iSpawned.MoveTo(targetTile.North)){
 				if(targetTile.South == null || !iSpawned.MoveTo(targetTile.South)){
 					if(targetTile.East == null || !iSpawned.MoveTo(targetTile.East)){
 						if(targetTile.West == null || !iSpawned.MoveTo(targetTile.West)){
-							Debug.LogError("Unable to Spawn unit! This is like a fatal error"); // TODO make sure this cannot happen!
+							Debug.LogWarning("Unable to Spawn unit!"); // TODO make sure this cannot happen!
 						}	
 					}	
 				}	

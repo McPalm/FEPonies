@@ -173,6 +173,7 @@ public class Unit : MonoBehaviour {
 		wd.IntScale = 0.25f;
 		wd.StrScale = 0.75f;
 		attackInfo.Effect = wd;
+
 		if(character != null )Character = character;
 	}
 
@@ -809,5 +810,13 @@ public class Unit : MonoBehaviour {
 	public void AddDamageData(DamageData d)
 	{
 		if (!damageDatas.Contains(d)) damageDatas.Add(d);
+	}
+
+	static public Unit Create(Character c)
+	{
+		Unit retVal = Instantiate(Resources.Load<Unit>("UnitBase"));
+		if (c != null) retVal.Character = c;
+		return retVal;
+
 	}
 }
