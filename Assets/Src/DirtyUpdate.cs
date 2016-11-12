@@ -23,7 +23,6 @@ public class DirtyUpdate : MonoBehaviour {
 
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
 		_instance = this;
 		name = "DirtyUpdate";
 		_update = new List<System.Action>();

@@ -140,6 +140,7 @@ public class WeaponDB
 				wf.HighCrit();
 				wf.Magic();
 				wf.SetMeleeAndRange();
+				wf.LightningBolt();
 				break;
 			case "Warhammer":
 				wf.LowHit(3);

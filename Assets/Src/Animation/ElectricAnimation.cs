@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 
-public class ElectricAnimation : MonoBehaviour, IAnimation {
+public class ElectricAnimation : IAnimation {
 
 	public GameObject Projectile;
 	public GameObject HitEffects;
@@ -36,14 +36,15 @@ public class ElectricAnimation : MonoBehaviour, IAnimation {
 
 
 	// Use this for initialization
-	void Start () {
-		_myProjectile = Instantiate(Projectile) as GameObject;
+	public ElectricAnimation()
+	{
+		_myProjectile = UnityEngine.Object.Instantiate(Projectile);
 		_myProjectile.SetActive(false);
 
 		_myHitEffects = new GameObject[MaxHitEffects];
 
 		for(int i = 0; i < MaxHitEffects; i++){
-			_myHitEffects[i] = Instantiate(HitEffects) as GameObject;
+			_myHitEffects[i] = UnityEngine.Object.Instantiate(HitEffects);
 			_myHitEffects[i].SetActive(false);
 		}
 	}
@@ -85,6 +86,7 @@ public class ElectricAnimation : MonoBehaviour, IAnimation {
 				if(_shockTimer > ShockDuration){ // end
 					foreach(GameObject go in _myHitEffects) go.SetActive(false);
 					StateManager.Instance.DebugPop();
+					DirtyUpdate.Instance.UnregisterUpdate(Update);
 					SFXPlayer.Instance.AttackSound();
 					_hitCall(_target);
 					_active = false;
@@ -100,6 +102,7 @@ public class ElectricAnimation : MonoBehaviour, IAnimation {
 
 	public void Animate (Unit source, Tile target, System.Action<Tile> tile, bool hit=true)
 	{
+		DirtyUpdate.Instance.RegisterUpdate(Update);
 		_hit=hit;
 		if(!_active){
 			SFXPlayer.Instance.Lightning();

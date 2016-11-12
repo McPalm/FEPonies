@@ -23,9 +23,8 @@ public class WeaponFactory {
 	float strenght = 0;
 	float dexterity = 0;
 	float intelligence = 0;
-	float scaling = 1f;
 
-	int spread = 0;
+
 	IAnimation anim = null;
 
 	public WeaponFactory(string name = "")
@@ -139,6 +138,10 @@ public class WeaponFactory {
 	public void SpearAnimation()
 	{
 		anim = new SpearToss();
+	}
+	public void LightningBolt()
+	{
+		anim = new ElectricAnimation();
 	}
 
 	/// <summary>
