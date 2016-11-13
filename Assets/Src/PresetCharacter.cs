@@ -13,6 +13,7 @@ public class PresetCharacter : MonoBehaviour {
 	void Awake () {
 		if(setLevel) SaveFile.Active.SetLevel(unitName, level);
 		foreach(string ability in abilities){
+			Debug.LogError("Deperchiaed Class!");
 			SaveFile.Active.LearnAbility(unitName, ability);
 		}
 	}

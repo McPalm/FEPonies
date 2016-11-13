@@ -173,8 +173,6 @@ public class Unit : MonoBehaviour {
 		wd.IntScale = 0.25f;
 		wd.StrScale = 0.75f;
 		attackInfo.Effect = wd;
-
-		if(character != null )Character = character;
 	}
 
 	/// <summary>
@@ -299,12 +297,6 @@ public class Unit : MonoBehaviour {
 			}
 			AIManager.Instance.AddUnit(this);
 		}
-		if(SaveFile.Active != null){
-			SaveFile.Active.UpdateUnit(this);
-			if(GetComponent<Skill>() == null){
-				SaveFile.Active.BestowAbilitites(this);
-			}
-		}
 		// gimme manna plox
 		if(GetComponent<Mana>() == null){
 			gameObject.AddComponent<Mana>();
@@ -353,6 +345,7 @@ public class Unit : MonoBehaviour {
 			// Assign Sprite
 			GetComponent<SpriteRenderer>().sprite = character.Sprite;
 			// do skills
+			print(name + " is getting skills!");
 			foreach (String s in Character.Skilltree.GetSkills(character.Level))
 			{
 				Type t = AbilityLibrary.Instance.getTypeFromAbility(s);

@@ -231,7 +231,6 @@ public class IntermissionMenu : MonoBehaviour {
 			}
 			if(GUI.Button(new Rect(anchorX+100,  cap*40+80, 200, 39), msg)){
 				if(canlearn){
-					SaveFile.Active.LearnAbility(_selectedPony, _selectedSkill);
 					_learnedSkills.Add(_selectedSkill);
 				}
 			}

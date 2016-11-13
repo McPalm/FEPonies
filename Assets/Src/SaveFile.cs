@@ -80,10 +80,12 @@ public class SaveFile{
 	/// </summary>
 	/// <param name="unit">Unit.</param>
 	public void UpdateUnit(Unit unit){
-		if(_playerUnits.Contains(unit.name)){
+		Debug.LogWarning("Dont do this to me!");
+		/* if(_playerUnits.Contains(unit.name)){
 			float exp = PlayerPrefs.GetFloat(slot + unit.name + "exp", 0f);
 			unit.Character.Level = 1 + (int)exp;
 		}
+		*/
 	}
 
 	public void UpdateUnit(IEnumerable<Unit> units){
@@ -172,8 +174,9 @@ public class SaveFile{
 	/// <param name="name">Name.</param>
 	/// <param name="unlock">If set to <c>true</c> unlock, if set to <c>false</c> lock.</param>
 	public void UnlockCharacter(string name, bool unlock = true){
+		Debug.LogWarning("Deprechiated Function!");
 		// see if unit exist among names. if it aint, print error and abort
-		if(!_playerUnits.Contains(name))
+		if (!_playerUnits.Contains(name))
 		{
 			Debug.LogWarning(name + " does not exist amongs valid player characters!");
 			return;
@@ -200,8 +203,8 @@ public class SaveFile{
 	/// <param name="unit">Unit.</param>
 	/// <param name="ability">Classname of the Ability.</param>
 	public void LearnAbility(string unit, string ability){
-		Debug.Log("Teaching: " + ability + " to " + unit);
-		for(int i = 0; i < 5; i++){
+		Debug.LogWarning("Deprechiated Function!");
+		for (int i = 0; i < 5; i++){
 			string temp = PlayerPrefs.GetString(slot + unit + "ability#" + i, "");
 
 			if(temp.Length == 0){
@@ -212,6 +215,7 @@ public class SaveFile{
 	}
 
 	public string[] GetAbilities(string unit){
+		Debug.LogWarning("Deprechiated Function!");
 		string[] rv = new string[5];
 		for(int i = 0; i < 5; i++){
 			string temp = PlayerPrefs.GetString(slot + unit + "ability#" + i, "");

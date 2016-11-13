@@ -38,15 +38,7 @@ public class ElectricAnimation : IAnimation {
 	// Use this for initialization
 	public ElectricAnimation()
 	{
-		_myProjectile = UnityEngine.Object.Instantiate(Projectile);
-		_myProjectile.SetActive(false);
-
-		_myHitEffects = new GameObject[MaxHitEffects];
-
-		for(int i = 0; i < MaxHitEffects; i++){
-			_myHitEffects[i] = UnityEngine.Object.Instantiate(HitEffects);
-			_myHitEffects[i].SetActive(false);
-		}
+		
 	}
 	
 	// Update is called once per frame
@@ -104,6 +96,7 @@ public class ElectricAnimation : IAnimation {
 	{
 		DirtyUpdate.Instance.RegisterUpdate(Update);
 		_hit=hit;
+		if (!_myProjectile) LoadEffects();
 		if(!_active){
 			SFXPlayer.Instance.Lightning();
 			_hitCall = tile;
@@ -158,5 +151,19 @@ public class ElectricAnimation : IAnimation {
 	public void Cancel()
 	{
 		// should not need to do anything.
+	}
+
+	public void LoadEffects()
+	{
+		_myProjectile = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Lightning"));
+		_myProjectile.SetActive(false);
+
+		_myHitEffects = new GameObject[MaxHitEffects];
+
+		for (int i = 0; i < MaxHitEffects; i++)
+		{
+			_myHitEffects[i] = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Lightning2"));
+			_myHitEffects[i].SetActive(false);
+		}
 	}
 }
