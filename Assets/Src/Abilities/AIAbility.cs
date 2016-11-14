@@ -10,7 +10,7 @@
 using System;
 public interface AIAbility
 {
-	int judgeAbility(Unit user, Tile move, out Tile target);
+	float judgeAbility(Unit user, Tile move, out Tile target);
 	Ability getAbility
 	{
 		get;

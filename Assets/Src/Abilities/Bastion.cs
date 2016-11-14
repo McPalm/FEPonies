@@ -72,4 +72,6 @@ public class Bastion : AbilityWithManacost, TurnObserver {
 		_buffAura.Initialize(2, s, false);
 
 	}
+
+    ///TODO needs to be an AI ability, druids got Bastion
 }
