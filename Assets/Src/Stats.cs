@@ -30,6 +30,8 @@ public struct Stats
 	public int carryBonus;
 	public int maxMana;
 
+	const float BASEHIT = 0.85f;
+
 	public float Dodge
 	{
 		get
@@ -41,7 +43,7 @@ public struct Stats
 	{
 		get
 		{
-			return (85 + dexterity * 2 + intelligence * 2) / 100f + hitBonus;
+			return (dexterity * 2 + intelligence * 2) / 100f + hitBonus;
 		}
 	}
 	public float Crit
@@ -184,6 +186,9 @@ public struct Stats
 	public float HitVersus(Stats target)
 	{
 		float chance = Hit - target.Dodge;
+		if (chance >= 0f) chance = BASEHIT + chance;
+		else chance = (BASEHIT * BASEHIT) / (BASEHIT - chance);
+
 		if (chance > 1f) return 1f;
 		if (chance < 0.05f) return 0.05f;
 		return chance;
