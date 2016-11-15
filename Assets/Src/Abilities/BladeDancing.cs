@@ -31,7 +31,8 @@ public class BladeDancing : Passive, IAttackModifier, Buff, TurnObserver {
 	{
 		get
 		{
-			_stats.hitBonus = 0.04f * Stacks;
+			_stats.hitBonus = 0.02f * Stacks;
+			_stats.critBonus = 0.02f * Stacks;
 			return _stats;
 		}
 	}
