@@ -345,7 +345,6 @@ public class Unit : MonoBehaviour {
 			// Assign Sprite
 			GetComponent<SpriteRenderer>().sprite = character.Sprite;
 			// do skills
-			print(name + " is getting skills!");
 			foreach (String s in Character.Skilltree.GetSkills(character.Level))
 			{
 				Type t = AbilityLibrary.Instance.getTypeFromAbility(s);
