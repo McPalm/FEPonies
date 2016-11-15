@@ -56,7 +56,7 @@ public class Explosion : AbilityWithManacost, TargetedAbility, AIAbility {
 	private IEnumerable<Tile> _tgts;
 	
 	void ApplyAndShit(Tile ti){
-		Character user = GetComponent<Character>();
+		Character user = GetComponent<Unit>().Character;
 		int dmg = user.Level + 4 + user.ModifiedStats.intelligence;
 
 		foreach(Tile t in _tgts){
@@ -76,7 +76,7 @@ public class Explosion : AbilityWithManacost, TargetedAbility, AIAbility {
 		return new HashSet<Tile>(IncreasedRange.StaticGetTiles(tile));
 	}
 
-	public int judgeAbility (Unit user, Tile move, out Tile target)
+	public float judgeAbility (Unit user, Tile move, out Tile target)
 	{
 		HashSet<Tile> possibleTargets=GetAvailableTargets(move);
 		target=null;
@@ -85,8 +85,8 @@ public class Explosion : AbilityWithManacost, TargetedAbility, AIAbility {
 			return 0;
 		}
 		int dmg = user.Character.Level + 4 + user.Character.ModifiedStats.intelligence;
-		int value = -1;
-		int maxValue =-1;
+		float value = -1;
+		float maxValue =-1;
 		foreach(Tile q in possibleTargets)
 		{
 			value=-1;
@@ -94,9 +94,12 @@ public class Explosion : AbilityWithManacost, TargetedAbility, AIAbility {
 				if(t && t.isOccuppied){
 					DamageData dd = new DamageData();
 					dd.defenceMultiplier = 0f;
-					dd.resistanceMultiplier = 0f;
+					dd.resistanceMultiplier = 1f;
 					dd.baseDamage = dmg;
 					dd.testAttack = true;
+                    dd.target = t.Unit;
+                    dd.source = user;
+                    dd.SourceTile = move;
 					if(t.Unit.isHostile(user)) value += t.Unit.Damage(dd);
 					else value -= t.Unit.Damage(dd);
 				}

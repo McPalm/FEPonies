@@ -19,7 +19,7 @@ public class HealingSalve: Ability, TargetedAbility, AIAbility
 	private Unit target;
 	private DurationBuff buff;
 
-	public int judgeAbility(Unit user, Tile move, out Tile target)
+	public float judgeAbility(Unit user, Tile move, out Tile target)
 	{
 		HashSet<Tile> possibleTargets=GetAvailableTargets(move);
 		target=null;
@@ -28,8 +28,8 @@ public class HealingSalve: Ability, TargetedAbility, AIAbility
 			return 0;
 		}
 		
-		int value = 0;
-		int maxValue =0;
+		float value = 0;
+		float maxValue =0;
 		foreach(Tile q in possibleTargets)
 		{
 			value=0;

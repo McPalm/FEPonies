@@ -53,10 +53,10 @@ public class Sing : Ability, AIAbility, SustainedAbility, IDefenceModifiers {
 		}
 	}
 
-	public int judgeAbility(Unit user, Tile move, out Tile target)
+	public float judgeAbility(Unit user, Tile move, out Tile target)
 	{
 		target=null;
-		int value=50;
+		float value=50;
 		HashSet<Unit> enemyUnits=UnitManager.Instance.GetUnitsByHostility(user);
 		foreach(Unit u in enemyUnits)
 		{

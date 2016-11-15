@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Cure: AbilityWithManacost, TargetedAbility, AIAbility
 {
-	public int judgeAbility(Unit user, Tile move, out Tile target)
+	public float judgeAbility(Unit user, Tile move, out Tile target)
 	{
 		HashSet<Tile> possibleTargets=GetAvailableTargets(move);
 		target=null;
@@ -12,8 +12,8 @@ public class Cure: AbilityWithManacost, TargetedAbility, AIAbility
 			return 0;
 		}
 		
-		int value = 0;
-		int maxValue =0;
+		float value = 0;
+		float maxValue =0;
 		foreach(Tile q in possibleTargets)
 		{
 			value=0;
@@ -83,7 +83,7 @@ public class Cure: AbilityWithManacost, TargetedAbility, AIAbility
 	
 	public void Notify(Tile target)
 	{
-		Character c = GetComponent<Character>();
+        Character c = GetComponent<Unit>().Character;
 		int power = c.ModifiedStats.intelligence +5;
 		target.Unit.Heal(power);
 		foreach(Debuff d in target.Unit.GetComponents<Debuff>()){

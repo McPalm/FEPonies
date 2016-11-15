@@ -77,7 +77,8 @@ public class Defensive : MonoBehaviour, IAIBehaviour {
 					continue;
 				}
 				foreach (Tile o in possibleMoves) {//Gets all possible attacks
-					int temp = a.judgeAbility(GetComponent<Unit>(), o, out tempTarget);
+					float temp = a.judgeAbility(unit, o, out tempTarget);
+                    temp += judgeMove(unit, o);
 					if (temp > maxJudge) {
 						currAbility=a.getAbility;
 						maxJudge = temp;
