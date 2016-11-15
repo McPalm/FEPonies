@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class FireballAnimation : MonoBehaviour, IAnimation {
+public class FireballAnimation : IAnimation {
 
 	private Vector3 _startPosition;
 	private Vector3 _endPosition;
@@ -30,9 +30,9 @@ public class FireballAnimation : MonoBehaviour, IAnimation {
 				actions(_target);
 				//explode
 				_exploding = true;
-				Destroy(_particle, 1f);
+				UnityEngine.Object.Destroy(_particle, 1f);
 				_particle.GetComponent<ParticleSystem>().Stop();
-				_particle = Instantiate(Resources.Load<GameObject>("Explosion")) as GameObject; // add contant
+				_particle = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("Explosion")) as GameObject; // add contant
 				_particle.transform.position = _endPosition;
 				// explosion sfx!
 				SFXPlayer.Instance.Explosion();
@@ -43,8 +43,9 @@ public class FireballAnimation : MonoBehaviour, IAnimation {
 				// stop exploding
 				_particle.GetComponent<ParticleSystem>().Stop();
 			}else{
-				Destroy(_particle);
+				UnityEngine.Object.Destroy(_particle);
 				StateManager.Instance.DebugPop();
+				DirtyUpdate.Instance.UnregisterUpdate(Update);
 				_active = false;
 				_exploding = false;
 			}
@@ -53,6 +54,7 @@ public class FireballAnimation : MonoBehaviour, IAnimation {
 
 	public void Animate (Unit source, Tile target, Action<Tile> action, bool hit=true)
 	{
+		DirtyUpdate.Instance.RegisterUpdate(Update);
 		if(!_active){
 			actions = action;
 			_target = target;
@@ -60,7 +62,7 @@ public class FireballAnimation : MonoBehaviour, IAnimation {
 			_active = true;
 			StateManager.Instance.DebugPush(GameState.unitAttack);
 			// spawn trail particle
-			_particle = Instantiate(Resources.Load<GameObject>("FireTrail")) as GameObject; // add contant
+			_particle = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("FireTrail")) as GameObject; // add contant
 
 			// set up tweening
 			_duration = 0f;
@@ -73,7 +75,7 @@ public class FireballAnimation : MonoBehaviour, IAnimation {
 
 	}
 	void OnDestroy(){
-		Destroy(_particle);
+		UnityEngine.Object.Destroy(_particle);
 	}
 
 	public void Cancel()

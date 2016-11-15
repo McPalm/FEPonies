@@ -127,6 +127,7 @@ public class WeaponDB
 			case "Pyromancers Tome":
 				wf.Magic();
 				wf.SetMeleeAndRange();
+				wf.Fireball();
 				break;
 			case "Short Spear":
 				wf.SetMeleeAndRange();

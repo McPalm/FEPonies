@@ -42,7 +42,7 @@ public class Explosion : AbilityWithManacost, TargetedAbility, AIAbility {
 	public void Notify (Tile target)
 	{
 		if(_fba == null){
-			_fba = gameObject.AddComponent<FireballAnimation>();
+			_fba = new FireballAnimation();
 		}
 		_tgts = TargetedAbilityInputManager.Burst(target);
 		

@@ -143,6 +143,10 @@ public class WeaponFactory {
 	{
 		anim = new ElectricAnimation();
 	}
+	public void Fireball()
+	{
+		anim = new FireballAnimation();
+	}
 
 	/// <summary>
 	/// Get the weapon you generated.
