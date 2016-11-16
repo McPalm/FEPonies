@@ -4,7 +4,7 @@ using System;
 
 public class Study : Ability, IAttackModifier, TargetedAbility {
 
-	public List<Unit> targets;
+	List<Unit> targets;
 
 	public override string Name
 	{
@@ -69,5 +69,10 @@ public class Study : Ability, IAttackModifier, TargetedAbility {
 	public override void Use()
 	{
 		TargetedAbilityInputManager.Instance.Listen(this);
+	}
+
+	void Awake()
+	{
+		targets = new List<Unit>();
 	}
 }
