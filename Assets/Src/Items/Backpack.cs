@@ -320,5 +320,8 @@ public class Backpack : IEnumerable<Item>, IEnumerable<Consumable>, IEnumerable<
     public void EmptyBackpack()
     {
         backpack.Clear();
-    }
+		if(equippedArmor != null) UnEquip(equippedArmor);
+		if (equippedWeapon != null) UnEquip(equippedWeapon);
+		if (equippedTrinket != null) UnEquip(equippedTrinket);
+	}
 }
