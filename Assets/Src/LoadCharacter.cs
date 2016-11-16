@@ -31,6 +31,8 @@ public class LoadCharacter : MonoBehaviour {
 			// use preset character
 			Debug.LogWarning("Prefferably load from roster or database instead of hardcoding a character here. ");
 			loadedCharacter = presetCharacter;
+			presetCharacter.Skilltree = SkillTreeDB.GetSkillTreeClone("Empty");
+			presetCharacter.Sprite = GetComponent<SpriteRenderer>().sprite;
 		}
 
 		if (setLevel > 0) loadedCharacter.Level = setLevel;

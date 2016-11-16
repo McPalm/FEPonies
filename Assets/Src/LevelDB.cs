@@ -17,14 +17,16 @@ public class LevelDB
     private string[] levels={
         "mainMenu",
         "RoadAmbush",
-        "BarbarianDefence"
+        "BarbarianDefence",
+		"CastleBreakIn"
         };
 
     private string[] battlelevels =
     {
         "RoadAmbush",
-        "BarbarianDefence"
-    };
+        "BarbarianDefence",
+		"CastleBreakIn"
+	};
 
     public string GetMainMenu()
     {
