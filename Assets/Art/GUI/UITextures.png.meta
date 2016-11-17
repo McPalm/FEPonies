@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3bd181648104f4e45be7318d14f23af2
-timeCreated: 1476787305
+timeCreated: 1479308612
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -15,6 +15,15 @@ TextureImporter:
     21300016: ScrollBar
     21300018: ScrollButton
     21300020: UIChains
+    21300022: BoxNW
+    21300024: BoxN
+    21300026: BoxNE
+    21300028: BoxW
+    21300030: BoxE
+    21300032: BoxSE
+    21300034: BoxSW
+    21300036: BoxS
+    21300038: BoxC
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -201,6 +210,123 @@ TextureImporter:
         y: 825
         width: 192
         height: 197
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BoxNW
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 338
+        width: 95
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BoxN
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 338
+        width: 92
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BoxNE
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 338
+        width: 88
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BoxW
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 239
+        width: 95
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BoxE
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 239
+        width: 88
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BoxSE
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 146
+        width: 88
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BoxSW
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 146
+        width: 95
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BoxS
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 146
+        width: 92
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BoxC
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 239
+        width: 92
+        height: 99
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
